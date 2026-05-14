@@ -35,108 +35,102 @@
     align-items: center; justify-content: center;
     padding: 24px;
   }
-
   .card {
     background: white;
     border-radius: 20px;
     border: 1px solid var(--gray-100);
-    padding: 48px 40px;
-    max-width: 480px;
+    padding: 40px 36px;
+    max-width: 440px;
     width: 100%;
     text-align: center;
   }
-
   .logo {
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
   .logo-icon {
-    width: 38px; height: 38px;
+    width: 36px; height: 36px;
     background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
   }
-  .logo-icon svg { width: 20px; height: 20px; fill: white; }
+  .logo-icon svg { width: 18px; height: 18px; fill: white; }
   .logo-text {
     font-family: 'Sora', sans-serif;
-    font-size: 16px; font-weight: 700;
+    font-size: 15px; font-weight: 700;
     color: var(--blue-900);
   }
   .logo-text span { color: var(--blue-600); }
 
-  /* LOADING STATE */
   #state-loading .spinner {
-    width: 52px; height: 52px;
+    width: 48px; height: 48px;
     border: 3px solid var(--blue-100);
     border-top-color: var(--blue-700);
     border-radius: 50%;
-    margin: 0 auto 24px;
+    margin: 0 auto 20px;
     animation: spin 0.8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* SUCCESS STATE */
   #state-success { display: none; }
   .success-icon {
-    width: 64px; height: 64px;
+    width: 60px; height: 60px;
     background: var(--green-50);
     border-radius: 50%;
-    margin: 0 auto 20px;
+    margin: 0 auto 18px;
     display: flex; align-items: center; justify-content: center;
   }
-  .success-icon svg { width: 30px; height: 30px; stroke: var(--green-600); stroke-width: 2.5; fill: none; }
+  .success-icon svg { width: 28px; height: 28px; stroke: var(--green-600); stroke-width: 2.5; fill: none; }
 
-  /* ERROR STATE */
   #state-error { display: none; }
   .error-icon {
-    width: 64px; height: 64px;
+    width: 60px; height: 60px;
     background: var(--red-50);
     border-radius: 50%;
-    margin: 0 auto 20px;
+    margin: 0 auto 18px;
     display: flex; align-items: center; justify-content: center;
   }
-  .error-icon svg { width: 30px; height: 30px; stroke: var(--red-600); stroke-width: 2.5; fill: none; }
+  .error-icon svg { width: 28px; height: 28px; stroke: var(--red-600); stroke-width: 2.5; fill: none; }
 
   h2 {
     font-family: 'Sora', sans-serif;
-    font-size: 22px; font-weight: 700;
+    font-size: 20px; font-weight: 700;
     color: var(--gray-900);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .subtitle {
-    font-size: 15px; color: var(--gray-500);
-    line-height: 1.65; margin-bottom: 28px;
+    font-size: 14px; color: var(--gray-500);
+    line-height: 1.65; margin-bottom: 24px;
   }
 
-  /* CREDENTIAL BOXES */
-  .cred-box {
+  .code-box {
     background: var(--gray-50);
     border: 1px solid var(--gray-100);
     border-radius: 12px;
-    padding: 16px 18px;
+    padding: 14px 16px;
     margin-bottom: 12px;
     text-align: left;
   }
-  .cred-label {
+  .code-label {
     font-size: 11px; font-weight: 600;
     color: var(--blue-700);
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: 8px;
   }
-  .cred-value-row {
-    display: flex; align-items: center; gap: 10px;
+  .code-value-row {
+    display: flex; align-items: center; gap: 8px;
   }
-  .cred-value {
-    font-family: 'DM Mono', 'Courier New', monospace;
-    font-size: 13px;
+  .code-value {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
     color: var(--gray-900);
     word-break: break-all;
     flex: 1;
     background: white;
     border: 1px solid var(--gray-200);
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 8px 10px;
     user-select: all;
   }
   .copy-btn {
@@ -144,23 +138,23 @@
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 8px 14px;
+    padding: 8px 12px;
     font-size: 12px; font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
     transition: background 0.2s;
     font-family: 'DM Sans', sans-serif;
+    flex-shrink: 0;
   }
   .copy-btn:hover { background: var(--blue-900); }
   .copy-btn.copied { background: var(--green-600); }
 
-  /* APP INSTRUCTIONS */
   .instructions {
     background: var(--blue-50);
     border: 1px solid var(--blue-100);
     border-radius: 12px;
-    padding: 18px 20px;
-    margin-top: 20px;
+    padding: 16px 18px;
+    margin-top: 16px;
     text-align: left;
   }
   .instructions p {
@@ -168,7 +162,7 @@
     font-weight: 600; margin-bottom: 10px;
   }
   .instructions ol {
-    padding-left: 18px;
+    padding-left: 16px;
     display: flex; flex-direction: column; gap: 6px;
   }
   .instructions li {
@@ -177,13 +171,12 @@
   }
 
   .btn-retry {
-    display: inline-flex; align-items: center; gap: 8px;
+    display: inline-flex; align-items: center;
     background: var(--blue-700);
     color: white;
     padding: 12px 24px;
     border-radius: 10px;
     font-size: 14px; font-weight: 500;
-    text-decoration: none;
     margin-top: 20px;
     transition: background 0.2s;
     font-family: 'DM Sans', sans-serif;
@@ -195,22 +188,20 @@
     background: var(--red-50);
     border: 1px solid #FCA5A5;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 12px 14px;
     font-size: 13px; color: var(--red-600);
-    margin: 16px 0;
-    word-break: break-word;
+    margin: 14px 0;
     text-align: left;
   }
 
-  footer-note {
+  .footer-note {
     display: block;
-    margin-top: 32px;
+    margin-top: 28px;
     font-size: 12px; color: var(--gray-500);
   }
 </style>
 </head>
 <body>
-
 <div class="card">
   <div class="logo">
     <div class="logo-icon">
@@ -222,8 +213,8 @@
   <!-- LOADING -->
   <div id="state-loading">
     <div class="spinner"></div>
-    <h2>Conectando sua loja...</h2>
-    <p class="subtitle">Aguarde enquanto autenticamos sua conta Nuvemshop. Isso leva apenas alguns segundos.</p>
+    <h2>Verificando autorização...</h2>
+    <p class="subtitle">Aguarde um instante.</p>
   </div>
 
   <!-- SUCCESS -->
@@ -231,33 +222,24 @@
     <div class="success-icon">
       <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
-    <h2>Loja conectada!</h2>
-    <p class="subtitle">Copie os dados abaixo e cole nas configurações do app.</p>
+    <h2>Autorização concluída!</h2>
+    <p class="subtitle">Copie o código abaixo e cole no app para finalizar a conexão.</p>
 
-    <div class="cred-box">
-      <div class="cred-label">ID da Loja</div>
-      <div class="cred-value-row">
-        <div class="cred-value" id="val-store-id">—</div>
-        <button class="copy-btn" onclick="copiar('val-store-id', this)">Copiar</button>
-      </div>
-    </div>
-
-    <div class="cred-box">
-      <div class="cred-label">Access Token</div>
-      <div class="cred-value-row">
-        <div class="cred-value" id="val-token">—</div>
-        <button class="copy-btn" onclick="copiar('val-token', this)">Copiar</button>
+    <div class="code-box">
+      <div class="code-label">Código de autorização</div>
+      <div class="code-value-row">
+        <div class="code-value" id="val-code">—</div>
+        <button class="copy-btn" onclick="copiar('val-code', this)">Copiar</button>
       </div>
     </div>
 
     <div class="instructions">
-      <p>Como inserir no app:</p>
+      <p>O que fazer agora:</p>
       <ol>
-        <li>Abra o <strong>Nuvemshop Estoque App</strong> no celular</li>
-        <li>Toque em <strong>Configurações</strong> (ícone de engrenagem)</li>
-        <li>Cole o <strong>ID da Loja</strong> no campo correspondente</li>
-        <li>Cole o <strong>Access Token</strong> no campo correspondente</li>
-        <li>Toque em <strong>Salvar credenciais</strong></li>
+        <li>Toque em <strong>Copiar</strong> acima</li>
+        <li>Volte para o <strong>Nuvemshop Estoque App</strong></li>
+        <li>Cole o código no campo indicado</li>
+        <li>Toque em <strong>Finalizar conexão</strong></li>
       </ol>
     </div>
   </div>
@@ -267,21 +249,20 @@
     <div class="error-icon">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
     </div>
-    <h2>Erro na conexão</h2>
-    <p class="subtitle">Não foi possível conectar sua loja. Veja o detalhe abaixo e tente novamente.</p>
+    <h2>Autorização negada</h2>
+    <p class="subtitle">O acesso foi cancelado ou ocorreu um erro.</p>
     <div class="error-detail" id="error-msg">Erro desconhecido.</div>
     <button class="btn-retry" onclick="retentar()">Tentar novamente</button>
   </div>
 
-  <footer-note>
-    Autenticação segura via OAuth 2.0 · <a href="index.html" style="color:var(--blue-600);">Aura Dev Apps</a>
-  </footer-note>
+  <span class="footer-note">
+    Autenticação segura via OAuth 2.0 ·
+    <a href="index.html" style="color:var(--blue-600);">Aura Dev Apps</a>
+  </span>
 </div>
 
 <script>
-  const APP_ID      = '30964';
-  const CLIENT_SECRET = '40685f864c7eba1c59fec7f0bad5842911e0cf4ffba4a04a';
-  const TOKEN_URL   = 'https://www.tiendanube.com/apps/authorize/token';
+  const APP_ID = '30964';
 
   function mostrar(id) {
     ['state-loading','state-success','state-error'].forEach(s => {
@@ -299,63 +280,33 @@
   }
 
   function retentar() {
-    window.location.href =
-      'https://www.tiendanube.com/apps/' + APP_ID + '/authorize';
+    window.location.href = 'https://www.tiendanube.com/apps/' + APP_ID + '/authorize';
   }
 
-  async function autenticar() {
+  function processar() {
     const params = new URLSearchParams(window.location.search);
     const code   = params.get('code');
     const error  = params.get('error');
 
     if (error) {
       document.getElementById('error-msg').textContent =
-        'A autorização foi negada ou cancelada: ' + error;
+        'Erro retornado pela Nuvemshop: ' + error;
       mostrar('state-error');
       return;
     }
 
     if (!code) {
       document.getElementById('error-msg').textContent =
-        'Nenhum código de autorização recebido. Certifique-se de acessar esta página através do fluxo de instalação do app.';
+        'Nenhum código recebido. Acesse esta página pelo fluxo de instalação do app.';
       mostrar('state-error');
       return;
     }
 
-    try {
-      const resp = await fetch(TOKEN_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          client_id:     APP_ID,
-          client_secret: CLIENT_SECRET,
-          grant_type:    'authorization_code',
-          code:          code,
-        }),
-      });
-
-      if (!resp.ok) {
-        const txt = await resp.text();
-        throw new Error('HTTP ' + resp.status + ': ' + txt);
-      }
-
-      const data = await resp.json();
-
-      if (!data.access_token) {
-        throw new Error('Token não retornado. Resposta: ' + JSON.stringify(data));
-      }
-
-      document.getElementById('val-store-id').textContent = data.user_id;
-      document.getElementById('val-token').textContent    = data.access_token;
-      mostrar('state-success');
-
-    } catch (err) {
-      document.getElementById('error-msg').textContent = err.message;
-      mostrar('state-error');
-    }
+    document.getElementById('val-code').textContent = code;
+    mostrar('state-success');
   }
 
-  autenticar();
+  processar();
 </script>
 </body>
 </html>
