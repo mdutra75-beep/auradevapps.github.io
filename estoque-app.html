@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estoque App – Cadastre produtos na Nuvemshop pelo celular | Aura Dev Apps</title>
+  <meta name="description" content="Fotografe, descreva com IA e publique produtos na sua loja Nuvemshop em menos de 1 minuto, tudo pelo celular Android." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:     #0d0d0d;
+      --paper:   #f5f2eb;
+      --accent:  #1a3cff;
+      --accent2: #ff3c1a;
+      --muted:   #6b6b6b;
+      --border:  #e0ddd4;
+      --card:    #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(20px, 5vw, 80px);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1rem;
+      color: var(--ink); text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      padding: clamp(60px, 8vw, 120px) clamp(20px, 5vw, 80px);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(26,60,255,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,60,26,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(26,60,255,0.08);
+      border: 1px solid rgba(26,60,255,0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+      position: relative;
+    }
+    .hero h1 em::after {
+      content: '';
+      position: absolute; bottom: 2px; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0.3;
+      border-radius: 2px;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted);
+      max-width: 460px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--ink); color: #fff;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 0.92rem; font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--ink);
+      padding: 14px 24px;
+      border-radius: 6px;
+      font-size: 0.92rem; font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--ink); background: rgba(0,0,0,0.03); }
+
+    /* ── PHONE MOCKUP ── */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .phone-wrap {
+      position: relative;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    .phone {
+      width: 240px;
+      background: var(--ink);
+      border-radius: 36px;
+      padding: 14px 10px;
+      box-shadow:
+        0 40px 80px rgba(0,0,0,0.25),
+        0 0 0 1px rgba(255,255,255,0.08) inset;
+      position: relative;
+    }
+    .phone-notch {
+      width: 80px; height: 22px;
+      background: var(--ink);
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto 10px;
+      position: relative; z-index: 2;
+    }
+    .phone-screen {
+      background: #1a1a2e;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 9/18;
+      display: flex; flex-direction: column;
+    }
+    .screen-header {
+      background: linear-gradient(135deg, #1a3cff 0%, #0a1fa8 100%);
+      padding: 16px 14px 12px;
+      color: #fff;
+    }
+    .screen-header-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px;
+    }
+    .screen-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; opacity: 0.8; }
+    .screen-icon { font-size: 1rem; }
+    .screen-photo-area {
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      height: 70px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      border: 1.5px dashed rgba(255,255,255,0.3);
+    }
+    .screen-body { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .screen-field {
+      background: rgba(255,255,255,0.07);
+      border-radius: 6px;
+      padding: 6px 10px;
+    }
+    .screen-field-label { font-size: 0.42rem; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+    .screen-field-value { font-size: 0.5rem; color: rgba(255,255,255,0.9); font-weight: 500; }
+    .screen-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+    .screen-chip {
+      background: rgba(26,60,255,0.6);
+      border-radius: 100px;
+      padding: 2px 8px;
+      font-size: 0.42rem; color: #fff;
+    }
+    .screen-chip.active { background: #1a3cff; }
+    .screen-btn {
+      margin-top: auto;
+      background: #1a3cff;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.5rem; color: #fff; font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .phone-glow {
+      position: absolute;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(26,60,255,0.3) 0%, transparent 70%);
+      bottom: -60px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px clamp(20px, 5vw, 80px);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .stat {
+      text-align: center;
+      padding: 0 20px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      display: block;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── FEATURES ── */
+    .section { padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 80px); }
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 56px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .feature-card {
+      background: var(--card);
+      padding: 32px 28px;
+      transition: background 0.2s;
+    }
+    .feature-card:hover { background: #fafaf7; }
+    .feature-icon {
+      width: 44px; height: 44px;
+      background: var(--ink);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+    }
+    .feature-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── STEPS ── */
+    .steps-section { background: var(--ink); color: #fff; }
+    .steps-section .section-label { color: rgba(255,255,255,0.5); }
+    .steps-section .section-title { color: #fff; }
+    .steps-section .section-sub { color: rgba(255,255,255,0.55); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .step {
+      padding: 32px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .step:last-child { border-right: none; }
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem; font-weight: 800;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .step-icon { font-size: 1.6rem; margin-bottom: 14px; }
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      margin-bottom: 10px; color: #fff;
+    }
+    .step-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px);
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 50% 50%, rgba(26,60,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section .section-title { margin: 0 auto 20px; max-width: 600px; }
+    .cta-section .section-sub { margin: 0 auto 40px; }
+    .cta-note { font-size: 0.8rem; color: var(--muted); margin-top: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px clamp(20px, 5vw, 80px);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 0.9rem;
+      color: var(--ink); text-decoration: none;
+    }
+    .footer-brand span { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a {
+      font-size: 0.82rem; color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; min-height: auto; }
+      .hero-visual { order: -1; }
+      .phone { width: 180px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 0; }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat:last-child, .stat:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .steps-grid { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">Aura<span>Dev</span></a>
+  <ul class="nav-links">
+    <li><a href="#funcionalidades">Funcionalidades</a></li>
+    <li><a href="#como-usar">Como usar</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="index.html#privacidade">Privacidade</a></li>
+    <li><a href="index.html#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Disponível para Android</div>
+    <h1>Cadastre produtos na Nuvemshop <em>pelo celular</em></h1>
+    <p class="hero-sub">
+      Fotografe o produto, a IA gera o nome e a descrição automaticamente,
+      você revisa e publica — tudo em menos de 1 minuto, sem tocar no computador.
+    </p>
+    <div class="hero-actions">
+      <a href="index.html#conectar" class="btn-primary">
+        <span>▶</span> Como conectar minha loja
+      </a>
+      <a href="mailto:mdutra75@gmail.com" class="btn-secondary">
+        Falar com suporte
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="screen-header">
+            <div class="screen-header-top">
+              <span class="screen-title">CADASTRAR PRODUTO</span>
+              <span class="screen-icon">⚙️</span>
+            </div>
+            <div class="screen-photo-area">📷</div>
+          </div>
+          <div class="screen-body">
+            <div class="screen-field">
+              <div class="screen-field-label">NOME DO PRODUTO</div>
+              <div class="screen-field-value">Jaqueta Columbia Masculina</div>
+            </div>
+            <div class="screen-field">
+              <div class="screen-field-label">DESCRIÇÃO (IA)</div>
+              <div class="screen-field-value">Jaqueta impermeável com tecnologia...</div>
+            </div>
+            <div class="screen-field">
+              <div class="screen-field-label">COR / TAMANHO</div>
+              <div class="screen-chips">
+                <span class="screen-chip active">Preto</span>
+                <span class="screen-chip">Azul</span>
+                <span class="screen-chip active">M</span>
+                <span class="screen-chip active">G</span>
+              </div>
+            </div>
+            <div class="screen-btn">↑ PUBLICAR NA NUVEMSHOP</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-glow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-number">&lt;1min</span>
+    <span class="stat-label">do clique à publicação</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">100%</span>
+    <span class="stat-label">integrado à Nuvemshop</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">IA</span>
+    <span class="stat-label">descrições automáticas</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">0</span>
+    <span class="stat-label">senha armazenada</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="funcionalidades">
+  <div class="section-label">Funcionalidades</div>
+  <h2 class="section-title">Tudo que você precisa,<br>no bolso</h2>
+  <p class="section-sub">Desenvolvido para o lojista brasileiro que precisa de agilidade no dia a dia.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📸</div>
+      <div class="feature-title">Foto pelo celular</div>
+      <p class="feature-desc">Tire foto com a câmera ou escolha da galeria. O app aceita qualquer produto — roupas, eletrônicos, acessórios e mais.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <div class="feature-title">Descrição por IA</div>
+      <p class="feature-desc">Inteligência artificial analisa a imagem e gera nome e descrição comercial em português. Você revisa e edita antes de publicar.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <div class="feature-title">Variantes (cor e tamanho)</div>
+      <p class="feature-desc">Selecione combinações de cor e tamanho com chips interativos. Defina estoque individual para cada combinação.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📂</div>
+      <div class="feature-title">Categorias da loja</div>
+      <p class="feature-desc">Selecione a categoria correta do seu catálogo Nuvemshop diretamente no app, com suporte a subcategorias.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <div class="feature-title">Peso e dimensões</div>
+      <p class="feature-desc">Preencha peso e medidas do produto para que o frete seja calculado corretamente na sua loja.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔗</div>
+      <div class="feature-title">Leitura de código de barras</div>
+      <p class="feature-desc">Escaneie o código de barras do produto e o app busca automaticamente o nome e descrição nas bases públicas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="section steps-section" id="como-usar">
+  <div class="section-label">Como usar</div>
+  <h2 class="section-title">Da foto à publicação<br>em 3 passos</h2>
+  <p class="section-sub">Processo simples, feito para quem não tem tempo a perder.</p>
+
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">📸</div>
+      <div class="step-title">Fotografe o produto</div>
+      <p class="step-desc">Abra o app, toque em "Câmera" ou "Galeria" e selecione a foto do produto que deseja cadastrar.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">✏️</div>
+      <div class="step-title">Revise e complete</div>
+      <p class="step-desc">A IA preenche nome e descrição automaticamente. Adicione preço, variantes e categoria. Tudo em uma só tela.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">🚀</div>
+      <div class="step-title">Publique na Nuvemshop</div>
+      <p class="step-desc">Toque em "Publicar". O produto aparece imediatamente na sua loja Nuvemshop, pronto para vender.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-icon">🔑</div>
+      <div class="step-title">Conecte sua loja (só uma vez)</div>
+      <p class="step-desc">Na primeira vez, autorize o app via Nuvemshop (OAuth 2.0). A conexão é permanente — nunca mais precisará repetir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label">Comece agora</div>
+  <h2 class="section-title">Pronto para cadastrar produtos mais rápido?</h2>
+  <p class="section-sub">Configure sua loja uma vez e comece a publicar produtos pelo celular em minutos.</p>
+  <a href="index.html#conectar" class="btn-primary" style="font-size:1rem; padding: 16px 36px;">
+    Ver como conectar minha loja →
+  </a>
+  <p class="cta-note">Dúvidas? Escreva para <a href="mailto:mdutra75@gmail.com" style="color:var(--accent)">mdutra75@gmail.com</a> — respondemos em até 48h.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-brand">Aura<span>Dev</span> Apps</a>
+  <ul class="footer-links">
+    <li><a href="index.html#privacidade">Privacidade</a></li>
+    <li><a href="index.html#termos">Termos de Uso</a></li>
+    <li><a href="index.html#contato">Contato</a></li>
+    <li><a href="index.html">Voltar ao início</a></li>
+  </ul>
+  <span class="footer-copy">© 2025 Aura Dev Apps</span>
+</footer>
+
+</body>
+</html>
