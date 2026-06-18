@@ -3,1190 +3,487 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aplicativos profissionais para lojistas Nuvemshop.">
 <title>Aura Dev Apps – Aplicativos para Nuvemshop</title>
-<meta name="description" content="Aplicativos profissionais para lojistas Nuvemshop. Simplifique sua operação com ferramentas feitas para o dia a dia do seu e-commerce.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --blue-900: #042C53;
-    --blue-800: #0C447C;
-    --blue-700: #185FA5;
-    --blue-600: #1E7AC5;
-    --blue-500: #378ADD;
-    --blue-400: #64A8E8;
-    --blue-200: #B5D4F4;
-    --blue-100: #D8EAFB;
-    --blue-50:  #EEF6FD;
-    --white: #FFFFFF;
-    --gray-900: #0F1923;
-    --gray-800: #1C2B3A;
-    --gray-700: #2D3E50;
-    --gray-500: #5A7080;
-    --gray-400: #8A9BAA;
-    --gray-200: #C8D5DE;
-    --gray-100: #E8EFF4;
-    --gray-50:  #F4F8FB;
-    --accent: #0EA5E9;
-    --accent-light: #E0F2FE;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    color: var(--gray-800);
-    background: var(--white);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* ─── NAV ─── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5%;
-    height: 68px;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--gray-100);
-  }
-
-  .nav-logo {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none;
-  }
-  .nav-logo-icon {
-    width: 34px; height: 34px;
-    background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
-    border-radius: 9px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .nav-logo-icon svg { width: 20px; height: 20px; fill: white; }
-  .nav-logo-text {
-    font-family: 'Sora', sans-serif;
-    font-size: 15px; font-weight: 700;
-    color: var(--blue-900);
-    letter-spacing: -0.3px;
-  }
-  .nav-logo-text span { color: var(--blue-600); }
-
-  .nav-links {
-    display: flex; align-items: center; gap: 32px;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 14px; font-weight: 400;
-    color: var(--gray-700);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--blue-700); }
-
-  .nav-cta {
-    background: var(--blue-700);
-    color: white !important;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-weight: 500 !important;
-    transition: background 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--blue-900) !important; color: white !important; }
-
-  /* ─── HERO ─── */
-  .hero {
-    padding-top: 140px;
-    padding-bottom: 100px;
-    padding-left: 5%; padding-right: 5%;
-    background: linear-gradient(170deg, var(--blue-50) 0%, var(--white) 60%);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute; top: -120px; right: -120px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, var(--blue-200) 0%, transparent 70%);
-    opacity: 0.4;
-    pointer-events: none;
-  }
-  .hero::after {
-    content: '';
-    position: absolute; bottom: -80px; left: -80px;
-    width: 350px; height: 350px;
-    background: radial-gradient(circle, var(--blue-100) 0%, transparent 70%);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: var(--accent-light);
-    color: var(--blue-800);
-    font-size: 13px; font-weight: 500;
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 28px;
-    border: 1px solid var(--blue-200);
-  }
-  .hero-badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-
-  .hero h1 {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(36px, 5vw, 62px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -1.5px;
-    color: var(--gray-900);
-    max-width: 760px;
-    margin: 0 auto 24px;
-  }
-  .hero h1 .highlight {
-    color: var(--blue-700);
-    position: relative;
-  }
-
-  .hero p {
-    font-size: clamp(16px, 2vw, 19px);
-    color: var(--gray-500);
-    max-width: 560px;
-    margin: 0 auto 44px;
-    font-weight: 300;
-    line-height: 1.7;
-  }
-
-  .hero-actions {
-    display: flex; align-items: center; justify-content: center;
-    gap: 14px; flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--blue-700);
-    color: white;
-    padding: 14px 28px;
-    border-radius: 10px;
-    font-size: 15px; font-weight: 500;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .btn-primary:hover { background: var(--blue-900); transform: translateY(-1px); }
-  .btn-primary svg { width: 18px; height: 18px; fill: white; }
-
-  .btn-secondary {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: white;
-    color: var(--gray-700);
-    padding: 14px 28px;
-    border-radius: 10px;
-    font-size: 15px; font-weight: 500;
-    text-decoration: none;
-    border: 1.5px solid var(--gray-200);
-    transition: border-color 0.2s, transform 0.15s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .btn-secondary:hover { border-color: var(--blue-400); transform: translateY(-1px); }
-
-  /* ─── STATS ─── */
-  .stats-bar {
-    background: var(--blue-900);
-    padding: 36px 5%;
-    display: flex; justify-content: center;
-    gap: clamp(32px, 6vw, 80px);
-    flex-wrap: wrap;
-  }
-  .stat-item { text-align: center; }
-  .stat-number {
-    font-family: 'Sora', sans-serif;
-    font-size: 32px; font-weight: 700;
-    color: white;
-    display: block;
-  }
-  .stat-label {
-    font-size: 13px; color: var(--blue-300, #90c0e8);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-
-  /* ─── SECTIONS ─── */
-  section { padding: 90px 5%; }
-
-  .section-label {
-    display: inline-block;
-    font-size: 11px; font-weight: 600;
-    color: var(--blue-700);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-
-  .section-title {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(28px, 3.5vw, 42px);
-    font-weight: 700;
-    color: var(--gray-900);
-    letter-spacing: -1px;
-    line-height: 1.15;
-    margin-bottom: 16px;
-  }
-
-  .section-sub {
-    font-size: 17px; color: var(--gray-500);
-    max-width: 540px;
-    font-weight: 300;
-    line-height: 1.7;
-  }
-
-  .section-header { margin-bottom: 56px; }
-  .section-header.centered { text-align: center; }
-  .section-header.centered .section-sub { margin: 0 auto; }
-
-  /* ─── APPS ─── */
-  #apps { background: var(--gray-50); }
-
-  .apps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 28px;
-  }
-
-  .app-card {
-    background: white;
-    border-radius: 20px;
-    padding: 36px 32px;
-    border: 1px solid var(--gray-100);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .app-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(24,95,165,0.12);
-  }
-  .app-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--blue-700), var(--blue-400));
-  }
-
-  .app-icon {
-    width: 60px; height: 60px;
-    background: var(--blue-50);
-    border-radius: 16px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 22px;
-    border: 1px solid var(--blue-100);
-  }
-  .app-icon svg { width: 28px; height: 28px; fill: var(--blue-700); }
-
-  .app-badge {
-    position: absolute; top: 24px; right: 24px;
-    font-size: 11px; font-weight: 600;
-    padding: 4px 12px; border-radius: 20px;
-    letter-spacing: 0.5px;
-  }
-  .badge-live { background: #DCFCE7; color: #166534; }
-  .badge-soon { background: var(--blue-50); color: var(--blue-800); }
-
-  .app-card h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 20px; font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 10px;
-  }
-  .app-card p {
-    font-size: 15px; color: var(--gray-500);
-    line-height: 1.65;
-    margin-bottom: 24px;
-  }
-
-  .app-features {
-    list-style: none;
-    display: flex; flex-direction: column; gap: 8px;
-    margin-bottom: 28px;
-  }
-  .app-features li {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 14px; color: var(--gray-700);
-  }
-  .app-features li::before {
-    content: '';
-    width: 18px; height: 18px; min-width: 18px;
-    background: var(--blue-700);
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/cover no-repeat;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/cover no-repeat;
-    background: var(--blue-700);
-  }
-
-  .app-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--blue-700);
-    font-size: 14px; font-weight: 500;
-    text-decoration: none;
-    transition: gap 0.2s;
-  }
-  .app-link:hover { gap: 10px; }
-  .app-link svg { width: 16px; height: 16px; fill: none; stroke: var(--blue-700); stroke-width: 2; }
-
-  /* ─── CONNECT GUIDE ─── */
-  #conectar { background: white; }
-
-  .connect-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: start;
-  }
-
-  @media (max-width: 768px) {
-    .connect-grid { grid-template-columns: 1fr; gap: 40px; }
-  }
-
-  .steps { display: flex; flex-direction: column; gap: 0; }
-
-  .step {
-    display: flex; gap: 20px;
-    position: relative;
-    padding-bottom: 32px;
-  }
-  .step:last-child { padding-bottom: 0; }
-  .step:last-child .step-line { display: none; }
-
-  .step-left {
-    display: flex; flex-direction: column; align-items: center;
-    min-width: 40px;
-  }
-  .step-num {
-    width: 40px; height: 40px; min-height: 40px;
-    border-radius: 50%;
-    background: var(--blue-700);
-    color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Sora', sans-serif;
-    font-size: 15px; font-weight: 700;
-    flex-shrink: 0;
-  }
-  .step-line {
-    flex: 1;
-    width: 2px;
-    background: var(--blue-100);
-    margin-top: 8px;
-  }
-
-  .step-content { padding-top: 8px; }
-  .step-content h4 {
-    font-family: 'Sora', sans-serif;
-    font-size: 16px; font-weight: 600;
-    color: var(--gray-900);
-    margin-bottom: 6px;
-  }
-  .step-content p {
-    font-size: 14px; color: var(--gray-500);
-    line-height: 1.65;
-  }
-  .step-content code {
-    background: var(--gray-100);
-    color: var(--blue-800);
-    font-size: 12px; padding: 2px 7px;
-    border-radius: 5px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  .connect-visual {
-    background: var(--blue-900);
-    border-radius: 20px;
-    padding: 32px 28px;
-    position: sticky; top: 90px;
-  }
-  .connect-visual h4 {
-    font-family: 'Sora', sans-serif;
-    font-size: 16px; font-weight: 600;
-    color: white;
-    margin-bottom: 6px;
-  }
-  .connect-visual p {
-    font-size: 13px; color: var(--blue-300, #90c0e8);
-    margin-bottom: 24px;
-    line-height: 1.55;
-  }
-
-  .qr-placeholder {
-    background: white;
-    border-radius: 14px;
-    padding: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .qr-placeholder .qr-icon {
-    width: 80px; height: 80px;
-    background: var(--blue-50);
-    border-radius: 12px;
-    margin: 0 auto 12px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .qr-placeholder .qr-icon svg { width: 40px; height: 40px; fill: var(--blue-700); }
-  .qr-placeholder p {
-    font-size: 13px; color: var(--gray-500);
-    margin: 0;
-  }
-
-  .connect-info-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-  .connect-info-row svg { width: 18px; height: 18px; fill: var(--blue-400); flex-shrink: 0; }
-  .connect-info-row span { font-size: 13px; color: rgba(255,255,255,0.7); }
-  .connect-info-row strong { color: white; }
-
-  /* ─── FAQ ─── */
-  #faq { background: var(--gray-50); }
-
-  .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
-
-  .faq-item {
-    background: white;
-    border: 1px solid var(--gray-100);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .faq-question {
-    width: 100%;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 24px;
-    background: none; border: none;
-    cursor: pointer;
-    text-align: left;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px; font-weight: 500;
-    color: var(--gray-900);
-    gap: 16px;
-    transition: background 0.15s;
-  }
-  .faq-question:hover { background: var(--gray-50); }
-
-  .faq-icon {
-    width: 22px; height: 22px; min-width: 22px;
-    border-radius: 50%;
-    background: var(--blue-50);
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s, transform 0.25s;
-  }
-  .faq-icon svg { width: 12px; height: 12px; stroke: var(--blue-700); stroke-width: 2.5; fill: none; }
-  .faq-item.open .faq-icon { background: var(--blue-700); transform: rotate(180deg); }
-  .faq-item.open .faq-icon svg { stroke: white; }
-
-  .faq-answer {
-    display: none;
-    padding: 0 24px 20px;
-    font-size: 14px;
-    color: var(--gray-500);
-    line-height: 1.75;
-    border-top: 1px solid var(--gray-100);
-  }
-  .faq-item.open .faq-answer { display: block; padding-top: 16px; }
-
-  /* ─── PRIVACY / TERMS ─── */
-  .legal-section {
-    background: white;
-    border-radius: 20px;
-    padding: 48px;
-    border: 1px solid var(--gray-100);
-    max-width: 820px;
-    margin: 0 auto;
-  }
-
-  #privacidade, #termos { background: var(--gray-50); }
-
-  .legal-section h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 18px; font-weight: 700;
-    color: var(--gray-900);
-    margin: 28px 0 10px;
-  }
-  .legal-section h3:first-child { margin-top: 0; }
-
-  .legal-section p, .legal-section li {
-    font-size: 14px;
-    color: var(--gray-500);
-    line-height: 1.8;
-    margin-bottom: 8px;
-  }
-  .legal-section ul { padding-left: 20px; }
-  .legal-section ul li { margin-bottom: 6px; }
-
-  .legal-date {
-    display: inline-block;
-    font-size: 12px;
-    color: var(--blue-600);
-    background: var(--blue-50);
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 28px;
-  }
-
-  /* ─── CONTACT ─── */
-  #contato { background: white; }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    max-width: 900px;
-    margin: 0 auto;
-    align-items: center;
-  }
-
-  @media (max-width: 768px) {
-    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  }
-
-  .contact-info h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 28px; font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 14px;
-    letter-spacing: -0.5px;
-  }
-  .contact-info p {
-    font-size: 16px; color: var(--gray-500);
-    line-height: 1.7; margin-bottom: 32px;
-  }
-
-  .contact-cards { display: flex; flex-direction: column; gap: 14px; }
-
-  .contact-card {
-    display: flex; align-items: center; gap: 16px;
-    padding: 18px 20px;
-    background: var(--gray-50);
-    border-radius: 14px;
-    border: 1px solid var(--gray-100);
-    text-decoration: none;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-  .contact-card:hover {
-    border-color: var(--blue-300);
-    transform: translateX(4px);
-  }
-  .contact-card-icon {
-    width: 42px; height: 42px;
-    background: var(--blue-700);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .contact-card-icon svg { width: 20px; height: 20px; fill: white; }
-  .contact-card-label { font-size: 12px; color: var(--gray-400); margin-bottom: 2px; }
-  .contact-card-value { font-size: 15px; font-weight: 500; color: var(--gray-800); }
-
-  .contact-visual {
-    background: var(--blue-50);
-    border-radius: 20px;
-    padding: 40px 32px;
-    text-align: center;
-    border: 1px solid var(--blue-100);
-  }
-  .contact-visual .big-icon {
-    width: 72px; height: 72px;
-    background: var(--blue-700);
-    border-radius: 20px;
-    margin: 0 auto 20px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .contact-visual .big-icon svg { width: 36px; height: 36px; fill: white; }
-  .contact-visual h4 {
-    font-family: 'Sora', sans-serif;
-    font-size: 20px; font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 10px;
-  }
-  .contact-visual p {
-    font-size: 14px; color: var(--gray-500);
-    line-height: 1.65;
-    margin-bottom: 24px;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--blue-900);
-    padding: 56px 5% 32px;
-  }
-
-  .footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 48px;
-  }
-
-  @media (max-width: 768px) {
-    .footer-top { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 480px) {
-    .footer-top { grid-template-columns: 1fr; }
-  }
-
-  .footer-brand p {
-    font-size: 14px; color: rgba(255,255,255,0.5);
-    line-height: 1.7; margin-top: 14px;
-    max-width: 260px;
-  }
-
-  .footer-col h5 {
-    font-family: 'Sora', sans-serif;
-    font-size: 13px; font-weight: 600;
-    color: white;
-    letter-spacing: 0.5px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-col ul a {
-    font-size: 14px; color: rgba(255,255,255,0.5);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-col ul a:hover { color: white; }
-
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding-top: 28px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 12px;
-  }
-  .footer-bottom p {
-    font-size: 13px; color: rgba(255,255,255,0.35);
-  }
-  .footer-bottom a {
-    font-size: 13px; color: rgba(255,255,255,0.45);
-    text-decoration: none;
-  }
-  .footer-bottom a:hover { color: white; }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 640px) {
-    nav { padding: 0 4%; }
-    .nav-links { display: none; }
-    section { padding: 70px 4%; }
-    .legal-section { padding: 28px 20px; }
-    .stats-bar { gap: 24px; }
-  }
+:root{--brand:#5B2FBE;--brand-dark:#3D1F8A;--brand-light:#EDE8FB;--accent:#00C896;--accent-dark:#009E78;--text:#1A1A2E;--muted:#6B7280;--border:#E5E7EB;--bg:#FAFAFA;--white:#FFFFFF;--danger:#EF4444;--radius:12px;--radius-sm:8px;--shadow:0 4px 24px rgba(91,47,190,.10);--shadow-sm:0 2px 8px rgba(0,0,0,.07);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+img{max-width:100%;}
+a{color:var(--brand);text-decoration:none;}
+a:hover{text-decoration:underline;}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.1rem;color:var(--brand);letter-spacing:-.5px;}
+.nav-logo img{height:36px;width:36px;object-fit:contain;border-radius:8px;}
+.nav-logo-sub{font-size:.65rem;font-weight:500;color:var(--muted);letter-spacing:.5px;display:block;}
+.nav-links{display:flex;gap:20px;list-style:none;}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--muted);}
+.nav-links a:hover{color:var(--brand);text-decoration:none;}
+.nav-cta{background:var(--brand);color:var(--white) !important;padding:7px 18px;border-radius:20px;}
+.nav-cta:hover{background:var(--brand-dark);}
+.nav-hamburger{display:none;cursor:pointer;border:none;background:none;padding:4px;}
+.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 60%,#7C3AED 100%);color:#fff;padding:80px 24px 72px;text-align:center;position:relative;overflow:hidden;}
+.hero-inner{position:relative;max-width:720px;margin:0 auto;}
+.hero-logo-img{width:80px;height:80px;object-fit:contain;border-radius:20px;margin:0 auto 20px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.25);}
+.hero-eyebrow{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:4px 16px;border-radius:20px;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.15;letter-spacing:-.5px;margin-bottom:20px;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero-sub{font-size:1.1rem;opacity:.85;max-width:560px;margin:0 auto 36px;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:var(--text);padding:13px 28px;border-radius:30px;font-weight:700;font-size:.95rem;display:inline-block;transition:transform .15s;}
+.btn-primary:hover{transform:translateY(-2px);text-decoration:none;color:var(--text);}
+.btn-outline-white{background:transparent;border:2px solid rgba(255,255,255,.6);color:#fff;padding:12px 28px;border-radius:30px;font-weight:600;font-size:.95rem;display:inline-block;}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.1);text-decoration:none;color:#fff;}
+.hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:48px;}
+.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 16px;border-radius:20px;font-size:.8rem;font-weight:500;}
+.hero-video-wrap{margin-top:40px;}
+.vc{position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.vc iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.section{padding:72px 24px;max-width:1080px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:48px;}
+.eyebrow{display:inline-block;color:var(--brand);font-size:.78rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;}
+.section-header h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.3px;margin-bottom:10px;}
+.section-header p{color:var(--muted);max-width:520px;margin:0 auto;}
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+.app-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;}
+.app-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
+.app-card-screenshot{width:100%;height:200px;object-fit:cover;display:block;}
+.app-card-ph{width:100%;height:200px;background:linear-gradient(135deg,var(--brand-light),#ddd6fe);display:flex;align-items:center;justify-content:center;color:var(--brand);font-size:.85rem;font-weight:600;}
+.app-card-body{padding:24px;}
+.app-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px;}
+.app-badge.available{background:#D1FAE5;color:#065F46;}
+.app-badge.soon{background:#FEF3C7;color:#92400E;}
+.app-card h3{font-size:1.2rem;font-weight:800;margin-bottom:10px;}
+.app-desc{color:var(--muted);font-size:.9rem;margin-bottom:16px;line-height:1.7;}
+.app-features{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.app-features li{font-size:.875rem;display:flex;gap:8px;}
+.app-features li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0;}
+.btn-brand{display:inline-block;background:var(--brand);color:#fff;padding:10px 22px;border-radius:30px;font-size:.875rem;font-weight:600;}
+.btn-brand:hover{background:var(--brand-dark);text-decoration:none;color:#fff;}
+.btn-ghost{display:inline-block;border:2px solid var(--border);color:var(--muted);padding:9px 22px;border-radius:30px;font-size:.875rem;font-weight:600;}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand);text-decoration:none;}
+.screenshots-section{background:var(--brand-dark);padding:64px 24px;}
+.screenshots-inner{max-width:1080px;margin:0 auto;}
+.screenshots-scroll{display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent;}
+.screenshot-item{flex:0 0 220px;border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.3);}
+.screenshot-item img{width:100%;height:400px;object-fit:cover;display:block;}
+.ss-ph{flex:0 0 220px;height:400px;background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.2);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:.8rem;gap:8px;}
+.video-section{padding:72px 24px;background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.video-inner{max-width:800px;margin:0 auto;}
+.vid-ph{aspect-ratio:16/9;background:var(--brand-light);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--brand);gap:12px;}
+.vid-ph-icon{font-size:3rem;}
+.steps-section{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;}
+.steps-inner{max-width:1080px;margin:0 auto;}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:48px;}
+.step-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.step-card h4{font-size:.95rem;font-weight:700;margin-bottom:8px;}
+.step-card p{font-size:.85rem;color:var(--muted);line-height:1.7;}
+.steps-note{margin-top:32px;padding:16px 24px;background:var(--brand-light);border-radius:var(--radius);display:flex;gap:12px;}
+.steps-note p{font-size:.875rem;color:var(--brand-dark);}
+.faq-list{display:flex;flex-direction:column;gap:10px;max-width:760px;margin:0 auto;}
+.faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.faq-q{width:100%;text-align:left;padding:18px 20px;font-weight:600;font-size:.9rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--text);}
+.faq-q:hover{color:var(--brand);}
+.faq-q-arrow{font-size:1.1rem;transition:transform .25s;flex-shrink:0;}
+.faq-item.open .faq-q-arrow{transform:rotate(180deg);}
+.faq-a{display:none;padding:0 20px 18px;font-size:.875rem;color:var(--muted);line-height:1.8;}
+.faq-item.open .faq-a{display:block;}
+.legal-section{background:var(--white);border-top:1px solid var(--border);padding:72px 24px;}
+.legal-inner{max-width:760px;margin:0 auto;}
+.legal-inner h2{font-size:1.6rem;font-weight:800;margin-bottom:6px;}
+.legal-meta{font-size:.8rem;color:var(--muted);margin-bottom:32px;}
+.legal-inner h3{font-size:1rem;font-weight:700;margin:28px 0 10px;color:var(--brand-dark);}
+.legal-inner p{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:10px;}
+.legal-inner ul{padding-left:20px;}
+.legal-inner li{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:4px;}
+.contact-section{padding:72px 24px;}
+.contact-inner{max-width:640px;margin:0 auto;text-align:center;}
+.contact-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:32px;}
+.contact-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;}
+.cc-icon{font-size:1.6rem;margin-bottom:8px;}
+.cc-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:4px;}
+.cc-val{font-size:.9rem;font-weight:600;word-break:break-all;}
+footer{background:var(--text);color:rgba(255,255,255,.7);padding:48px 24px 24px;}
+.footer-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;}
+footer h4{font-size:.85rem;font-weight:700;color:#fff;margin-bottom:14px;}
+footer p{font-size:.85rem;line-height:1.8;}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+footer li a{font-size:.85rem;color:rgba(255,255,255,.6);}
+footer li a:hover{color:#fff;}
+.footer-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.footer-logo-wrap img{height:32px;width:32px;object-fit:contain;border-radius:8px;}
+.footer-logo-name{font-size:1rem;font-weight:800;color:#fff;}
+.footer-bottom{max-width:1080px;margin:32px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;text-align:center;}
+/* EDITOR */
+#edit-toggle-btn{position:fixed;bottom:24px;right:24px;z-index:999;width:52px;height:52px;border-radius:50%;background:var(--brand);color:#fff;border:none;cursor:pointer;font-size:1.3rem;box-shadow:0 4px 20px rgba(91,47,190,.4);display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+#edit-toggle-btn:hover{transform:scale(1.1);}
+#editor-panel{position:fixed;top:0;right:-500px;width:500px;height:100vh;background:#fff;border-left:1px solid var(--border);z-index:1000;display:flex;flex-direction:column;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.12);}
+#editor-panel.open{right:0;}
+#editor-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:999;}
+#editor-overlay.open{display:block;}
+.ep-header{padding:16px 20px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.ep-header h2{font-size:1rem;font-weight:700;}
+.ep-close{background:none;border:none;color:#fff;cursor:pointer;font-size:1.4rem;padding:4px;}
+.ep-tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;}
+.ep-tab{padding:10px 13px;font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;}
+.ep-tab.active{color:var(--brand);border-bottom-color:var(--brand);}
+.ep-body{flex:1;overflow-y:auto;padding:20px;}
+.ep-s{margin-bottom:18px;}
+.ep-s>label{display:block;font-size:.78rem;font-weight:600;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+.ep-s input,.ep-s textarea,.ep-s select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:.875rem;color:var(--text);}
+.ep-s input:focus,.ep-s textarea:focus{outline:none;border-color:var(--brand);}
+.ep-s textarea{resize:vertical;min-height:80px;}
+.ep-hint{font-size:.74rem;color:var(--muted);margin-top:5px;line-height:1.5;}
+.ep-hint code{background:#f3f4f6;padding:1px 5px;border-radius:4px;font-family:monospace;}
+.ep-preview{width:100%;max-height:110px;object-fit:cover;border-radius:var(--radius-sm);margin-top:8px;display:none;}
+.ep-preview.show{display:block;}
+.ep-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;}
+.ep-card-title{font-size:.8rem;font-weight:700;color:var(--brand);margin-bottom:10px;}
+.ep-card label{display:block;font-size:.76rem;font-weight:600;color:var(--muted);margin-bottom:4px;}
+.ep-card input,.ep-card textarea{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:.84rem;margin-bottom:7px;}
+.ep-del{background:none;border:none;color:var(--danger);cursor:pointer;font-size:.8rem;font-weight:600;}
+.ep-add{background:none;border:2px dashed var(--border);color:var(--muted);cursor:pointer;border-radius:var(--radius-sm);padding:8px 16px;font-size:.85rem;font-weight:600;width:100%;margin-top:4px;}
+.ep-add:hover{border-color:var(--brand);color:var(--brand);}
+.ep-footer{flex-shrink:0;padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;}
+.ep-apply{flex:1;background:var(--brand);color:#fff;border:none;padding:12px;border-radius:var(--radius-sm);font-weight:700;font-size:.875rem;cursor:pointer;}
+.ep-apply:hover{background:var(--brand-dark);}
+.ep-export{flex:1;background:var(--accent-dark);color:#fff;border:none;padding:12px;border-radius:var(--radius-sm);font-weight:700;font-size:.875rem;cursor:pointer;}
+.ep-tip{font-size:.72rem;color:var(--muted);text-align:center;padding:4px 20px 12px;line-height:1.5;}
+.ep-tip code{background:#f3f4f6;padding:1px 5px;border-radius:4px;}
+@media(max-width:768px){.nav-links{display:none;}.nav-links.mobile-open{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:12px 0;box-shadow:var(--shadow-sm);}.nav-links.mobile-open li a{display:block;padding:10px 24px;}.nav-hamburger{display:flex;}.footer-grid{grid-template-columns:1fr 1fr;}#editor-panel{width:100%;right:-100%;}.steps-grid{grid-template-columns:1fr;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    </div>
-    <span class="nav-logo-text">Aura Dev <span>Apps</span></span>
+<nav id="site-nav">
+  <a class="nav-logo" href="#">
+    <img id="nav-logo-img" src="" alt="Logo" style="display:none">
+    <div><span id="nav-logo-text">✦ Aura Dev Apps</span><span class="nav-logo-sub">para Nuvemshop</span></div>
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="nav-links">
     <li><a href="#apps">Apps</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
+    <li><a href="#video">Tutorial</a></li>
     <li><a href="#conectar">Como Conectar</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contato">Contato</a></li>
-    <li><a href="#privacidade">Privacidade</a></li>
-    <li><a href="#contato" class="nav-cta">Falar Conosco</a></li>
+    <li><a class="nav-cta" href="#contato">Fale Conosco</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger"><svg width="22" height="22" viewBox="0 0 22 22"><rect y="4" width="22" height="2" rx="1" fill="#5B2FBE"/><rect y="10" width="22" height="2" rx="1" fill="#5B2FBE"/><rect y="16" width="22" height="2" rx="1" fill="#5B2FBE"/></svg></button>
 </nav>
-
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">Feito para lojistas Nuvemshop</div>
-  <h1>Aplicativos que <span class="highlight">simplificam</span> seu e-commerce</h1>
-  <p>Ferramentas profissionais desenvolvidas para o dia a dia do lojista brasileiro. Cadastre produtos, gerencie estoque e muito mais — direto do seu celular.</p>
-  <div class="hero-actions">
-    <a href="#apps" class="btn-primary">
-      <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 100 10A5 5 0 0012 2zM2 20a10 10 0 0120 0"/></svg>
-      Ver Aplicativos
-    </a>
-    <a href="#conectar" class="btn-secondary">Como conectar minha loja</a>
+  <div class="hero-inner">
+    <img id="hero-logo-img" class="hero-logo-img" src="" alt="Logo" style="display:none">
+    <div class="hero-eyebrow" id="hero-eyebrow">Feito para lojistas Nuvemshop</div>
+    <h1 id="hero-h1">Aplicativos que <em>simplificam</em> seu e-commerce</h1>
+    <p class="hero-sub" id="hero-sub">Ferramentas profissionais desenvolvidas para o dia a dia do lojista brasileiro.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#apps" id="hero-btn1">Ver Aplicativos</a>
+      <a class="btn-outline-white" href="#conectar" id="hero-btn2">Como conectar minha loja</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">&#10003; 100% Integrado Nuvemshop</span>
+      <span class="badge">&#128241; Android - Play Store</span>
+      <span class="badge">&#129302; IA - Descricoes automaticas</span>
+      <span class="badge">&#127463;&#127479; Suporte em portugues</span>
+    </div>
+    <div id="hero-video-wrap" style="display:none" class="hero-video-wrap"><div class="vc" id="hero-video-container"></div></div>
   </div>
 </section>
-
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-number">100%</span>
-    <span class="stat-label">Integrado Nuvemshop</span>
+<section id="apps" class="section">
+  <div class="section-header">
+    <span class="eyebrow">Nossos Aplicativos</span>
+    <h2>Tudo que voce precisa, no seu celular</h2>
+    <p>Aplicativos focados em produtividade para quem vende na Nuvemshop.</p>
   </div>
-  <div class="stat-item">
-    <span class="stat-number">Android</span>
-    <span class="stat-label">Disponível na Play Store</span>
+  <div class="apps-grid" id="apps-grid"></div>
+</section>
+<section id="screenshots" class="screenshots-section">
+  <div class="screenshots-inner">
+    <div class="section-header">
+      <span class="eyebrow" style="color:var(--accent)">Capturas de Tela</span>
+      <h2 style="color:#fff">Veja o app em acao</h2>
+      <p style="color:rgba(255,255,255,.7)">Interface simples e intuitiva, pensada para o lojista.</p>
+    </div>
+    <div class="screenshots-scroll" id="screenshots-scroll"></div>
   </div>
-  <div class="stat-item">
-    <span class="stat-number">IA</span>
-    <span class="stat-label">Descrições automáticas</span>
+</section>
+<section id="video" class="video-section">
+  <div class="video-inner">
+    <div class="section-header">
+      <span class="eyebrow">Tutorial em Video</span>
+      <h2 id="video-title">Veja como e simples usar</h2>
+      <p id="video-subtitle">Assista ao tutorial completo e comece a cadastrar produtos em minutos.</p>
+    </div>
+    <div id="video-wrap"></div>
   </div>
-  <div class="stat-item">
-    <span class="stat-number">BR</span>
-    <span class="stat-label">Suporte em português</span>
+</section>
+<section id="conectar" class="steps-section">
+  <div class="steps-inner">
+    <div class="section-header">
+      <span class="eyebrow">Configuracao</span>
+      <h2>Como conectar sua loja em minutos</h2>
+      <p>Um processo simples, feito uma unica vez. Depois e so usar.</p>
+    </div>
+    <div class="steps-grid" id="steps-grid"></div>
+    <div class="steps-note">
+      <span style="font-size:1.2rem;flex-shrink:0">&#128274;</span>
+      <p id="steps-note-text">Usamos <strong>OAuth 2.0</strong> &mdash; o mesmo padrao do Google e Facebook. Nunca temos acesso a sua senha.</p>
+    </div>
+  </div>
+</section>
+<section id="faq" class="section">
+  <div class="section-header">
+    <span class="eyebrow">Duvidas Frequentes</span>
+    <h2>Perguntas e Respostas</h2>
+    <p>Respostas para as duvidas mais comuns sobre nossos aplicativos.</p>
+  </div>
+  <div class="faq-list" id="faq-list"></div>
+</section>
+<section id="privacidade" class="legal-section">
+  <div class="legal-inner">
+    <h2>Politica de Privacidade</h2>
+    <p class="legal-meta">Ultima atualizacao: <span id="priv-data">Janeiro de 2025</span></p>
+    <div id="privacy-content"></div>
+  </div>
+</section>
+<section id="termos" class="legal-section" style="border-top:none;padding-top:0;">
+  <div class="legal-inner">
+    <h2>Termos de Uso</h2>
+    <p class="legal-meta">Ultima atualizacao: <span id="terms-data">Janeiro de 2025</span></p>
+    <div id="terms-content"></div>
+  </div>
+</section>
+<section id="contato" class="contact-section">
+  <div class="contact-inner">
+    <div class="section-header">
+      <span class="eyebrow">Contato</span>
+      <h2 id="contact-title">Fale com a gente</h2>
+      <p id="contact-sub">Duvidas, sugestoes ou problemas tecnicos? Respondemos em ate 48 horas uteis.</p>
+    </div>
+    <div class="contact-cards">
+      <div class="contact-card"><div class="cc-icon">&#9993;&#65039;</div><div class="cc-label">Email</div><div class="cc-val"><a id="contact-email" href="mailto:mdutra75@gmail.com">mdutra75@gmail.com</a></div></div>
+      <div class="contact-card"><div class="cc-icon">&#10067;</div><div class="cc-label">Duvidas comuns</div><div class="cc-val"><a href="#faq">Ver perguntas frequentes</a></div></div>
+      <div class="contact-card"><div class="cc-icon">&#128274;</div><div class="cc-label">Privacidade</div><div class="cc-val"><a href="#privacidade">Politica de Privacidade</a></div></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-wrap"><img id="footer-logo-img" src="" alt="" style="display:none"><span class="footer-logo-name" id="footer-logo-name">&#10022; Aura Dev Apps</span></div>
+      <p id="footer-desc">Aplicativos profissionais para lojistas da plataforma Nuvemshop.</p>
+    </div>
+    <div><h4>Aplicativos</h4><ul><li><a href="#apps">Catalogo por IA</a></li><li><a href="#apps">Pedidos App (em breve)</a></li></ul></div>
+    <div><h4>Suporte</h4><ul><li><a href="#conectar">Como Conectar</a></li><li><a href="#faq">Perguntas Frequentes</a></li><li><a id="footer-email" href="mailto:mdutra75@gmail.com">Contato</a></li></ul></div>
+    <div><h4>Legal</h4><ul><li><a href="#privacidade">Privacidade</a></li><li><a href="#termos">Termos de Uso</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">&copy; 2025 Aura Dev Apps. Todos os direitos reservados.</div>
+</footer>
+<button id="edit-toggle-btn" title="Editar site">&#9998;&#65039;</button>
+<div id="editor-overlay"></div>
+<div id="editor-panel">
+  <div class="ep-header"><h2>&#9998;&#65039; Editor do Site</h2><button class="ep-close" id="ep-close">&#10005;</button></div>
+  <div class="ep-tabs" id="ep-tabs">
+    <div class="ep-tab active" data-tab="logo">Logo</div>
+    <div class="ep-tab" data-tab="hero">Hero</div>
+    <div class="ep-tab" data-tab="apps">Apps</div>
+    <div class="ep-tab" data-tab="screenshots">Fotos</div>
+    <div class="ep-tab" data-tab="video">Video</div>
+    <div class="ep-tab" data-tab="steps">Passos</div>
+    <div class="ep-tab" data-tab="faq">FAQ</div>
+    <div class="ep-tab" data-tab="contact">Contato</div>
+    <div class="ep-tab" data-tab="legal">Legal</div>
+  </div>
+  <div class="ep-body" id="ep-body"></div>
+  <div>
+    <div class="ep-footer">
+      <button class="ep-apply" id="ep-apply">&#10003; Aplicar</button>
+      <button class="ep-export" id="ep-export">&#11015; Exportar HTML</button>
+    </div>
+    <p class="ep-tip">&#128161; Imagens: suba na pasta <code>images/</code> do seu GitHub. Cole o caminho aqui: <code>images/foto.png</code></p>
   </div>
 </div>
-
-<!-- APPS -->
-<section id="apps">
-  <div class="section-header">
-    <span class="section-label">Nossos Aplicativos</span>
-    <h2 class="section-title">Tudo que você precisa,<br>no seu celular</h2>
-    <p class="section-sub">Aplicativos focados em produtividade para quem vende na Nuvemshop.</p>
-  </div>
-
-  <div class="apps-grid">
-
-    <div class="app-card">
-      <span class="app-badge badge-live">Disponível</span>
-      <div class="app-icon">
-        <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM4 5h16M9 3h6"/></svg>
-      </div>
-      <h3>Nuvemshop Estoque App</h3>
-      <p>Fotografe, descreva com IA e publique produtos na sua loja Nuvemshop em menos de 1 minuto, tudo pelo celular.</p>
-      <ul class="app-features">
-        <li>Análise de produtos por inteligência artificial</li>
-        <li>Cadastro com variantes (cor, tamanho)</li>
-        <li>Gestão de categorias e estoque</li>
-        <li>Publicação direta na Nuvemshop</li>
-        <li>Peso e medidas para cálculo de frete</li>
-      </ul>
-      <a href="#conectar" class="app-link">
-        Conectar minha loja
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-
-    <div class="app-card">
-      <span class="app-badge badge-soon">Em breve</span>
-      <div class="app-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-      </div>
-      <h3>Nuvemshop Pedidos App</h3>
-      <p>Gerencie e acompanhe todos os pedidos da sua loja em tempo real, com notificações e histórico completo.</p>
-      <ul class="app-features">
-        <li>Notificações de novos pedidos</li>
-        <li>Atualização de status com um toque</li>
-        <li>Histórico e relatórios de vendas</li>
-        <li>Integração com transportadoras</li>
-      </ul>
-      <a href="#contato" class="app-link">
-        Quero ser avisado
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<!-- CONECTAR -->
-<section id="conectar">
-  <div class="section-header">
-    <span class="section-label">Configuração</span>
-    <h2 class="section-title">Como conectar<br>sua loja em minutos</h2>
-    <p class="section-sub">Um processo simples, feito uma única vez. Depois é só usar.</p>
-  </div>
-
-  <div class="connect-grid">
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-left">
-          <div class="step-num">1</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-content">
-          <h4>Baixe o app na Play Store</h4>
-          <p>Faça o download gratuito do Nuvemshop Estoque App na Google Play Store no seu celular Android.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-left">
-          <div class="step-num">2</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-content">
-          <h4>Acesse a tela de Configurações</h4>
-          <p>Dentro do app, toque no ícone de engrenagem no menu inferior para acessar as configurações de credenciais.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-left">
-          <div class="step-num">3</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-content">
-          <h4>Autorize via Nuvemshop</h4>
-          <p>Toque em <strong>"Conectar com Nuvemshop"</strong>. Você será redirecionado para o painel da Nuvemshop para fazer login com seu email e senha normais.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-left">
-          <div class="step-num">4</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-content">
-          <h4>Autorize as permissões</h4>
-          <p>Na tela da Nuvemshop, clique em <strong>"Aceitar e começar a usar"</strong>. O app precisa de permissão para criar e editar produtos na sua loja.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-left">
-          <div class="step-num">5</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-content">
-          <h4>Pronto! Sua loja está conectada</h4>
-          <p>Você será redirecionado de volta ao app automaticamente. A conexão é permanente — só precisará repetir se trocar de conta.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="connect-visual">
-      <h4>Conexão segura</h4>
-      <p>Usamos OAuth 2.0 — o mesmo padrão do Google e Facebook. Nunca temos acesso à sua senha.</p>
-
-      <div class="qr-placeholder">
-        <div class="qr-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M14 17h3M17 14v3M20 14h.01M20 17h.01"/></svg>
-        </div>
-        <p style="font-size:14px; color: var(--gray-700); font-weight:500; margin-bottom:4px;">Play Store</p>
-        <p>Disponível para Android</p>
-      </div>
-
-      <div class="connect-info-row">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span><strong>Sem armazenamento</strong> de senha</span>
-      </div>
-      <div class="connect-info-row">
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zM2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-        <span><strong>OAuth 2.0</strong> padrão internacional</span>
-      </div>
-      <div class="connect-info-row">
-        <svg viewBox="0 0 24 24"><path d="M20 12V22H4V12M22 7H2v5h20V7zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
-        <span><strong>Token permanente</strong> — configura uma vez</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq">
-  <div class="section-header centered">
-    <span class="section-label">Dúvidas Frequentes</span>
-    <h2 class="section-title">Perguntas e Respostas</h2>
-    <p class="section-sub">Respostas para as dúvidas mais comuns sobre nossos aplicativos.</p>
-  </div>
-
-  <div class="faq-list">
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        O app é gratuito?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        O download na Play Store é gratuito. O uso completo do app requer uma assinatura mensal, cobrada diretamente pelo sistema de pagamentos da Nuvemshop. O valor da mensalidade é exibido na página do app na Loja de Aplicativos Nuvemshop.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Precisa ter conta na Nuvemshop para usar?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        Sim. O Nuvemshop Estoque App foi desenvolvido exclusivamente para lojistas que já possuem uma loja ativa na plataforma Nuvemshop. Você precisará do seu login e senha da Nuvemshop para conectar o app à sua loja.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        O app funciona em iPhone (iOS)?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        No momento, o app está disponível apenas para Android na Google Play Store. A versão para iOS está em planejamento para uma versão futura.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Minhas credenciais da Nuvemshop ficam armazenadas no app?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        O app utiliza autenticação OAuth 2.0, o padrão de segurança usado por Google, Facebook e outras grandes plataformas. Isso significa que sua senha nunca é transmitida ou armazenada pelo app. O que é salvo é apenas um token de acesso gerado pela própria Nuvemshop, que pode ser revogado a qualquer momento pelo painel da Nuvemshop.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Como a IA gera a descrição dos produtos?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        Ao fotografar um produto, o app envia a imagem para um modelo de inteligência artificial que analisa o que aparece na foto e gera automaticamente um nome e uma descrição comercial em português. Você pode revisar e editar o texto antes de publicar — a IA é apenas um ponto de partida para agilizar o seu trabalho.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Posso cadastrar produtos com variantes (cores e tamanhos)?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        Sim! O app suporta cadastro de produtos simples e produtos com variantes. Você pode selecionar combinações de cor e tamanho, definir estoque individual para cada combinação, e o app envia tudo corretamente para a Nuvemshop no formato esperado pela API.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Como cancelo minha assinatura?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        O cancelamento é feito diretamente pelo painel da Nuvemshop, na seção "Meus Aplicativos". Basta desinstalar o app de lá e a cobrança será interrompida. Os produtos já cadastrados na sua loja não são afetados.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Encontrei um problema no app. Como reportar?
-        <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-      </button>
-      <div class="faq-answer">
-        Você pode entrar em contato pelo email mdutra75@gmail.com descrevendo o problema, a versão do app e o aparelho que está usando. Tentamos responder em até 48 horas úteis.
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PRIVACIDADE -->
-<section id="privacidade">
-  <div class="section-header centered">
-    <span class="section-label">Legal</span>
-    <h2 class="section-title">Política de Privacidade</h2>
-  </div>
-  <div class="legal-section">
-    <span class="legal-date">Última atualização: Janeiro de 2025</span>
-
-    <h3>1. Quem somos</h3>
-    <p>A Aura Dev Apps é responsável pelo desenvolvimento e manutenção dos aplicativos disponibilizados neste site. Nosso contato para assuntos de privacidade é: <strong>mdutra75@gmail.com</strong>.</p>
-
-    <h3>2. Quais dados coletamos</h3>
-    <p>Nossos aplicativos coletam e armazenam exclusivamente no dispositivo do usuário:</p>
-    <ul>
-      <li>Token de acesso OAuth gerado pela Nuvemshop (para autenticação com a API)</li>
-      <li>ID da loja Nuvemshop do usuário</li>
-      <li>Chave de API do serviço de inteligência artificial (OpenRouter), fornecida pelo próprio usuário</li>
-    </ul>
-    <p>Nenhum dado pessoal como nome, email, CPF ou informações financeiras é coletado ou armazenado por nossos aplicativos.</p>
-
-    <h3>3. Como usamos os dados</h3>
-    <p>Os dados coletados são utilizados exclusivamente para:</p>
-    <ul>
-      <li>Autenticar requisições à API da Nuvemshop em nome do lojista</li>
-      <li>Publicar produtos na loja do usuário conforme solicitado pelo próprio usuário</li>
-      <li>Gerar descrições de produtos usando inteligência artificial</li>
-    </ul>
-
-    <h3>4. Compartilhamento de dados</h3>
-    <p>Não compartilhamos, vendemos ou transferimos nenhum dado do usuário a terceiros. As únicas comunicações externas realizadas pelo app são com:</p>
-    <ul>
-      <li>API oficial da Nuvemshop (api.nuvemshop.com.br) — para publicação de produtos</li>
-      <li>OpenRouter (openrouter.ai) — para análise de imagens via IA</li>
-    </ul>
-
-    <h3>5. Segurança</h3>
-    <p>Os tokens de acesso são armazenados localmente no dispositivo do usuário usando SharedPreferences, com acesso restrito ao aplicativo. Nunca trafegamos sua senha da Nuvemshop.</p>
-
-    <h3>6. Seus direitos (LGPD)</h3>
-    <p>Você pode a qualquer momento revogar o acesso do app à sua loja através do painel da Nuvemshop (Meus Aplicativos → Desinstalar). Os dados locais são removidos ao desinstalar o aplicativo do dispositivo.</p>
-
-    <h3>7. Contato</h3>
-    <p>Para dúvidas sobre privacidade: <strong>mdutra75@gmail.com</strong></p>
-  </div>
-</section>
-
-<!-- TERMOS -->
-<section id="termos">
-  <div class="section-header centered">
-    <span class="section-label">Legal</span>
-    <h2 class="section-title">Termos de Uso</h2>
-  </div>
-  <div class="legal-section">
-    <span class="legal-date">Última atualização: Janeiro de 2025</span>
-
-    <h3>1. Aceitação dos Termos</h3>
-    <p>Ao baixar, instalar ou usar qualquer aplicativo da Aura Dev Apps, você concorda com estes Termos de Uso. Se não concordar, não utilize o aplicativo.</p>
-
-    <h3>2. Descrição do Serviço</h3>
-    <p>Os aplicativos da Aura Dev Apps são ferramentas auxiliares para lojistas da plataforma Nuvemshop. Eles não substituem a plataforma Nuvemshop e dependem de uma conta ativa nela para funcionar.</p>
-
-    <h3>3. Requisitos de Uso</h3>
-    <ul>
-      <li>Possuir uma conta ativa e em dia na plataforma Nuvemshop</li>
-      <li>Utilizar um dispositivo Android compatível</li>
-      <li>Ter conexão com a internet para as funcionalidades principais</li>
-    </ul>
-
-    <h3>4. Assinatura e Pagamento</h3>
-    <p>O uso do aplicativo pode estar sujeito a uma assinatura mensal, cobrada pela Nuvemshop por meio do seu sistema de aplicativos parceiros. A Aura Dev Apps não processa pagamentos diretamente. Cancelamentos devem ser feitos pelo painel da Nuvemshop.</p>
-
-    <h3>5. Responsabilidades do Usuário</h3>
-    <p>O usuário é responsável por:</p>
-    <ul>
-      <li>Manter seguras suas credenciais de acesso à Nuvemshop</li>
-      <li>Verificar a precisão das informações geradas pela IA antes de publicar</li>
-      <li>Usar o aplicativo em conformidade com os termos da Nuvemshop</li>
-      <li>Garantir que os produtos cadastrados estejam de acordo com a legislação vigente</li>
-    </ul>
-
-    <h3>6. Limitação de Responsabilidade</h3>
-    <p>A Aura Dev Apps não se responsabiliza por erros nas descrições geradas por inteligência artificial, por indisponibilidades da API da Nuvemshop, ou por qualquer perda de dados decorrente de uso incorreto do aplicativo.</p>
-
-    <h3>7. Modificações</h3>
-    <p>Reservamos o direito de alterar estes termos a qualquer momento. Alterações significativas serão comunicadas por meio de atualização do aplicativo ou desta página.</p>
-
-    <h3>8. Contato</h3>
-    <p>Dúvidas sobre os termos: <strong>mdutra75@gmail.com</strong></p>
-  </div>
-</section>
-
-<!-- CONTATO -->
-<section id="contato">
-  <div class="contact-grid">
-    <div class="contact-info">
-      <h3>Fale com a gente</h3>
-      <p>Dúvidas, sugestões ou problemas técnicos? Estamos aqui para ajudar. Respondemos em até 48 horas úteis.</p>
-      <div class="contact-cards">
-        <a href="mailto:mdutra75@gmail.com" class="contact-card">
-          <div class="contact-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <div>
-            <div class="contact-card-label">Email</div>
-            <div class="contact-card-value">mdutra75@gmail.com</div>
-          </div>
-        </a>
-        <a href="#faq" class="contact-card">
-          <div class="contact-card-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
-          </div>
-          <div>
-            <div class="contact-card-label">Dúvidas comuns</div>
-            <div class="contact-card-value">Ver perguntas frequentes</div>
-          </div>
-        </a>
-        <a href="#privacidade" class="contact-card">
-          <div class="contact-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <div class="contact-card-label">Privacidade e Dados</div>
-            <div class="contact-card-value">Política de Privacidade</div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="contact-visual">
-      <div class="big-icon">
-        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      </div>
-      <h4>Aura Dev Apps</h4>
-      <p>Aplicativos profissionais para lojistas Nuvemshop. Simples, rápidos e feitos para o dia a dia do e-commerce brasileiro.</p>
-      <a href="mailto:mdutra75@gmail.com" class="btn-primary" style="display:inline-flex;">
-        Enviar mensagem
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="nav-logo">
-        <div class="nav-logo-icon">
-          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <span class="nav-logo-text" style="color:white;">Aura Dev <span>Apps</span></span>
-      </div>
-      <p>Aplicativos profissionais desenvolvidos para lojistas da plataforma Nuvemshop.</p>
-    </div>
-    <div class="footer-col">
-      <h5>Aplicativos</h5>
-      <ul>
-        <li><a href="#apps">Estoque App</a></li>
-        <li><a href="#apps">Pedidos App (em breve)</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Suporte</h5>
-      <ul>
-        <li><a href="#conectar">Como Conectar</a></li>
-        <li><a href="#faq">Perguntas Frequentes</a></li>
-        <li><a href="mailto:mdutra75@gmail.com">Contato</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Legal</h5>
-      <ul>
-        <li><a href="#privacidade">Privacidade</a></li>
-        <li><a href="#termos">Termos de Uso</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 Aura Dev Apps. Todos os direitos reservados.</p>
-    <a href="mailto:mdutra75@gmail.com">mdutra75@gmail.com</a>
-  </div>
-</footer>
-
 <script>
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
+const SD = {
+  logo:{file:"",navText:"Aura Dev Apps"},
+  hero:{eyebrow:"Feito para lojistas Nuvemshop",title:"Aplicativos que <em>simplificam</em> seu e-commerce",subtitle:"Ferramentas profissionais desenvolvidas para o dia a dia do lojista brasileiro. Cadastre produtos, gerencie estoque e muito mais diretamente do seu celular.",btn1:"Ver Aplicativos",btn2:"Como conectar minha loja",youtubeId:""},
+  apps:[
+    {badge:"Disponivel",badgeType:"available",name:"Catalogo por IA",screenshot:"",desc:"Fotografe, descreva com IA e publique produtos na sua loja Nuvemshop em menos de 1 minuto, tudo pelo celular.",features:["Analise de produtos por inteligencia artificial","Cadastro com variantes (cor, tamanho)","Gestao de categorias e estoque","Publicacao direta na Nuvemshop","Peso e medidas para calculo de frete"],btnText:"Conectar minha loja",btnLink:"#conectar",btnStyle:"brand"},
+    {badge:"Em breve",badgeType:"soon",name:"Nuvemshop Pedidos App",screenshot:"",desc:"Gerencie e acompanhe todos os pedidos da sua loja em tempo real, com notificacoes e historico completo.",features:["Notificacoes de novos pedidos","Atualizacao de status com um toque","Historico e relatorios de vendas","Integracao com transportadoras"],btnText:"Quero ser avisado",btnLink:"#contato",btnStyle:"ghost"}
+  ],
+  screenshots:[],
+  video:{youtubeId:"",title:"Veja como e simples usar",subtitle:"Assista ao tutorial completo e comece a cadastrar produtos em minutos."},
+  steps:[
+    {title:"Baixe o app na Play Store",text:"Faca o download gratuito do app na Google Play Store no seu celular Android."},
+    {title:"Acesse as Configuracoes",text:"Dentro do app, toque no icone de engrenagem no menu inferior."},
+    {title:"Autorize via Nuvemshop",text:"Toque em <b>Conectar com Nuvemshop</b>. Voce sera redirecionado para fazer login."},
+    {title:"Aceite as permissoes",text:"Clique em <b>Aceitar e comecar a usar</b>. O app precisa de permissao para criar e editar produtos."},
+    {title:"Pronto! Loja conectada",text:"Voce sera redirecionado de volta ao app. A conexao e permanente."}
+  ],
+  stepsNote:"Usamos <strong>OAuth 2.0</strong> &mdash; o mesmo padrao do Google e Facebook. Nunca temos acesso a sua senha.",
+  faq:[
+    {q:"O app e gratuito?",a:"O download na Play Store e gratuito. O uso completo requer uma assinatura mensal cobrada pela Nuvemshop. O valor e exibido na pagina do app na Loja de Aplicativos Nuvemshop."},
+    {q:"Precisa ter conta na Nuvemshop para usar?",a:"Sim. O app foi desenvolvido exclusivamente para lojistas que ja possuem uma loja ativa na plataforma Nuvemshop."},
+    {q:"O app funciona em iPhone (iOS)?",a:"No momento, disponivel apenas para Android. A versao iOS esta em planejamento."},
+    {q:"Minhas credenciais ficam armazenadas no app?",a:"O app utiliza autenticacao OAuth 2.0. Sua senha nunca e transmitida ou armazenada. Apenas um token de acesso gerado pela Nuvemshop e salvo localmente."},
+    {q:"Como a IA gera a descricao dos produtos?",a:"Ao fotografar um produto, o app envia a imagem para um modelo de IA que gera automaticamente um nome e descricao comercial em portugues. Voce pode revisar antes de publicar."},
+    {q:"Posso cadastrar produtos com variantes?",a:"Sim! Suporta cor e tamanho, com estoque individual por combinacao."},
+    {q:"Como cancelo minha assinatura?",a:"Pelo painel da Nuvemshop, em Meus Aplicativos. Os produtos ja cadastrados nao sao afetados."},
+    {q:"Encontrei um problema. Como reportar?",a:"Entre em contato pelo email mdutra75@gmail.com descrevendo o problema, versao do app e aparelho. Respondemos em ate 48 horas uteis."}
+  ],
+  contact:{title:"Fale com a gente",subtitle:"Duvidas, sugestoes ou problemas tecnicos? Respondemos em ate 48 horas uteis.",email:"mdutra75@gmail.com"},
+  legal:{
+    privacyDate:"Janeiro de 2025",termsDate:"Janeiro de 2025",
+    privacyContent:"<h3>1. Quem somos</h3><p>A Aura Dev Apps e responsavel pelo desenvolvimento dos aplicativos neste site. Contato: <strong>mdutra75@gmail.com</strong>.</p><h3>2. Dados coletados</h3><ul><li>Token de acesso OAuth gerado pela Nuvemshop</li><li>ID da loja Nuvemshop do usuario</li><li>Chave de API OpenAI, fornecida pelo proprio usuario</li></ul><p>Nenhum dado pessoal como nome, email ou CPF e coletado.</p><h3>3. Uso dos dados</h3><ul><li>Autenticar requisicoes a API da Nuvemshop</li><li>Publicar produtos conforme solicitado</li><li>Gerar descricoes via inteligencia artificial</li></ul><h3>4. Compartilhamento</h3><p>Nao compartilhamos dados com terceiros. Comunicacoes externas apenas com API da Nuvemshop e OpenRouter.</p><h3>5. Seguranca</h3><p>Tokens armazenados localmente via SharedPreferences. Sua senha nunca trafega pelo app.</p><h3>6. Seus direitos (LGPD)</h3><p>Voce pode revogar o acesso a qualquer momento pelo painel da Nuvemshop (Meus Aplicativos > Desinstalar).</p><h3>7. Contato</h3><p>Para duvidas: <strong>mdutra75@gmail.com</strong></p>",
+    termsContent:"<h3>1. Aceitacao</h3><p>Ao usar os aplicativos da Aura Dev Apps, voce concorda com estes termos.</p><h3>2. Descricao do Servico</h3><p>Ferramentas auxiliares para lojistas Nuvemshop. Dependem de conta ativa na plataforma.</p><h3>3. Requisitos</h3><ul><li>Conta ativa na Nuvemshop</li><li>Dispositivo Android compativel</li><li>Conexao com a internet</li></ul><h3>4. Assinatura</h3><p>Assinatura mensal cobrada pela Nuvemshop. Cancelamentos pelo painel da Nuvemshop.</p><h3>5. Responsabilidades</h3><ul><li>Manter seguras suas credenciais</li><li>Verificar informacoes geradas pela IA antes de publicar</li></ul><h3>6. Limitacao de Responsabilidade</h3><p>A Aura Dev Apps nao se responsabiliza por erros de IA, indisponibilidade da API Nuvemshop ou perda de dados por uso incorreto.</p><h3>7. Contato</h3><p>Duvidas: <strong>mdutra75@gmail.com</strong></p>"
   }
-
-  // Smooth nav active state
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = '';
-      if (a.getAttribute('href') === '#' + current) {
-        a.style.color = 'var(--blue-700)';
-      }
-    });
+};
+function rAll(){rLogo();rHero();rApps();rShots();rVideo();rSteps();rFAQ();rContact();rLegal();}
+function rLogo(){
+  const f=SD.logo.file,t=SD.logo.navText;
+  document.getElementById('nav-logo-text').textContent=t;
+  document.getElementById('footer-logo-name').textContent=t;
+  ['nav-logo-img','hero-logo-img','footer-logo-img'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(f){el.src=f;el.style.display='';}else el.style.display='none';
   });
+}
+function rHero(){
+  const h=SD.hero;
+  document.getElementById('hero-eyebrow').textContent=h.eyebrow;
+  document.getElementById('hero-h1').innerHTML=h.title;
+  document.getElementById('hero-sub').textContent=h.subtitle;
+  document.getElementById('hero-btn1').textContent=h.btn1;
+  document.getElementById('hero-btn2').textContent=h.btn2;
+  const w=document.getElementById('hero-video-wrap'),c=document.getElementById('hero-video-container');
+  if(h.youtubeId){c.innerHTML='<iframe src="https://www.youtube.com/embed/'+h.youtubeId+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>';w.style.display='';}
+  else w.style.display='none';
+}
+function rApps(){
+  document.getElementById('apps-grid').innerHTML=SD.apps.map(a=>'<div class="app-card">'+(a.screenshot?'<img class="app-card-screenshot" src="'+a.screenshot+'" alt="'+a.name+'">':`<div class="app-card-ph">&#128241; Screenshot aqui</div>`)+'<div class="app-card-body"><span class="app-badge '+a.badgeType+'">'+a.badge+'</span><h3>'+a.name+'</h3><p class="app-desc">'+a.desc+'</p><ul class="app-features">'+a.features.map(f=>'<li>'+f+'</li>').join('')+'</ul><a href="'+a.btnLink+'" class="btn-'+(a.btnStyle==='brand'?'brand':'ghost')+'">'+a.btnText+'</a></div></div>').join('');
+}
+function rShots(){
+  const el=document.getElementById('screenshots-scroll'),s=SD.screenshots;
+  el.innerHTML=s.length?s.map(x=>'<div class="screenshot-item"><img src="'+x.file+'" alt="'+(x.caption||'Screenshot')+'"></div>').join(''):'<div class="ss-ph">&#128241;<span>Adicione screenshots<br>na aba Fotos do editor</span></div><div class="ss-ph">&#128241;<span>Adicione screenshots<br>na aba Fotos do editor</span></div><div class="ss-ph">&#128241;<span>Adicione screenshots<br>na aba Fotos do editor</span></div>';
+}
+function rVideo(){
+  const v=SD.video;
+  document.getElementById('video-title').textContent=v.title;
+  document.getElementById('video-subtitle').textContent=v.subtitle;
+  const w=document.getElementById('video-wrap');
+  w.innerHTML=v.youtubeId?'<div class="vc"><iframe src="https://www.youtube.com/embed/'+v.youtubeId+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>':'<div class="vid-ph"><div class="vid-ph-icon">&#9654;&#65039;</div><p>Cole o link do YouTube no editor, aba Video</p></div>';
+}
+function rSteps(){
+  document.getElementById('steps-grid').innerHTML=SD.steps.map((s,i)=>'<div class="step-card"><div class="step-num">'+(i+1)+'</div><h4>'+s.title+'</h4><p>'+s.text+'</p></div>').join('');
+  document.getElementById('steps-note-text').innerHTML=SD.stepsNote;
+}
+function rFAQ(){
+  document.getElementById('faq-list').innerHTML=SD.faq.map((x,i)=>'<div class="faq-item" id="fq'+i+'"><button class="faq-q" onclick="tFAQ('+i+')">'+x.q+'<span class="faq-q-arrow">&#9662;</span></button><div class="faq-a">'+x.a+'</div></div>').join('');
+}
+function tFAQ(i){document.getElementById('fq'+i).classList.toggle('open');}
+function rContact(){
+  const c=SD.contact;
+  document.getElementById('contact-title').textContent=c.title;
+  document.getElementById('contact-sub').textContent=c.subtitle;
+  document.getElementById('contact-email').href='mailto:'+c.email;
+  document.getElementById('contact-email').textContent=c.email;
+  document.getElementById('footer-email').href='mailto:'+c.email;
+}
+function rLegal(){
+  const l=SD.legal;
+  document.getElementById('priv-data').textContent=l.privacyDate;
+  document.getElementById('terms-data').textContent=l.termsDate;
+  document.getElementById('privacy-content').innerHTML=l.privacyContent;
+  document.getElementById('terms-content').innerHTML=l.termsContent;
+}
+/* EDITOR */
+let CUR='logo';
+function esc(s){return(s||'').replace(/"/g,'&quot;');}
+function bTab(tab){
+  CUR=tab;const b=document.getElementById('ep-body');
+  if(tab==='logo'){
+    b.innerHTML='<div class="ep-s"><label>Arquivo do logo</label><input id="el-file" value="'+esc(SD.logo.file)+'" placeholder="images/logo.png"><p class="ep-hint">&#128193; Suba o arquivo na pasta <code>images/</code> do GitHub e cole o caminho aqui.</p>'+(SD.logo.file?'<img src="'+SD.logo.file+'" class="ep-preview show" id="lp">':'<img class="ep-preview" id="lp">')+'</div><div class="ep-s"><label>Nome exibido (nav e rodape)</label><input id="el-navtext" value="'+esc(SD.logo.navText)+'"></div>';
+    document.getElementById('el-file').addEventListener('input',function(){const p=document.getElementById('lp');if(this.value){p.src=this.value;p.classList.add('show');}else p.classList.remove('show');});
+  }else if(tab==='hero'){
+    const h=SD.hero;
+    b.innerHTML='<div class="ep-s"><label>Frase acima do titulo</label><input id="eh-ey" value="'+esc(h.eyebrow)+'"></div><div class="ep-s"><label>Titulo (use &lt;em&gt;palavra&lt;/em&gt; para destaque verde)</label><input id="eh-ti" value="'+esc(h.title)+'"></div><div class="ep-s"><label>Subtitulo</label><textarea id="eh-su">'+h.subtitle+'</textarea></div><div class="ep-s"><label>Botao 1</label><input id="eh-b1" value="'+esc(h.btn1)+'"></div><div class="ep-s"><label>Botao 2</label><input id="eh-b2" value="'+esc(h.btn2)+'"></div><div class="ep-s"><label>Video YouTube no Hero (opcional)</label><input id="eh-yt" value="'+esc(h.youtubeId)+'" placeholder="ID do video (ex: dQw4w9WgXcQ)"><p class="ep-hint">O ID fica apos <code>?v=</code> no link do YouTube. Deixe vazio para ocultar.</p></div>';
+  }else if(tab==='apps'){
+    b.innerHTML=SD.apps.map((a,i)=>'<div class="ep-card"><div class="ep-card-title">App '+(i+1)+': '+a.name+'</div><label>Nome</label><input id="an'+i+'" value="'+esc(a.name)+'"><label>Badge</label><input id="ab'+i+'" value="'+esc(a.badge)+'"><label>Screenshot do app</label><input id="as'+i+'" value="'+esc(a.screenshot)+'" placeholder="images/app-screenshot.png">'+(a.screenshot?'<img src="'+a.screenshot+'" class="ep-preview show" id="ap'+i+'">':'<img class="ep-preview" id="ap'+i+'">')+'<label>Descricao</label><textarea id="ad'+i+'">'+a.desc+'</textarea><label>Funcionalidades (uma por linha)</label><textarea id="af'+i+'" style="min-height:100px">'+a.features.join('
+')+'</textarea><label>Texto do botao</label><input id="at'+i+'" value="'+esc(a.btnText)+'"></div>').join('');
+    SD.apps.forEach((_,i)=>{document.getElementById('as'+i).addEventListener('input',function(){const p=document.getElementById('ap'+i);if(this.value){p.src=this.value;p.classList.add('show');}else p.classList.remove('show');});});
+  }else if(tab==='screenshots'){
+    b.innerHTML='<p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Screenshots da galeria (secao escura do site). Suba os arquivos na pasta <code>images/</code> do GitHub.</p><div id="ssl">'+SD.screenshots.map((s,i)=>'<div class="ep-card" id="si'+i+'"><div class="ep-card-title">Screenshot '+(i+1)+'</div><label>Arquivo</label><input id="sf'+i+'" value="'+esc(s.file)+'" placeholder="images/screen1.png">'+(s.file?'<img src="'+s.file+'" class="ep-preview show" id="sp'+i+'">':'<img class="ep-preview" id="sp'+i+'">')+'<label>Legenda (opcional)</label><input id="sc'+i+'" value="'+esc(s.caption||'')+'"><button class="ep-del" onclick="delShot('+i+')">&#10005; Remover</button></div>').join('')+'</div><button class="ep-add" onclick="addShot()">+ Adicionar screenshot</button>';
+    SD.screenshots.forEach((_,i)=>{document.getElementById('sf'+i).addEventListener('input',function(){const p=document.getElementById('sp'+i);if(this.value){p.src=this.value;p.classList.add('show');}else p.classList.remove('show');});});
+  }else if(tab==='video'){
+    const v=SD.video;
+    b.innerHTML='<div class="ep-s"><label>ID do video YouTube</label><input id="ev-yt" value="'+esc(v.youtubeId)+'" placeholder="ex: dQw4w9WgXcQ"><p class="ep-hint">Abra o YouTube, o ID e o codigo apos <code>?v=</code> no link. Deixe vazio para mostrar placeholder.</p></div>'+(v.youtubeId?'<div style="margin-bottom:16px"><div class="vc" id="ev-prev"><iframe src="https://www.youtube.com/embed/'+v.youtubeId+'" allowfullscreen></iframe></div></div>':'<div id="ev-prev-wrap" style="display:none"><div class="vc" id="ev-prev"></div></div>')+'<div class="ep-s"><label>Titulo da secao</label><input id="ev-ti" value="'+esc(v.title)+'"></div><div class="ep-s"><label>Subtitulo</label><textarea id="ev-su">'+v.subtitle+'</textarea></div>';
+    document.getElementById('ev-yt').addEventListener('input',function(){
+      let prev=document.getElementById('ev-prev');
+      if(!prev){const w=document.createElement('div');w.style.marginBottom='16px';const d=document.createElement('div');d.className='vc';d.id='ev-prev';w.appendChild(d);document.getElementById('ev-yt').parentElement.after(w);prev=d;}
+      if(this.value){prev.innerHTML='<iframe src="https://www.youtube.com/embed/'+this.value+'" allowfullscreen></iframe>';prev.parentElement.style.display='';}
+      else{prev.innerHTML='';if(prev.parentElement)prev.parentElement.style.display='none';}
+    });
+  }else if(tab==='steps'){
+    b.innerHTML='<div id="stl">'+SD.steps.map((s,i)=>'<div class="ep-card" id="sti'+i+'"><div class="ep-card-title">Passo '+(i+1)+'</div><label>Titulo</label><input id="stt'+i+'" value="'+esc(s.title)+'"><label>Texto</label><textarea id="stx'+i+'">'+s.text+'</textarea><button class="ep-del" onclick="delStep('+i+')">&#10005; Remover</button></div>').join('')+'</div><button class="ep-add" onclick="addStep()">+ Adicionar passo</button><div class="ep-s" style="margin-top:16px"><label>Nota de seguranca (abaixo dos passos)</label><textarea id="stn">'+SD.stepsNote+'</textarea></div>';
+  }else if(tab==='faq'){
+    b.innerHTML='<div id="fql">'+SD.faq.map((x,i)=>'<div class="ep-card" id="fqi'+i+'"><label>Pergunta</label><input id="fqq'+i+'" value="'+esc(x.q)+'"><label>Resposta</label><textarea id="fqa'+i+'">'+x.a+'</textarea><button class="ep-del" onclick="delFAQ('+i+')">&#10005; Remover</button></div>').join('')+'</div><button class="ep-add" onclick="addFAQ()">+ Adicionar pergunta</button>';
+  }else if(tab==='contact'){
+    const c=SD.contact;
+    b.innerHTML='<div class="ep-s"><label>Titulo</label><input id="ct" value="'+esc(c.title)+'"></div><div class="ep-s"><label>Subtitulo</label><textarea id="cs">'+c.subtitle+'</textarea></div><div class="ep-s"><label>Email de contato</label><input id="ce" value="'+esc(c.email)+'"></div>';
+  }else if(tab==='legal'){
+    const l=SD.legal;
+    b.innerHTML='<div class="ep-s"><label>Data - Politica de Privacidade</label><input id="lpd" value="'+esc(l.privacyDate)+'"></div><div class="ep-s"><label>Conteudo da Politica (HTML)</label><textarea id="lpc" style="min-height:160px;font-family:monospace;font-size:.77rem">'+l.privacyContent.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</textarea></div><div class="ep-s" style="margin-top:14px"><label>Data - Termos de Uso</label><input id="ltd" value="'+esc(l.termsDate)+'"></div><div class="ep-s"><label>Conteudo dos Termos (HTML)</label><textarea id="ltc" style="min-height:160px;font-family:monospace;font-size:.77rem">'+l.termsContent.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</textarea></div>';
+  }
+}
+function applyE(){
+  if(CUR==='logo'){SD.logo.file=document.getElementById('el-file').value.trim();SD.logo.navText=document.getElementById('el-navtext').value;rLogo();}
+  else if(CUR==='hero'){const h=SD.hero;h.eyebrow=document.getElementById('eh-ey').value;h.title=document.getElementById('eh-ti').value;h.subtitle=document.getElementById('eh-su').value;h.btn1=document.getElementById('eh-b1').value;h.btn2=document.getElementById('eh-b2').value;h.youtubeId=document.getElementById('eh-yt').value.trim();rHero();}
+  else if(CUR==='apps'){SD.apps.forEach((a,i)=>{a.name=document.getElementById('an'+i).value;a.badge=document.getElementById('ab'+i).value;a.screenshot=document.getElementById('as'+i).value.trim();a.desc=document.getElementById('ad'+i).value;a.features=document.getElementById('af'+i).value.split('
+').filter(f=>f.trim());a.btnText=document.getElementById('at'+i).value;});rApps();}
+  else if(CUR==='screenshots'){SD.screenshots=SD.screenshots.map((_,i)=>{const f=document.getElementById('sf'+i),c=document.getElementById('sc'+i);if(!f)return null;return{file:f.value.trim(),caption:c.value};}).filter(Boolean);rShots();bTab('screenshots');}
+  else if(CUR==='video'){const v=SD.video;v.youtubeId=document.getElementById('ev-yt').value.trim();v.title=document.getElementById('ev-ti').value;v.subtitle=document.getElementById('ev-su').value;rVideo();}
+  else if(CUR==='steps'){SD.steps=SD.steps.map((_,i)=>{const t=document.getElementById('stt'+i),x=document.getElementById('stx'+i);if(!t)return null;return{title:t.value,text:x.value};}).filter(Boolean);SD.stepsNote=document.getElementById('stn').value;rSteps();bTab('steps');}
+  else if(CUR==='faq'){SD.faq=SD.faq.map((_,i)=>{const q=document.getElementById('fqq'+i),a=document.getElementById('fqa'+i);if(!q)return null;return{q:q.value,a:a.value};}).filter(Boolean);rFAQ();bTab('faq');}
+  else if(CUR==='contact'){SD.contact.title=document.getElementById('ct').value;SD.contact.subtitle=document.getElementById('cs').value;SD.contact.email=document.getElementById('ce').value;rContact();}
+  else if(CUR==='legal'){SD.legal.privacyDate=document.getElementById('lpd').value;SD.legal.termsDate=document.getElementById('ltd').value;SD.legal.privacyContent=document.getElementById('lpc').value.replace(/&lt;/g,'<').replace(/&gt;/g,'>');SD.legal.termsContent=document.getElementById('ltc').value.replace(/&lt;/g,'<').replace(/&gt;/g,'>');rLegal();}
+  toast('&#10003; Mudancas aplicadas!');
+}
+function addFAQ(){SD.faq.push({q:'Nova pergunta',a:'Sua resposta aqui.'});bTab('faq');}
+function delFAQ(i){if(!confirm('Remover?'))return;SD.faq.splice(i,1);bTab('faq');}
+function addStep(){SD.steps.push({title:'Novo passo',text:'Descricao.'});bTab('steps');}
+function delStep(i){if(!confirm('Remover?'))return;SD.steps.splice(i,1);bTab('steps');}
+function addShot(){SD.screenshots.push({file:'',caption:''});bTab('screenshots');}
+function delShot(i){if(!confirm('Remover?'))return;SD.screenshots.splice(i,1);bTab('screenshots');}
+function exportH(){
+  applyE();
+  const ds=JSON.stringify(SD,null,2);
+  let h=document.documentElement.outerHTML;
+  h=h.replace(/const SD = \{[\s\S]*?\};
+function rAll/,'const SD = '+ds+';
+function rAll');
+  const b=new Blob([h],{type:'text/html;charset=utf-8'});
+  const u=URL.createObjectURL(b);
+  const a=document.createElement('a');a.href=u;a.download='index.html';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  toast('&#11015; index.html exportado! Coloque no GitHub.');
+}
+function toast(msg){
+  let t=document.getElementById('_t');
+  if(!t){t=document.createElement('div');t.id='_t';t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1A1A2E;color:#fff;padding:10px 22px;border-radius:30px;font-size:.875rem;font-weight:600;z-index:9999;transition:opacity .3s;box-shadow:0 4px 20px rgba(0,0,0,.3);';document.body.appendChild(t);}
+  t.innerHTML=msg;t.style.opacity=1;clearTimeout(t._x);t._x=setTimeout(()=>t.style.opacity=0,2500);
+}
+document.getElementById('edit-toggle-btn').addEventListener('click',()=>{document.getElementById('editor-panel').classList.toggle('open');document.getElementById('editor-overlay').classList.toggle('open');bTab(CUR);});
+document.getElementById('ep-close').addEventListener('click',()=>{document.getElementById('editor-panel').classList.remove('open');document.getElementById('editor-overlay').classList.remove('open');});
+document.getElementById('editor-overlay').addEventListener('click',()=>{document.getElementById('editor-panel').classList.remove('open');document.getElementById('editor-overlay').classList.remove('open');});
+document.getElementById('ep-tabs').addEventListener('click',e=>{const b=e.target.closest('.ep-tab');if(!b)return;document.querySelectorAll('.ep-tab').forEach(t=>t.classList.remove('active'));b.classList.add('active');bTab(b.dataset.tab);});
+document.getElementById('ep-apply').addEventListener('click',applyE);
+document.getElementById('ep-export').addEventListener('click',exportH);
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('nav-links').classList.toggle('mobile-open'));
+rAll();
 </script>
 </body>
 </html>
