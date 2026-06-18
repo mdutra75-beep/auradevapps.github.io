@@ -641,8 +641,7 @@ function exportHTML() {
   applyTab();
   const appsJSON = JSON.stringify(APPS, null, 2);
   let html = document.documentElement.outerHTML;
-  html = html.replace(/const APPS = \[[\s\S]*?\];
-/, 'const APPS = ' + appsJSON + ';\n');
+  html = html.replace(/const APPS = \[[\s\S]*?\];/, 'const APPS = ' + appsJSON + ';');
   const blob = new Blob([html], {type:'text/html;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a2 = document.createElement('a');
