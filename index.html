@@ -1,875 +1,196 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head>
+<html lang="pt-BR">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aura Dev Apps — Aplicativos Android com IA</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --ink: #0a0a0f;
-    --paper: #f0ede8;
-    --acid: #b06cff;
-    --acid2: #7c3aed;
-    --dim: #3a3a4a;
-    --mid: #7a7a8a;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--ink);
-    color: var(--paper);
-    font-family: 'Space Grotesk', sans-serif;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  .cursor {
-    width: 12px; height: 12px;
-    background: var(--acid);
-    border-radius: 50%;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    width: 40px; height: 40px;
-    border: 1px solid rgba(176,108,255,0.4);
-    border-radius: 50%;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.15s ease, width 0.3s, height 0.3s, border-color 0.3s;
-  }
-  .cursor-ring.hover { width: 60px; height: 60px; border-color: var(--acid); }
-
-  .side-nav {
-    position: fixed;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 100;
-  }
-  .side-nav a {
-    display: block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--dim);
-    transition: background 0.3s, transform 0.3s;
-    text-decoration: none;
-  }
-  .side-nav a.active, .side-nav a:hover {
-    background: var(--acid);
-    transform: scale(1.8);
-  }
-
-  .logo {
-    position: fixed;
-    top: 2rem;
-    left: 2.5rem;
-    z-index: 100;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
-    color: var(--paper);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .logo-icon {
-    width: 28px; height: 28px;
-    background: linear-gradient(135deg, var(--acid), var(--acid2));
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
-  .logo span { color: var(--acid); }
-
-  section {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 8rem 10vw;
-  }
-
-  /* HERO */
-  #hero { overflow: hidden; }
-  .hero-bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(176,108,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(176,108,255,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridDrift 20s linear infinite;
-  }
-  @keyframes gridDrift {
-    0% { background-position: 0 0; }
-    100% { background-position: 60px 60px; }
-  }
-  .hero-content { position: relative; z-index: 2; max-width: 900px; }
-
-  .eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--acid);
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .eyebrow::before {
-    content: '';
-    display: block;
-    width: 40px; height: 1px;
-    background: var(--acid);
-  }
-
-  h1 {
-    font-size: clamp(3rem, 7vw, 7rem);
-    font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-  h1 .highlight {
-    background: linear-gradient(90deg, var(--acid), #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: 1.1rem;
-    color: var(--mid);
-    max-width: 480px;
-    line-height: 1.7;
-    margin-bottom: 3.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
-
-  .cta-group {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-  }
-  .btn-primary {
-    background: var(--acid);
-    color: var(--ink);
-    border: none;
-    padding: 1rem 2.5rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: none;
-    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
-
-  .scroll-hint {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--mid);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .scroll-hint::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--mid), transparent);
-    animation: scrollBar 1.5s ease-in-out infinite;
-  }
-  @keyframes scrollBar {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
-
-  .hero-visual {
-    position: absolute;
-    right: 8vw;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-    animation: fadeLeft 1s 1s forwards;
-  }
-  .phone-frame {
-    width: 220px; height: 440px;
-    border: 2px solid rgba(176,108,255,0.2);
-    border-radius: 36px;
-    position: relative;
-    background: linear-gradient(145deg, #141420, #0d0d18);
-    box-shadow: 0 0 80px rgba(176,108,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
-    animation: float 6s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotateY(-8deg) rotateX(2deg); }
-    50% { transform: translateY(-20px) rotateY(-12deg) rotateX(4deg); }
-  }
-  .phone-screen {
-    position: absolute;
-    inset: 12px;
-    border-radius: 26px;
-    background: var(--ink);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 20px 12px;
-  }
-  .ps-bar { height: 6px; border-radius: 3px; background: rgba(176,108,255,0.3); }
-  .ps-bar:nth-child(2) { width: 70%; background: rgba(176,108,255,0.15); }
-  .ps-bar:nth-child(3) { width: 85%; background: rgba(176,108,255,0.1); }
-  .ps-block {
-    margin-top: 8px; height: 80px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(176,108,255,0.08), rgba(124,58,237,0.04));
-    border: 1px solid rgba(176,108,255,0.1);
-  }
-  .ps-row { display: flex; gap: 8px; margin-top: 8px; }
-  .ps-pill { height: 28px; border-radius: 14px; background: rgba(176,108,255,0.12); flex: 1; }
-  .ps-dot {
-    position: absolute;
-    top: -6px; right: -6px;
-    width: 12px; height: 12px;
-    background: var(--acid);
-    border-radius: 50%;
-    box-shadow: 0 0 16px var(--acid);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 16px var(--acid); }
-    50% { box-shadow: 0 0 32px var(--acid), 0 0 48px rgba(176,108,255,0.3); }
-  }
-
-  /* MARQUEE */
-  .marquee-section {
-    min-height: auto;
-    padding: 2rem 0;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    overflow: hidden;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 4rem;
-    animation: marquee 20s linear infinite;
-    white-space: nowrap;
-    width: max-content;
-  }
-  .marquee-track span {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--dim);
-  }
-  .marquee-track .dot { color: var(--acid); font-size: 1rem; }
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* APPS */
-  #apps { flex-direction: column; align-items: flex-start; gap: 5rem; }
-
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    color: var(--acid);
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .section-label::before {
-    content: '';
-    display: block;
-    width: 24px; height: 1px;
-    background: var(--acid);
-  }
-
-  h2 {
-    font-size: clamp(2rem, 4vw, 4rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  .apps-list { width: 100%; }
-
-  .app-item {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    cursor: none;
-    overflow: hidden;
-  }
-  .app-item-header {
-    display: grid;
-    grid-template-columns: 80px 1fr auto auto;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem 0;
-    transition: padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-  }
-  .app-item-header::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 0;
-    background: rgba(176,108,255,0.03);
-    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .app-item.open .app-item-header::before,
-  .app-item-header:hover::before { width: 100%; }
-  .app-item-header:hover { padding-left: 1.5rem; }
-  .app-item-header:hover .app-num { color: var(--acid); }
-
-  .app-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--dim);
-    transition: color 0.3s;
-  }
-  .app-info h3 { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.4rem; }
-  .app-info p { font-size: 0.8rem; color: var(--mid); letter-spacing: 0.05em; }
-
-  .app-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
-  .tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    padding: 0.3rem 0.75rem;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 100px;
-    color: var(--mid);
-    letter-spacing: 0.08em;
-  }
-  .tag.available {
-    border-color: rgba(176,108,255,0.4);
-    color: var(--acid);
-  }
-
-  .app-toggle {
-    font-size: 1.2rem;
-    color: var(--mid);
-    transition: transform 0.3s, color 0.3s;
-    margin-left: 1rem;
-    user-select: none;
-  }
-  .app-item.open .app-toggle { transform: rotate(45deg); color: var(--acid); }
-
-  .app-detail {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .app-item.open .app-detail { max-height: 2000px; }
-
-  .app-detail-inner {
-    padding: 0 0 3rem 80px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-  }
-
-  .app-desc p {
-    font-size: 0.95rem;
-    color: var(--mid);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-  }
-  .app-features {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin-bottom: 2rem;
-  }
-  .app-features li {
-    font-size: 0.85rem;
-    color: var(--paper);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .app-features li::before {
-    content: '▸';
-    color: var(--acid);
-    font-size: 0.7rem;
-  }
-
-  .app-media { display: flex; flex-direction: column; gap: 1.5rem; }
-
-  .app-screenshots {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-  .app-screenshots img {
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid rgba(176,108,255,0.15);
-    object-fit: cover;
-    aspect-ratio: 9/16;
-    background: rgba(176,108,255,0.05);
-  }
-  .app-screenshots img[src=""] { display: none; }
-
-  .app-video-wrap {
-    position: relative;
-    padding-bottom: 56.25%;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(176,108,255,0.15);
-  }
-  .app-video-wrap iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .btn-store {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--acid);
-    color: var(--ink);
-    padding: 0.75rem 1.75rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    cursor: none;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-    transition: opacity 0.2s;
-  }
-  .btn-store:hover { opacity: 0.85; }
-
-  /* SERVICES */
-  #services { flex-direction: column; gap: 4rem; }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
-    width: 100%;
-  }
-  .service-block {
-    background: var(--ink);
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.4s;
-  }
-  .service-block::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(176,108,255,0.06), transparent);
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-  .service-block:hover { background: #0f0f1a; }
-  .service-block:hover::after { opacity: 1; }
-  .service-block:hover .service-icon { color: var(--acid); transform: scale(1.1); }
-  .service-icon {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    display: block;
-    transition: color 0.3s, transform 0.3s;
-  }
-  .service-block h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
-  .service-block p { font-size: 0.85rem; color: var(--mid); line-height: 1.7; }
-
-  /* PROCESS */
-  #process { flex-direction: column; gap: 5rem; }
-  .process-track { position: relative; width: 100%; }
-  .process-line {
-    position: absolute;
-    top: 20px; left: 0; right: 0;
-    height: 1px;
-    background: rgba(255,255,255,0.06);
-  }
-  .process-line-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--acid), #c084fc);
-    width: 0;
-    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .process-track.animate .process-line-fill { width: 100%; }
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-  }
-  .process-step { padding-top: 3rem; }
-  .process-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--dim);
-    margin-bottom: 1.5rem;
-    position: relative;
-    top: -2.5rem;
-    transition: background 0.5s;
-  }
-  .process-track.animate .process-dot { background: var(--acid); box-shadow: 0 0 12px rgba(176,108,255,0.5); }
-  .process-step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .process-step p { font-size: 0.78rem; color: var(--mid); line-height: 1.6; }
-
-  /* PRIVACY / TERMS / FAQ */
-  #faq, #privacy { flex-direction: column; gap: 3rem; }
-
-  .faq-list { width: 100%; display: flex; flex-direction: column; }
-  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .faq-q {
-    padding: 1.5rem 0;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
-  .faq-q::after { content: '+'; color: var(--acid); font-size: 1.4rem; transition: transform 0.3s; }
-  .faq-item.open .faq-q::after { transform: rotate(45deg); }
-  .faq-a {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    font-size: 0.9rem;
-    color: var(--mid);
-    line-height: 1.8;
-  }
-  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.5rem; }
-
-  .privacy-content { max-width: 800px; }
-  .privacy-content h3 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--acid); }
-  .privacy-content p, .privacy-content li {
-    font-size: 0.9rem;
-    color: var(--mid);
-    line-height: 1.8;
-    margin-bottom: 0.5rem;
-  }
-  .privacy-content ul { padding-left: 1.5rem; }
-
-  /* CONTACT */
-  #contact {
-    background: var(--paper);
-    color: var(--ink);
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 3rem;
-  }
-  #contact .section-label { color: var(--ink); opacity: 0.5; }
-  #contact .section-label::before { background: var(--ink); }
-  #contact h2 { color: var(--ink); }
-  #contact p { color: #555; max-width: 500px; line-height: 1.8; font-size: 1rem; }
-  .cta-bottom { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
-  .btn-dark {
-    background: var(--ink);
-    color: var(--acid);
-    padding: 1rem 2.5rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: none;
-    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
-    transition: opacity 0.2s;
-  }
-  .btn-dark:hover { opacity: 0.85; }
-  .contact-email {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--dim);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,0.15);
-    padding-bottom: 2px;
-    transition: border-color 0.2s;
-  }
-  .contact-email:hover { border-color: var(--ink); color: var(--ink); }
-
-  footer {
-    background: #060609;
-    padding: 2rem 10vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--dim);
-    letter-spacing: 0.1em;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeLeft {
-    from { opacity: 0; transform: translateX(40px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── EDITOR ──────────────────────────────────────────────── */
-  #editBtn {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    z-index: 9000;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: rgba(176,108,255,0.15);
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s, width 0.3s, height 0.3s, border-radius 0.3s;
-    padding: 0;
-  }
-  #editBtn:hover {
-    background: rgba(176,108,255,0.7);
-    width: 36px; height: 36px;
-    border-radius: 50%;
-  }
-
-  .editor-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 8000;
-    backdrop-filter: blur(4px);
-  }
-  .editor-overlay.open { display: block; }
-
-  .editor-panel {
-    position: fixed;
-    top: 0; right: -500px;
-    width: 480px;
-    height: 100vh;
-    background: #12121c;
-    border-left: 1px solid rgba(176,108,255,0.2);
-    z-index: 8500;
-    display: flex;
-    flex-direction: column;
-    transition: right 0.4s cubic-bezier(0.16,1,0.3,1);
-    overflow: hidden;
-  }
-  .editor-panel.open { right: 0; }
-
-  .editor-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .editor-header h2 {
-    font-size: 0.9rem;
-    font-family: 'Space Mono', monospace;
-    letter-spacing: 0.15em;
-    color: var(--acid);
-    font-weight: 400;
-  }
-  .editor-close {
-    background: none;
-    border: none;
-    color: var(--mid);
-    font-size: 1.4rem;
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    transition: color 0.2s;
-  }
-  .editor-close:hover { color: var(--paper); }
-
-  .editor-tabs {
-    display: flex;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    overflow-x: auto;
-    flex-shrink: 0;
-  }
-  .editor-tab {
-    padding: 0.75rem 1.25rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--mid);
-    background: none;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .editor-tab.active { color: var(--acid); border-bottom-color: var(--acid); }
-
-  .editor-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .editor-tab-content { display: none; flex-direction: column; gap: 1.25rem; }
-  .editor-tab-content.active { display: flex; }
-
-  .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  .field-group label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--mid);
-  }
-  .field-group input, .field-group textarea {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 6px;
-    color: var(--paper);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.85rem;
-    padding: 0.6rem 0.85rem;
-    width: 100%;
-    transition: border-color 0.2s;
-    resize: vertical;
-  }
-  .field-group input:focus, .field-group textarea:focus {
-    outline: none;
-    border-color: rgba(176,108,255,0.4);
-  }
-  .field-group small {
-    font-size: 0.7rem;
-    color: var(--dim);
-    font-family: 'Space Mono', monospace;
-  }
-
-  .editor-section-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--acid);
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(176,108,255,0.15);
-  }
-
-  .editor-footer {
-    padding: 1.25rem 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    display: flex;
-    gap: 0.75rem;
-    flex-shrink: 0;
-  }
-  .btn-apply {
-    flex: 1;
-    background: var(--acid);
-    color: var(--ink);
-    border: none;
-    padding: 0.75rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: opacity 0.2s;
-  }
-  .btn-apply:hover { opacity: 0.85; }
-  .btn-export {
-    flex: 1;
-    background: rgba(176,108,255,0.1);
-    color: var(--acid);
-    border: 1px solid rgba(176,108,255,0.3);
-    padding: 0.75rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background 0.2s;
-  }
-  .btn-export:hover { background: rgba(176,108,255,0.2); }
-
-  .editor-hint {
-    font-size: 0.7rem;
-    color: var(--dim);
-    font-family: 'Space Mono', monospace;
-    text-align: center;
-    padding: 0 1.5rem 1rem;
-    line-height: 1.6;
-  }
-
-  @media (max-width: 900px) {
-    .hero-visual { display: none; }
-    .services-grid { grid-template-columns: 1fr; }
-    .process-steps { grid-template-columns: 1fr 1fr; }
-    .app-item-header { grid-template-columns: 60px 1fr auto; }
-    .app-tags { display: none; }
-    .app-detail-inner { grid-template-columns: 1fr; padding-left: 0; }
-    section { padding: 6rem 6vw; }
-    .editor-panel { width: 100%; }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--ink:#0a0a0f;--paper:#f0ede8;--acid:#b06cff;--acid2:#7c3aed;--dim:#3a3a4a;--mid:#7a7a8a}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--paper);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
+  .cursor{width:12px;height:12px;background:var(--acid);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .1s ease;mix-blend-mode:difference}
+  .cursor-ring{width:40px;height:40px;border:1px solid rgba(176,108,255,.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:transform .15s ease,width .3s,height .3s,border-color .3s}
+  .cursor-ring.hover{width:60px;height:60px;border-color:var(--acid)}
+  .side-nav{position:fixed;right:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1rem;z-index:100}
+  .side-nav a{display:block;width:6px;height:6px;border-radius:50%;background:var(--dim);transition:background .3s,transform .3s;text-decoration:none}
+  .side-nav a.active,.side-nav a:hover{background:var(--acid);transform:scale(1.8)}
+  .logo{position:fixed;top:2rem;left:2.5rem;z-index:100;font-family:'Space Mono',monospace;font-size:.85rem;letter-spacing:.15em;color:var(--paper);text-decoration:none;display:flex;align-items:center;gap:.6rem}
+  .logo-icon{width:28px;height:28px;background:linear-gradient(135deg,var(--acid),var(--acid2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .logo span{color:var(--acid)}
+  section{min-height:100vh;display:flex;align-items:center;position:relative;padding:8rem 10vw}
+  #hero{overflow:hidden}
+  .hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(176,108,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(176,108,255,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 20s linear infinite}
+  @keyframes gridDrift{0%{background-position:0 0}100%{background-position:60px 60px}}
+  .hero-content{position:relative;z-index:2;max-width:900px}
+  .eyebrow{font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.2em;color:var(--acid);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:fadeUp .8s .2s forwards}
+  .eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--acid)}
+  h1{font-size:clamp(3rem,7vw,7rem);font-weight:700;line-height:.95;letter-spacing:-.03em;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .4s forwards}
+  h1 .highlight{background:linear-gradient(90deg,var(--acid),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-sub{font-size:1.1rem;color:var(--mid);max-width:480px;line-height:1.7;margin-bottom:3.5rem;opacity:0;animation:fadeUp .8s .6s forwards}
+  .cta-group{display:flex;align-items:center;gap:2.5rem;opacity:0;animation:fadeUp .8s .8s forwards}
+  .btn-primary{background:var(--acid);color:var(--ink);border:none;padding:1rem 2.5rem;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:opacity .2s,transform .2s}
+  .btn-primary:hover{opacity:.85;transform:translateY(-2px)}
+  .scroll-hint{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;color:var(--mid);display:flex;align-items:center;gap:.75rem}
+  .scroll-hint::after{content:'';display:block;width:1px;height:40px;background:linear-gradient(to bottom,var(--mid),transparent);animation:scrollBar 1.5s ease-in-out infinite}
+  @keyframes scrollBar{0%,100%{opacity:.3}50%{opacity:1}}
+  .hero-visual{position:absolute;right:8vw;top:50%;transform:translateY(-50%);opacity:0;animation:fadeLeft 1s 1s forwards}
+  .phone-frame{width:220px;height:440px;border:2px solid rgba(176,108,255,.2);border-radius:36px;position:relative;background:linear-gradient(145deg,#141420,#0d0d18);box-shadow:0 0 80px rgba(176,108,255,.08),inset 0 1px 0 rgba(255,255,255,.05);animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0) rotateY(-8deg) rotateX(2deg)}50%{transform:translateY(-20px) rotateY(-12deg) rotateX(4deg)}}
+  .phone-screen{position:absolute;inset:12px;border-radius:26px;background:var(--ink);overflow:hidden;display:flex;flex-direction:column;gap:8px;padding:20px 12px}
+  .ps-bar{height:6px;border-radius:3px;background:rgba(176,108,255,.3)}
+  .ps-bar:nth-child(2){width:70%;background:rgba(176,108,255,.15)}
+  .ps-bar:nth-child(3){width:85%;background:rgba(176,108,255,.1)}
+  .ps-block{margin-top:8px;height:80px;border-radius:12px;background:linear-gradient(135deg,rgba(176,108,255,.08),rgba(124,58,237,.04));border:1px solid rgba(176,108,255,.1)}
+  .ps-row{display:flex;gap:8px;margin-top:8px}
+  .ps-pill{height:28px;border-radius:14px;background:rgba(176,108,255,.12);flex:1}
+  .ps-dot{position:absolute;top:-6px;right:-6px;width:12px;height:12px;background:var(--acid);border-radius:50%;box-shadow:0 0 16px var(--acid);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 16px var(--acid)}50%{box-shadow:0 0 32px var(--acid),0 0 48px rgba(176,108,255,.3)}}
+  .marquee-section{min-height:auto;padding:2rem 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden}
+  .marquee-track{display:flex;gap:4rem;animation:marquee 20s linear infinite;white-space:nowrap;width:max-content}
+  .marquee-track span{font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+  .marquee-track .dot{color:var(--acid);font-size:1rem}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  #apps{flex-direction:column;align-items:flex-start;gap:5rem}
+  .section-label{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.25em;color:var(--acid);text-transform:uppercase;display:flex;align-items:center;gap:1rem}
+  .section-label::before{content:'';display:block;width:24px;height:1px;background:var(--acid)}
+  h2{font-size:clamp(2rem,4vw,4rem);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .apps-list{width:100%}
+  .app-item{border-bottom:1px solid rgba(255,255,255,.06);cursor:none;overflow:hidden}
+  .app-item-header{display:grid;grid-template-columns:80px 1fr auto auto;align-items:center;gap:2rem;padding:2rem 0;transition:padding-left .4s cubic-bezier(.16,1,.3,1);position:relative}
+  .app-item-header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(176,108,255,.03);transition:width .4s cubic-bezier(.16,1,.3,1)}
+  .app-item.open .app-item-header::before,.app-item-header:hover::before{width:100%}
+  .app-item-header:hover{padding-left:1.5rem}
+  .app-item-header:hover .app-num{color:var(--acid)}
+  .app-num{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--dim);transition:color .3s}
+  .app-info h3{font-size:1.4rem;font-weight:500;margin-bottom:.4rem}
+  .app-info p{font-size:.8rem;color:var(--mid);letter-spacing:.05em}
+  .app-tags{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+  .tag{font-family:'Space Mono',monospace;font-size:.65rem;padding:.3rem .75rem;border:1px solid rgba(255,255,255,.1);border-radius:100px;color:var(--mid);letter-spacing:.08em}
+  .tag.available{border-color:rgba(176,108,255,.4);color:var(--acid)}
+  .app-toggle{font-size:1.2rem;color:var(--mid);transition:transform .3s,color .3s;margin-left:1rem;user-select:none}
+  .app-item.open .app-toggle{transform:rotate(45deg);color:var(--acid)}
+  .app-detail{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1)}
+  .app-item.open .app-detail{max-height:2000px}
+  .app-detail-inner{padding:0 0 3rem 80px;display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+  .app-desc p{font-size:.95rem;color:var(--mid);line-height:1.8;margin-bottom:1.5rem}
+  .app-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
+  .app-features li{font-size:.85rem;color:var(--paper);display:flex;align-items:center;gap:.75rem}
+  .app-features li::before{content:'▸';color:var(--acid);font-size:.7rem}
+  .app-media{display:flex;flex-direction:column;gap:1.5rem}
+  .app-screenshots{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+  .app-screenshots img{width:100%;border-radius:12px;border:1px solid rgba(176,108,255,.15);object-fit:cover;aspect-ratio:9/16;background:rgba(176,108,255,.05)}
+  .app-video-wrap{position:relative;padding-bottom:56.25%;border-radius:12px;overflow:hidden;border:1px solid rgba(176,108,255,.15)}
+  .app-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+  .btn-store{display:inline-flex;align-items:center;gap:.5rem;background:var(--acid);color:var(--ink);padding:.75rem 1.75rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:opacity .2s}
+  .btn-store:hover{opacity:.85}
+  #services{flex-direction:column;gap:4rem}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);width:100%}
+  .service-block{background:var(--ink);padding:2.5rem;position:relative;overflow:hidden;transition:background .4s}
+  .service-block::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(176,108,255,.06),transparent);opacity:0;transition:opacity .4s}
+  .service-block:hover{background:#0f0f1a}
+  .service-block:hover::after{opacity:1}
+  .service-block:hover .service-icon{color:var(--acid);transform:scale(1.1)}
+  .service-icon{font-size:2rem;margin-bottom:1.5rem;display:block;transition:color .3s,transform .3s}
+  .service-block h3{font-size:1.1rem;font-weight:600;margin-bottom:.75rem}
+  .service-block p{font-size:.85rem;color:var(--mid);line-height:1.7}
+  /* NUMBERS */
+  #numbers{background:linear-gradient(180deg,transparent,rgba(176,108,255,.02),transparent);flex-direction:column;gap:4rem}
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);width:100%}
+  .stat-block{padding:3rem 2rem;text-align:center;background:var(--ink)}
+  .stat-num{font-family:'Space Mono',monospace;font-size:clamp(2.5rem,4vw,4rem);font-weight:700;color:var(--acid);line-height:1;display:block;margin-bottom:.5rem}
+  .stat-label{font-size:.8rem;color:var(--mid);letter-spacing:.1em;text-transform:uppercase}
+  #process{flex-direction:column;gap:5rem}
+  .process-track{position:relative;width:100%}
+  .process-line{position:absolute;top:20px;left:0;right:0;height:1px;background:rgba(255,255,255,.06)}
+  .process-line-fill{height:100%;background:linear-gradient(90deg,var(--acid),#c084fc);width:0;transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+  .process-track.animate .process-line-fill{width:100%}
+  .process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+  .process-step{padding-top:3rem}
+  .process-dot{width:10px;height:10px;border-radius:50%;background:var(--dim);margin-bottom:1.5rem;position:relative;top:-2.5rem;transition:background .5s}
+  .process-track.animate .process-dot{background:var(--acid);box-shadow:0 0 12px rgba(176,108,255,.5)}
+  .process-step h4{font-size:.95rem;font-weight:600;margin-bottom:.5rem}
+  .process-step p{font-size:.78rem;color:var(--mid);line-height:1.6}
+  #faq,#privacy{flex-direction:column;gap:3rem}
+  .faq-list{width:100%;display:flex;flex-direction:column}
+  .faq-item{border-bottom:1px solid rgba(255,255,255,.06)}
+  .faq-q{padding:1.5rem 0;font-size:1rem;font-weight:500;cursor:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  .faq-q::after{content:'+';color:var(--acid);font-size:1.4rem;transition:transform .3s}
+  .faq-item.open .faq-q::after{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:.9rem;color:var(--mid);line-height:1.8}
+  .faq-item.open .faq-a{max-height:300px;padding-bottom:1.5rem}
+  .privacy-content{max-width:800px}
+  .privacy-content h3{font-size:1.1rem;font-weight:600;margin:2rem 0 .75rem;color:var(--acid)}
+  .privacy-content p,.privacy-content li{font-size:.9rem;color:var(--mid);line-height:1.8;margin-bottom:.5rem}
+  .privacy-content ul{padding-left:1.5rem}
+  #contact{background:var(--paper);color:var(--ink);flex-direction:column;align-items:flex-start;gap:3rem}
+  #contact .section-label{color:var(--ink);opacity:.5}
+  #contact .section-label::before{background:var(--ink)}
+  #contact h2{color:var(--ink)}
+  #contact p{color:#555;max-width:500px;line-height:1.8;font-size:1rem}
+  .cta-bottom{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
+  .btn-dark{background:var(--ink);color:var(--acid);padding:1rem 2.5rem;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:opacity .2s}
+  .btn-dark:hover{opacity:.85}
+  .contact-email{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;transition:border-color .2s}
+  .contact-email:hover{border-color:var(--ink);color:var(--ink)}
+  footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeLeft{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  /* EDITOR */
+  #editBtn{position:fixed;bottom:1.5rem;left:1.5rem;z-index:9000;width:10px;height:10px;border-radius:50%;background:rgba(176,108,255,.15);border:none;cursor:pointer;transition:background .3s,width .3s,height .3s;padding:0}
+  #editBtn:hover{background:rgba(176,108,255,.7);width:36px;height:36px}
+  .editor-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:8000;backdrop-filter:blur(4px)}
+  .editor-overlay.open{display:block}
+  .editor-panel{position:fixed;top:0;right:-520px;width:500px;height:100vh;background:#12121c;border-left:1px solid rgba(176,108,255,.2);z-index:8500;display:flex;flex-direction:column;transition:right .4s cubic-bezier(.16,1,.3,1);overflow:hidden}
+  .editor-panel.open{right:0}
+  .editor-header{padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+  .editor-header h2{font-size:.9rem;font-family:'Space Mono',monospace;letter-spacing:.15em;color:var(--acid);font-weight:400}
+  .editor-close{background:none;border:none;color:var(--mid);font-size:1.4rem;cursor:pointer;padding:.25rem .5rem;transition:color .2s}
+  .editor-close:hover{color:var(--paper)}
+  .editor-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06);overflow-x:auto;flex-shrink:0;scrollbar-width:none}
+  .editor-tabs::-webkit-scrollbar{display:none}
+  .editor-tab{padding:.75rem 1rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);background:none;border:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+  .editor-tab.active{color:var(--acid);border-bottom-color:var(--acid)}
+  .editor-body{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem}
+  .editor-tab-content{display:none;flex-direction:column;gap:1.25rem}
+  .editor-tab-content.active{display:flex}
+  .field-group{display:flex;flex-direction:column;gap:.4rem}
+  .field-group label{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mid)}
+  .field-group input,.field-group textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;color:var(--paper);font-family:'Space Grotesk',sans-serif;font-size:.85rem;padding:.6rem .85rem;width:100%;transition:border-color .2s;resize:vertical}
+  .field-group input:focus,.field-group textarea:focus{outline:none;border-color:rgba(176,108,255,.4)}
+  .field-group small{font-size:.7rem;color:var(--dim);font-family:'Space Mono',monospace}
+  .editor-section-title{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);padding:.5rem 0;border-bottom:1px solid rgba(176,108,255,.15)}
+  .editor-footer{padding:1.25rem 1.5rem;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:.75rem;flex-shrink:0}
+  .btn-apply{flex:1;background:var(--acid);color:var(--ink);border:none;padding:.75rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;border-radius:6px;transition:opacity .2s}
+  .btn-apply:hover{opacity:.85}
+  .btn-export{flex:1;background:rgba(176,108,255,.1);color:var(--acid);border:1px solid rgba(176,108,255,.3);padding:.75rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;border-radius:6px;transition:background .2s}
+  .btn-export:hover{background:rgba(176,108,255,.2)}
+  .editor-hint{font-size:.7rem;color:var(--dim);font-family:'Space Mono',monospace;text-align:center;padding:0 1.5rem 1rem;line-height:1.6}
+  @media(max-width:900px){
+    .hero-visual{display:none}
+    .services-grid{grid-template-columns:1fr}
+    .stats-row{grid-template-columns:repeat(2,1fr)}
+    .process-steps{grid-template-columns:1fr 1fr}
+    .app-item-header{grid-template-columns:60px 1fr auto}
+    .app-tags{display:none}
+    .app-detail-inner{grid-template-columns:1fr;padding-left:0}
+    section{padding:6rem 6vw}
+    .editor-panel{width:100%}
   }
 </style>
 </head>
 <body>
-
-<div class="cursor" id="cursor" style="transform: translate(1158px, 453px);"></div>
-<div class="cursor-ring" id="cursorRing" style="transform: translate(1144px, 439.011px);"></div>
-
-<a href="#" class="logo">
-  <div class="logo-icon">✦</div>
-  AURA<span>DEV</span>
-</a>
-
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<a href="#" class="logo"><div class="logo-icon">✦</div>AURA<span>DEV</span></a>
 <nav class="side-nav">
-  <a href="#hero" class="" title="Início"></a>
-  <a href="#apps" title="Apps" class="active"></a>
+  <a href="#hero" class="active" title="Início"></a>
+  <a href="#apps" title="Apps"></a>
   <a href="#services" title="Serviços"></a>
+  <a href="#numbers" title="Números"></a>
   <a href="#process" title="Processo"></a>
   <a href="#faq" title="FAQ"></a>
   <a href="#contact" title="Contato"></a>
@@ -880,12 +201,8 @@
   <div class="hero-bg-grid"></div>
   <div class="hero-content">
     <div class="eyebrow" id="h-eyebrow">App Studio — Curitiba, Brasil</div>
-    <h1 id="h-title">
-      Apps que<br>
-      trabalham por<br>
-      <span class="highlight" id="h-highlight">você.</span>
-    </h1>
-    <p class="hero-sub" id="h-sub">Desenvolvemos aplicativos Android com as meljores ferramentas do mercado— do conceito a Play Store. Automação real para o dia a dia do seu negócio.</p>
+    <h1 id="h-title">Apps que<br>trabalham por<br><span class="highlight" id="h-highlight">você.</span></h1>
+    <p class="hero-sub" id="h-sub">Desenvolvemos aplicativos Android com as melhores ferramentas do mercado — do conceito ao Play Store. Automação real para o dia a dia do seu negócio.</p>
     <div class="cta-group">
       <a href="#apps" class="btn-primary">Ver aplicativos</a>
       <div class="scroll-hint">Scroll</div>
@@ -894,13 +211,11 @@
   <div class="hero-visual">
     <div class="phone-frame">
       <div class="phone-screen">
-        <div class="ps-bar"></div>
-        <div class="ps-bar"></div>
-        <div class="ps-bar"></div>
+        <div class="ps-bar"></div><div class="ps-bar"></div><div class="ps-bar"></div>
         <div class="ps-block"></div>
         <div class="ps-row"><div class="ps-pill"></div><div class="ps-pill"></div></div>
-        <div class="ps-row" style="margin-top:4px;"><div class="ps-pill" style="flex:2"></div></div>
-        <div class="ps-block" style="margin-top:12px;height:60px;opacity:0.6;"></div>
+        <div class="ps-row" style="margin-top:4px"><div class="ps-pill" style="flex:2"></div></div>
+        <div class="ps-block" style="margin-top:12px;height:60px;opacity:.6"></div>
       </div>
       <div class="ps-dot"></div>
     </div>
@@ -910,35 +225,25 @@
 <!-- MARQUEE -->
 <div class="marquee-section">
   <div class="marquee-track">
-    <span>Flutter</span><span class="dot">·</span>
-    <span>Android</span><span class="dot">·</span>
-    <span>Firebase</span><span class="dot">·</span>
-    <span>Inteligência Artificial</span><span class="dot">·</span>
-    <span>Play Store</span><span class="dot">·</span>
-    <span>Nuvemshop</span><span class="dot">·</span>
-    <span>OpenAI</span><span class="dot">·</span>
-    <span>Monetização</span><span class="dot">·</span>
-    <span>Flutter</span><span class="dot">·</span>
-    <span>Android</span><span class="dot">·</span>
-    <span>Firebase</span><span class="dot">·</span>
-    <span>Inteligência Artificial</span><span class="dot">·</span>
-    <span>Play Store</span><span class="dot">·</span>
-    <span>Nuvemshop</span><span class="dot">·</span>
-    <span>OpenAI</span><span class="dot">·</span>
-    <span>Monetização</span><span class="dot">·</span>
+    <span>Flutter</span><span class="dot">·</span><span>Android</span><span class="dot">·</span>
+    <span>Firebase</span><span class="dot">·</span><span>Inteligência Artificial</span><span class="dot">·</span>
+    <span>Play Store</span><span class="dot">·</span><span>Nuvemshop</span><span class="dot">·</span>
+    <span>OpenAI</span><span class="dot">·</span><span>Monetização</span><span class="dot">·</span>
+    <span>Flutter</span><span class="dot">·</span><span>Android</span><span class="dot">·</span>
+    <span>Firebase</span><span class="dot">·</span><span>Inteligência Artificial</span><span class="dot">·</span>
+    <span>Play Store</span><span class="dot">·</span><span>Nuvemshop</span><span class="dot">·</span>
+    <span>OpenAI</span><span class="dot">·</span><span>Monetização</span><span class="dot">·</span>
   </div>
 </div>
 
 <!-- APPS -->
 <section id="apps">
   <div style="width:100%">
-    <div class="section-label reveal visible">Nossos Apps</div>
-    <h2 style="margin:1.5rem 0 3rem" class="reveal visible">O que construímos</h2>
+    <div class="section-label reveal">Nossos Apps</div>
+    <h2 style="margin:1.5rem 0 3rem" class="reveal">O que construímos</h2>
   </div>
+  <div class="apps-list reveal" id="appsList">
 
-  <div class="apps-list reveal visible" id="appsList">
-
-    <!-- APP 01 -->
     <div class="app-item" id="appItem0">
       <div class="app-item-header" onclick="toggleApp(0)">
         <span class="app-num">01</span>
@@ -948,30 +253,41 @@
         </div>
         <div class="app-tags">
           <span class="tag available">Disponível</span>
-          <span class="tag">Flutter</span>
-          <span class="tag">OpenAI</span>
-          <span class="tag">Nuvemshop API</span>
+          <span class="tag">Flutter</span><span class="tag">OpenAI</span><span class="tag">Nuvemshop API</span>
         </div>
         <span class="app-toggle">+</span>
       </div>
       <div class="app-detail">
         <div class="app-detail-inner">
           <div class="app-desc">
-            <p id="app0-desc">Fotografe qualquer produto com seu celular e publique na sua loja Nuvemshop em menos de 1 minuto. A IA analisa a foto, gera nome e descrição comercial  — você só revisa e publica.</p>
-            <ul class="app-features" id="app0-features"><li>Análise de produtos por inteligência artificial</li><li>Geração automática de nome e descrição</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na Nuvemshop via API</li><li>Geração de fotos profissionais com IA (OpenAI)</li><li>Leitura de código de barras integrada</li><li>Peso e medidas para cálculo de frete</li></ul>
+            <p id="app0-desc">Fotografe qualquer produto com seu celular e publique na sua loja Nuvemshop em menos de 1 minuto. A IA analisa a foto, gera nome e descrição comercial — você só revisa e publica.</p>
+            <ul class="app-features" id="app0-features">
+              <li>Análise de produtos por inteligência artificial</li>
+              <li>Geração automática de nome e descrição</li>
+              <li>Cadastro com variantes (cor e tamanho)</li>
+              <li>Gestão de categorias e estoque</li>
+              <li>Publicação direta na Nuvemshop via API</li>
+              <li>Geração de fotos profissionais com IA (OpenAI)</li>
+              <li>Leitura de código de barras integrada</li>
+              <li>Peso e medidas para cálculo de frete</li>
+            </ul>
             <a href="https://play.google.com/store" class="btn-store" id="app0-link" target="_blank">▶ Ver na Play Store</a>
           </div>
           <div class="app-media">
-            <div class="app-screenshots" id="app0-screenshots" style="display: grid;"><img src="images/image1.jpg" alt="Screenshot"><img src="images/image2.jpg" alt="Screenshot"><img src="images/image3.jpg" alt="Screenshot"><img src="images/image4.jpg" alt="Screenshot"></div>
-            <div class="app-video-wrap" id="app0-videowrap" style="display: block;">
-              <iframe id="app0-iframe" src="https://www.youtube.com/embed/99_Y5ggjAWw" allowfullscreen=""></iframe>
+            <div class="app-screenshots" id="app0-screenshots" style="display:grid">
+              <img src="images/image1.jpg" alt="Screenshot">
+              <img src="images/image2.jpg" alt="Screenshot">
+              <img src="images/image3.jpg" alt="Screenshot">
+              <img src="images/image4.jpg" alt="Screenshot">
+            </div>
+            <div class="app-video-wrap" id="app0-videowrap" style="display:block">
+              <iframe id="app0-iframe" src="https://www.youtube.com/embed/99_Y5ggjAWw" allowfullscreen></iframe>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- APP 02 -->
     <div class="app-item" id="appItem1">
       <div class="app-item-header" onclick="toggleApp(1)">
         <span class="app-num">02</span>
@@ -980,9 +296,8 @@
           <p id="app1-sub">Redes Sociais · Meta API · Android</p>
         </div>
         <div class="app-tags">
-          <span class="tag" style="border-color:rgba(255,200,0,0.4);color:#ffc800;">Em Breve</span>
-          <span class="tag">Flutter</span>
-          <span class="tag">Meta API</span>
+          <span class="tag" style="border-color:rgba(255,200,0,.4);color:#ffc800">Em Breve</span>
+          <span class="tag">Flutter</span><span class="tag">Meta API</span>
         </div>
         <span class="app-toggle">+</span>
       </div>
@@ -990,20 +305,26 @@
         <div class="app-detail-inner">
           <div class="app-desc">
             <p id="app1-desc">Publique produtos direto no seu catálogo do Instagram e Facebook com IA. Fotografe, gere descrição automática e envie para o Commerce Manager — tudo pelo celular, sem precisar de computador.</p>
-            <ul class="app-features" id="app1-features"><li>Integração com Meta Commerce Manager</li><li>Publicação no catálogo do Instagram e Facebook</li><li>Geração de descrição por IA em português</li><li>Gerenciamento de variantes de produtos</li><li>Cadastro em lote de múltiplos produtos</li><li>Sincronização automática de estoque</li></ul>
+            <ul class="app-features" id="app1-features">
+              <li>Integração com Meta Commerce Manager</li>
+              <li>Publicação no catálogo do Instagram e Facebook</li>
+              <li>Geração de descrição por IA em português</li>
+              <li>Gerenciamento de variantes de produtos</li>
+              <li>Cadastro em lote de múltiplos produtos</li>
+              <li>Sincronização automática de estoque</li>
+            </ul>
             <a href="#contact" class="btn-store">✉ Quero ser avisado</a>
           </div>
           <div class="app-media">
-            <div class="app-screenshots" id="app1-screenshots" style="display: none;"></div>
+            <div class="app-screenshots" id="app1-screenshots" style="display:none"></div>
             <div class="app-video-wrap" id="app1-videowrap" style="display:none">
-              <iframe id="app1-iframe" src="" allowfullscreen=""></iframe>
+              <iframe id="app1-iframe" src="" allowfullscreen></iframe>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- APP 03 -->
     <div class="app-item" id="appItem2">
       <div class="app-item-header" onclick="toggleApp(2)">
         <span class="app-num">03</span>
@@ -1012,9 +333,8 @@
           <p id="app2-sub">E-commerce · Loja Integrada · Android</p>
         </div>
         <div class="app-tags">
-          <span class="tag" style="border-color:rgba(255,200,0,0.4);color:#ffc800;">Em Breve</span>
-          <span class="tag">Flutter</span>
-          <span class="tag">Loja Integrada API</span>
+          <span class="tag" style="border-color:rgba(255,200,0,.4);color:#ffc800">Em Breve</span>
+          <span class="tag">Flutter</span><span class="tag">Loja Integrada API</span>
         </div>
         <span class="app-toggle">+</span>
       </div>
@@ -1022,13 +342,20 @@
         <div class="app-detail-inner">
           <div class="app-desc">
             <p id="app2-desc">A mesma praticidade do Catálogo por IA, agora para lojistas da plataforma Loja Integrada. Fotografe, gere descrição com IA e publique produtos direto na sua loja — tudo pelo celular.</p>
-            <ul class="app-features" id="app2-features"><li>Integração completa com a API da Loja Integrada</li><li>Análise de produtos por inteligência artificial</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na plataforma</li><li>Peso e medidas para cálculo de frete</li></ul>
+            <ul class="app-features" id="app2-features">
+              <li>Integração completa com a API da Loja Integrada</li>
+              <li>Análise de produtos por inteligência artificial</li>
+              <li>Cadastro com variantes (cor e tamanho)</li>
+              <li>Gestão de categorias e estoque</li>
+              <li>Publicação direta na plataforma</li>
+              <li>Peso e medidas para cálculo de frete</li>
+            </ul>
             <a href="#contact" class="btn-store">✉ Quero ser avisado</a>
           </div>
           <div class="app-media">
-            <div class="app-screenshots" id="app2-screenshots" style="display: none;"></div>
+            <div class="app-screenshots" id="app2-screenshots" style="display:none"></div>
             <div class="app-video-wrap" id="app2-videowrap" style="display:none">
-              <iframe id="app2-iframe" src="" allowfullscreen=""></iframe>
+              <iframe id="app2-iframe" src="" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -1044,36 +371,38 @@
     <div class="section-label reveal">O que fazemos</div>
     <h2 style="margin:1.5rem 0 3rem" class="reveal">Serviços</h2>
   </div>
-  <div class="services-grid reveal">
-    <div class="service-block">
-      <span class="service-icon">◈</span>
-      <h3>App Android com IA</h3>
-      <p>Flutter de ponta a ponta — da ideia ao Play Store. Integramos inteligência artificial diretamente no app para automatizar tarefas reais.</p>
+  <div class="services-grid reveal" id="servicesGrid">
+    <div class="service-block"><span class="service-icon">◈</span><h3>App Android com IA</h3><p>Flutter de ponta a ponta — da ideia ao Play Store. Integramos inteligência artificial diretamente no app para automatizar tarefas reais.</p></div>
+    <div class="service-block"><span class="service-icon">⬡</span><h3>Integrações &amp; APIs</h3><p>Conectamos seu app ao mundo: Nuvemshop, Loja Integrada, Meta Commerce, Firebase, OpenAI, OpenRouter e muito mais.</p></div>
+    <div class="service-block"><span class="service-icon">◎</span><h3>E-commerce Mobile</h3><p>Soluções específicas para lojistas de plataformas como Nuvemshop e Loja Integrada — gestão de catálogo, estoque e pedidos pelo celular.</p></div>
+    <div class="service-block"><span class="service-icon">▲</span><h3>Monetização</h3><p>Desenvolvemos apps pensando em renda passiva: assinatura mensal, freemium e in-app purchase — o modelo certo para o seu negócio.</p></div>
+    <div class="service-block"><span class="service-icon">◉</span><h3>Visão Computacional</h3><p>Análise de imagens, geração de fotos profissionais com IA, leitura de código de barras e descrição automática de produtos.</p></div>
+    <div class="service-block"><span class="service-icon">⬢</span><h3>Suporte &amp; Crescimento</h3><p>Acompanhamento pós-lançamento: atualizações, correção de bugs, ASO na Play Store e análise de métricas de uso.</p></div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section id="numbers">
+  <div style="width:100%">
+    <div class="section-label reveal">Em números</div>
+    <h2 style="margin:1.5rem 0 3rem" class="reveal">Resultados concretos</h2>
+  </div>
+  <div class="stats-row reveal" id="statsRow">
+    <div class="stat-block">
+      <span class="stat-num" id="stat0-num" data-target="3">0</span>
+      <span class="stat-label" id="stat0-label">Apps publicados</span>
     </div>
-    <div class="service-block">
-      <span class="service-icon">⬡</span>
-      <h3>Integrações &amp; APIs</h3>
-      <p>Conectamos seu app ao mundo: Nuvemshop, Loja Integrada, Meta Commerce, Firebase, OpenAI, OpenRouter e muito mais.</p>
+    <div class="stat-block">
+      <span class="stat-num" id="stat1-num" data-target="500" data-suffix="+">0</span>
+      <span class="stat-label" id="stat1-label">Produtos cadastrados</span>
     </div>
-    <div class="service-block">
-      <span class="service-icon">◎</span>
-      <h3>E-commerce Mobile</h3>
-      <p>Soluções específicas para lojistas de plataformas como Nuvemshop e Loja Integrada — gestão de catálogo, estoque e pedidos pelo celular.</p>
+    <div class="stat-block">
+      <span class="stat-num" id="stat2-num" data-target="4.8" data-decimal>0</span>
+      <span class="stat-label" id="stat2-label">Nota média Play Store</span>
     </div>
-    <div class="service-block">
-      <span class="service-icon">▲</span>
-      <h3>Monetização</h3>
-      <p>Desenvolvemos apps pensando em renda passiva: assinatura mensal, freemium e in-app purchase — o modelo certo para o seu negócio.</p>
-    </div>
-    <div class="service-block">
-      <span class="service-icon">◉</span>
-      <h3>Visão Computacional</h3>
-      <p>Análise de imagens, geração de fotos profissionais com IA, leitura de código de barras e descrição automática de produtos.</p>
-    </div>
-    <div class="service-block">
-      <span class="service-icon">⬢</span>
-      <h3>Suporte &amp; Crescimento</h3>
-      <p>Acompanhamento pós-lançamento: atualizações, correção de bugs, ASO na Play Store e análise de métricas de uso.</p>
+    <div class="stat-block">
+      <span class="stat-num" id="stat3-num" data-target="5" data-suffix=" países">0</span>
+      <span class="stat-label" id="stat3-label">Países atendidos</span>
     </div>
   </div>
 </section>
@@ -1085,33 +414,13 @@
     <h2 style="margin:1.5rem 0 4rem" class="reveal">Do briefing ao lançamento</h2>
   </div>
   <div class="process-track reveal" id="processTrack">
-    <div class="process-line"><div class="process-line-fill" id="processLineFill"></div></div>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="process-dot"></div>
-        <h4>Descoberta</h4>
-        <p>Entendemos o negócio, os usuários e o problema real que o app resolve.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-dot"></div>
-        <h4>Arquitetura</h4>
-        <p>Definimos stack, integrações e fluxo de dados antes de qualquer tela.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-dot"></div>
-        <h4>Desenvolvimento</h4>
-        <p>Flutter clean code com Firebase, APIs e releases incrementais.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-dot"></div>
-        <h4>Testes</h4>
-        <p>Closed testing na Play Store com usuários reais antes do lançamento.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-dot"></div>
-        <h4>Lançamento</h4>
-        <p>Play Store, ASO, analytics e monitoramento nos primeiros 30 dias.</p>
-      </div>
+    <div class="process-line"><div class="process-line-fill"></div></div>
+    <div class="process-steps" id="processSteps">
+      <div class="process-step"><div class="process-dot"></div><h4>Descoberta</h4><p>Entendemos o negócio, os usuários e o problema real que o app resolve.</p></div>
+      <div class="process-step"><div class="process-dot"></div><h4>Arquitetura</h4><p>Definimos stack, integrações e fluxo de dados antes de qualquer tela.</p></div>
+      <div class="process-step"><div class="process-dot"></div><h4>Desenvolvimento</h4><p>Flutter clean code com Firebase, APIs e releases incrementais.</p></div>
+      <div class="process-step"><div class="process-dot"></div><h4>Testes</h4><p>Closed testing na Play Store com usuários reais antes do lançamento.</p></div>
+      <div class="process-step"><div class="process-dot"></div><h4>Lançamento</h4><p>Play Store, ASO, analytics e monitoramento nos primeiros 30 dias.</p></div>
     </div>
   </div>
 </section>
@@ -1122,44 +431,23 @@
     <div class="section-label reveal">Dúvidas</div>
     <h2 style="margin:1.5rem 0 3rem" class="reveal">Perguntas frequentes</h2>
   </div>
-  <div class="faq-list reveal">
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">O app é gratuito?</div>
-      <div class="faq-a">O download na Play Store é gratuito. O uso completo requer uma assinatura mensal, cobrada diretamente pela plataforma (Nuvemshop, por exemplo). O valor é exibido na página do app na loja de aplicativos da plataforma.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">O app funciona em iPhone (iOS)?</div>
-      <div class="faq-a">No momento, todos os apps da Aura Dev estão disponíveis apenas para Android na Google Play Store. A versão para iOS está em avaliação para versões futuras.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Minha senha da Nuvemshop fica salva no app?</div>
-      <div class="faq-a">Não. O app usa autenticação OAuth 2.0 — o mesmo padrão do Google e Facebook. Sua senha nunca é transmitida ou armazenada. Apenas um token de acesso gerado pela própria Nuvemshop fica salvo no dispositivo, e pode ser revogado a qualquer momento pelo painel da Nuvemshop.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Como a IA gera a descrição dos produtos?</div>
-      <div class="faq-a">Ao fotografar um produto, o app envia a imagem para um modelo de inteligência artificial que analisa o que aparece na foto e gera automaticamente um nome e uma descrição comercial em português. Você revisa e edita antes de publicar — a IA é um ponto de partida para agilizar o seu trabalho.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Posso cadastrar produtos com variantes (cores e tamanhos)?</div>
-      <div class="faq-a">Sim! O app suporta cadastro de produtos simples e com variantes. Você seleciona combinações de cor e tamanho, define estoque individual para cada combinação, e o app envia tudo corretamente para a plataforma.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Como cancelo minha assinatura?</div>
-      <div class="faq-a">O cancelamento é feito diretamente pelo painel da plataforma que você usa (ex: Nuvemshop → Meus Aplicativos → Desinstalar). A cobrança é interrompida imediatamente e os produtos já cadastrados na sua loja não são afetados.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Encontrei um problema. Como reportar?</div>
-      <div class="faq-a">Entre em contato pelo email auradev.app@gmail.com descrevendo o problema, a versão do app e o aparelho que está usando. Respondemos em até 48 horas úteis.</div>
-    </div>
+  <div class="faq-list reveal" id="faqList">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O app é gratuito?</div><div class="faq-a">O download na Play Store é gratuito. O uso completo requer uma assinatura mensal, cobrada diretamente pela plataforma. O valor é exibido na página do app na loja de aplicativos da plataforma.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O app funciona em iPhone (iOS)?</div><div class="faq-a">No momento, todos os apps da Aura Dev estão disponíveis apenas para Android na Google Play Store. A versão para iOS está em avaliação para versões futuras.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Minha senha da Nuvemshop fica salva no app?</div><div class="faq-a">Não. O app usa autenticação OAuth 2.0 — o mesmo padrão do Google e Facebook. Sua senha nunca é transmitida ou armazenada. Apenas um token de acesso gerado pela própria Nuvemshop fica salvo no dispositivo, e pode ser revogado a qualquer momento pelo painel da Nuvemshop.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como a IA gera a descrição dos produtos?</div><div class="faq-a">Ao fotografar um produto, o app envia a imagem para um modelo de inteligência artificial que analisa o que aparece na foto e gera automaticamente um nome e uma descrição comercial em português. Você revisa e edita antes de publicar.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso cadastrar produtos com variantes (cores e tamanhos)?</div><div class="faq-a">Sim! O app suporta cadastro de produtos simples e com variantes. Você seleciona combinações de cor e tamanho, define estoque individual para cada combinação, e o app envia tudo corretamente para a plataforma.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como cancelo minha assinatura?</div><div class="faq-a">O cancelamento é feito diretamente pelo painel da plataforma que você usa (ex: Nuvemshop → Meus Aplicativos → Desinstalar). A cobrança é interrompida imediatamente e os produtos já cadastrados na sua loja não são afetados.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Encontrei um problema. Como reportar?</div><div class="faq-a">Entre em contato pelo email auradev.app@gmail.com descrevendo o problema, a versão do app e o aparelho que está usando. Respondemos em até 48 horas úteis.</div></div>
   </div>
 </section>
 
 <!-- PRIVACY -->
-<section id="privacy" style="min-height:auto; padding-top:4rem; padding-bottom:4rem;">
+<section id="privacy" style="min-height:auto;padding-top:4rem;padding-bottom:4rem">
   <div style="width:100%">
     <div class="section-label reveal">Legal</div>
     <h2 style="margin:1.5rem 0 3rem" class="reveal">Política de Privacidade</h2>
-    <div class="privacy-content reveal">
+    <div class="privacy-content reveal" id="privacyContent">
       <p>Última atualização: Janeiro de 2025</p>
       <h3>1. Quem somos</h3>
       <p>A Aura Dev Apps é responsável pelo desenvolvimento e manutenção dos aplicativos disponibilizados neste site. Contato para assuntos de privacidade: <strong>auradev.app@gmail.com</strong></p>
@@ -1189,7 +477,7 @@
   <h2 style="margin:1rem 0" id="c-title">Tem uma ideia de app?</h2>
   <p id="c-sub">Conte o problema. Desenvolvemos juntos a solução mais inteligente — do briefing ao Play Store.</p>
   <div class="cta-bottom">
-    <a href="mailto:auradev.app@gmail.com" class="btn-dark">Iniciar projeto</a>
+    <a href="mailto:auradev.app@gmail.com" class="btn-dark" id="c-btn">Iniciar projeto</a>
     <a href="mailto:auradev.app@gmail.com" class="contact-email" id="c-email">auradev.app@gmail.com</a>
   </div>
 </section>
@@ -1200,176 +488,128 @@
   <span>Flutter · Firebase · Android · IA</span>
 </footer>
 
-<!-- EDITOR BUTTON -->
 <button id="editBtn" onclick="openEditor()" title="Editor"></button>
-
-<!-- OVERLAY -->
 <div class="editor-overlay" id="editorOverlay" onclick="closeEditor()"></div>
 
-<!-- EDITOR PANEL -->
 <div class="editor-panel" id="editorPanel">
   <div class="editor-header">
     <h2>— EDITOR</h2>
     <button class="editor-close" onclick="closeEditor()">✕</button>
   </div>
   <div class="editor-tabs">
-    <button class="editor-tab" onclick="switchTab('hero')">Hero</button>
-    <button class="editor-tab active" onclick="switchTab('app1')">App 1</button>
-    <button class="editor-tab" onclick="switchTab('app2')">App 2</button>
-    <button class="editor-tab" onclick="switchTab('app3')">App 3</button>
-    <button class="editor-tab" onclick="switchTab('contact')">Contato</button>
+    <button class="editor-tab active" onclick="switchTab('hero',this)">Hero</button>
+    <button class="editor-tab" onclick="switchTab('app1',this)">App 1</button>
+    <button class="editor-tab" onclick="switchTab('app2',this)">App 2</button>
+    <button class="editor-tab" onclick="switchTab('app3',this)">App 3</button>
+    <button class="editor-tab" onclick="switchTab('numbers',this)">Números</button>
+    <button class="editor-tab" onclick="switchTab('services',this)">Serviços</button>
+    <button class="editor-tab" onclick="switchTab('process',this)">Processo</button>
+    <button class="editor-tab" onclick="switchTab('faq',this)">FAQ</button>
+    <button class="editor-tab" onclick="switchTab('privacy',this)">Legal</button>
+    <button class="editor-tab" onclick="switchTab('contact',this)">Contato</button>
   </div>
   <div class="editor-body">
 
-    <!-- TAB HERO -->
-    <div class="editor-tab-content" id="tab-hero">
+    <div class="editor-tab-content active" id="tab-hero">
       <div class="editor-section-title">Seção inicial</div>
-      <div class="field-group">
-        <label>Subtítulo acima do título</label>
-        <input type="text" id="e-eyebrow" value="App Studio — Curitiba, Brasil">
-      </div>
-      <div class="field-group">
-        <label>Palavra em destaque (gradiente)</label>
-        <input type="text" id="e-highlight" value="você.">
-      </div>
-      <div class="field-group">
-        <label>Texto descritivo</label>
-        <textarea id="e-sub" rows="3">Desenvolvemos aplicativos Android com inteligência artificial — do conceito ao Play Store. Automação real para o dia a dia do seu negócio.</textarea>
-      </div>
+      <div class="field-group"><label>Linha acima do título</label><input type="text" id="e-eyebrow"></div>
+      <div class="field-group"><label>Palavra em destaque (gradiente)</label><input type="text" id="e-highlight"></div>
+      <div class="field-group"><label>Texto descritivo</label><textarea id="e-sub" rows="3"></textarea></div>
     </div>
 
-    <!-- TAB APP1 -->
-    <div class="editor-tab-content active" id="tab-app1">
-      <div class="editor-section-title">App 1 — Catálogo por IA Nuvemshop</div>
-      <div class="field-group">
-        <label>Nome do app</label>
-        <input type="text" id="e-a0-name" value="Catálogo por IA — Nuvemshop">
-      </div>
-      <div class="field-group">
-        <label>Subtítulo</label>
-        <input type="text" id="e-a0-sub" value="E-commerce · Nuvemshop · Android">
-      </div>
-      <div class="field-group">
-        <label>Descrição</label>
-        <textarea id="e-a0-desc" rows="4">Fotografe qualquer produto com seu celular e publique na sua loja Nuvemshop em menos de 1 minuto. A IA analisa a foto, gera nome e descrição comercial em português — você só revisa e publica.</textarea>
-      </div>
-      <div class="field-group">
-        <label>Funcionalidades (uma por linha)</label>
-        <textarea id="e-a0-features" rows="6">Análise de produtos por inteligência artificial
-Geração automática de nome e descrição
-Cadastro com variantes (cor e tamanho)
-Gestão de categorias e estoque
-Publicação direta na Nuvemshop via API
-Geração de fotos profissionais com IA (OpenAI)
-Leitura de código de barras integrada
-Peso e medidas para cálculo de frete</textarea>
-      </div>
-      <div class="field-group">
-        <label>Link da Play Store</label>
-        <input type="text" id="e-a0-link" value="https://play.google.com/store">
-      </div>
-      <div class="editor-section-title">Imagens</div>
-      <div class="field-group">
-        <label>Screenshots (um caminho por linha)</label>
-        <textarea id="e-a0-imgs" rows="4">images/screen1.jpg
-images/screen2.jpg
-images/screen3.jpg
-images/screen4.jpg</textarea>
-        <small>Ex: images/screen1.png — suba em images/ no GitHub</small>
-      </div>
-      <div class="field-group">
-        <label>ID do vídeo YouTube (deixe vazio para ocultar)</label>
-        <input type="text" id="e-a0-video" placeholder="Ex: dQw4w9WgXcQ">
-        <small>Só o código após ?v= na URL do YouTube</small>
-      </div>
+    <div class="editor-tab-content" id="tab-app1">
+      <div class="editor-section-title">App 1</div>
+      <div class="field-group"><label>Nome</label><input type="text" id="e-a0-name"></div>
+      <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a0-sub"></div>
+      <div class="field-group"><label>Descrição</label><textarea id="e-a0-desc" rows="4"></textarea></div>
+      <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a0-features" rows="6"></textarea></div>
+      <div class="field-group"><label>Link da Play Store</label><input type="text" id="e-a0-link"></div>
+      <div class="editor-section-title">Imagens e Vídeo</div>
+      <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a0-imgs" rows="4"></textarea><small>Ex: images/screen1.jpg — suba em images/ no GitHub</small></div>
+      <div class="field-group"><label>ID do vídeo YouTube (vazio = ocultar)</label><input type="text" id="e-a0-video"><small>Só o código após ?v= na URL. Para Shorts: código após /shorts/</small></div>
     </div>
 
-    <!-- TAB APP2 -->
     <div class="editor-tab-content" id="tab-app2">
-      <div class="editor-section-title">App 2 — Catálogo por IA Instagram</div>
-      <div class="field-group">
-        <label>Nome do app</label>
-        <input type="text" id="e-a1-name" value="Catálogo por IA — Instagram">
-      </div>
-      <div class="field-group">
-        <label>Subtítulo</label>
-        <input type="text" id="e-a1-sub" value="Redes Sociais · Meta API · Android">
-      </div>
-      <div class="field-group">
-        <label>Descrição</label>
-        <textarea id="e-a1-desc" rows="4">Publique produtos direto no seu catálogo do Instagram e Facebook com IA. Fotografe, gere descrição automática e envie para o Commerce Manager — tudo pelo celular, sem precisar de computador.</textarea>
-      </div>
-      <div class="field-group">
-        <label>Funcionalidades (uma por linha)</label>
-        <textarea id="e-a1-features" rows="5">Integração com Meta Commerce Manager
-Publicação no catálogo do Instagram e Facebook
-Geração de descrição por IA em português
-Gerenciamento de variantes de produtos
-Cadastro em lote de múltiplos produtos
-Sincronização automática de estoque</textarea>
-      </div>
-      <div class="editor-section-title">Imagens</div>
-      <div class="field-group">
-        <label>Screenshots (um caminho por linha)</label>
-        <textarea id="e-a1-imgs" rows="3" placeholder="images/screen1.jpg"></textarea>
-        <small>Deixe vazio para ocultar a seção de imagens</small>
-      </div>
-      <div class="field-group">
-        <label>ID do vídeo YouTube</label>
-        <input type="text" id="e-a1-video" placeholder="Ex: dQw4w9WgXcQ">
-      </div>
+      <div class="editor-section-title">App 2</div>
+      <div class="field-group"><label>Nome</label><input type="text" id="e-a1-name"></div>
+      <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a1-sub"></div>
+      <div class="field-group"><label>Descrição</label><textarea id="e-a1-desc" rows="4"></textarea></div>
+      <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a1-features" rows="6"></textarea></div>
+      <div class="editor-section-title">Imagens e Vídeo</div>
+      <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a1-imgs" rows="3"></textarea><small>Deixe vazio para ocultar</small></div>
+      <div class="field-group"><label>ID do vídeo YouTube</label><input type="text" id="e-a1-video"></div>
     </div>
 
-    <!-- TAB APP3 -->
     <div class="editor-tab-content" id="tab-app3">
-      <div class="editor-section-title">App 3 — Catálogo por IA Loja Integrada</div>
-      <div class="field-group">
-        <label>Nome do app</label>
-        <input type="text" id="e-a2-name" value="Catálogo por IA — Loja Integrada">
-      </div>
-      <div class="field-group">
-        <label>Subtítulo</label>
-        <input type="text" id="e-a2-sub" value="E-commerce · Loja Integrada · Android">
-      </div>
-      <div class="field-group">
-        <label>Descrição</label>
-        <textarea id="e-a2-desc" rows="4">A mesma praticidade do Catálogo por IA, agora para lojistas da plataforma Loja Integrada. Fotografe, gere descrição com IA e publique produtos direto na sua loja — tudo pelo celular.</textarea>
-      </div>
-      <div class="field-group">
-        <label>Funcionalidades (uma por linha)</label>
-        <textarea id="e-a2-features" rows="5">Integração completa com a API da Loja Integrada
-Análise de produtos por inteligência artificial
-Cadastro com variantes (cor e tamanho)
-Gestão de categorias e estoque
-Publicação direta na plataforma
-Peso e medidas para cálculo de frete</textarea>
-      </div>
-      <div class="editor-section-title">Imagens</div>
-      <div class="field-group">
-        <label>Screenshots (um caminho por linha)</label>
-        <textarea id="e-a2-imgs" rows="3" placeholder="images/screen1.jpg"></textarea>
-      </div>
-      <div class="field-group">
-        <label>ID do vídeo YouTube</label>
-        <input type="text" id="e-a2-video" placeholder="Ex: dQw4w9WgXcQ">
-      </div>
+      <div class="editor-section-title">App 3</div>
+      <div class="field-group"><label>Nome</label><input type="text" id="e-a2-name"></div>
+      <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a2-sub"></div>
+      <div class="field-group"><label>Descrição</label><textarea id="e-a2-desc" rows="4"></textarea></div>
+      <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a2-features" rows="6"></textarea></div>
+      <div class="editor-section-title">Imagens e Vídeo</div>
+      <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a2-imgs" rows="3"></textarea></div>
+      <div class="field-group"><label>ID do vídeo YouTube</label><input type="text" id="e-a2-video"></div>
     </div>
 
-    <!-- TAB CONTACT -->
+    <div class="editor-tab-content" id="tab-numbers">
+      <div class="editor-section-title">Seção Números</div>
+      <div class="field-group"><label>Número 1 (ex: 3)</label><input type="text" id="e-s0-num" placeholder="3"></div>
+      <div class="field-group"><label>Sufixo 1 (ex: + ou vazio)</label><input type="text" id="e-s0-suf" placeholder="+"></div>
+      <div class="field-group"><label>Label 1</label><input type="text" id="e-s0-lbl"></div>
+      <div class="field-group"><label>Número 2</label><input type="text" id="e-s1-num" placeholder="500"></div>
+      <div class="field-group"><label>Sufixo 2</label><input type="text" id="e-s1-suf" placeholder="+"></div>
+      <div class="field-group"><label>Label 2</label><input type="text" id="e-s1-lbl"></div>
+      <div class="field-group"><label>Número 3 (use ponto para decimal: 4.8)</label><input type="text" id="e-s2-num" placeholder="4.8"></div>
+      <div class="field-group"><label>Sufixo 3</label><input type="text" id="e-s2-suf" placeholder=""></div>
+      <div class="field-group"><label>Label 3</label><input type="text" id="e-s2-lbl"></div>
+      <div class="field-group"><label>Número 4</label><input type="text" id="e-s3-num" placeholder="5"></div>
+      <div class="field-group"><label>Sufixo 4</label><input type="text" id="e-s3-suf" placeholder=" países"></div>
+      <div class="field-group"><label>Label 4</label><input type="text" id="e-s3-lbl"></div>
+    </div>
+
+    <div class="editor-tab-content" id="tab-services">
+      <div class="editor-section-title">Serviços (6 blocos)</div>
+      <script>
+        for(let s=0;s<6;s++){
+          document.write(`<div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço ${s+1}</div>`);
+          document.write(`<div class="field-group"><label>Título</label><input type="text" id="e-sv${s}-title"></div>`);
+          document.write(`<div class="field-group"><label>Texto</label><textarea id="e-sv${s}-text" rows="2"></textarea></div>`);
+        }
+      </script>
+    </div>
+
+    <div class="editor-tab-content" id="tab-process">
+      <div class="editor-section-title">Etapas do processo (5 etapas)</div>
+      <script>
+        for(let p=0;p<5;p++){
+          document.write(`<div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa ${p+1}</div>`);
+          document.write(`<div class="field-group"><label>Título</label><input type="text" id="e-pr${p}-title"></div>`);
+          document.write(`<div class="field-group"><label>Texto</label><textarea id="e-pr${p}-text" rows="2"></textarea></div>`);
+        }
+      </script>
+    </div>
+
+    <div class="editor-tab-content" id="tab-faq">
+      <div class="editor-section-title">FAQ (7 perguntas)</div>
+      <small style="color:var(--mid);font-family:'Space Mono',monospace;font-size:.65rem">Formato: Pergunta | Resposta (separados por |)</small>
+      <script>
+        for(let f=0;f<7;f++){
+          document.write(`<div class="field-group"><label>Pergunta ${f+1}</label><input type="text" id="e-fq${f}"></div>`);
+          document.write(`<div class="field-group"><label>Resposta ${f+1}</label><textarea id="e-fa${f}" rows="2"></textarea></div>`);
+        }
+      </script>
+    </div>
+
+    <div class="editor-tab-content" id="tab-privacy">
+      <div class="editor-section-title">Política de Privacidade</div>
+      <div class="field-group"><label>Conteúdo completo (HTML permitido)</label><textarea id="e-privacy" rows="12"></textarea><small>Use &lt;h3&gt;Título&lt;/h3&gt; e &lt;p&gt;Texto&lt;/p&gt; para formatar</small></div>
+    </div>
+
     <div class="editor-tab-content" id="tab-contact">
       <div class="editor-section-title">Seção de contato</div>
-      <div class="field-group">
-        <label>Título</label>
-        <input type="text" id="e-ctitle" value="Tem uma ideia de app?">
-      </div>
-      <div class="field-group">
-        <label>Texto</label>
-        <textarea id="e-csub" rows="2">Conte o problema. Desenvolvemos juntos a solução mais inteligente — do briefing ao Play Store.</textarea>
-      </div>
-      <div class="field-group">
-        <label>Email de contato</label>
-        <input type="text" id="e-cemail" value="auradev.app@gmail.com">
-      </div>
+      <div class="field-group"><label>Título</label><input type="text" id="e-ctitle"></div>
+      <div class="field-group"><label>Texto</label><textarea id="e-csub" rows="2"></textarea></div>
+      <div class="field-group"><label>Email de contato</label><input type="text" id="e-cemail"></div>
     </div>
 
   </div>
@@ -1382,157 +622,243 @@ Peso e medidas para cálculo de frete</textarea>
 
 <script>
 // Cursor
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cursor.style.transform=`translate(${mx-6}px,${my-6}px)`;
-});
-(function animateRing(){
-  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
-  ring.style.transform=`translate(${rx-20}px,${ry-20}px)`;
-  requestAnimationFrame(animateRing);
-})();
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.transform=`translate(${mx-6}px,${my-6}px)`});
+(function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.transform=`translate(${rx-20}px,${ry-20}px)`;requestAnimationFrame(ar)})();
 document.querySelectorAll('a,button,.app-item-header,.service-block,.faq-q').forEach(el=>{
   el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
   el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
 });
 
 // Reveal
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80);
-  });
-},{threshold:0.1});
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80)})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // Side nav
-const secs=document.querySelectorAll('section[id]');
-const navLinks=document.querySelectorAll('.side-nav a');
-const navObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      navLinks.forEach(a=>a.classList.remove('active'));
-      const a=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);
-      if(a)a.classList.add('active');
-    }
-  });
-},{threshold:0.4});
+const secs=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.side-nav a');
+new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:.4}).observe||secs.forEach(s=>new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:.4}).observe(s));
+const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:.4});
 secs.forEach(s=>navObs.observe(s));
 
 // Process line
-const processObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('animate');});
-},{threshold:0.3});
-const track=document.getElementById('processTrack');
-if(track)processObs.observe(track);
+const processObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('animate')})},{threshold:.3});
+const track=document.getElementById('processTrack');if(track)processObs.observe(track);
 
-// Toggle app detail
-function toggleApp(i){
-  const item=document.getElementById('appItem'+i);
-  item.classList.toggle('open');
+// Counter
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting)return;
+    entry.target.querySelectorAll('[data-target]').forEach(el=>{
+      const target=parseFloat(el.dataset.target);
+      const suffix=el.dataset.suffix||'';
+      const isDecimal=el.hasAttribute('data-decimal');
+      let start=0;
+      const step=ts=>{
+        if(!start)start=ts;
+        const progress=Math.min((ts-start)/1500,1);
+        const eased=1-Math.pow(1-progress,3);
+        const val=eased*target;
+        el.textContent=isDecimal?val.toFixed(1)+suffix:Math.floor(val)+suffix;
+        if(progress<1)requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    counterObs.unobserve(entry.target);
+  });
+},{threshold:.5});
+const statsRow=document.getElementById('statsRow');if(statsRow)counterObs.observe(statsRow);
+
+function toggleApp(i){document.getElementById('appItem'+i).classList.toggle('open')}
+function toggleFaq(el){el.parentElement.classList.toggle('open')}
+
+// EDITOR
+function switchTab(name,btn){
+  document.querySelectorAll('.editor-tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.editor-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(btn)btn.classList.add('active');
 }
 
-// Toggle FAQ
-function toggleFaq(el){
-  const item=el.parentElement;
-  item.classList.toggle('open');
-}
+function openEditor(){
+  // ── Lê o conteúdo ATUAL da página e preenche o editor ──
+  const g=(id)=>document.getElementById(id);
 
-// ── EDITOR ──────────────────────────────────────
-function openEditor(){ 
+  // Hero — lê do DOM atual
+  g('e-eyebrow').value=g('h-eyebrow')?.textContent||'';
+  g('e-highlight').value=g('h-highlight')?.textContent||'';
+  g('e-sub').value=g('h-sub')?.textContent||'';
+
+  // Apps
+  for(let i=0;i<3;i++){
+    const nameEl=g(`app${i}-name`),subEl=g(`app${i}-sub`),descEl=g(`app${i}-desc`);
+    const featEl=g(`app${i}-features`),linkEl=g(`app${i}-link`);
+    const screensEl=g(`app${i}-screenshots`),videoEl=g(`app${i}-iframe`);
+    if(nameEl) g(`e-a${i}-name`).value=nameEl.textContent;
+    if(subEl)  g(`e-a${i}-sub`).value=subEl.textContent;
+    if(descEl) g(`e-a${i}-desc`).value=descEl.textContent;
+    if(featEl) g(`e-a${i}-features`).value=Array.from(featEl.querySelectorAll('li')).map(li=>li.textContent).join('\n');
+    if(linkEl) g(`e-a${i}-link`)&&(g(`e-a${i}-link`).value=linkEl.href||'');
+    if(screensEl){
+      const imgs=Array.from(screensEl.querySelectorAll('img')).map(img=>img.src.replace(window.location.origin+window.location.pathname.replace('index.html',''),'').replace(window.location.origin+'/',''));
+      const ta=g(`e-a${i}-imgs`);if(ta)ta.value=imgs.join('\n');
+    }
+    if(videoEl){
+      const src=videoEl.src||'';
+      const match=src.match(/embed\/([^?&]+)/);
+      const ta=g(`e-a${i}-video`);if(ta)ta.value=match?match[1]:'';
+    }
+  }
+
+  // Números
+  for(let s=0;s<4;s++){
+    const numEl=g(`stat${s}-num`),lblEl=g(`stat${s}-label`);
+    if(numEl){
+      g(`e-s${s}-num`).value=numEl.dataset.target||'';
+      g(`e-s${s}-suf`).value=numEl.dataset.suffix||'';
+    }
+    if(lblEl) g(`e-s${s}-lbl`).value=lblEl.textContent;
+  }
+
+  // Serviços
+  const svBlocks=document.querySelectorAll('#servicesGrid .service-block');
+  svBlocks.forEach((bl,i)=>{
+    const th=g(`e-sv${i}-title`),tx=g(`e-sv${i}-text`);
+    if(th)th.value=bl.querySelector('h3')?.textContent||'';
+    if(tx)tx.value=bl.querySelector('p')?.textContent||'';
+  });
+
+  // Processo
+  const prSteps=document.querySelectorAll('#processSteps .process-step');
+  prSteps.forEach((st,i)=>{
+    const th=g(`e-pr${i}-title`),tx=g(`e-pr${i}-text`);
+    if(th)th.value=st.querySelector('h4')?.textContent||'';
+    if(tx)tx.value=st.querySelector('p')?.textContent||'';
+  });
+
+  // FAQ
+  const faqItems=document.querySelectorAll('#faqList .faq-item');
+  faqItems.forEach((it,i)=>{
+    const qEl=g(`e-fq${i}`),aEl=g(`e-fa${i}`);
+    if(qEl)qEl.value=it.querySelector('.faq-q')?.textContent||'';
+    if(aEl)aEl.value=it.querySelector('.faq-a')?.textContent||'';
+  });
+
+  // Privacidade
+  const pvEl=g('privacyContent');
+  const pvTa=g('e-privacy');
+  if(pvEl&&pvTa)pvTa.value=pvEl.innerHTML;
+
+  // Contato
+  g('e-ctitle').value=g('c-title')?.textContent||'';
+  g('e-csub').value=g('c-sub')?.textContent||'';
+  g('e-cemail').value=g('c-email')?.textContent||'';
+
   document.getElementById('editorPanel').classList.add('open');
   document.getElementById('editorOverlay').classList.add('open');
 }
+
 function closeEditor(){
   document.getElementById('editorPanel').classList.remove('open');
   document.getElementById('editorOverlay').classList.remove('open');
 }
-function switchTab(name){
-  document.querySelectorAll('.editor-tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.editor-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  event.target.classList.add('active');
-}
 
-function setScreenshots(containerId, paths){
-  const c=document.getElementById(containerId);
-  if(!c)return;
+function setScreenshots(containerId,paths){
+  const c=document.getElementById(containerId);if(!c)return;
   const imgs=paths.filter(p=>p.trim());
   c.innerHTML='';
-  if(imgs.length===0){c.style.display='none';return;}
+  if(!imgs.length){c.style.display='none';return;}
   c.style.display='grid';
-  imgs.forEach(src=>{
-    const img=document.createElement('img');
-    img.src=src.trim();
-    img.alt='Screenshot';
-    c.appendChild(img);
-  });
+  imgs.forEach(src=>{const img=document.createElement('img');img.src=src.trim();img.alt='Screenshot';c.appendChild(img)});
 }
 
-function setVideo(wrapId, iframeId, videoId){
-  const wrap=document.getElementById(wrapId);
-  const iframe=document.getElementById(iframeId);
+function setVideo(wrapId,iframeId,videoId){
+  const wrap=document.getElementById(wrapId),iframe=document.getElementById(iframeId);
   if(!wrap||!iframe)return;
   const id=videoId.trim();
-  if(id){
-    iframe.src=`https://www.youtube.com/embed/${id}`;
-    wrap.style.display='block';
-  } else {
-    iframe.src='';
-    wrap.style.display='none';
-  }
+  if(id){iframe.src=`https://www.youtube.com/embed/${id}`;wrap.style.display='block';}
+  else{iframe.src='';wrap.style.display='none';}
 }
 
 function applyChanges(){
+  const g=id=>document.getElementById(id);
+
   // Hero
-  const eyebrow=document.getElementById('e-eyebrow').value;
-  const highlight=document.getElementById('e-highlight').value;
-  const sub=document.getElementById('e-sub').value;
-  document.getElementById('h-eyebrow').textContent=eyebrow;
-  document.getElementById('h-highlight').textContent=highlight;
-  document.getElementById('h-sub').textContent=sub;
+  g('h-eyebrow').textContent=g('e-eyebrow').value;
+  g('h-highlight').textContent=g('e-highlight').value;
+  g('h-sub').textContent=g('e-sub').value;
 
   // Apps
   for(let i=0;i<3;i++){
-    const name=document.getElementById(`e-a${i}-name`)?.value||'';
-    const sub2=document.getElementById(`e-a${i}-sub`)?.value||'';
-    const desc=document.getElementById(`e-a${i}-desc`)?.value||'';
-    const feats=(document.getElementById(`e-a${i}-features`)?.value||'').split('\n').filter(f=>f.trim());
-    const imgs=(document.getElementById(`e-a${i}-imgs`)?.value||'').split('\n');
-    const video=document.getElementById(`e-a${i}-video`)?.value||'';
-    const link=document.getElementById(`e-a${i}-link`)?.value||'';
-
-    if(document.getElementById(`app${i}-name`)) document.getElementById(`app${i}-name`).textContent=name;
-    if(document.getElementById(`app${i}-sub`)) document.getElementById(`app${i}-sub`).textContent=sub2;
-    if(document.getElementById(`app${i}-desc`)) document.getElementById(`app${i}-desc`).textContent=desc;
-
-    const featEl=document.getElementById(`app${i}-features`);
-    if(featEl){
-      featEl.innerHTML=feats.map(f=>`<li>${f}</li>`).join('');
-    }
-    if(link && document.getElementById(`app${i}-link`)){
-      document.getElementById(`app${i}-link`).href=link;
-    }
-
-    setScreenshots(`app${i}-screenshots`, imgs);
+    const name=g(`e-a${i}-name`)?.value||'';
+    const sub=g(`e-a${i}-sub`)?.value||'';
+    const desc=g(`e-a${i}-desc`)?.value||'';
+    const feats=(g(`e-a${i}-features`)?.value||'').split('\n').filter(f=>f.trim());
+    const imgs=(g(`e-a${i}-imgs`)?.value||'').split('\n');
+    const video=g(`e-a${i}-video`)?.value||'';
+    const link=g(`e-a${i}-link`)?.value||'';
+    if(g(`app${i}-name`))g(`app${i}-name`).textContent=name;
+    if(g(`app${i}-sub`))g(`app${i}-sub`).textContent=sub;
+    if(g(`app${i}-desc`))g(`app${i}-desc`).textContent=desc;
+    const featEl=g(`app${i}-features`);
+    if(featEl)featEl.innerHTML=feats.map(f=>`<li>${f}</li>`).join('');
+    if(link&&g(`app${i}-link`))g(`app${i}-link`).href=link;
+    setScreenshots(`app${i}-screenshots`,imgs);
     setVideo(`app${i}-videowrap`,`app${i}-iframe`,video);
   }
 
-  // Contact
-  const ct=document.getElementById('e-ctitle').value;
-  const cs=document.getElementById('e-csub').value;
-  const ce=document.getElementById('e-cemail').value;
-  if(ct) document.getElementById('c-title').innerHTML=ct.replace('\n','<br>');
-  if(cs) document.getElementById('c-sub').textContent=cs;
+  // Números
+  for(let s=0;s<4;s++){
+    const numEl=g(`stat${s}-num`),lblEl=g(`stat${s}-label`);
+    const numVal=g(`e-s${s}-num`)?.value||'0';
+    const sufVal=g(`e-s${s}-suf`)?.value||'';
+    const lblVal=g(`e-s${s}-lbl`)?.value||'';
+    if(numEl){
+      numEl.dataset.target=numVal;
+      numEl.dataset.suffix=sufVal;
+      // Verifica se é decimal
+      if(numVal.includes('.')){numEl.setAttribute('data-decimal','');}
+      else{numEl.removeAttribute('data-decimal');}
+      numEl.textContent=numVal+sufVal;
+    }
+    if(lblEl)lblEl.textContent=lblVal;
+  }
+
+  // Serviços
+  const svBlocks=document.querySelectorAll('#servicesGrid .service-block');
+  svBlocks.forEach((bl,i)=>{
+    const th=g(`e-sv${i}-title`),tx=g(`e-sv${i}-text`);
+    if(th&&bl.querySelector('h3'))bl.querySelector('h3').textContent=th.value;
+    if(tx&&bl.querySelector('p'))bl.querySelector('p').textContent=tx.value;
+  });
+
+  // Processo
+  const prSteps=document.querySelectorAll('#processSteps .process-step');
+  prSteps.forEach((st,i)=>{
+    const th=g(`e-pr${i}-title`),tx=g(`e-pr${i}-text`);
+    if(th&&st.querySelector('h4'))st.querySelector('h4').textContent=th.value;
+    if(tx&&st.querySelector('p'))st.querySelector('p').textContent=tx.value;
+  });
+
+  // FAQ
+  const faqItems=document.querySelectorAll('#faqList .faq-item');
+  faqItems.forEach((it,i)=>{
+    const qEl=g(`e-fq${i}`),aEl=g(`e-fa${i}`);
+    if(qEl&&it.querySelector('.faq-q'))it.querySelector('.faq-q').textContent=qEl.value;
+    if(aEl&&it.querySelector('.faq-a'))it.querySelector('.faq-a').textContent=aEl.value;
+  });
+
+  // Privacidade
+  const pvEl=g('privacyContent'),pvTa=g('e-privacy');
+  if(pvEl&&pvTa)pvEl.innerHTML=pvTa.value;
+
+  // Contato
+  const ct=g('e-ctitle').value,cs=g('e-csub').value,ce=g('e-cemail').value;
+  if(ct)g('c-title').textContent=ct;
+  if(cs)g('c-sub').textContent=cs;
   if(ce){
-    const el=document.getElementById('c-email');
-    el.textContent=ce;
-    el.href='mailto:'+ce;
-    document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
-      if(a.classList.contains('btn-dark')) a.href='mailto:'+ce;
-    });
+    g('c-email').textContent=ce;g('c-email').href='mailto:'+ce;
+    g('c-btn').href='mailto:'+ce;
   }
 
   closeEditor();
@@ -1547,9 +873,8 @@ function exportHTML(){
     a.href=URL.createObjectURL(blob);
     a.download='index.html';
     a.click();
-  },300);
+  },400);
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
