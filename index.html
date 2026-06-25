@@ -15,9 +15,12 @@
   .side-nav{position:fixed;right:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1rem;z-index:100}
   .side-nav a{display:block;width:6px;height:6px;border-radius:50%;background:var(--dim);transition:background .3s,transform .3s;text-decoration:none}
   .side-nav a.active,.side-nav a:hover{background:var(--acid);transform:scale(1.8)}
-  .logo{position:fixed;top:1rem;left:1.5rem;z-index:100;text-decoration:none;display:flex;align-items:center}
-  .logo-img{height:60px;width:auto;filter:drop-shadow(0 0 12px rgba(176,108,255,.35));transition:filter .3s}
-  .logo-img:hover{filter:drop-shadow(0 0 20px rgba(176,108,255,.6))}
+  /* ── LOGO ESTÁTICA NO TOPO ── */
+  .logo-wrap{position:absolute;top:0;left:0;right:0;z-index:100;pointer-events:none;
+    background:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.85) 60%,transparent 100%);
+    padding:1.2rem 2rem 3rem;display:flex;align-items:flex-start}
+  .logo{pointer-events:all;text-decoration:none;display:inline-flex;align-items:center}
+  .logo-img{height:120px;width:auto;display:block}
   section{min-height:100vh;display:flex;align-items:center;position:relative;padding:8rem 10vw}
   #hero{overflow:hidden}
   .hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(176,108,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(176,108,255,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 20s linear infinite}
@@ -92,13 +95,23 @@
   .app-screenshots{display:none}/* mantido para compatibilidade */
   .app-video-wrap{position:relative;padding-bottom:56.25%;border-radius:12px;overflow:hidden;border:1px solid rgba(176,108,255,.15)}
   .app-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-  /* Lightbox de vídeo fullscreen */
-  #videoLightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:99999;align-items:center;justify-content:center;flex-direction:column}
+  /* ── LIGHTBOX VÍDEO ── */
+  #videoLightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:99999;align-items:center;justify-content:center;flex-direction:column}
   #videoLightbox.open{display:flex}
-  #videoLightbox iframe{width:min(90vw,1200px);height:min(50.625vw,675px);border:none;border-radius:8px}
-  #videoLightbox .lb-close{position:absolute;top:1.5rem;right:2rem;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:2rem;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+  #videoLightbox iframe{width:min(92vw,1200px);height:min(51.75vw,675px);border:none;border-radius:8px}
+  #videoLightbox .lb-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.6rem;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
   #videoLightbox .lb-close:hover{background:var(--acid)}
-  #videoLightbox .lb-hint{color:rgba(255,255,255,.4);font-size:.75rem;font-family:'Space Mono',monospace;margin-top:1rem;letter-spacing:.1em}
+  #videoLightbox .lb-hint{color:rgba(255,255,255,.35);font-size:.7rem;font-family:'Space Mono',monospace;margin-top:.75rem;letter-spacing:.1em}
+  /* Sticker de gesto de pinça — só aparece no mobile */
+  #pinchHint{display:none;position:absolute;bottom:5rem;left:50%;transform:translateX(-50%);background:rgba(176,108,255,.18);border:1px solid rgba(176,108,255,.4);border-radius:16px;padding:.6rem 1.1rem;color:#fff;font-size:.75rem;font-family:'Space Grotesk',sans-serif;align-items:center;gap:.6rem;white-space:nowrap;backdrop-filter:blur(8px);animation:pinchPop .5s ease forwards}
+  @keyframes pinchPop{from{opacity:0;transform:translateX(-50%) scale(.8)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+  .pinch-icon{font-size:1.4rem;display:inline-block;animation:pinchAnim 1.4s ease-in-out infinite}
+  @keyframes pinchAnim{0%,100%{transform:scale(1)}40%{transform:scale(.55)}70%{transform:scale(1.1)}}
+  @media(max-width:900px){
+    #pinchHint{display:flex}
+    #videoLightbox iframe{width:100vw;height:56.25vw;border-radius:0;min-height:200px}
+    #videoLightbox .lb-hint{display:none}
+  }
   .video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(0,0,0,.3);transition:background .2s;z-index:1}
   .video-play-btn:hover{background:rgba(0,0,0,.1)}
   .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s}
@@ -205,7 +218,6 @@
 <body>
 <div class="cursor" id="cursor" style="transform: translate(1118px, 459px);"></div>
 <div class="cursor-ring" id="cursorRing" style="transform: translate(1104px, 445px);"></div>
-<a href="#" class="logo"><img src="images/Logo_Aura_Dev.png" alt="Aura Dev" class="logo-img"></a>
 <nav class="side-nav">
   <a href="#hero" class="" title="Início"></a>
   <a href="#apps" title="Apps" class=""></a>
@@ -215,9 +227,11 @@
   <a href="#faq" title="FAQ" class=""></a>
   <a href="#contact" title="Contato"></a>
 </nav>
-
 <!-- HERO -->
 <section id="hero">
+  <div class="logo-wrap">
+    <a href="#" class="logo"><img src="images/Logo_Aura_Dev.png" alt="Aura Dev" class="logo-img"></a>
+  </div>
   <div class="hero-bg-grid"></div>
   <div class="hero-content">
     <div class="eyebrow" id="h-eyebrow">App Studio — Curitiba, Brasil</div>
@@ -310,7 +324,7 @@
           <p id="app1-sub">Redes Sociais · Meta API · Android</p>
         </div>
         <div class="app-tags">
-          <span class="tag" style="border-color:rgba(255,200,0,.4);color:#ffc800">Em Breve</span>
+          <span class="tag available">Disponível</span>
           <span class="tag">Flutter</span><span class="tag">Meta API</span>
         </div>
         <span class="app-toggle">+</span>
@@ -320,7 +334,7 @@
           <div class="app-desc">
             <p id="app1-desc">Publique seus produtos diretamente no seu catálogo do Instagram e Facebook com IA. Fotografe o produto, o APP gera título e descrição comercial automática, defina preços, categoria, estoque, e o APP envia tudo direto pelo celular, sem precisar de computador.</p>
             <ul class="app-features" id="app1-features"><li>Integração com Meta Commerce Manager</li><li>Publicação no catálogo do Instagram e Facebook</li><li>Geração de descrição por IA em português</li><li>Gerenciamento de categorias de produtos</li><li>Ediçao de catálogo direto no celular.</li><li>Sincronização automática de estoque</li></ul>
-            <a href="#contact" class="btn-store">✉ Quero ser avisado</a>
+            <a href="https://play.google.com/store" class="btn-store" id="app1-link" target="_blank">▶ Ver na Play Store</a>
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app1-videowrap" style="display:block;position:relative">
@@ -349,7 +363,7 @@
           <p id="app2-sub">E-commerce · Loja Integrada · Android</p>
         </div>
         <div class="app-tags">
-          <span class="tag" style="border-color:rgba(255,200,0,.4);color:#ffc800">Em Breve</span>
+          <span class="tag available">Disponível</span>
           <span class="tag">Flutter</span><span class="tag">Loja Integrada API</span>
         </div>
         <span class="app-toggle">+</span>
@@ -359,7 +373,7 @@
           <div class="app-desc">
             <p id="app2-desc">A mesma praticidade do Catálogo por IA, agora para lojistas da plataforma Loja Integrada. Fotografe, gere descrição com IA e publique produtos direto na sua loja — tudo pelo celular.</p>
             <ul class="app-features" id="app2-features"><li>Integração completa com a API da Loja Integrada</li><li>Análise de produtos por inteligência artificial</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na plataforma</li><li>Peso e medidas para cálculo de frete</li></ul>
-            <a href="#contact" class="btn-store">✉ Quero ser avisado</a>
+            <a href="https://play.google.com/store" class="btn-store" id="app2-link" target="_blank">▶ Ver na Play Store</a>
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app2-videowrap" style="display:none;position:relative">
@@ -504,6 +518,7 @@
   <button class="lb-close" onclick="closeVideoLightbox()">✕</button>
   <iframe id="lbIframe" src="" allow="autoplay;fullscreen" allowfullscreen></iframe>
   <div class="lb-hint">Pressione ESC ou clique em ✕ para fechar</div>
+  <div id="pinchHint"><span class="pinch-icon">🤏</span> Junte e afaste dois dedos para ajustar o tamanho</div>
 </div>
 
 <footer>
@@ -559,6 +574,7 @@
       <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a1-sub"></div>
       <div class="field-group"><label>Descrição</label><textarea id="e-a1-desc" rows="4"></textarea></div>
       <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a1-features" rows="6"></textarea></div>
+      <div class="field-group"><label>Link da Play Store</label><input type="text" id="e-a1-link"></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a1-imgs" rows="3"></textarea><small>Deixe vazio para ocultar</small></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a1-video"><small>Cole a URL inteira ou apenas o ID</small></div>
@@ -570,6 +586,7 @@
       <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a2-sub"></div>
       <div class="field-group"><label>Descrição</label><textarea id="e-a2-desc" rows="4"></textarea></div>
       <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a2-features" rows="6"></textarea></div>
+      <div class="field-group"><label>Link da Play Store</label><input type="text" id="e-a2-link"></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a2-imgs" rows="3"></textarea></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a2-video"><small>Cole a URL inteira ou apenas o ID</small></div>
@@ -858,6 +875,13 @@ function openVideoLightbox(url){
   document.getElementById('lbIframe').src=url;
   document.getElementById('videoLightbox').classList.add('open');
   document.body.style.overflow='hidden';
+  // Mostra e auto-oculta o sticker de pinça no mobile
+  const hint=document.getElementById('pinchHint');
+  if(hint&&window.innerWidth<=900){
+    hint.style.display='flex';
+    clearTimeout(hint._t);
+    hint._t=setTimeout(()=>{hint.style.opacity='0';hint.style.transition='opacity .6s';setTimeout(()=>{hint.style.display='none';hint.style.opacity='';hint.style.transition=''},650)},4000);
+  }
 }
 function closeVideoLightbox(){
   document.getElementById('lbIframe').src='';
