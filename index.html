@@ -115,28 +115,29 @@
   /* ── LIGHTBOX DE IMAGEM COM CARROSSEL + ZOOM ── */
   #imgLightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:99998;flex-direction:column;align-items:center;justify-content:center;touch-action:none}
   #imgLightbox.open{display:flex}
-  /* Área de imagem com overflow para scroll quando com zoom */
   #ilbViewport{position:relative;width:100vw;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:grab}
   #ilbViewport.dragging{cursor:grabbing}
-  #lbImg{max-width:92vw;max-height:85vh;border-radius:10px;object-fit:contain;box-shadow:0 0 60px rgba(176,108,255,.15);transform-origin:center center;transition:transform .15s ease;will-change:transform;pointer-events:none;user-select:none}
-  /* Barra de controles */
-  #ilbBar{display:flex;align-items:center;justify-content:space-between;width:100%;padding:.6rem 1rem;gap:.5rem;flex-shrink:0}
-  .ilb-close{background:rgba(255,255,255,.12);border:none;color:#fff;font-size:1.4rem;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
-  .ilb-close:hover{background:var(--acid)}
-  /* Setas de navegação */
-  .ilb-nav{background:rgba(176,108,255,.2);border:1px solid rgba(176,108,255,.35);color:#fff;font-size:1.5rem;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
-  .ilb-nav:hover{background:var(--acid)}
-  /* Controles de zoom */
-  #ilbZoomRow{display:flex;align-items:center;gap:.5rem}
-  .ilb-zoom-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:1.1rem;cursor:pointer;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
-  .ilb-zoom-btn:hover{background:rgba(176,108,255,.4)}
-  #ilbZoomLabel{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.5);min-width:38px;text-align:center}
-  /* Contador */
-  #ilbCounter{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
-  /* Dots */
-  #ilbDots{display:flex;gap:6px;align-items:center}
-  .ilb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .2s,transform .2s}
+  #lbImg{max-width:92vw;max-height:82vh;border-radius:10px;object-fit:contain;box-shadow:0 0 60px rgba(176,108,255,.15);transform-origin:center center;transition:transform .15s ease;will-change:transform;pointer-events:none;user-select:none}
+  /* Barra de controles — duas linhas no mobile */
+  #ilbBar{display:flex;flex-direction:column;align-items:center;width:100%;padding:.5rem 1rem .8rem;gap:.5rem;flex-shrink:0}
+  #ilbRow1{display:flex;align-items:center;justify-content:center;gap:1rem;width:100%}
+  #ilbRow2{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%}
+  /* Fechar — destaque no centro da linha 1 */
+  .ilb-close{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.3rem;cursor:pointer;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+  .ilb-close:hover,.ilb-close:active{background:var(--acid)}
+  /* Setas */
+  .ilb-nav{background:rgba(176,108,255,.2);border:1px solid rgba(176,108,255,.35);color:#fff;font-size:1.5rem;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+  .ilb-nav:hover,.ilb-nav:active{background:var(--acid)}
+  /* Dots e contador */
+  #ilbDots{display:flex;gap:7px;align-items:center}
+  .ilb-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .2s,transform .2s;cursor:pointer}
   .ilb-dot.active{background:var(--acid);transform:scale(1.4)}
+  #ilbCounter{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.4);letter-spacing:.08em;min-width:36px;text-align:center}
+  /* Zoom */
+  #ilbZoomRow{display:flex;align-items:center;gap:.45rem}
+  .ilb-zoom-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:1.1rem;cursor:pointer;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+  .ilb-zoom-btn:hover,.ilb-zoom-btn:active{background:rgba(176,108,255,.4)}
+  #ilbZoomLabel{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.5);min-width:40px;text-align:center}
   .app-carousel img{cursor:zoom-in}
   .video-play-btn:hover{background:rgba(0,0,0,.1)}
   .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s}
@@ -544,17 +545,19 @@
     <img id="lbImg" src="" alt="Screenshot">
   </div>
   <div id="ilbBar">
-    <button class="ilb-nav" id="ilbPrev" onclick="ilbNav(-1)">‹</button>
-    <div id="ilbDots"></div>
-    <span id="ilbCounter"></span>
-    <div id="ilbZoomRow">
-      <button class="ilb-zoom-btn" onclick="ilbZoom(-1)">−</button>
-      <span id="ilbZoomLabel">100%</span>
-      <button class="ilb-zoom-btn" onclick="ilbZoom(1)">+</button>
-      <button class="ilb-zoom-btn" onclick="ilbResetZoom()" title="Reset">⊙</button>
+    <div id="ilbRow1">
+      <button class="ilb-nav" id="ilbPrev" onclick="ilbNav(-1)">‹</button>
+      <div id="ilbDots"></div>
+      <span id="ilbCounter"></span>
+      <button class="ilb-nav" id="ilbNext" onclick="ilbNav(1)">›</button>
+      <button class="ilb-close" onclick="closeImgLightbox()">✕</button>
     </div>
-    <button class="ilb-nav" id="ilbNext" onclick="ilbNav(1)">›</button>
-    <button class="ilb-close" onclick="closeImgLightbox()">✕</button>
+    <div id="ilbRow2">
+      <button class="ilb-zoom-btn" onclick="ilbZoom(-1)" title="Diminuir">−</button>
+      <span id="ilbZoomLabel">100%</span>
+      <button class="ilb-zoom-btn" onclick="ilbZoom(1)" title="Aumentar">+</button>
+      <button class="ilb-zoom-btn" onclick="ilbResetZoom()" title="Reset zoom">⊙</button>
+    </div>
   </div>
 </div>
 
