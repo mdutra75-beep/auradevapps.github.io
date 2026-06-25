@@ -15,9 +15,9 @@
   .side-nav{position:fixed;right:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1rem;z-index:100}
   .side-nav a{display:block;width:6px;height:6px;border-radius:50%;background:var(--dim);transition:background .3s,transform .3s;text-decoration:none}
   .side-nav a.active,.side-nav a:hover{background:var(--acid);transform:scale(1.8)}
-  .logo{position:fixed;top:2rem;left:2.5rem;z-index:100;font-family:'Space Mono',monospace;font-size:.85rem;letter-spacing:.15em;color:var(--paper);text-decoration:none;display:flex;align-items:center;gap:.6rem}
-  .logo-icon{width:28px;height:28px;background:linear-gradient(135deg,var(--acid),var(--acid2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
-  .logo span{color:var(--acid)}
+  .logo{position:fixed;top:1rem;left:1.5rem;z-index:100;text-decoration:none;display:flex;align-items:center}
+  .logo-img{height:60px;width:auto;filter:drop-shadow(0 0 12px rgba(176,108,255,.35));transition:filter .3s}
+  .logo-img:hover{filter:drop-shadow(0 0 20px rgba(176,108,255,.6))}
   section{min-height:100vh;display:flex;align-items:center;position:relative;padding:8rem 10vw}
   #hero{overflow:hidden}
   .hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(176,108,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(176,108,255,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 20s linear infinite}
@@ -71,17 +71,38 @@
   .app-toggle{font-size:1.2rem;color:var(--mid);transition:transform .3s,color .3s;margin-left:1rem;user-select:none}
   .app-item.open .app-toggle{transform:rotate(45deg);color:var(--acid)}
   .app-detail{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1)}
-  .app-item.open .app-detail{max-height:2000px}
+  .app-item.open .app-detail{max-height:3000px}
   .app-detail-inner{padding:0 0 3rem 80px;display:grid;grid-template-columns:1fr 1fr;gap:3rem}
   .app-desc p{font-size:.95rem;color:var(--mid);line-height:1.8;margin-bottom:1.5rem}
   .app-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
   .app-features li{font-size:.85rem;color:var(--paper);display:flex;align-items:center;gap:.75rem}
   .app-features li::before{content:'▸';color:var(--acid);font-size:.7rem}
   .app-media{display:flex;flex-direction:column;gap:1.5rem}
-  .app-screenshots{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
-  .app-screenshots img{width:100%;border-radius:12px;border:1px solid rgba(176,108,255,.15);object-fit:cover;aspect-ratio:9/16;background:rgba(176,108,255,.05)}
+  /* Carrossel de screenshots */
+  .app-carousel-wrap{position:relative;overflow:hidden;border-radius:12px}
+  .app-carousel{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+  .app-carousel::-webkit-scrollbar{display:none}
+  .app-carousel img{flex:0 0 auto;width:calc(50% - .375rem);max-width:180px;border-radius:12px;border:1px solid rgba(176,108,255,.15);object-fit:cover;aspect-ratio:9/16;background:rgba(176,108,255,.05);scroll-snap-align:start}
+  @media(max-width:900px){.app-carousel img{width:calc(50% - .375rem);max-width:160px}}
+  /* Setas do carrossel */
+  .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(176,108,255,.5);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:2;transition:background .2s;backdrop-filter:blur(4px)}
+  .carousel-btn:hover{background:var(--acid)}
+  .carousel-btn.prev{left:6px}
+  .carousel-btn.next{right:6px}
+  .app-screenshots{display:none}/* mantido para compatibilidade */
   .app-video-wrap{position:relative;padding-bottom:56.25%;border-radius:12px;overflow:hidden;border:1px solid rgba(176,108,255,.15)}
   .app-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+  /* Lightbox de vídeo fullscreen */
+  #videoLightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:99999;align-items:center;justify-content:center;flex-direction:column}
+  #videoLightbox.open{display:flex}
+  #videoLightbox iframe{width:min(90vw,1200px);height:min(50.625vw,675px);border:none;border-radius:8px}
+  #videoLightbox .lb-close{position:absolute;top:1.5rem;right:2rem;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:2rem;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+  #videoLightbox .lb-close:hover{background:var(--acid)}
+  #videoLightbox .lb-hint{color:rgba(255,255,255,.4);font-size:.75rem;font-family:'Space Mono',monospace;margin-top:1rem;letter-spacing:.1em}
+  .video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(0,0,0,.3);transition:background .2s;z-index:1}
+  .video-play-btn:hover{background:rgba(0,0,0,.1)}
+  .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s}
+  .video-play-btn:hover .video-play-icon{transform:scale(1.1)}
   .btn-store{display:inline-flex;align-items:center;gap:.5rem;background:var(--acid);color:var(--ink);padding:.75rem 1.75rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:opacity .2s}
   .btn-store:hover{opacity:.85}
   #services{flex-direction:column;gap:4rem}
@@ -184,7 +205,7 @@
 <body>
 <div class="cursor" id="cursor" style="transform: translate(1118px, 459px);"></div>
 <div class="cursor-ring" id="cursorRing" style="transform: translate(1104px, 445px);"></div>
-<a href="#" class="logo"><div class="logo-icon">✦</div>AURA<span>DEV</span></a>
+<a href="#" class="logo"><img src="images/Logo_Aura_Dev.png" alt="Aura Dev" class="logo-img"></a>
 <nav class="side-nav">
   <a href="#hero" class="" title="Início"></a>
   <a href="#apps" title="Apps" class=""></a>
@@ -264,10 +285,18 @@
             <a href="https://play.google.com/store" class="btn-store" id="app0-link" target="_blank">▶ Ver na Play Store</a>
           </div>
           <div class="app-media">
-            <div class="app-screenshots" id="app0-screenshots" style="display:grid"><img src="images/image1.jpeg" alt="Screenshot"><img src="images/image2.jpeg" alt="Screenshot"><img src="images/image3.jpeg" alt="Screenshot"><img src="images/image4.jpeg" alt="Screenshot"></div>
-            <div class="app-video-wrap" id="app0-videowrap" style="display:block">
-              <iframe id="app0-iframe" src="https://www.youtube.com/embed/99_Y5ggjAWw" allowfullscreen=""></iframe>
+            <div class="app-video-wrap" id="app0-videowrap" style="display:block;position:relative">
+              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/99_Y5ggjAWw?autoplay=1')">
+                <div class="video-play-icon">▶</div>
+              </div>
+              <img src="https://img.youtube.com/vi/99_Y5ggjAWw/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
             </div>
+            <div class="app-carousel-wrap">
+              <button class="carousel-btn prev" onclick="scrollCarousel('app0-carousel',-1)">‹</button>
+              <div class="app-carousel" id="app0-carousel"><img src="images/image1.jpeg" alt="Screenshot"><img src="images/image2.jpeg" alt="Screenshot"><img src="images/image3.jpeg" alt="Screenshot"><img src="images/image4.jpeg" alt="Screenshot"></div>
+              <button class="carousel-btn next" onclick="scrollCarousel('app0-carousel',1)">›</button>
+            </div>
+            <div class="app-screenshots" id="app0-screenshots" style="display:none"></div>
           </div>
         </div>
       </div>
@@ -294,10 +323,19 @@
             <a href="#contact" class="btn-store">✉ Quero ser avisado</a>
           </div>
           <div class="app-media">
-            <div class="app-screenshots" id="app1-screenshots" style="display: grid;"><img src="images/images5.jpeg" alt="Screenshot"><img src="images/images6.jpeg" alt="Screenshot"><img src="images/images6.jpeg" alt="Screenshot"><img src="images/images8.jpeg" alt="Screenshot"><img src="images/images9.jpeg" alt="Screenshot"><img src="images/images10.jpeg" alt="Screenshot"><img src="images/images11.jpeg" alt="Screenshot"><img src="images/images12.jpeg" alt="Screenshot"><img src="images/images13.jpeg" alt="Screenshot"></div>
-            <div class="app-video-wrap" id="app1-videowrap" style="display: block;">
-              <iframe id="app1-iframe" src="https://www.youtube.com/embed/https://youtube.com/shorts/F_4LGwxgLzI" allowfullscreen=""></iframe>
+            <div class="app-video-wrap" id="app1-videowrap" style="display:block;position:relative">
+              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/F_4LGwxgLzI?autoplay=1')">
+                <div class="video-play-icon">▶</div>
+              </div>
+              <img src="https://img.youtube.com/vi/F_4LGwxgLzI/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
             </div>
+            <div class="app-carousel-wrap">
+              <button class="carousel-btn prev" onclick="scrollCarousel('app1-carousel',-1)">‹</button>
+              <div class="app-carousel" id="app1-carousel"><img src="images/images5.jpeg" alt="Screenshot"><img src="images/images6.jpeg" alt="Screenshot"><img src="images/images8.jpeg" alt="Screenshot"><img src="images/images9.jpeg" alt="Screenshot"><img src="images/images10.jpeg" alt="Screenshot"><img src="images/images11.jpeg" alt="Screenshot"><img src="images/images12.jpeg" alt="Screenshot"><img src="images/images13.jpeg" alt="Screenshot"></div>
+              <button class="carousel-btn next" onclick="scrollCarousel('app1-carousel',1)">›</button>
+            </div>
+            <div class="app-screenshots" id="app1-screenshots" style="display:none"></div>
+            <div style="display:none"><iframe id="app1-iframe" src=""></iframe></div>
           </div>
         </div>
       </div>
@@ -324,10 +362,19 @@
             <a href="#contact" class="btn-store">✉ Quero ser avisado</a>
           </div>
           <div class="app-media">
-            <div class="app-screenshots" id="app2-screenshots" style="display:none"></div>
-            <div class="app-video-wrap" id="app2-videowrap" style="display:none">
-              <iframe id="app2-iframe" src="" allowfullscreen=""></iframe>
+            <div class="app-video-wrap" id="app2-videowrap" style="display:none;position:relative">
+              <div class="video-play-btn" id="app2-playbtn" onclick="">
+                <div class="video-play-icon">▶</div>
+              </div>
+              <img id="app2-thumb" src="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
             </div>
+            <div class="app-carousel-wrap" id="app2-carouselwrap" style="display:none">
+              <button class="carousel-btn prev" onclick="scrollCarousel('app2-carousel',-1)">‹</button>
+              <div class="app-carousel" id="app2-carousel"></div>
+              <button class="carousel-btn next" onclick="scrollCarousel('app2-carousel',1)">›</button>
+            </div>
+            <div class="app-screenshots" id="app2-screenshots" style="display:none"></div>
+            <div style="display:none"><iframe id="app2-iframe" src=""></iframe></div>
           </div>
         </div>
       </div>
@@ -453,6 +500,12 @@
   </div>
 </section>
 
+<div id="videoLightbox">
+  <button class="lb-close" onclick="closeVideoLightbox()">✕</button>
+  <iframe id="lbIframe" src="" allow="autoplay;fullscreen" allowfullscreen></iframe>
+  <div class="lb-hint">Pressione ESC ou clique em ✕ para fechar</div>
+</div>
+
 <footer>
   <span>© 2025 Aura Dev Apps</span>
   <span>Curitiba, Brasil</span>
@@ -497,7 +550,7 @@
       <div class="field-group"><label>Link da Play Store</label><input type="text" id="e-a0-link"></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a0-imgs" rows="4"></textarea><small>Ex: images/screen1.jpg — suba em images/ no GitHub</small></div>
-      <div class="field-group"><label>ID do vídeo YouTube (vazio = ocultar)</label><input type="text" id="e-a0-video"><small>Só o código após ?v= na URL. Para Shorts: código após /shorts/</small></div>
+      <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a0-video"><small>Cole a URL inteira: youtube.com/watch?v=... ou youtu.be/... ou apenas o ID</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-app2">
@@ -508,7 +561,7 @@
       <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a1-features" rows="6"></textarea></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a1-imgs" rows="3"></textarea><small>Deixe vazio para ocultar</small></div>
-      <div class="field-group"><label>ID do vídeo YouTube</label><input type="text" id="e-a1-video"></div>
+      <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a1-video"><small>Cole a URL inteira ou apenas o ID</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-app3">
@@ -519,7 +572,7 @@
       <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a2-features" rows="6"></textarea></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a2-imgs" rows="3"></textarea></div>
-      <div class="field-group"><label>ID do vídeo YouTube</label><input type="text" id="e-a2-video"></div>
+      <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a2-video"><small>Cole a URL inteira ou apenas o ID</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-numbers">
@@ -588,7 +641,7 @@
     <button class="btn-apply" onclick="applyChanges()">✓ Aplicar</button>
     <button class="btn-export" onclick="exportHTML()">↓ Exportar HTML</button>
   </div>
-  <div class="editor-hint">Imagens: suba em <code>images/</code> no GitHub e cole o caminho. Vídeo: cole o ID do YouTube após ?v=</div>
+  <div class="editor-hint">Imagens: suba em <code>images/</code> no GitHub e cole o caminho. Vídeo: cole a URL completa do YouTube (qualquer formato)</div>
 </div>
 
 <script>
@@ -679,6 +732,13 @@ function openEditor(){
       const match=src.match(/embed\/([^?&]+)/);
       const ta=g(`e-a${i}-video`);if(ta)ta.value=match?match[1]:'';
     }
+    // Para os novos carrosséis (app sem iframe visível), lê do play btn
+    const playbtn=g(`app${i}-videowrap`)?.querySelector('.video-play-btn');
+    if(playbtn){
+      const onc=playbtn.getAttribute('onclick')||'';
+      const m=onc.match(/embed\/([a-zA-Z0-9_-]{11})/);
+      const ta=g(`e-a${i}-video`);if(ta&&m)ta.value=m[1];
+    }
   }
 
   // Números
@@ -734,22 +794,78 @@ function closeEditor(){
   document.getElementById('editorOverlay').classList.remove('open');
 }
 
-function setScreenshots(containerId,paths){
-  const c=document.getElementById(containerId);if(!c)return;
-  const imgs=paths.filter(p=>p.trim());
-  c.innerHTML='';
-  if(!imgs.length){c.style.display='none';return;}
-  c.style.display='grid';
-  imgs.forEach(src=>{const img=document.createElement('img');img.src=src.trim();img.alt='Screenshot';c.appendChild(img)});
+// ── Extrai o ID de vídeo do YouTube de qualquer formato de URL ──
+function extractYouTubeId(input){
+  if(!input)return '';
+  const s=input.trim();
+  // Já é só um ID (sem / nem .)
+  if(/^[a-zA-Z0-9_-]{11}$/.test(s))return s;
+  // watch?v=ID
+  const m1=s.match(/[?&]v=([a-zA-Z0-9_-]{11})/);if(m1)return m1[1];
+  // youtu.be/ID ou /shorts/ID ou /embed/ID
+  const m2=s.match(/(?:youtu\.be\/|shorts\/|embed\/)([a-zA-Z0-9_-]{11})/);if(m2)return m2[1];
+  // fallback: pega o ultimo segmento
+  const m3=s.match(/([a-zA-Z0-9_-]{11})(?:[?&]|$)/);if(m3)return m3[1];
+  return s;
 }
 
-function setVideo(wrapId,iframeId,videoId){
-  const wrap=document.getElementById(wrapId),iframe=document.getElementById(iframeId);
-  if(!wrap||!iframe)return;
-  const id=videoId.trim();
-  if(id){iframe.src=`https://www.youtube.com/embed/${id}`;wrap.style.display='block';}
-  else{iframe.src='';wrap.style.display='none';}
+// ── Carrossel ──
+function scrollCarousel(id,dir){
+  const el=document.getElementById(id);if(!el)return;
+  const w=el.querySelector('img')?.offsetWidth||160;
+  el.scrollBy({left:dir*(w+12)*2,behavior:'smooth'});
 }
+
+function setScreenshots(containerId,paths){
+  // Atualiza o carrossel
+  const carouselId=containerId.replace('-screenshots','-carousel');
+  const carousel=document.getElementById(carouselId);
+  const imgs=paths.filter(p=>p.trim());
+  if(carousel){
+    carousel.innerHTML='';
+    imgs.forEach(src=>{const img=document.createElement('img');img.src=src.trim();img.alt='Screenshot';carousel.appendChild(img)});
+    const wrap=carousel.closest('.app-carousel-wrap');
+    if(wrap)wrap.style.display=imgs.length?'':'none';
+  }
+  // Mantém o container legado oculto
+  const c=document.getElementById(containerId);if(c){c.innerHTML='';c.style.display='none';}
+}
+
+function setVideo(wrapId,iframeId,videoInput){
+  const wrap=document.getElementById(wrapId);
+  if(!wrap)return;
+  const videoId=extractYouTubeId(videoInput);
+  const appIdx=wrapId.replace('app','').replace('-videowrap','');
+  if(videoId){
+    wrap.style.display='block';
+    const embedUrl=`https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    const thumbUrl=`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    // Atualiza thumb e botão de play
+    const thumb=wrap.querySelector('img');
+    const btn=wrap.querySelector('.video-play-btn');
+    if(thumb)thumb.src=thumbUrl;
+    if(btn)btn.setAttribute('onclick',`openVideoLightbox('${embedUrl}')`);
+    // Carrossel wrap — mostrar se tiver imagens
+    const carouselWrap=document.getElementById('app'+appIdx+'-carouselwrap');
+    if(carouselWrap)carouselWrap.style.display='';
+  }else{
+    wrap.style.display='none';
+  }
+}
+
+// ── Lightbox de vídeo fullscreen ──
+function openVideoLightbox(url){
+  document.getElementById('lbIframe').src=url;
+  document.getElementById('videoLightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVideoLightbox(){
+  document.getElementById('lbIframe').src='';
+  document.getElementById('videoLightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideoLightbox()});
+
 
 function applyChanges(){
   const g=id=>document.getElementById(id);
@@ -766,7 +882,7 @@ function applyChanges(){
     const desc=g(`e-a${i}-desc`)?.value||'';
     const feats=(g(`e-a${i}-features`)?.value||'').split('\n').filter(f=>f.trim());
     const imgs=(g(`e-a${i}-imgs`)?.value||'').split('\n');
-    const video=g(`e-a${i}-video`)?.value||'';
+    const video=extractYouTubeId(g(`e-a${i}-video`)?.value||'');
     const link=g(`e-a${i}-link`)?.value||'';
     if(g(`app${i}-name`))g(`app${i}-name`).textContent=name;
     if(g(`app${i}-sub`))g(`app${i}-sub`).textContent=sub;
