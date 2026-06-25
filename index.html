@@ -112,12 +112,31 @@
     #videoLightbox iframe{width:100vw;height:56.25vw;border-radius:0;min-height:200px}
     #videoLightbox .lb-hint{display:none}
   }
-  /* ── LIGHTBOX DE IMAGEM ── */
-  #imgLightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:99998;align-items:center;justify-content:center}
+  /* ── LIGHTBOX DE IMAGEM COM CARROSSEL + ZOOM ── */
+  #imgLightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:99998;flex-direction:column;align-items:center;justify-content:center;touch-action:none}
   #imgLightbox.open{display:flex}
-  #imgLightbox img{max-width:92vw;max-height:90vh;border-radius:10px;object-fit:contain;box-shadow:0 0 60px rgba(176,108,255,.2)}
-  #imgLightbox .ilb-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.6rem;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
-  #imgLightbox .ilb-close:hover{background:var(--acid)}
+  /* Área de imagem com overflow para scroll quando com zoom */
+  #ilbViewport{position:relative;width:100vw;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:grab}
+  #ilbViewport.dragging{cursor:grabbing}
+  #lbImg{max-width:92vw;max-height:85vh;border-radius:10px;object-fit:contain;box-shadow:0 0 60px rgba(176,108,255,.15);transform-origin:center center;transition:transform .15s ease;will-change:transform;pointer-events:none;user-select:none}
+  /* Barra de controles */
+  #ilbBar{display:flex;align-items:center;justify-content:space-between;width:100%;padding:.6rem 1rem;gap:.5rem;flex-shrink:0}
+  .ilb-close{background:rgba(255,255,255,.12);border:none;color:#fff;font-size:1.4rem;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+  .ilb-close:hover{background:var(--acid)}
+  /* Setas de navegação */
+  .ilb-nav{background:rgba(176,108,255,.2);border:1px solid rgba(176,108,255,.35);color:#fff;font-size:1.5rem;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+  .ilb-nav:hover{background:var(--acid)}
+  /* Controles de zoom */
+  #ilbZoomRow{display:flex;align-items:center;gap:.5rem}
+  .ilb-zoom-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:1.1rem;cursor:pointer;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+  .ilb-zoom-btn:hover{background:rgba(176,108,255,.4)}
+  #ilbZoomLabel{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.5);min-width:38px;text-align:center}
+  /* Contador */
+  #ilbCounter{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
+  /* Dots */
+  #ilbDots{display:flex;gap:6px;align-items:center}
+  .ilb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .2s,transform .2s}
+  .ilb-dot.active{background:var(--acid);transform:scale(1.4)}
   .app-carousel img{cursor:zoom-in}
   .video-play-btn:hover{background:rgba(0,0,0,.1)}
   .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s}
@@ -520,9 +539,23 @@
   </div>
 </section>
 
-<div id="imgLightbox" onclick="closeImgLightbox()">
-  <button class="ilb-close" onclick="closeImgLightbox()">✕</button>
-  <img id="lbImg" src="" alt="Screenshot">
+<div id="imgLightbox">
+  <div id="ilbViewport">
+    <img id="lbImg" src="" alt="Screenshot">
+  </div>
+  <div id="ilbBar">
+    <button class="ilb-nav" id="ilbPrev" onclick="ilbNav(-1)">‹</button>
+    <div id="ilbDots"></div>
+    <span id="ilbCounter"></span>
+    <div id="ilbZoomRow">
+      <button class="ilb-zoom-btn" onclick="ilbZoom(-1)">−</button>
+      <span id="ilbZoomLabel">100%</span>
+      <button class="ilb-zoom-btn" onclick="ilbZoom(1)">+</button>
+      <button class="ilb-zoom-btn" onclick="ilbResetZoom()" title="Reset">⊙</button>
+    </div>
+    <button class="ilb-nav" id="ilbNext" onclick="ilbNav(1)">›</button>
+    <button class="ilb-close" onclick="closeImgLightbox()">✕</button>
+  </div>
 </div>
 
 <div id="videoLightbox">
@@ -899,22 +932,163 @@ function closeVideoLightbox(){
   document.getElementById('videoLightbox').classList.remove('open');
   document.body.style.overflow='';
 }
-// ── Lightbox de imagem ──
-function openImgLightbox(src){
-  document.getElementById('lbImg').src=src;
-  document.getElementById('imgLightbox').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeImgLightbox(){
-  document.getElementById('imgLightbox').classList.remove('open');
-  document.getElementById('lbImg').src='';
-  document.body.style.overflow='';
-}
-// Clique nas imagens do carrossel
-document.querySelectorAll('.app-carousel img').forEach(img=>{
-  img.addEventListener('click',()=>openImgLightbox(img.src));
+// ── LIGHTBOX DE IMAGEM — carrossel + zoom + drag + pinça ──
+(function(){
+  let imgs=[], idx=0, scale=1, ox=0, oy=0;
+  let dragging=false, lastX=0, lastY=0;
+  let pinching=false, lastDist=0;
+
+  const lb=()=>document.getElementById('imgLightbox');
+  const img=()=>document.getElementById('lbImg');
+  const vp=()=>document.getElementById('ilbViewport');
+  const zoomLabel=()=>document.getElementById('ilbZoomLabel');
+  const counter=()=>document.getElementById('ilbCounter');
+  const dotsEl=()=>document.getElementById('ilbDots');
+
+  function clampOffset(s){
+    const iw=img().naturalWidth*s, ih=img().naturalHeight*s;
+    const vw=window.innerWidth*.92, vh=window.innerHeight*.85;
+    const maxX=Math.max(0,(iw-vw)/2), maxY=Math.max(0,(ih-vh)/2);
+    ox=Math.max(-maxX,Math.min(maxX,ox));
+    oy=Math.max(-maxY,Math.min(maxY,oy));
+  }
+
+  function applyTransform(animated){
+    const el=img();
+    el.style.transition=animated?'transform .2s ease':'none';
+    el.style.transform=`translate(${ox}px,${oy}px) scale(${scale})`;
+    zoomLabel().textContent=Math.round(scale*100)+'%';
+  }
+
+  function setImg(i){
+    idx=Math.max(0,Math.min(imgs.length-1,i));
+    img().src=imgs[idx];
+    scale=1; ox=0; oy=0;
+    applyTransform(true);
+    counter().textContent=(idx+1)+' / '+imgs.length;
+    // dots
+    const d=dotsEl(); d.innerHTML='';
+    imgs.forEach((_,j)=>{
+      const dot=document.createElement('span');
+      dot.className='ilb-dot'+(j===idx?' active':'');
+      dot.onclick=()=>setImg(j);
+      d.appendChild(dot);
+    });
+    document.getElementById('ilbPrev').style.opacity=idx===0?.3:1;
+    document.getElementById('ilbPrev').style.pointerEvents=idx===0?'none':'';
+    document.getElementById('ilbNext'||'').style||{};
+    const next=document.getElementById('ilbNext');
+    if(next){next.style.opacity=idx===imgs.length-1?.3:1;next.style.pointerEvents=idx===imgs.length-1?'none':'';}
+  }
+
+  window.openImgLightbox=function(src, allImgs){
+    imgs=allImgs||[src];
+    idx=imgs.indexOf(src); if(idx<0)idx=0;
+    lb().classList.add('open');
+    document.body.style.overflow='hidden';
+    setImg(idx);
+  };
+
+  window.closeImgLightbox=function(){
+    lb().classList.remove('open');
+    img().src='';
+    document.body.style.overflow='';
+    scale=1; ox=0; oy=0;
+  };
+
+  window.ilbNav=function(dir){
+    setImg(idx+dir);
+  };
+
+  window.ilbZoom=function(dir){
+    const steps=[.5,.75,1,1.25,1.5,2,2.5,3];
+    const cur=steps.findIndex(s=>s>=scale-0.01);
+    const next=Math.max(0,Math.min(steps.length-1,cur+dir));
+    scale=steps[next]; clampOffset(scale); applyTransform(true);
+  };
+
+  window.ilbResetZoom=function(){
+    scale=1; ox=0; oy=0; applyTransform(true);
+  };
+
+  // ── Scroll de roda do mouse para zoom (PC) ──
+  vp().addEventListener('wheel',e=>{
+    e.preventDefault();
+    const delta=e.deltaY<0?.15:-.15;
+    scale=Math.max(.5,Math.min(4,scale+delta));
+    clampOffset(scale); applyTransform(false);
+  },{passive:false});
+
+  // ── Drag para mover imagem com zoom (PC) ──
+  vp().addEventListener('mousedown',e=>{
+    if(e.button!==0)return;
+    dragging=true; lastX=e.clientX; lastY=e.clientY;
+    vp().classList.add('dragging');
+  });
+  document.addEventListener('mousemove',e=>{
+    if(!dragging)return;
+    if(scale>1){ox+=e.clientX-lastX; oy+=e.clientY-lastY; clampOffset(scale); applyTransform(false);}
+    else if(Math.abs(e.clientX-lastX)>30){ilbNav(e.clientX<lastX?1:-1); dragging=false;}
+    lastX=e.clientX; lastY=e.clientY;
+  });
+  document.addEventListener('mouseup',()=>{dragging=false; vp().classList.remove('dragging');});
+
+  // ── Touch: swipe lateral (sem zoom) e pinça (com zoom) ──
+  let tStartX=0, tStartY=0, tMoved=false;
+  vp().addEventListener('touchstart',e=>{
+    if(e.touches.length===1){
+      tStartX=e.touches[0].clientX; tStartY=e.touches[0].clientY; tMoved=false;
+    } else if(e.touches.length===2){
+      pinching=true;
+      lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+    }
+  },{passive:true});
+
+  vp().addEventListener('touchmove',e=>{
+    if(e.touches.length===2&&pinching){
+      e.preventDefault();
+      const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+      scale=Math.max(.5,Math.min(4,scale*(dist/lastDist)));
+      lastDist=dist; clampOffset(scale); applyTransform(false);
+    } else if(e.touches.length===1&&!pinching&&scale>1){
+      e.preventDefault();
+      const dx=e.touches[0].clientX-tStartX, dy=e.touches[0].clientY-tStartY;
+      ox+=dx; oy+=dy; clampOffset(scale); applyTransform(false);
+      tStartX=e.touches[0].clientX; tStartY=e.touches[0].clientY; tMoved=true;
+    } else if(e.touches.length===1&&!pinching){
+      tMoved=true;
+    }
+  },{passive:false});
+
+  vp().addEventListener('touchend',e=>{
+    if(pinching){pinching=false; return;}
+    if(!tMoved&&e.changedTouches.length===1) return; // tap sem mover
+    const dx=e.changedTouches[0].clientX-tStartX;
+    if(!pinching&&scale<=1&&Math.abs(dx)>50) ilbNav(dx<0?1:-1);
+    tMoved=false;
+  },{passive:true});
+
+  // ── Seta do teclado ──
+  document.addEventListener('keydown',e=>{
+    if(!lb().classList.contains('open'))return;
+    if(e.key==='ArrowLeft')ilbNav(-1);
+    if(e.key==='ArrowRight')ilbNav(1);
+    if(e.key==='+'||e.key==='=')ilbZoom(1);
+    if(e.key==='-')ilbZoom(-1);
+    if(e.key==='0')ilbResetZoom();
+    if(e.key==='Escape'){closeImgLightbox();closeVideoLightbox();}
+  });
+})();
+
+// Clique nas imagens do carrossel — passa todas as imagens do mesmo carrossel
+document.querySelectorAll('.app-carousel').forEach(carousel=>{
+  const imgs=Array.from(carousel.querySelectorAll('img'));
+  imgs.forEach(img=>{
+    img.addEventListener('click',()=>{
+      openImgLightbox(img.src, imgs.map(i=>i.src));
+    });
+  });
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeImgLightbox();closeVideoLightbox();}});
 
 
 function applyChanges(){
