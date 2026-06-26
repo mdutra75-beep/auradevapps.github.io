@@ -194,6 +194,24 @@
   .contact-email{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;transition:border-color .2s}
   .contact-email:hover{border-color:var(--ink);color:var(--ink)}
   footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
+  .footer-ig{display:inline-flex;align-items:center;gap:.5rem;color:var(--dim);text-decoration:none;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.1em;transition:color .3s}
+  .footer-ig:hover{color:var(--acid)}
+  .footer-ig svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+  /* ── REQUISITOS ── */
+  .requisitos-box{margin-top:1.5rem;border:1px solid rgba(176,108,255,.25);border-radius:12px;padding:1.5rem 1.75rem;background:rgba(176,108,255,.04);position:relative}
+  .requisitos-box[contenteditable="true"]:focus{outline:1px solid rgba(176,108,255,.5);background:rgba(176,108,255,.07)}
+  .requisitos-box h4{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+  .requisitos-box h4::before{content:'';display:block;width:16px;height:1px;background:var(--acid)}
+  .req-item{margin-bottom:.9rem}
+  .req-item:last-child{margin-bottom:0}
+  .req-label{font-size:.75rem;font-weight:700;color:var(--paper);letter-spacing:.04em;margin-bottom:.3rem}
+  .req-text{font-size:.78rem;color:var(--mid);line-height:1.7}
+  .req-text a{color:var(--acid);text-decoration:none}
+  .req-text a:hover{text-decoration:underline}
+  .req-cost{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;background:rgba(176,108,255,.1);border:1px solid rgba(176,108,255,.2);border-radius:6px;padding:.3rem .7rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--acid);letter-spacing:.06em}
+  .req-edit-hint{position:absolute;top:.6rem;right:.9rem;font-family:'Space Mono',monospace;font-size:.55rem;color:rgba(176,108,255,.35);letter-spacing:.08em;pointer-events:none;transition:opacity .3s}
+  .requisitos-box:focus .req-edit-hint{opacity:0}
+  .req-divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:.85rem 0}
   @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeLeft{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
   .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
@@ -323,6 +341,36 @@
             <p id="app0-desc">Fotografe qualquer produto com seu celular e publique na sua loja Nuvemshop em menos de 1 minuto. A IA analisa a foto, gera nome e descrição comercial — você só revisa e publica.</p>
             <ul class="app-features" id="app0-features"><li>Análise de produtos por inteligência artificial</li><li>Geração automática de nome e descrição</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na Nuvemshop via API</li><li>Geração de fotos profissionais com IA (OpenAI)</li><li>Leitura de código de barras e QR Code integrada</li><li>Peso e medidas para cálculo de frete</li></ul>
             <a href="https://play.google.com/store" class="btn-store" id="app0-link" target="_blank">▶ Ver na Play Store</a>
+
+            <div class="requisitos-box" id="app0-requisitos" contenteditable="true">
+              <span class="req-edit-hint">clique para editar</span>
+              <h4>📋 Requisitos</h4>
+
+              <div class="req-item">
+                <div class="req-label">📱 Dispositivo</div>
+                <div class="req-text">Android 8.0 (Oreo) ou superior · Câmera traseira · Conexão com internet (Wi-Fi ou dados móveis)</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🛒 Conta na Nuvemshop</div>
+                <div class="req-text">Necessária conta ativa na Nuvemshop (plano gratuito ou pago). O app autentica via OAuth 2.0 — nenhuma senha é armazenada.</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🤖 IA para análise de produtos — OpenRouter (obrigatório)</div>
+                <div class="req-text">O app usa o serviço OpenRouter para análise de imagens e geração de descrições. É necessário criar uma conta em <a href="https://openrouter.ai" target="_blank">openrouter.ai</a> e inserir a chave API nas configurações do app. O crédito mínimo recomendado é de US$ 5,00.</div>
+                <div class="req-cost">💡 Custo estimado: ~R$ 0,01 por análise · 100 produtos/mês ≈ R$ 1,00</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🖼️ Geração de fotos profissionais com IA — OpenAI (opcional)</div>
+                <div class="req-text">Para gerar fotos de produto com modelo ou fundo personalizado, é necessária uma chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> com o modelo DALL-E habilitado. A chave é inserida nas configurações do app e fica salva apenas no seu dispositivo.</div>
+                <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
+              </div>
+            </div>
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app0-videowrap" style="display:block;position:relative">
@@ -361,6 +409,36 @@
             <p id="app1-desc">Publique seus produtos diretamente no seu catálogo do Instagram e Facebook com IA. Fotografe o produto, o APP gera título e descrição comercial automática, defina preços, categoria, estoque, e o APP envia tudo direto pelo celular, sem precisar de computador.</p>
             <ul class="app-features" id="app1-features"><li>Integração com Meta Commerce Manager</li><li>Publicação no catálogo do Instagram e Facebook</li><li>Geração de descrição por IA em português</li><li>Gerenciamento de categorias de produtos</li><li>Ediçao de catálogo direto no celular.</li><li>Sincronização automática de estoque</li></ul>
             <a href="https://play.google.com/store" class="btn-store" id="app1-link" target="_blank">▶ Ver na Play Store</a>
+
+            <div class="requisitos-box" id="app1-requisitos" contenteditable="true">
+              <span class="req-edit-hint">clique para editar</span>
+              <h4>📋 Requisitos</h4>
+
+              <div class="req-item">
+                <div class="req-label">📱 Dispositivo</div>
+                <div class="req-text">Android 8.0 (Oreo) ou superior · Câmera traseira · Conexão com internet (Wi-Fi ou dados móveis)</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">📘 Conta Meta (Facebook/Instagram)</div>
+                <div class="req-text">Necessária conta no Facebook Business com um Catálogo criado no Meta Commerce Manager e uma Página do Facebook vinculada ao Instagram. Autenticação via OAuth oficial da Meta — nenhuma senha é armazenada pelo app.</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🤖 IA para análise de produtos — OpenRouter (obrigatório)</div>
+                <div class="req-text">O app usa o serviço OpenRouter para análise de imagens e geração de descrições em português. Crie sua conta em <a href="https://openrouter.ai" target="_blank">openrouter.ai</a> e insira a chave API nas configurações do app.</div>
+                <div class="req-cost">💡 Custo estimado: ~R$ 0,01 por análise · 100 produtos/mês ≈ R$ 1,00</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🖼️ Geração de fotos com IA — OpenAI (opcional)</div>
+                <div class="req-text">Para gerar fotos profissionais do produto com IA, é necessária uma chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a>. Inserida nas configurações do app e armazenada somente no seu dispositivo.</div>
+                <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
+              </div>
+            </div>
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app1-videowrap" style="display:block;position:relative">
@@ -400,6 +478,36 @@
             <p id="app2-desc">A mesma praticidade do Catálogo por IA, agora para lojistas da plataforma Loja Integrada. Fotografe, gere descrição com IA e publique produtos direto na sua loja — tudo pelo celular.</p>
             <ul class="app-features" id="app2-features"><li>Integração completa com a API da Loja Integrada</li><li>Análise de produtos por inteligência artificial</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na plataforma</li><li>Peso e medidas para cálculo de frete</li></ul>
             <a href="https://play.google.com/store" class="btn-store" id="app2-link" target="_blank">▶ Ver na Play Store</a>
+
+            <div class="requisitos-box" id="app2-requisitos" contenteditable="true">
+              <span class="req-edit-hint">clique para editar</span>
+              <h4>📋 Requisitos</h4>
+
+              <div class="req-item">
+                <div class="req-label">📱 Dispositivo</div>
+                <div class="req-text">Android 8.0 (Oreo) ou superior · Câmera traseira · Conexão com internet (Wi-Fi ou dados móveis)</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🛍️ Conta na Loja Integrada</div>
+                <div class="req-text">Necessária conta ativa na Loja Integrada (plano gratuito ou pago). O app autentica via API Key da plataforma — nenhuma senha é armazenada.</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🤖 IA para análise de produtos — OpenRouter (obrigatório)</div>
+                <div class="req-text">Análise de imagens e geração automática de descrições via <a href="https://openrouter.ai" target="_blank">OpenRouter</a>. Insira a chave API nas configurações do app após criar sua conta.</div>
+                <div class="req-cost">💡 Custo estimado: ~R$ 0,01 por análise · 100 produtos/mês ≈ R$ 1,00</div>
+              </div>
+              <hr class="req-divider">
+
+              <div class="req-item">
+                <div class="req-label">🖼️ Geração de fotos com IA — OpenAI (opcional)</div>
+                <div class="req-text">Gere fotos profissionais do produto com inteligência artificial usando a <a href="https://platform.openai.com" target="_blank">OpenAI</a>. A chave fica salva apenas no seu dispositivo.</div>
+                <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
+              </div>
+            </div>
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app2-videowrap" style="display:none;position:relative">
@@ -570,7 +678,10 @@
 
 <footer>
   <span>© 2025 Aura Dev Apps</span>
-  <span>Curitiba, Brasil</span>
+  <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    @aura_dev_app
+  </a>
   <span>Flutter · Firebase · Android · IA</span>
 </footer>
 
@@ -613,6 +724,8 @@
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a0-imgs" rows="4"></textarea><small>Ex: images/screen1.jpg — suba em images/ no GitHub</small></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a0-video"><small>Cole a URL inteira: youtube.com/watch?v=... ou youtu.be/... ou apenas o ID</small></div>
+      <div class="editor-section-title">Requisitos</div>
+      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a0-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente no site clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-app2">
@@ -625,6 +738,8 @@
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a1-imgs" rows="3"></textarea><small>Deixe vazio para ocultar</small></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a1-video"><small>Cole a URL inteira ou apenas o ID</small></div>
+      <div class="editor-section-title">Requisitos</div>
+      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a1-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente no site clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-app3">
@@ -637,6 +752,8 @@
       <div class="editor-section-title">Imagens e Vídeo</div>
       <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a2-imgs" rows="3"></textarea></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a2-video"><small>Cole a URL inteira ou apenas o ID</small></div>
+      <div class="editor-section-title">Requisitos</div>
+      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a2-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente no site clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-numbers">
@@ -803,6 +920,10 @@ function openEditor(){
       const m=onc.match(/embed\/([a-zA-Z0-9_-]{11})/);
       const ta=g(`e-a${i}-video`);if(ta&&m)ta.value=m[1];
     }
+    // Requisitos
+    const reqEl=g(`app${i}-requisitos`);
+    const reqTa=g(`e-a${i}-req`);
+    if(reqEl&&reqTa)reqTa.value=reqEl.innerHTML;
   }
 
   // Números
@@ -1119,6 +1240,10 @@ function applyChanges(){
     if(link&&g(`app${i}-link`))g(`app${i}-link`).href=link;
     setScreenshots(`app${i}-screenshots`,imgs);
     setVideo(`app${i}-videowrap`,`app${i}-iframe`,video);
+    // Requisitos
+    const reqTa=g(`e-a${i}-req`);
+    const reqEl=g(`app${i}-requisitos`);
+    if(reqTa&&reqEl&&reqTa.value.trim())reqEl.innerHTML=reqTa.value;
   }
 
   // Números
