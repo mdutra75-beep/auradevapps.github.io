@@ -194,9 +194,11 @@
   .contact-email{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;transition:border-color .2s}
   .contact-email:hover{border-color:var(--ink);color:var(--ink)}
   footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
-  .footer-ig{display:inline-flex;align-items:center;gap:.5rem;color:var(--dim);text-decoration:none;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.1em;transition:color .3s}
-  .footer-ig:hover{color:var(--acid)}
-  .footer-ig svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+  .footer-ig{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.1em;transition:opacity .3s;color:#fff}
+  .footer-ig:hover{opacity:.8}
+  .footer-ig-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(220,39,67,.4);transition:box-shadow .3s}
+  .footer-ig:hover .footer-ig-icon{box-shadow:0 4px 20px rgba(220,39,67,.65)}
+  .footer-ig-icon svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
   /* ── REQUISITOS ── */
   .requisitos-box{margin-top:1.5rem;border:1px solid rgba(176,108,255,.25);border-radius:12px;padding:1.5rem 1.75rem;background:rgba(176,108,255,.04);position:relative}
   .requisitos-box[contenteditable="true"]:focus{outline:1px solid rgba(176,108,255,.5);background:rgba(176,108,255,.07)}
@@ -354,20 +356,13 @@
 
               <div class="req-item">
                 <div class="req-label">🛒 Conta na Nuvemshop</div>
-                <div class="req-text">Necessária conta ativa na Nuvemshop (plano gratuito ou pago). O app autentica via OAuth 2.0 — nenhuma senha é armazenada.</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">🤖 IA para análise de produtos — OpenRouter (obrigatório)</div>
-                <div class="req-text">O app usa o serviço OpenRouter para análise de imagens e geração de descrições. É necessário criar uma conta em <a href="https://openrouter.ai" target="_blank">openrouter.ai</a> e inserir a chave API nas configurações do app. O crédito mínimo recomendado é de US$ 5,00.</div>
-                <div class="req-cost">💡 Custo estimado: ~R$ 0,01 por análise · 100 produtos/mês ≈ R$ 1,00</div>
+                <div class="req-text">Necessária conta ativa na Nuvemshop (plano gratuito ou pago). O app autentica via OAuth 2.0 — nenhuma senha é armazenada pelo app.</div>
               </div>
               <hr class="req-divider">
 
               <div class="req-item">
                 <div class="req-label">🖼️ Geração de fotos profissionais com IA — OpenAI (opcional)</div>
-                <div class="req-text">Para gerar fotos de produto com modelo ou fundo personalizado, é necessária uma chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> com o modelo DALL-E habilitado. A chave é inserida nas configurações do app e fica salva apenas no seu dispositivo.</div>
+                <div class="req-text">Para gerar fotos de produto com modelo ou fundo personalizado, insira sua chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> nas configurações do app. A chave fica salva apenas no seu dispositivo e nunca é compartilhada.</div>
                 <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
               </div>
             </div>
@@ -427,15 +422,8 @@
               <hr class="req-divider">
 
               <div class="req-item">
-                <div class="req-label">🤖 IA para análise de produtos — OpenRouter (obrigatório)</div>
-                <div class="req-text">O app usa o serviço OpenRouter para análise de imagens e geração de descrições em português. Crie sua conta em <a href="https://openrouter.ai" target="_blank">openrouter.ai</a> e insira a chave API nas configurações do app.</div>
-                <div class="req-cost">💡 Custo estimado: ~R$ 0,01 por análise · 100 produtos/mês ≈ R$ 1,00</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
                 <div class="req-label">🖼️ Geração de fotos com IA — OpenAI (opcional)</div>
-                <div class="req-text">Para gerar fotos profissionais do produto com IA, é necessária uma chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a>. Inserida nas configurações do app e armazenada somente no seu dispositivo.</div>
+                <div class="req-text">Para gerar fotos profissionais do produto com IA, insira sua chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> nas configurações do app. A chave fica salva apenas no seu dispositivo e nunca é compartilhada.</div>
                 <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
               </div>
             </div>
@@ -491,20 +479,13 @@
 
               <div class="req-item">
                 <div class="req-label">🛍️ Conta na Loja Integrada</div>
-                <div class="req-text">Necessária conta ativa na Loja Integrada (plano gratuito ou pago). O app autentica via API Key da plataforma — nenhuma senha é armazenada.</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">🤖 IA para análise de produtos — OpenRouter (obrigatório)</div>
-                <div class="req-text">Análise de imagens e geração automática de descrições via <a href="https://openrouter.ai" target="_blank">OpenRouter</a>. Insira a chave API nas configurações do app após criar sua conta.</div>
-                <div class="req-cost">💡 Custo estimado: ~R$ 0,01 por análise · 100 produtos/mês ≈ R$ 1,00</div>
+                <div class="req-text">Necessária conta ativa na Loja Integrada (plano gratuito ou pago). O app autentica via OAuth 2.0 — nenhuma senha é armazenada pelo app.</div>
               </div>
               <hr class="req-divider">
 
               <div class="req-item">
                 <div class="req-label">🖼️ Geração de fotos com IA — OpenAI (opcional)</div>
-                <div class="req-text">Gere fotos profissionais do produto com inteligência artificial usando a <a href="https://platform.openai.com" target="_blank">OpenAI</a>. A chave fica salva apenas no seu dispositivo.</div>
+                <div class="req-text">Gere fotos profissionais do produto com inteligência artificial inserindo sua chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> nas configurações do app. A chave fica salva apenas no seu dispositivo e nunca é compartilhada.</div>
                 <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
               </div>
             </div>
@@ -679,7 +660,9 @@
 <footer>
   <span>© 2025 Aura Dev Apps</span>
   <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    <span class="footer-ig-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </span>
     @aura_dev_app
   </a>
   <span>Flutter · Firebase · Android · IA</span>
