@@ -139,8 +139,9 @@
   .ilb-zoom-btn:hover,.ilb-zoom-btn:active{background:rgba(176,108,255,.4)}
   #ilbZoomLabel{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.5);min-width:40px;text-align:center}
   .app-carousel img{cursor:zoom-in}
+  .video-play-btn{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent;border:none}
   .video-play-btn:hover{background:rgba(0,0,0,.1)}
-  .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s}
+  .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s;pointer-events:none}
   .video-play-btn:hover .video-play-icon{transform:scale(1.1)}
   .btn-store{display:inline-flex;align-items:center;gap:.5rem;background:var(--acid);color:var(--ink);padding:.75rem 1.75rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:opacity .2s}
   .btn-store:hover{opacity:.85}
@@ -261,13 +262,13 @@
   }
 </style>
 </head>
-<body style="">
-<div class="cursor" id="cursor" style="transform: translate(1259px, 516px);"></div>
-<div class="cursor-ring" id="cursorRing" style="transform: translate(1245.03px, 502.103px);"></div>
+<body>
+<div class="cursor" id="cursor" style="transform: translate(1118px, 459px);"></div>
+<div class="cursor-ring" id="cursorRing" style="transform: translate(1104px, 445px);"></div>
 <nav class="side-nav">
-  <a href="#hero" class="active" title="Início"></a>
+  <a href="#hero" class="" title="Início"></a>
   <a href="#apps" title="Apps" class=""></a>
-  <a href="#services" title="Serviços" class=""></a>
+  <a href="#services" title="Serviços" class="active"></a>
   <a href="#numbers" title="Números" class=""></a>
   <a href="#process" title="Processo" class=""></a>
   <a href="#faq" title="FAQ" class=""></a>
@@ -369,14 +370,14 @@
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app0-videowrap" style="display:block;position:relative">
-              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/99_Y5ggjAWw?autoplay=1')">
+              <div class="video-play-btn" id="app0-playbtn" onclick="openVideoLightbox('https://www.youtube.com/embed/CT3nIJHmtnE?autoplay=1')">
                 <div class="video-play-icon">▶</div>
               </div>
-              <img src="https://img.youtube.com/vi/99_Y5ggjAWw/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
+              <img id="app0-thumb" src="https://img.youtube.com/vi/CT3nIJHmtnE/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
             </div>
-            <div class="app-carousel-wrap" style="display: none;">
+            <div class="app-carousel-wrap">
               <button class="carousel-btn prev" onclick="scrollCarousel('app0-carousel',-1)">‹</button>
-              <div class="app-carousel" id="app0-carousel"></div>
+              <div class="app-carousel" id="app0-carousel"><img src="images/image1.jpeg" alt="Screenshot"><img src="images/image2.jpeg" alt="Screenshot"><img src="images/image3.jpeg" alt="Screenshot"><img src="images/image4.jpeg" alt="Screenshot"></div>
               <button class="carousel-btn next" onclick="scrollCarousel('app0-carousel',1)">›</button>
             </div>
             <div class="app-screenshots" id="app0-screenshots" style="display:none"></div>
@@ -430,14 +431,14 @@
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app1-videowrap" style="display:block;position:relative">
-              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/F_4LGwxgLzI?autoplay=1')">
+              <div class="video-play-btn" id="app1-playbtn" onclick="openVideoLightbox('https://www.youtube.com/embed/F_4LGwxgLzI?autoplay=1')">
                 <div class="video-play-icon">▶</div>
               </div>
-              <img src="https://img.youtube.com/vi/F_4LGwxgLzI/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
+              <img id="app1-thumb" src="https://img.youtube.com/vi/F_4LGwxgLzI/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
             </div>
-            <div class="app-carousel-wrap" style="display: none;">
+            <div class="app-carousel-wrap">
               <button class="carousel-btn prev" onclick="scrollCarousel('app1-carousel',-1)">‹</button>
-              <div class="app-carousel" id="app1-carousel"></div>
+              <div class="app-carousel" id="app1-carousel"><img src="images/image5.jpeg" alt="Screenshot"><img src="images/image6.jpeg" alt="Screenshot"><img src="images/image8.jpeg" alt="Screenshot"><img src="images/image9.jpeg" alt="Screenshot"><img src="images/image10.jpeg" alt="Screenshot"><img src="images/image11.jpeg" alt="Screenshot"><img src="images/image12.jpeg" alt="Screenshot"><img src="images/image13.jpeg" alt="Screenshot"></div>
               <button class="carousel-btn next" onclick="scrollCarousel('app1-carousel',1)">›</button>
             </div>
             <div class="app-screenshots" id="app1-screenshots" style="display:none"></div>
@@ -629,21 +630,21 @@
   </div>
 </section>
 
-<div id="imgLightbox" class="">
+<div id="imgLightbox">
   <div id="ilbViewport">
-    <img id="lbImg" src="" alt="Screenshot" style="transition: none; transform: translate(0px, 0px) scale(0.8);">
+    <img id="lbImg" src="" alt="Screenshot">
   </div>
   <div id="ilbBar">
     <div id="ilbRow1">
-      <button class="ilb-nav" id="ilbPrev" onclick="ilbNav(-1)" style="opacity: 0.3; pointer-events: none;">‹</button>
-      <div id="ilbDots"><span class="ilb-dot active"></span><span class="ilb-dot"></span><span class="ilb-dot"></span><span class="ilb-dot"></span></div>
-      <span id="ilbCounter">1 / 4</span>
-      <button class="ilb-nav" id="ilbNext" onclick="ilbNav(1)" style="opacity: 1;">›</button>
+      <button class="ilb-nav" id="ilbPrev" onclick="ilbNav(-1)">‹</button>
+      <div id="ilbDots"></div>
+      <span id="ilbCounter"></span>
+      <button class="ilb-nav" id="ilbNext" onclick="ilbNav(1)">›</button>
       <button class="ilb-close" onclick="closeImgLightbox()">✕</button>
     </div>
     <div id="ilbRow2">
       <button class="ilb-zoom-btn" onclick="ilbZoom(-1)" title="Diminuir">−</button>
-      <span id="ilbZoomLabel">80%</span>
+      <span id="ilbZoomLabel">100%</span>
       <button class="ilb-zoom-btn" onclick="ilbZoom(1)" title="Aumentar">+</button>
       <button class="ilb-zoom-btn" onclick="ilbResetZoom()" title="Reset zoom">⊙</button>
     </div>
@@ -652,7 +653,7 @@
 
 <div id="videoLightbox">
   <button class="lb-close" onclick="closeVideoLightbox()">✕</button>
-  <iframe id="lbIframe" src="" allow="autoplay;fullscreen" allowfullscreen=""></iframe>
+  <iframe id="lbIframe" src="" allow="autoplay;fullscreen" allowfullscreen></iframe>
   <div class="lb-hint">Pressione ESC ou clique em ✕ para fechar</div>
   <div id="pinchHint"><span class="pinch-icon">🤏</span> Junte e afaste dois dedos para ajustar o tamanho</div>
 </div>
@@ -661,7 +662,7 @@
   <span>© 2025 Aura Dev Apps</span>
   <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
     <span class="footer-ig-icon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </span>
     @aura_dev_app
   </a>
@@ -679,11 +680,11 @@
   <div class="editor-tabs">
     <button class="editor-tab" onclick="switchTab('hero',this)">Hero</button>
     <button class="editor-tab" onclick="switchTab('app1',this)">App 1</button>
-    <button class="editor-tab active" onclick="switchTab('app2',this)">App 2</button>
+    <button class="editor-tab" onclick="switchTab('app2',this)">App 2</button>
     <button class="editor-tab" onclick="switchTab('app3',this)">App 3</button>
     <button class="editor-tab" onclick="switchTab('numbers',this)">Números</button>
     <button class="editor-tab" onclick="switchTab('services',this)">Serviços</button>
-    <button class="editor-tab" onclick="switchTab('process',this)">Processo</button>
+    <button class="editor-tab active" onclick="switchTab('process',this)">Processo</button>
     <button class="editor-tab" onclick="switchTab('faq',this)">FAQ</button>
     <button class="editor-tab" onclick="switchTab('privacy',this)">Legal</button>
     <button class="editor-tab" onclick="switchTab('contact',this)">Contato</button>
@@ -711,7 +712,7 @@
       <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a0-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente no site clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
     </div>
 
-    <div class="editor-tab-content active" id="tab-app2">
+    <div class="editor-tab-content" id="tab-app2">
       <div class="editor-section-title">App 2</div>
       <div class="field-group"><label>Nome</label><input type="text" id="e-a1-name"></div>
       <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a1-sub"></div>
@@ -763,10 +764,10 @@
           document.write(`<div class="field-group"><label>Título</label><input type="text" id="e-sv${s}-title"></div>`);
           document.write(`<div class="field-group"><label>Texto</label><textarea id="e-sv${s}-text" rows="2"></textarea></div>`);
         }
-      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div>
+      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div>
     </div>
 
-    <div class="editor-tab-content" id="tab-process">
+    <div class="editor-tab-content active" id="tab-process">
       <div class="editor-section-title">Etapas do processo (5 etapas)</div>
       <script>
         for(let p=0;p<5;p++){
@@ -774,7 +775,7 @@
           document.write(`<div class="field-group"><label>Título</label><input type="text" id="e-pr${p}-title"></div>`);
           document.write(`<div class="field-group"><label>Texto</label><textarea id="e-pr${p}-text" rows="2"></textarea></div>`);
         }
-      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div>
+      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div>
     </div>
 
     <div class="editor-tab-content" id="tab-faq">
@@ -785,7 +786,7 @@
           document.write(`<div class="field-group"><label>Pergunta ${f+1}</label><input type="text" id="e-fq${f}"></div>`);
           document.write(`<div class="field-group"><label>Resposta ${f+1}</label><textarea id="e-fa${f}" rows="2"></textarea></div>`);
         }
-      </script><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div>
+      </script><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div>
     </div>
 
     <div class="editor-tab-content" id="tab-privacy">
@@ -872,36 +873,33 @@ function openEditor(){
   // ── Lê o conteúdo ATUAL da página e preenche o editor ──
   const g=(id)=>document.getElementById(id);
 
-  // Hero — lê do DOM atual
+  // Hero
   g('e-eyebrow').value=g('h-eyebrow')?.textContent||'';
   g('e-highlight').value=g('h-highlight')?.textContent||'';
   g('e-sub').value=g('h-sub')?.textContent||'';
 
-  // Apps
+  // Apps — lê de carousel e playbtn (estrutura atual)
   for(let i=0;i<3;i++){
     const nameEl=g(`app${i}-name`),subEl=g(`app${i}-sub`),descEl=g(`app${i}-desc`);
     const featEl=g(`app${i}-features`),linkEl=g(`app${i}-link`);
-    const screensEl=g(`app${i}-screenshots`),videoEl=g(`app${i}-iframe`);
     if(nameEl) g(`e-a${i}-name`).value=nameEl.textContent;
     if(subEl)  g(`e-a${i}-sub`).value=subEl.textContent;
     if(descEl) g(`e-a${i}-desc`).value=descEl.textContent;
     if(featEl) g(`e-a${i}-features`).value=Array.from(featEl.querySelectorAll('li')).map(li=>li.textContent).join('\n');
-    if(linkEl) g(`e-a${i}-link`)&&(g(`e-a${i}-link`).value=linkEl.href||'');
-    if(screensEl){
-      const imgs=Array.from(screensEl.querySelectorAll('img')).map(img=>img.src.replace(window.location.origin+window.location.pathname.replace('index.html',''),'').replace(window.location.origin+'/',''));
+    if(linkEl&&g(`e-a${i}-link`)) g(`e-a${i}-link`).value=linkEl.href||'';
+    // Lê imagens do carrossel visível
+    const carousel=g(`app${i}-carousel`);
+    if(carousel){
+      const base=window.location.origin+(window.location.pathname.endsWith('/')?window.location.pathname:window.location.pathname.replace(/\/[^\/]*$/,'/'));
+      const imgs=Array.from(carousel.querySelectorAll('img')).map(img=>img.src.replace(base,'').replace(window.location.origin+'/',''));
       const ta=g(`e-a${i}-imgs`);if(ta)ta.value=imgs.join('\n');
     }
-    if(videoEl){
-      const src=videoEl.src||'';
-      const match=src.match(/embed\/([^?&]+)/);
-      const ta=g(`e-a${i}-video`);if(ta)ta.value=match?match[1]:'';
-    }
-    // Para os novos carrosséis (app sem iframe visível), lê do play btn
-    const playbtn=g(`app${i}-videowrap`)?.querySelector('.video-play-btn');
+    // Lê ID do vídeo do playbtn (id="appN-playbtn")
+    const playbtn=g(`app${i}-playbtn`);
     if(playbtn){
       const onc=playbtn.getAttribute('onclick')||'';
       const m=onc.match(/embed\/([a-zA-Z0-9_-]{11})/);
-      const ta=g(`e-a${i}-video`);if(ta&&m)ta.value=m[1];
+      const ta=g(`e-a${i}-video`);if(ta)ta.value=m?m[1]:'';
     }
     // Requisitos
     const reqEl=g(`app${i}-requisitos`);
@@ -1187,15 +1185,19 @@ function closeVideoLightbox(){
   });
 })();
 
-// Clique nas imagens do carrossel — passa todas as imagens do mesmo carrossel
-document.querySelectorAll('.app-carousel').forEach(carousel=>{
-  const imgs=Array.from(carousel.querySelectorAll('img'));
-  imgs.forEach(img=>{
-    img.addEventListener('click',()=>{
-      openImgLightbox(img.src, imgs.map(i=>i.src));
+// Clique nas imagens do carrossel — usa delegação para funcionar após applyChanges
+function bindCarouselClicks(){
+  document.querySelectorAll('.app-carousel').forEach(carousel=>{
+    carousel.querySelectorAll('img').forEach(img=>{
+      img.onclick=null;
+      img.addEventListener('click',function(){
+        const all=Array.from(carousel.querySelectorAll('img')).map(i=>i.src);
+        openImgLightbox(this.src,all);
+      });
     });
   });
-});
+}
+bindCarouselClicks();
 
 
 function applyChanges(){
@@ -1283,6 +1285,8 @@ function applyChanges(){
     g('c-btn').href='mailto:'+ce;
   }
 
+  // Re-bind carousel clicks after DOM update
+  setTimeout(bindCarouselClicks,50);
   closeEditor();
 }
 
