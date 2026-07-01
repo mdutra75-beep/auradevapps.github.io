@@ -192,14 +192,18 @@
   .cta-bottom{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
   .btn-dark{background:var(--ink);color:var(--acid);padding:1rem 2.5rem;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:opacity .2s}
   .btn-dark:hover{opacity:.85}
-  .contact-email{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;transition:border-color .2s}
+  .contact-email{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:1.15rem;letter-spacing:.01em;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:4px;transition:border-color .2s,color .2s}
   .contact-email:hover{border-color:var(--ink);color:var(--ink)}
-  footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
-  .footer-ig{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.1em;transition:opacity .3s;color:#fff}
+  footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
+  .footer-social{display:flex;align-items:center;gap:1.75rem}
+  .footer-ig{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:.9rem;letter-spacing:.01em;transition:opacity .3s;color:#fff}
   .footer-ig:hover{opacity:.8}
   .footer-ig-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(220,39,67,.4);transition:box-shadow .3s}
   .footer-ig:hover .footer-ig-icon{box-shadow:0 4px 20px rgba(220,39,67,.65)}
   .footer-ig-icon svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+  .footer-tt-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:#010101;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(37,244,238,.25);transition:box-shadow .3s}
+  .footer-tt:hover .footer-tt-icon{box-shadow:0 4px 20px rgba(37,244,238,.4)}
+  .footer-tt-icon svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
   /* ── REQUISITOS ── */
   .requisitos-box{margin-top:1.5rem;border:1px solid rgba(176,108,255,.25);border-radius:12px;padding:1.5rem 1.75rem;background:rgba(176,108,255,.04);position:relative}
   .requisitos-box[contenteditable="true"]:focus{outline:1px solid rgba(176,108,255,.5);background:rgba(176,108,255,.07)}
@@ -660,12 +664,20 @@
 
 <footer>
   <span>© 2025 Aura Dev Apps</span>
-  <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
-    <span class="footer-ig-icon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-    </span>
-    @aura_dev_app
-  </a>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
+      <span class="footer-ig-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </span>
+      @aura_dev_app
+    </a>
+    <a href="https://www.tiktok.com/@aura.dev.app" target="_blank" rel="noopener" class="footer-ig footer-tt">
+      <span class="footer-tt-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 5.82c-1.005-1.09-1.56-2.51-1.56-4.02h-3.44v13.68c0 1.63-1.33 2.96-2.96 2.96s-2.96-1.33-2.96-2.96 1.33-2.96 2.96-2.96c.28 0 .55.04.8.12v-3.51a6.39 6.39 0 0 0-.8-.05c-3.53 0-6.4 2.87-6.4 6.4s2.87 6.4 6.4 6.4 6.4-2.87 6.4-6.4V9.4a8.36 8.36 0 0 0 4.88 1.56V7.52c-1.06 0-2.05-.32-2.88-.87a5.94 5.94 0 0 1-.44-.83z"/></svg>
+      </span>
+      @aura.dev.app
+    </a>
+  </div>
   <span>Flutter · Firebase · Android · IA</span>
 </footer>
 
