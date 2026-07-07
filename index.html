@@ -23,6 +23,9 @@
   .logo-img{height:120px;width:auto;display:block}
   section{min-height:100vh;display:flex;align-items:center;position:relative;padding:8rem 10vw}
   #hero{overflow:hidden}
+  .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(10,10,15,.75) 0%,rgba(10,10,15,.35) 55%,rgba(10,10,15,.15) 100%)}
+  @media(max-width:900px){.hero-video-overlay{background:linear-gradient(180deg,rgba(10,10,15,.25) 0%,rgba(10,10,15,.85) 75%)}}
   .hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(176,108,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(176,108,255,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 20s linear infinite}
   @keyframes gridDrift{0%{background-position:0 0}100%{background-position:60px 60px}}
   .hero-content{position:relative;z-index:2;max-width:900px}
@@ -139,9 +142,8 @@
   .ilb-zoom-btn:hover,.ilb-zoom-btn:active{background:rgba(176,108,255,.4)}
   #ilbZoomLabel{font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.5);min-width:40px;text-align:center}
   .app-carousel img{cursor:zoom-in}
-  .video-play-btn{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent;border:none}
   .video-play-btn:hover{background:rgba(0,0,0,.1)}
-  .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s;pointer-events:none}
+  .video-play-icon{width:64px;height:64px;background:rgba(176,108,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 0 32px rgba(176,108,255,.5);transition:transform .2s}
   .video-play-btn:hover .video-play-icon{transform:scale(1.1)}
   .btn-store{display:inline-flex;align-items:center;gap:.5rem;background:var(--acid);color:var(--ink);padding:.75rem 1.75rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:opacity .2s}
   .btn-store:hover{opacity:.85}
@@ -192,18 +194,14 @@
   .cta-bottom{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
   .btn-dark{background:var(--ink);color:var(--acid);padding:1rem 2.5rem;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:opacity .2s}
   .btn-dark:hover{opacity:.85}
-  .contact-email{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:1.15rem;letter-spacing:.01em;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:4px;transition:border-color .2s,color .2s}
+  .contact-email{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;transition:border-color .2s}
   .contact-email:hover{border-color:var(--ink);color:var(--ink)}
-  footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
-  .footer-social{display:flex;align-items:center;gap:1.75rem}
-  .footer-ig{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:.9rem;letter-spacing:.01em;transition:opacity .3s;color:#fff}
+  footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
+  .footer-ig{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.1em;transition:opacity .3s;color:#fff}
   .footer-ig:hover{opacity:.8}
   .footer-ig-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(220,39,67,.4);transition:box-shadow .3s}
   .footer-ig:hover .footer-ig-icon{box-shadow:0 4px 20px rgba(220,39,67,.65)}
   .footer-ig-icon svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
-  .footer-tt-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:#010101;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(37,244,238,.25);transition:box-shadow .3s}
-  .footer-tt:hover .footer-tt-icon{box-shadow:0 4px 20px rgba(37,244,238,.4)}
-  .footer-tt-icon svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
   /* ── REQUISITOS ── */
   .requisitos-box{margin-top:1.5rem;border:1px solid rgba(176,108,255,.25);border-radius:12px;padding:1.5rem 1.75rem;background:rgba(176,108,255,.04);position:relative}
   .requisitos-box[contenteditable="true"]:focus{outline:1px solid rgba(176,108,255,.5);background:rgba(176,108,255,.07)}
@@ -267,12 +265,12 @@
 </style>
 </head>
 <body>
-<div class="cursor" id="cursor" style="transform: translate(1209px, 510px);"></div>
-<div class="cursor-ring" id="cursorRing" style="transform: translate(1195px, 496px);"></div>
+<div class="cursor" id="cursor" style="transform: translate(1118px, 459px);"></div>
+<div class="cursor-ring" id="cursorRing" style="transform: translate(1104px, 445px);"></div>
 <nav class="side-nav">
-  <a href="#hero" class="active" title="Início"></a>
+  <a href="#hero" class="" title="Início"></a>
   <a href="#apps" title="Apps" class=""></a>
-  <a href="#services" title="Serviços" class=""></a>
+  <a href="#services" title="Serviços" class="active"></a>
   <a href="#numbers" title="Números" class=""></a>
   <a href="#process" title="Processo" class=""></a>
   <a href="#faq" title="FAQ" class=""></a>
@@ -283,6 +281,11 @@
   <div class="logo-wrap">
     <a href="#" class="logo"><img src="images/Logo_Aura_Dev.png" alt="Aura Dev" class="logo-img"></a>
   </div>
+  <video class="hero-video" autoplay muted loop playsinline poster="images/hero-poster.jpg" preload="metadata">
+    <source src="videos/hero-loop-mobile.mp4" type="video/mp4" media="(max-width: 900px)">
+    <source src="videos/hero-loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-video-overlay"></div>
   <div class="hero-bg-grid"></div>
   <div class="hero-content">
     <div class="eyebrow" id="h-eyebrow">App Studio — Curitiba, Brasil</div>
@@ -374,10 +377,10 @@
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app0-videowrap" style="display:block;position:relative">
-              <div class="video-play-btn" id="app0-playbtn" onclick="openVideoLightbox('https://www.youtube.com/embed/vdEhLhcZiT4?autoplay=1')">
+              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/99_Y5ggjAWw?autoplay=1')">
                 <div class="video-play-icon">▶</div>
               </div>
-              <img id="app0-thumb" src="https://img.youtube.com/vi/vdEhLhcZiT4/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
+              <img src="https://img.youtube.com/vi/99_Y5ggjAWw/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
             </div>
             <div class="app-carousel-wrap">
               <button class="carousel-btn prev" onclick="scrollCarousel('app0-carousel',-1)">‹</button>
@@ -435,14 +438,14 @@
           </div>
           <div class="app-media">
             <div class="app-video-wrap" id="app1-videowrap" style="display:block;position:relative">
-              <div class="video-play-btn" id="app1-playbtn" onclick="openVideoLightbox('https://www.youtube.com/embed/F_4LGwxgLzI?autoplay=1')">
+              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/F_4LGwxgLzI?autoplay=1')">
                 <div class="video-play-icon">▶</div>
               </div>
-              <img id="app1-thumb" src="https://img.youtube.com/vi/F_4LGwxgLzI/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
+              <img src="https://img.youtube.com/vi/F_4LGwxgLzI/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
             </div>
             <div class="app-carousel-wrap">
               <button class="carousel-btn prev" onclick="scrollCarousel('app1-carousel',-1)">‹</button>
-              <div class="app-carousel" id="app1-carousel"><img src="images/image5.jpeg" alt="Screenshot"><img src="images/image6.jpeg" alt="Screenshot"><img src="images/image8.jpeg" alt="Screenshot"><img src="images/image9.jpeg" alt="Screenshot"><img src="images/image10.jpeg" alt="Screenshot"><img src="images/image11.jpeg" alt="Screenshot"><img src="images/image12.jpeg" alt="Screenshot"><img src="images/image13.jpeg" alt="Screenshot"></div>
+              <div class="app-carousel" id="app1-carousel"><img src="images/images5.jpeg" alt="Screenshot"><img src="images/images6.jpeg" alt="Screenshot"><img src="images/images8.jpeg" alt="Screenshot"><img src="images/images9.jpeg" alt="Screenshot"><img src="images/images10.jpeg" alt="Screenshot"><img src="images/images11.jpeg" alt="Screenshot"><img src="images/images12.jpeg" alt="Screenshot"><img src="images/images13.jpeg" alt="Screenshot"></div>
               <button class="carousel-btn next" onclick="scrollCarousel('app1-carousel',1)">›</button>
             </div>
             <div class="app-screenshots" id="app1-screenshots" style="display:none"></div>
@@ -590,7 +593,7 @@
     <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como a IA gera a descrição dos produtos?</div><div class="faq-a">Ao fotografar um produto, o app envia a imagem para um modelo de inteligência artificial que analisa o que aparece na foto e gera automaticamente um nome e uma descrição comercial em português. Você revisa e edita antes de publicar.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso cadastrar produtos com variantes (cores e tamanhos)?</div><div class="faq-a">Sim! O app suporta cadastro de produtos simples e com variantes. Você seleciona combinações de cor e tamanho, define estoque individual para cada combinação, e o app envia tudo corretamente para a plataforma.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como cancelo minha assinatura?</div><div class="faq-a">O cancelamento é feito diretamente pelo painel da plataforma que você usa (ex: Nuvemshop → Meus Aplicativos → Desinstalar). A cobrança é interrompida imediatamente e os produtos já cadastrados na sua loja não são afetados.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Encontrei um problema. Como reportar?</div><div class="faq-a">Entre em contato pelo email contato@aura-dev-app.com descrevendo o problema, a versão do app e o aparelho que está usando. Respondemos em até 48 horas úteis.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Encontrei um problema. Como reportar?</div><div class="faq-a">Entre em contato pelo email auradev.app@gmail.com descrevendo o problema, a versão do app e o aparelho que está usando. Respondemos em até 48 horas úteis.</div></div>
   </div>
 </section>
 
@@ -602,7 +605,7 @@
     <div class="privacy-content reveal" id="privacyContent">
       <p>Última atualização: Janeiro de 2025</p>
       <h3>1. Quem somos</h3>
-      <p>A Aura Dev Apps é responsável pelo desenvolvimento e manutenção dos aplicativos disponibilizados neste site. Contato para assuntos de privacidade: <strong>contato@aura-dev-app.com</strong></p>
+      <p>A Aura Dev Apps é responsável pelo desenvolvimento e manutenção dos aplicativos disponibilizados neste site. Contato para assuntos de privacidade: <strong>auradev.app@gmail.com</strong></p>
       <h3>2. Dados coletados</h3>
       <p>Nossos aplicativos coletam e armazenam exclusivamente no dispositivo do usuário:</p>
       <ul>
@@ -618,7 +621,7 @@
       <h3>5. Seus direitos (LGPD)</h3>
       <p>Você pode revogar o acesso do app a qualquer momento pelo painel da plataforma (ex: Nuvemshop → Meus Aplicativos → Desinstalar). Os dados locais são removidos ao desinstalar o app.</p>
       <h3>6. Contato</h3>
-      <p>Dúvidas: <strong>contato@aura-dev-app.com</strong></p>
+      <p>Dúvidas: <strong>auradev.app@gmail.com</strong></p>
     </div>
   </div>
 </section>
@@ -629,8 +632,8 @@
   <h2 style="margin:1rem 0" id="c-title">Tem uma ideia de app?</h2>
   <p id="c-sub">Conte o problema. Desenvolvemos juntos a solução mais inteligente — do briefing ao Play Store.</p>
   <div class="cta-bottom">
-    <a href="mailto:contato@aura-dev-app.com" class="btn-dark" id="c-btn">Iniciar projeto</a>
-    <a href="mailto:contato@aura-dev-app.com" class="contact-email" id="c-email">contato@aura-dev-app.com</a>
+    <a href="mailto:auradev.app@gmail.com" class="btn-dark" id="c-btn">Iniciar projeto</a>
+    <a href="mailto:auradev.app@gmail.com" class="contact-email" id="c-email">auradev.app@gmail.com</a>
   </div>
 </section>
 
@@ -657,27 +660,19 @@
 
 <div id="videoLightbox">
   <button class="lb-close" onclick="closeVideoLightbox()">✕</button>
-  <iframe id="lbIframe" src="" allow="autoplay;fullscreen" allowfullscreen=""></iframe>
+  <iframe id="lbIframe" src="" allow="autoplay;fullscreen" allowfullscreen></iframe>
   <div class="lb-hint">Pressione ESC ou clique em ✕ para fechar</div>
   <div id="pinchHint"><span class="pinch-icon">🤏</span> Junte e afaste dois dedos para ajustar o tamanho</div>
 </div>
 
 <footer>
   <span>© 2025 Aura Dev Apps</span>
-  <div class="footer-social">
-    <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
-      <span class="footer-ig-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      </span>
-      @aura_dev_app
-    </a>
-    <a href="https://www.tiktok.com/@aura.dev.app" target="_blank" rel="noopener" class="footer-ig footer-tt">
-      <span class="footer-tt-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 5.82c-1.005-1.09-1.56-2.51-1.56-4.02h-3.44v13.68c0 1.63-1.33 2.96-2.96 2.96s-2.96-1.33-2.96-2.96 1.33-2.96 2.96-2.96c.28 0 .55.04.8.12v-3.51a6.39 6.39 0 0 0-.8-.05c-3.53 0-6.4 2.87-6.4 6.4s2.87 6.4 6.4 6.4 6.4-2.87 6.4-6.4V9.4a8.36 8.36 0 0 0 4.88 1.56V7.52c-1.06 0-2.05-.32-2.88-.87a5.94 5.94 0 0 1-.44-.83z"/></svg>
-      </span>
-      @aura.dev.app
-    </a>
-  </div>
+  <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
+    <span class="footer-ig-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </span>
+    @aura_dev_app
+  </a>
   <span>Flutter · Firebase · Android · IA</span>
 </footer>
 
@@ -691,12 +686,12 @@
   </div>
   <div class="editor-tabs">
     <button class="editor-tab" onclick="switchTab('hero',this)">Hero</button>
-    <button class="editor-tab active" onclick="switchTab('app1',this)">App 1</button>
+    <button class="editor-tab" onclick="switchTab('app1',this)">App 1</button>
     <button class="editor-tab" onclick="switchTab('app2',this)">App 2</button>
     <button class="editor-tab" onclick="switchTab('app3',this)">App 3</button>
     <button class="editor-tab" onclick="switchTab('numbers',this)">Números</button>
     <button class="editor-tab" onclick="switchTab('services',this)">Serviços</button>
-    <button class="editor-tab" onclick="switchTab('process',this)">Processo</button>
+    <button class="editor-tab active" onclick="switchTab('process',this)">Processo</button>
     <button class="editor-tab" onclick="switchTab('faq',this)">FAQ</button>
     <button class="editor-tab" onclick="switchTab('privacy',this)">Legal</button>
     <button class="editor-tab" onclick="switchTab('contact',this)">Contato</button>
@@ -710,7 +705,7 @@
       <div class="field-group"><label>Texto descritivo</label><textarea id="e-sub" rows="3"></textarea></div>
     </div>
 
-    <div class="editor-tab-content active" id="tab-app1">
+    <div class="editor-tab-content" id="tab-app1">
       <div class="editor-section-title">App 1</div>
       <div class="field-group"><label>Nome</label><input type="text" id="e-a0-name"></div>
       <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a0-sub"></div>
@@ -776,10 +771,10 @@
           document.write(`<div class="field-group"><label>Título</label><input type="text" id="e-sv${s}-title"></div>`);
           document.write(`<div class="field-group"><label>Texto</label><textarea id="e-sv${s}-text" rows="2"></textarea></div>`);
         }
-      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div>
+      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div>
     </div>
 
-    <div class="editor-tab-content" id="tab-process">
+    <div class="editor-tab-content active" id="tab-process">
       <div class="editor-section-title">Etapas do processo (5 etapas)</div>
       <script>
         for(let p=0;p<5;p++){
@@ -787,7 +782,7 @@
           document.write(`<div class="field-group"><label>Título</label><input type="text" id="e-pr${p}-title"></div>`);
           document.write(`<div class="field-group"><label>Texto</label><textarea id="e-pr${p}-text" rows="2"></textarea></div>`);
         }
-      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div>
+      </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 1</div><div class="field-group"><label>Título</label><input type="text" id="e-pr0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 2</div><div class="field-group"><label>Título</label><input type="text" id="e-pr1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 3</div><div class="field-group"><label>Título</label><input type="text" id="e-pr2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 4</div><div class="field-group"><label>Título</label><input type="text" id="e-pr3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Etapa 5</div><div class="field-group"><label>Título</label><input type="text" id="e-pr4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-pr4-text" rows="2"></textarea></div>
     </div>
 
     <div class="editor-tab-content" id="tab-faq">
@@ -798,7 +793,7 @@
           document.write(`<div class="field-group"><label>Pergunta ${f+1}</label><input type="text" id="e-fq${f}"></div>`);
           document.write(`<div class="field-group"><label>Resposta ${f+1}</label><textarea id="e-fa${f}" rows="2"></textarea></div>`);
         }
-      </script><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div>
+      </script><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div><div class="field-group"><label>Pergunta 1</label><input type="text" id="e-fq0"></div><div class="field-group"><label>Resposta 1</label><textarea id="e-fa0" rows="2"></textarea></div><div class="field-group"><label>Pergunta 2</label><input type="text" id="e-fq1"></div><div class="field-group"><label>Resposta 2</label><textarea id="e-fa1" rows="2"></textarea></div><div class="field-group"><label>Pergunta 3</label><input type="text" id="e-fq2"></div><div class="field-group"><label>Resposta 3</label><textarea id="e-fa2" rows="2"></textarea></div><div class="field-group"><label>Pergunta 4</label><input type="text" id="e-fq3"></div><div class="field-group"><label>Resposta 4</label><textarea id="e-fa3" rows="2"></textarea></div><div class="field-group"><label>Pergunta 5</label><input type="text" id="e-fq4"></div><div class="field-group"><label>Resposta 5</label><textarea id="e-fa4" rows="2"></textarea></div><div class="field-group"><label>Pergunta 6</label><input type="text" id="e-fq5"></div><div class="field-group"><label>Resposta 6</label><textarea id="e-fa5" rows="2"></textarea></div><div class="field-group"><label>Pergunta 7</label><input type="text" id="e-fq6"></div><div class="field-group"><label>Resposta 7</label><textarea id="e-fa6" rows="2"></textarea></div>
     </div>
 
     <div class="editor-tab-content" id="tab-privacy">
@@ -885,33 +880,36 @@ function openEditor(){
   // ── Lê o conteúdo ATUAL da página e preenche o editor ──
   const g=(id)=>document.getElementById(id);
 
-  // Hero
+  // Hero — lê do DOM atual
   g('e-eyebrow').value=g('h-eyebrow')?.textContent||'';
   g('e-highlight').value=g('h-highlight')?.textContent||'';
   g('e-sub').value=g('h-sub')?.textContent||'';
 
-  // Apps — lê de carousel e playbtn (estrutura atual)
+  // Apps
   for(let i=0;i<3;i++){
     const nameEl=g(`app${i}-name`),subEl=g(`app${i}-sub`),descEl=g(`app${i}-desc`);
     const featEl=g(`app${i}-features`),linkEl=g(`app${i}-link`);
+    const screensEl=g(`app${i}-screenshots`),videoEl=g(`app${i}-iframe`);
     if(nameEl) g(`e-a${i}-name`).value=nameEl.textContent;
     if(subEl)  g(`e-a${i}-sub`).value=subEl.textContent;
     if(descEl) g(`e-a${i}-desc`).value=descEl.textContent;
     if(featEl) g(`e-a${i}-features`).value=Array.from(featEl.querySelectorAll('li')).map(li=>li.textContent).join('\n');
-    if(linkEl&&g(`e-a${i}-link`)) g(`e-a${i}-link`).value=linkEl.href||'';
-    // Lê imagens do carrossel visível
-    const carousel=g(`app${i}-carousel`);
-    if(carousel){
-      const base=window.location.origin+(window.location.pathname.endsWith('/')?window.location.pathname:window.location.pathname.replace(/\/[^\/]*$/,'/'));
-      const imgs=Array.from(carousel.querySelectorAll('img')).map(img=>img.src.replace(base,'').replace(window.location.origin+'/',''));
+    if(linkEl) g(`e-a${i}-link`)&&(g(`e-a${i}-link`).value=linkEl.href||'');
+    if(screensEl){
+      const imgs=Array.from(screensEl.querySelectorAll('img')).map(img=>img.src.replace(window.location.origin+window.location.pathname.replace('index.html',''),'').replace(window.location.origin+'/',''));
       const ta=g(`e-a${i}-imgs`);if(ta)ta.value=imgs.join('\n');
     }
-    // Lê ID do vídeo do playbtn (id="appN-playbtn")
-    const playbtn=g(`app${i}-playbtn`);
+    if(videoEl){
+      const src=videoEl.src||'';
+      const match=src.match(/embed\/([^?&]+)/);
+      const ta=g(`e-a${i}-video`);if(ta)ta.value=match?match[1]:'';
+    }
+    // Para os novos carrosséis (app sem iframe visível), lê do play btn
+    const playbtn=g(`app${i}-videowrap`)?.querySelector('.video-play-btn');
     if(playbtn){
       const onc=playbtn.getAttribute('onclick')||'';
       const m=onc.match(/embed\/([a-zA-Z0-9_-]{11})/);
-      const ta=g(`e-a${i}-video`);if(ta)ta.value=m?m[1]:'';
+      const ta=g(`e-a${i}-video`);if(ta&&m)ta.value=m[1];
     }
     // Requisitos
     const reqEl=g(`app${i}-requisitos`);
@@ -1197,19 +1195,15 @@ function closeVideoLightbox(){
   });
 })();
 
-// Clique nas imagens do carrossel — usa delegação para funcionar após applyChanges
-function bindCarouselClicks(){
-  document.querySelectorAll('.app-carousel').forEach(carousel=>{
-    carousel.querySelectorAll('img').forEach(img=>{
-      img.onclick=null;
-      img.addEventListener('click',function(){
-        const all=Array.from(carousel.querySelectorAll('img')).map(i=>i.src);
-        openImgLightbox(this.src,all);
-      });
+// Clique nas imagens do carrossel — passa todas as imagens do mesmo carrossel
+document.querySelectorAll('.app-carousel').forEach(carousel=>{
+  const imgs=Array.from(carousel.querySelectorAll('img'));
+  imgs.forEach(img=>{
+    img.addEventListener('click',()=>{
+      openImgLightbox(img.src, imgs.map(i=>i.src));
     });
   });
-}
-bindCarouselClicks();
+});
 
 
 function applyChanges(){
@@ -1297,8 +1291,6 @@ function applyChanges(){
     g('c-btn').href='mailto:'+ce;
   }
 
-  // Re-bind carousel clicks after DOM update
-  setTimeout(bindCarouselClicks,50);
   closeEditor();
 }
 
