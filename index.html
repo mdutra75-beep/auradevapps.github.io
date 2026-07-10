@@ -233,7 +233,8 @@
   .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .reveal.visible{opacity:1;transform:translateY(0)}
   /* EDITOR */
-  #editBtn{position:fixed;bottom:1.5rem;left:1.5rem;z-index:9000;width:10px;height:10px;border-radius:50%;background:rgba(176,108,255,.15);border:none;cursor:pointer;transition:background .3s,width .3s,height .3s;padding:0}
+  #editBtn{display:none;position:fixed;bottom:1.5rem;left:1.5rem;z-index:9000;width:10px;height:10px;border-radius:50%;background:rgba(176,108,255,.15);border:none;cursor:pointer;transition:background .3s,width .3s,height .3s;padding:0}
+  #editBtn.unlocked{display:block}
   #editBtn:hover{background:rgba(176,108,255,.7);width:36px;height:36px}
   .editor-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:8000;backdrop-filter:blur(4px)}
   .editor-overlay.open{display:block}
@@ -618,25 +619,34 @@
     <div class="section-label reveal">Legal</div>
     <h2 style="margin:1.5rem 0 3rem" class="reveal">Política de Privacidade</h2>
     <div class="privacy-content reveal" id="privacyContent">
-      <p>Última atualização: Janeiro de 2025</p>
+      <p>Última atualização: Julho de 2026</p>
+      <p>Esta Política de Privacidade se aplica a todos os aplicativos desenvolvidos e publicados pela Aura Dev Apps, incluindo Catálogo por IA — Nuvemshop, Catálogo por IA — Loja Integrada, Catálogo por IA — Instagram e Catálogo por IA — TikTok (coletivamente, os "Aplicativos"). Ao usar qualquer um dos Aplicativos, você concorda com a coleta e o uso de informações de acordo com esta política.</p>
       <h3>1. Quem somos</h3>
       <p>A Aura Dev Apps é responsável pelo desenvolvimento e manutenção dos aplicativos disponibilizados neste site. Contato para assuntos de privacidade: <strong>auradev.app@gmail.com</strong></p>
-      <h3>2. Dados coletados</h3>
-      <p>Nossos aplicativos coletam e armazenam exclusivamente no dispositivo do usuário:</p>
+      <h3>2. Quais dados podemos coletar</h3>
+      <p>Dependendo do Aplicativo utilizado e dos recursos que você ativar, podemos coletar:</p>
       <ul>
-        <li>Token de acesso OAuth gerado pela plataforma (Nuvemshop, Loja Integrada, Meta)</li>
-        <li>ID da loja do usuário</li>
-        <li>Chave de API do serviço de IA, fornecida pelo próprio usuário (opcional)</li>
+        <li><strong>Dados de conta e integração:</strong> ao conectar sua loja ou perfil (Nuvemshop, Loja Integrada, Instagram/Facebook ou TikTok Shop), recebemos via autenticação OAuth oficial de cada plataforma o identificador da loja/conta e um token de acesso necessário para publicar produtos em seu nome. Nunca temos acesso à sua senha dessas plataformas.</li>
+        <li><strong>Conteúdo que você envia:</strong> fotos de produtos, títulos, descrições, preços, categorias e demais dados de produto que você insere são enviados aos nossos servidores para processamento e publicação.</li>
+        <li><strong>Processamento por Inteligência Artificial:</strong> para gerar títulos, descrições e, quando aplicável, imagens aprimoradas de produto, o conteúdo acima é enviado a provedores de IA de terceiros (atualmente OpenRouter e OpenAI) através do nosso servidor.</li>
+        <li><strong>Dados de uso, diagnóstico e desempenho:</strong> podemos usar o Firebase (Google) para analytics de uso e relatório de falhas (Crashlytics), que podem coletar identificadores de dispositivo, modelo do aparelho, versão do sistema, IP aproximado e registros de erro.</li>
+        <li><strong>Dados locais no dispositivo:</strong> preferências, categorias personalizadas e credenciais de sessão podem ficar armazenadas de forma segura no seu aparelho.</li>
       </ul>
-      <p>Nenhum dado pessoal como nome, CPF ou informações financeiras é coletado.</p>
+      <p>Não coletamos dados pessoais como CPF ou informações financeiras.</p>
       <h3>3. Como usamos os dados</h3>
-      <p>Exclusivamente para autenticar requisições às APIs das plataformas e publicar produtos conforme solicitado pelo usuário.</p>
+      <p>Usamos os dados exclusivamente para publicar, editar, sincronizar e excluir produtos nas plataformas que você conectou a seu pedido, gerar conteúdo via IA quando solicitado, operar e melhorar os Aplicativos, diagnosticar erros técnicos e prestar suporte quando você entra em contato conosco.</p>
       <h3>4. Compartilhamento</h3>
-      <p>Não compartilhamos, vendemos ou transferimos nenhum dado a terceiros. As únicas comunicações externas são com as APIs oficiais das plataformas integradas e os serviços de IA configurados pelo usuário.</p>
-      <h3>5. Seus direitos (LGPD)</h3>
-      <p>Você pode revogar o acesso do app a qualquer momento pelo painel da plataforma (ex: Nuvemshop → Meus Aplicativos → Desinstalar). Os dados locais são removidos ao desinstalar o app.</p>
-      <h3>6. Contato</h3>
-      <p>Dúvidas: <strong>auradev.app@gmail.com</strong></p>
+      <p>Não vendemos seus dados pessoais. Compartilhamos dados apenas com: a plataforma que você conectou (Nuvemshop, Loja Integrada, Meta/Instagram, TikTok Shop), pois é o destino da publicação solicitada; provedores de infraestrutura que operam em nosso nome sob termos próprios (Firebase/Google Cloud, Railway, Cloudinary quando aplicável, OpenRouter e OpenAI); e autoridades, quando exigido por lei.</p>
+      <h3>5. Retenção de dados</h3>
+      <p>Mantemos os dados de produtos e conta enquanto sua conta estiver ativa nos Aplicativos. Você pode solicitar a exclusão da sua conta e dos dados associados a qualquer momento pelo e-mail de contato.</p>
+      <h3>6. Seus direitos (LGPD)</h3>
+      <p>Nos termos da Lei Geral de Proteção de Dados, você pode solicitar a qualquer momento, pelo e-mail de contato: confirmação do tratamento, acesso, correção, anonimização, bloqueio ou eliminação de dados, portabilidade e revogação do consentimento. Você também pode revogar o acesso do app a qualquer momento pelo painel da plataforma (ex: Nuvemshop → Meus Aplicativos → Desinstalar).</p>
+      <h3>7. Crianças e adolescentes</h3>
+      <p>Os Aplicativos são destinados a lojistas e empreendedores maiores de 18 anos e não são direcionados a crianças. Não coletamos intencionalmente dados de menores de idade.</p>
+      <h3>8. Alterações nesta política</h3>
+      <p>Podemos atualizar esta política periodicamente para refletir mudanças nos Aplicativos ou em requisitos legais. A data no topo desta página indica a versão mais recente.</p>
+      <h3>9. Contato</h3>
+      <p>Dúvidas ou solicitações: <strong>auradev.app@gmail.com</strong></p>
     </div>
   </div>
 </section>
@@ -890,6 +900,37 @@ function switchTab(name,btn){
   document.getElementById('tab-'+name).classList.add('active');
   if(btn)btn.classList.add('active');
 }
+
+// ── ACESSO PROTEGIDO AO EDITOR ──
+// Acesso apenas via aura-dev-app.com/#marco_edit + senha.
+// Aviso: proteção client-side é um dissuasor, não segurança forte (o código é visível
+// a quem inspecionar a página). Suficiente para impedir acesso casual/acidental.
+(function checkEditAccess(){
+  const EDIT_HASH='#marco_edit';
+  const EDIT_PASSWORD='212013';
+  function unlockEditor(){
+    const btn=document.getElementById('editBtn');
+    if(btn)btn.classList.add('unlocked');
+  }
+  function tryUnlock(){
+    if(sessionStorage.getItem('aura_edit_auth')==='1'){
+      unlockEditor();
+      return;
+    }
+    const pwd=prompt('Senha de acesso ao editor:');
+    if(pwd===EDIT_PASSWORD){
+      sessionStorage.setItem('aura_edit_auth','1');
+      unlockEditor();
+    }else if(pwd!==null){
+      alert('Senha incorreta.');
+    }
+  }
+  if(window.location.hash===EDIT_HASH){
+    tryUnlock();
+    // Remove o hash da barra de endereço após a tentativa, sem recarregar a página
+    history.replaceState(null,'',window.location.pathname+window.location.search);
+  }
+})();
 
 function openEditor(){
   // ── Lê o conteúdo ATUAL da página e preenche o editor ──
