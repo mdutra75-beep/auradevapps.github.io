@@ -198,6 +198,19 @@
   .privacy-content h3{font-size:1.1rem;font-weight:600;margin:2rem 0 .75rem;color:var(--acid)}
   .privacy-content p,.privacy-content li{font-size:.9rem;color:var(--mid);line-height:1.8;margin-bottom:.5rem}
   .privacy-content ul{padding-left:1.5rem}
+  /* ── DOWNLOADS ── */
+  #downloads{flex-direction:column;gap:1rem}
+  .downloads-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;width:100%}
+  .download-card{border:1px solid rgba(176,108,255,.15);border-radius:16px;padding:2rem;background:rgba(176,108,255,.03);display:flex;flex-direction:column;gap:1rem}
+  .download-card h3{font-size:1.2rem;font-weight:600}
+  .download-card .app-sub{font-size:.78rem;color:var(--mid);letter-spacing:.05em}
+  .download-card .desc{font-size:.88rem;color:var(--mid);line-height:1.7}
+  .platform-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.25rem}
+  .platform-badge{display:flex;align-items:center;gap:.7rem;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:.75rem 1rem;flex:1;min-width:180px}
+  .platform-badge.soon{opacity:.5}
+  .platform-icon{font-size:1.3rem}
+  .platform-name{font-size:.85rem;font-weight:600}
+  .platform-note{font-size:.7rem;color:var(--dim)}
   #contact{background:var(--paper);color:var(--ink);flex-direction:column;align-items:flex-start;gap:3rem}
   #contact .section-label{color:var(--ink);opacity:.5}
   #contact .section-label::before{background:var(--ink)}
@@ -288,6 +301,7 @@
   <a href="#process" title="Processo" class=""></a>
   <a href="#faq" title="FAQ" class=""></a>
   <a href="#contact" title="Contato"></a>
+  <a href="#downloads" title="Downloads"></a>
 </nav>
 <!-- HERO -->
 <section id="hero">
@@ -621,7 +635,7 @@
     <h2 style="margin:1.5rem 0 3rem" class="reveal">Política de Privacidade</h2>
     <div class="privacy-content reveal" id="privacyContent">
       <p>Última atualização: Julho de 2026</p>
-      <p>Esta Política de Privacidade se aplica a todos os aplicativos desenvolvidos e publicados pela Aura Dev Apps, incluindo Catálogo por IA — Nuvemshop, Catálogo por IA — Loja Integrada, Catálogo por IA — Instagram e Catálogo por IA — TikTok (coletivamente, os "Aplicativos"). Ao usar qualquer um dos Aplicativos, você concorda com a coleta e o uso de informações de acordo com esta política.</p>
+      <p>Esta Política de Privacidade se aplica a todos os aplicativos desenvolvidos e publicados pela Aura Dev Apps, incluindo Catálogo por IA — Nuvemshop, Catálogo por IA — Loja Integrada, Catálogo por IA — Instagram, Catálogo por IA — TikTok e Controle de Estoque (coletivamente, os "Aplicativos"). Ao usar qualquer um dos Aplicativos, você concorda com a coleta e o uso de informações de acordo com esta política.</p>
       <h3>1. Quem somos</h3>
       <p>A Aura Dev Apps é responsável pelo desenvolvimento e manutenção dos aplicativos disponibilizados neste site. Contato para assuntos de privacidade: <strong>auradev.app@gmail.com</strong></p>
       <h3>2. Quais dados podemos coletar</h3>
@@ -632,12 +646,13 @@
         <li><strong>Processamento por Inteligência Artificial:</strong> para gerar títulos, descrições e, quando aplicável, imagens aprimoradas de produto, o conteúdo acima é enviado a provedores de IA de terceiros (atualmente OpenRouter e OpenAI) através do nosso servidor.</li>
         <li><strong>Dados de uso, diagnóstico e desempenho:</strong> podemos usar o Firebase (Google) para analytics de uso e relatório de falhas (Crashlytics), que podem coletar identificadores de dispositivo, modelo do aparelho, versão do sistema, IP aproximado e registros de erro.</li>
         <li><strong>Dados locais no dispositivo:</strong> preferências, categorias personalizadas e credenciais de sessão podem ficar armazenadas de forma segura no seu aparelho.</li>
+        <li><strong>Cadastro e pagamento (Controle de Estoque):</strong> este Aplicativo em específico usa login por número de WhatsApp e, ao assinar o plano pago, coleta CPF ou CNPJ para gerar a cobrança via Pix através do provedor de pagamentos Asaas. Não temos acesso aos dados do seu cartão ou conta bancária — o pagamento é processado inteiramente pelo Asaas.</li>
       </ul>
-      <p>Não coletamos dados pessoais como CPF ou informações financeiras.</p>
+      <p>Os demais Aplicativos (Catálogo por IA) não coletam CPF nem dados financeiros.</p>
       <h3>3. Como usamos os dados</h3>
       <p>Usamos os dados exclusivamente para publicar, editar, sincronizar e excluir produtos nas plataformas que você conectou a seu pedido, gerar conteúdo via IA quando solicitado, operar e melhorar os Aplicativos, diagnosticar erros técnicos e prestar suporte quando você entra em contato conosco.</p>
       <h3>4. Compartilhamento</h3>
-      <p>Não vendemos seus dados pessoais. Compartilhamos dados apenas com: a plataforma que você conectou (Nuvemshop, Loja Integrada, Meta/Instagram, TikTok Shop), pois é o destino da publicação solicitada; provedores de infraestrutura que operam em nosso nome sob termos próprios (Firebase/Google Cloud, Railway, Cloudinary quando aplicável, OpenRouter e OpenAI); e autoridades, quando exigido por lei.</p>
+      <p>Não vendemos seus dados pessoais. Compartilhamos dados apenas com: a plataforma que você conectou (Nuvemshop, Loja Integrada, Meta/Instagram, TikTok Shop), pois é o destino da publicação solicitada; o Asaas, processador de pagamentos usado pelo Controle de Estoque para gerar cobranças Pix; provedores de infraestrutura que operam em nosso nome sob termos próprios (Firebase/Google Cloud, Railway, Cloudinary quando aplicável, OpenRouter e OpenAI); e autoridades, quando exigido por lei.</p>
       <h3>5. Retenção de dados</h3>
       <p>Mantemos os dados de produtos e conta enquanto sua conta estiver ativa nos Aplicativos. Você pode solicitar a exclusão da sua conta e dos dados associados a qualquer momento pelo e-mail de contato.</p>
       <h3>6. Seus direitos (LGPD)</h3>
@@ -660,6 +675,53 @@
   <div class="cta-bottom">
     <a href="mailto:auradev.app@gmail.com" class="btn-dark" id="c-btn">Iniciar projeto</a>
     <a href="mailto:auradev.app@gmail.com" class="contact-email" id="c-email">auradev.app@gmail.com</a>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section id="downloads" style="min-height:auto;padding-top:4rem;padding-bottom:4rem">
+  <div style="width:100%">
+    <div class="section-label reveal">Baixe agora</div>
+    <h2 style="margin:1.5rem 0 1rem" class="reveal">Downloads</h2>
+    <p class="reveal" style="color:var(--mid);max-width:600px;margin-bottom:3rem;font-size:.95rem;line-height:1.8">
+      Alguns apps da Aura Dev são distribuídos direto por aqui, fora das lojas oficiais — mesma qualidade, mesmo suporte, sem intermediário.
+    </p>
+
+    <div class="downloads-grid reveal">
+      <div class="download-card">
+        <div>
+          <h3>Controle de Estoque</h3>
+          <p class="app-sub">Gestão de estoque para revendedores</p>
+        </div>
+        <p class="desc">Fotografe o produto recebido, deixe a IA identificar nome e peso, e gere automaticamente uma planilha com rateio de frete, custo e lucro — pronta pra compartilhar no WhatsApp.</p>
+
+        <div class="platform-row">
+          <div class="platform-badge">
+            <span class="platform-icon">🤖</span>
+            <div>
+              <div class="platform-name">Android</div>
+              <div class="platform-note">Disponível agora — v1.0.0</div>
+            </div>
+          </div>
+          <div class="platform-badge soon">
+            <span class="platform-icon">🍎</span>
+            <div>
+              <div class="platform-name">iOS</div>
+              <div class="platform-note">Em breve, via loja alternativa</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="downloads/controle_de_estoque.apk" class="btn-store" download style="justify-content:center;margin-top:.5rem">⬇ Baixar APK</a>
+
+        <div class="requisitos-box" style="margin-top:0">
+          <h4>Como instalar</h4>
+          <div class="req-item">
+            <div class="req-text">Baixe o arquivo .apk acima pelo navegador do celular. O Android vai avisar que a instalação de "fontes desconhecidas" precisa ser permitida — isso é normal para apps distribuídos fora da Play Store. Toque em "Configurações" no aviso, ative a permissão para esse arquivo, e volte para concluir a instalação.</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
