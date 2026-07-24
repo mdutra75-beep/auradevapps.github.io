@@ -107,6 +107,21 @@
   .carousel-btn.prev{left:6px}
   .carousel-btn.next{right:6px}
   .app-screenshots{display:none}/* mantido para compatibilidade */
+  /* Carrossel de instalação (seção downloads) */
+  .install-carousel-wrap{position:relative;overflow:hidden;border-radius:12px;margin:1.25rem 0}
+  .install-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .install-carousel::-webkit-scrollbar{display:none}
+  .install-slide{flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;padding:0 2.75rem;text-align:center}
+  .install-slide img{width:100%;max-width:220px;aspect-ratio:746/1600;object-fit:cover;border-radius:14px;border:1px solid rgba(176,108,255,.25);background:rgba(176,108,255,.05)}
+  .install-caption{margin-top:.85rem;font-size:.85rem;color:var(--paper);line-height:1.5;max-width:260px}
+  .install-slide-text{justify-content:center;min-height:280px;gap:.75rem}
+  .install-slide-text .install-shield{font-size:2.5rem}
+  .install-slide-text .install-title{font-family:inherit;font-size:1.05rem;font-weight:700;text-transform:none;letter-spacing:normal;color:#fff;margin:0;display:block}
+  .install-slide-text .install-title::before{content:none}
+  .install-slide-text p{font-size:.85rem;color:var(--mid);line-height:1.7;max-width:280px}
+  .install-dots{display:flex;justify-content:center;gap:6px;margin-top:1rem}
+  .install-dot{width:6px;height:6px;border-radius:50%;background:rgba(176,108,255,.3);transition:background .2s,width .2s}
+  .install-dot.active{background:var(--acid);width:16px;border-radius:3px}
   .app-video-wrap{position:relative;padding-bottom:56.25%;border-radius:12px;overflow:hidden;border:1px solid rgba(176,108,255,.15)}
   .app-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
   /* ── LIGHTBOX VÍDEO ── */
@@ -692,7 +707,7 @@
       <div class="download-card">
         <div>
           <h3>Controle de Estoque</h3>
-          <p class="app-sub">Gestão de estoque para revendedores</p>
+          <p class="app-sub">Gestão de estoque para revendedores de importados dos EUA</p>
         </div>
         <p class="desc">Fotografe o produto recebido, deixe a IA identificar nome e peso, e gere automaticamente uma planilha com rateio de frete, custo e lucro — pronta pra compartilhar no WhatsApp.</p>
 
@@ -701,7 +716,7 @@
             <span class="platform-icon" style="color:#3DDC84"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M16.61 15.15C16.15 15.15 15.77 14.78 15.77 14.32S16.15 13.5 16.61 13.5H16.61C17.07 13.5 17.45 13.86 17.45 14.32C17.45 14.78 17.07 15.15 16.61 15.15M7.41 15.15C6.95 15.15 6.57 14.78 6.57 14.32C6.57 13.86 6.95 13.5 7.41 13.5H7.41C7.87 13.5 8.24 13.86 8.24 14.32C8.24 14.78 7.87 15.15 7.41 15.15M16.91 10.14L18.58 7.26C18.67 7.09 18.61 6.88 18.45 6.79C18.28 6.69 18.07 6.75 18 6.92L16.29 9.83C14.95 9.22 13.5 8.9 12 8.91C10.47 8.91 9 9.24 7.73 9.82L6.04 6.91C5.95 6.74 5.74 6.68 5.57 6.78C5.4 6.87 5.35 7.08 5.44 7.25L7.1 10.13C4.25 11.69 2.29 14.58 2 18H22C21.72 14.59 19.77 11.7 16.91 10.14H16.91Z" /></svg></span>
             <div>
               <div class="platform-name">Android</div>
-              <div class="platform-note">Disponível agora — v1.0.0</div>
+              <div class="platform-note">Disponível agora — v1.1.0</div>
             </div>
           </div>
           <div class="platform-badge soon">
@@ -713,13 +728,46 @@
           </div>
         </div>
 
-        <a href="downloads/controle_de_estoque.apk" class="btn-store" download style="justify-content:center;margin-top:.5rem">⬇ Baixar APK</a>
+        <a href="downloads/controle_de_estoque.apk" class="btn-store" download style="justify-content:center;margin-top:.5rem">⬇ Baixar Aplicativo</a>
 
         <div class="requisitos-box" style="margin-top:0">
           <h4>Como instalar</h4>
           <div class="req-item">
-            <div class="req-text">Baixe o arquivo .apk acima pelo navegador do celular. O Android vai avisar que a instalação de "fontes desconhecidas" precisa ser permitida — isso é normal para apps distribuídos fora da Play Store. Toque em "Configurações" no aviso, ative a permissão para esse arquivo, e volte para concluir a instalação.</div>
+            <div class="req-text">Baixe o arquivo .apk acima pelo navegador do celular. O Android vai avisar que a instalação de "fontes desconhecidas" precisa ser permitida — isso é normal para apps distribuídos fora da Play Store. Veja o passo a passo abaixo.</div>
           </div>
+
+          <div class="install-carousel-wrap">
+            <button class="carousel-btn prev" onclick="scrollInstallCarousel(-1)">‹</button>
+            <div class="install-carousel" id="install-carousel">
+              <div class="install-slide install-slide-text">
+                <div class="install-shield">🛡️</div>
+                <span class="install-title">App 100% seguro</span>
+                <p>O Controle de Estoque não tem vírus nem nenhum risco de segurança. Por ser distribuído fora da Play Store, o Android mostra alguns avisos padrão na instalação — é assim mesmo, veja o passo a passo:</p>
+              </div>
+              <div class="install-slide">
+                <img src="images/instalar/instalar-1.jpeg" alt="Toque em Instalar no aviso do Chrome" loading="lazy">
+                <p class="install-caption">Toque em "Instalar" quando o Chrome perguntar.</p>
+              </div>
+              <div class="install-slide">
+                <img src="images/instalar/instalar-2.jpeg" alt="Aviso do Google Play Protect" loading="lazy">
+                <p class="install-caption">O Android avisa que não conhece o desenvolvedor — normal em apps fora da Play Store.</p>
+              </div>
+              <div class="install-slide">
+                <img src="images/instalar/instalar-3.jpeg" alt="Opção Instalar assim mesmo" loading="lazy">
+                <p class="install-caption">Toque em "Instalar assim mesmo" para continuar.</p>
+              </div>
+              <div class="install-slide">
+                <img src="images/instalar/instalar-4.jpeg" alt="App instalado com sucesso" loading="lazy">
+                <p class="install-caption">Pronto! Toque em "Abrir" pra começar a usar.</p>
+              </div>
+              <div class="install-slide">
+                <img src="images/instalar/instalar-5.jpeg" alt="Autofill do código de login por SMS" loading="lazy">
+                <p class="install-caption">No login, autorize a leitura do SMS e o código preenche sozinho.</p>
+              </div>
+            </div>
+            <button class="carousel-btn next" onclick="scrollInstallCarousel(1)">›</button>
+          </div>
+          <div class="install-dots" id="install-dots"></div>
         </div>
       </div>
     </div>
@@ -1111,6 +1159,35 @@ function scrollCarousel(id,dir){
   const w=el.querySelector('img')?.offsetWidth||160;
   el.scrollBy({left:dir*(w+12)*2,behavior:'smooth'});
 }
+
+function scrollInstallCarousel(dir){
+  const el=document.getElementById('install-carousel');if(!el)return;
+  el.scrollBy({left:dir*el.clientWidth,behavior:'smooth'});
+}
+
+(function initInstallCarousel(){
+  const el=document.getElementById('install-carousel');
+  const dotsEl=document.getElementById('install-dots');
+  if(!el||!dotsEl)return;
+  const slides=el.querySelectorAll('.install-slide');
+  slides.forEach((_,i)=>{
+    const dot=document.createElement('span');
+    dot.className='install-dot'+(i===0?' active':'');
+    dot.onclick=()=>el.scrollTo({left:el.clientWidth*i,behavior:'smooth'});
+    dotsEl.appendChild(dot);
+  });
+  const dots=dotsEl.querySelectorAll('.install-dot');
+  let ticking=false;
+  el.addEventListener('scroll',()=>{
+    if(ticking)return;
+    ticking=true;
+    requestAnimationFrame(()=>{
+      const idx=Math.round(el.scrollLeft/el.clientWidth);
+      dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+      ticking=false;
+    });
+  });
+})();
 
 function setScreenshots(containerId,paths){
   // Atualiza o carrossel
