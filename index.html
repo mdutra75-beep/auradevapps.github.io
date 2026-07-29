@@ -113,6 +113,8 @@
   .install-carousel::-webkit-scrollbar{display:none}
   .install-slide{flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;padding:0 2.75rem;text-align:center}
   .install-slide img{width:100%;max-width:220px;aspect-ratio:746/1600;object-fit:cover;border-radius:14px;border:1px solid rgba(176,108,255,.25);background:rgba(176,108,255,.05)}
+  .install-img-wrap{position:relative;width:100%;max-width:220px;border-radius:14px;overflow:hidden}
+  .install-highlight{position:absolute;border:2.5px solid var(--acid);border-radius:6px;box-shadow:0 0 0 9999px rgba(0,0,0,.45),0 0 10px rgba(176,108,255,.8);pointer-events:none}
   .install-caption{margin-top:.85rem;font-size:.85rem;color:var(--paper);line-height:1.5;max-width:260px}
   .install-slide-text{justify-content:center;min-height:280px;gap:.75rem}
   .install-slide-text .install-shield{font-size:2.5rem}
@@ -257,6 +259,13 @@
   .req-cost{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;background:rgba(176,108,255,.1);border:1px solid rgba(176,108,255,.2);border-radius:6px;padding:.3rem .7rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--acid);letter-spacing:.06em}
   .req-edit-hint{position:absolute;top:.6rem;right:.9rem;font-family:'Space Mono',monospace;font-size:.55rem;color:rgba(176,108,255,.35);letter-spacing:.08em;pointer-events:none;transition:opacity .3s}
   .requisitos-box:focus .req-edit-hint{opacity:0}
+  /* ── DOWNLOADS: fundo claro pra contrastar com o resto do site (dark) e garantir leitura no mobile ── */
+  #downloads .requisitos-box{background:var(--paper);border-color:rgba(176,108,255,.4)}
+  #downloads .requisitos-box h4{color:var(--acid2)}
+  #downloads .requisitos-box h4::before{background:var(--acid2)}
+  #downloads .req-label,#downloads .install-slide-text .install-title{color:var(--ink)}
+  #downloads .req-text,#downloads .install-slide-text p,#downloads .install-caption{color:#555}
+  #downloads .req-text a{color:var(--acid2)}
   .req-divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:.85rem 0}
   @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeLeft{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
@@ -728,12 +737,10 @@
           </div>
         </div>
 
-        <a href="downloads/controle_de_estoque.apk" class="btn-store" download style="justify-content:center;margin-top:.5rem">⬇ Baixar Aplicativo</a>
-
         <div class="requisitos-box" style="margin-top:0">
           <h4>Como instalar</h4>
           <div class="req-item">
-            <div class="req-text">Baixe o arquivo .apk acima pelo navegador do celular. O Android vai avisar que a instalação de "fontes desconhecidas" precisa ser permitida — isso é normal para apps distribuídos fora da Play Store. Veja o passo a passo abaixo.</div>
+            <div class="req-text">Baixe o arquivo .apk abaixo pelo navegador do celular. O Android vai avisar que a instalação de "fontes desconhecidas" precisa ser permitida — isso é normal para apps distribuídos fora da Play Store. Veja o passo a passo abaixo.</div>
           </div>
 
           <div class="install-carousel-wrap">
@@ -744,13 +751,21 @@
                 <span class="install-title">App 100% seguro</span>
                 <p>O Controle de Estoque não tem vírus nem nenhum risco de segurança. Por ser distribuído fora da Play Store, o Android mostra alguns avisos padrão na instalação — é assim mesmo, veja o passo a passo:</p>
               </div>
+              <div class="install-slide install-slide-text">
+                <div class="install-shield">⚙️</div>
+                <span class="install-title">Pode pedir para habilitar "Fontes desconhecidas"</span>
+                <p>Isso é normal: como o app não vem da Play Store, o Android pode pedir permissão pra instalar de "fontes desconhecidas". Basta tocar em "Configurações" e ativar a opção — só acontece nessa primeira instalação.</p>
+              </div>
               <div class="install-slide">
                 <img src="images/instalar/instalar-1.jpeg" alt="Toque em Instalar no aviso do Chrome" loading="lazy">
                 <p class="install-caption">Toque em "Instalar" quando o Chrome perguntar.</p>
               </div>
               <div class="install-slide">
-                <img src="images/instalar/instalar-2.jpeg" alt="Aviso do Google Play Protect" loading="lazy">
-                <p class="install-caption">O Android avisa que não conhece o desenvolvedor — normal em apps fora da Play Store.</p>
+                <div class="install-img-wrap">
+                  <img src="images/instalar/instalar-2.jpeg" alt="Aviso do Google Play Protect" loading="lazy">
+                  <span class="install-highlight" style="top:59.8%;left:8.5%;width:31%;height:4.5%"></span>
+                </div>
+                <p class="install-caption">O Android avisa que não conhece o desenvolvedor — normal em apps fora da Play Store. Clique em "Mais detalhes".</p>
               </div>
               <div class="install-slide">
                 <img src="images/instalar/instalar-3.jpeg" alt="Opção Instalar assim mesmo" loading="lazy">
@@ -769,6 +784,8 @@
           </div>
           <div class="install-dots" id="install-dots"></div>
         </div>
+
+        <a href="downloads/controle_de_estoque.apk" class="btn-store" download style="justify-content:center;margin-top:.5rem">⬇ Clique aqui para baixar o aplicativo</a>
       </div>
     </div>
   </div>
