@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quero saber mais | Aura Dev Apps</title>
+  <meta name="description" content="Deixe seu contato e receba novidades sobre os apps da Aura Dev Apps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:     #0d0d0d;
+      --paper:   #f5f2eb;
+      --accent:  #1a3cff;
+      --accent2: #ff3c1a;
+      --muted:   #6b6b6b;
+      --border:  #e0ddd4;
+      --card:    #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      padding: 20px clamp(20px, 5vw, 80px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: inline-flex; align-items: center;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 34px; width: auto; display: block; }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(30px, 6vw, 80px) 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(28px, 5vw, 48px);
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    }
+    .eyebrow {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+      background: #fff;
+      color: var(--ink);
+    }
+    input:focus { outline: none; border-color: var(--accent); }
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .checkbox-row input { margin-top: 3px; flex-shrink: 0; }
+    .checkbox-row label {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+    button {
+      width: 100%;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.88; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .aviso {
+      font-size: 0.85rem;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      display: none;
+    }
+    .aviso.sucesso { display: block; background: rgba(26,60,255,0.08); color: var(--accent); }
+    .aviso.erro { display: block; background: rgba(255,60,26,0.08); color: var(--accent2); }
+    .lgpd-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 20px;
+      text-align: center;
+    }
+    footer {
+      padding: 24px clamp(20px, 5vw, 80px);
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand"><img src="images/Logo_Aura_Dev.png" alt="Aura Dev Apps"></a>
+</nav>
+
+<main>
+  <div class="card">
+    <div class="eyebrow">Aura Dev Apps</div>
+    <h1 id="app-headline">Quero saber mais</h1>
+    <p class="sub" id="app-sub">Deixe seu contato que a gente te avisa com novidades.</p>
+
+    <form id="form-lead">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" autocomplete="name" />
+
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" autocomplete="email" required />
+
+      <label for="whatsapp">WhatsApp (com DDD)</label>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="41 99999-9999" autocomplete="tel" />
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="opt_in_email" name="opt_in_email" />
+        <label for="opt_in_email">Aceito receber novidades e conteúdo por email.</label>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="opt_in_whatsapp" name="opt_in_whatsapp" />
+        <label for="opt_in_whatsapp">Aceito receber contato pelo WhatsApp informado acima.</label>
+      </div>
+
+      <button type="submit" id="btn-enviar">Quero saber mais</button>
+      <div class="aviso" id="aviso"></div>
+    </form>
+
+    <p class="lgpd-note">Seus dados são usados só pra falar com você sobre este app. Nada de spam, nada de venda pra terceiros.</p>
+  </div>
+</main>
+
+<footer>© 2026 Aura Dev Apps</footer>
+
+<script>
+  // Um app novo entra aqui com o id que ele recebeu na tabela `apps` do backend.
+  const CONFIG_APPS = {
+    1: {
+      headline: 'Quero saber mais sobre o <em>Estoque por IA</em>',
+      sub: 'Controle de estoque por foto direto no celular, com IA organizando tudo pra você.',
+    },
+    2: {
+      headline: 'Quero saber mais sobre o <em>Catálogo Nuvemshop</em>',
+      sub: 'Cadastre produtos na sua loja Nuvemshop pelo celular, com IA gerando nome e descrição.',
+    },
+  };
+
+  const BACKEND_URL = 'https://estoque-backend-production-90aa.up.railway.app';
+
+  const params = new URLSearchParams(location.search);
+  const appId = Number(params.get('app_id')) || 1;
+  const origem = params.get('origem') || 'formulario';
+  const cfg = CONFIG_APPS[appId] || CONFIG_APPS[1];
+
+  document.getElementById('app-headline').innerHTML = cfg.headline;
+  document.getElementById('app-sub').textContent = cfg.sub;
+
+  const form = document.getElementById('form-lead');
+  const aviso = document.getElementById('aviso');
+  const btn = document.getElementById('btn-enviar');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    aviso.className = 'aviso';
+    aviso.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    const payload = {
+      app_id: appId,
+      origem,
+      nome: document.getElementById('nome').value.trim() || undefined,
+      email: document.getElementById('email').value.trim() || undefined,
+      whatsapp: document.getElementById('whatsapp').value.trim() || undefined,
+      opt_in_email: document.getElementById('opt_in_email').checked,
+      opt_in_whatsapp: document.getElementById('opt_in_whatsapp').checked,
+    };
+
+    try {
+      const resp = await fetch(`${BACKEND_URL}/leads`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json().catch(() => ({}));
+
+      if (!resp.ok) {
+        aviso.className = 'aviso erro';
+        aviso.textContent = data.erro || 'Não foi possível enviar agora. Tente de novo em instantes.';
+        return;
+      }
+
+      aviso.className = 'aviso sucesso';
+      aviso.textContent = 'Recebemos seu contato! Em breve a gente fala com você.';
+      form.reset();
+    } catch (err) {
+      aviso.className = 'aviso erro';
+      aviso.textContent = 'Erro de conexão. Verifique sua internet e tente de novo.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Quero saber mais';
+    }
+  });
+</script>
+
+</body>
+</html>
