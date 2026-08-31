@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aura Dev Apps — Aplicativos Android com IA</title>
+<title>Aura Dev Apps — Aplicativos Android e iOS com IA</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -107,23 +107,6 @@
   .carousel-btn.prev{left:6px}
   .carousel-btn.next{right:6px}
   .app-screenshots{display:none}/* mantido para compatibilidade */
-  /* Carrossel de instalação (seção downloads) */
-  .install-carousel-wrap{position:relative;overflow:hidden;border-radius:12px;margin:1.25rem 0}
-  .install-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .install-carousel::-webkit-scrollbar{display:none}
-  .install-slide{flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;padding:0 2.75rem;text-align:center}
-  .install-slide img{width:100%;max-width:220px;aspect-ratio:746/1600;object-fit:cover;border-radius:14px;border:1px solid rgba(176,108,255,.25);background:rgba(176,108,255,.05)}
-  .install-img-wrap{position:relative;width:100%;max-width:220px;border-radius:14px;overflow:hidden}
-  .install-highlight{position:absolute;border:2.5px solid var(--acid);border-radius:6px;box-shadow:0 0 0 9999px rgba(0,0,0,.45),0 0 10px rgba(176,108,255,.8);pointer-events:none}
-  .install-caption{margin-top:.85rem;font-size:.85rem;color:var(--paper);line-height:1.5;max-width:260px}
-  .install-slide-text{justify-content:center;min-height:280px;gap:.75rem}
-  .install-slide-text .install-shield{font-size:2.5rem}
-  .install-slide-text .install-title{font-family:inherit;font-size:1.05rem;font-weight:700;text-transform:none;letter-spacing:normal;color:#fff;margin:0;display:block}
-  .install-slide-text .install-title::before{content:none}
-  .install-slide-text p{font-size:.85rem;color:var(--mid);line-height:1.7;max-width:280px}
-  .install-dots{display:flex;justify-content:center;gap:6px;margin-top:1rem}
-  .install-dot{width:6px;height:6px;border-radius:50%;background:rgba(176,108,255,.3);transition:background .2s,width .2s}
-  .install-dot.active{background:var(--acid);width:16px;border-radius:3px}
   .app-video-wrap{position:relative;padding-bottom:56.25%;border-radius:12px;overflow:hidden;border:1px solid rgba(176,108,255,.15)}
   .app-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
   /* ── LIGHTBOX VÍDEO ── */
@@ -215,36 +198,23 @@
   .privacy-content h3{font-size:1.1rem;font-weight:600;margin:2rem 0 .75rem;color:var(--acid)}
   .privacy-content p,.privacy-content li{font-size:.9rem;color:var(--mid);line-height:1.8;margin-bottom:.5rem}
   .privacy-content ul{padding-left:1.5rem}
-  /* ── DOWNLOADS ── */
-  #downloads{flex-direction:column;gap:1rem}
-  .downloads-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;width:100%}
-  .download-card{border:1px solid rgba(176,108,255,.15);border-radius:16px;padding:2rem;background:rgba(176,108,255,.03);display:flex;flex-direction:column;gap:1rem}
-  .download-card h3{font-size:1.2rem;font-weight:600}
-  .download-card .app-sub{font-size:.78rem;color:var(--mid);letter-spacing:.05em}
-  .download-card .desc{font-size:.88rem;color:var(--mid);line-height:1.7}
-  .platform-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.25rem}
-  .platform-badge{display:flex;align-items:center;gap:.7rem;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:.75rem 1rem;flex:1;min-width:180px}
-  .platform-badge.soon{opacity:.5}
-  .platform-icon{width:28px;height:28px;flex-shrink:0}
-  .platform-icon svg{width:100%;height:100%;display:block}
-  .platform-name{font-size:.85rem;font-weight:600}
-  .platform-note{font-size:.7rem;color:var(--dim)}
-  #contact{background:var(--paper);color:var(--ink);flex-direction:column;align-items:flex-start;gap:3rem}
-  #contact .section-label{color:var(--ink);opacity:.5}
-  #contact .section-label::before{background:var(--ink)}
-  #contact h2{color:var(--ink)}
-  #contact p{color:#555;max-width:500px;line-height:1.8;font-size:1rem}
   .cta-bottom{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
   .btn-dark{background:var(--ink);color:var(--acid);padding:1rem 2.5rem;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;cursor:none;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:opacity .2s}
   .btn-dark:hover{opacity:.85}
   .contact-email{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:2px;transition:border-color .2s}
   .contact-email:hover{border-color:var(--ink);color:var(--ink)}
-  footer{background:#060609;padding:2rem 10vw;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
-  .footer-ig{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.1em;transition:opacity .3s;color:#fff}
+  footer{background:#060609;padding:2.5rem 10vw;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;font-family:'Space Mono',monospace;font-size:.68rem;color:var(--dim);letter-spacing:.1em}
+  .footer-brand{display:inline-flex;align-items:center;gap:.7rem}
+  .footer-brand img{height:34px;width:auto;display:block;opacity:.9}
+  .footer-copy{font-size:.65rem;color:var(--dim);letter-spacing:.1em}
+  .footer-ig{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.08em;transition:opacity .3s;color:#fff;padding:.4rem .2rem}
   .footer-ig:hover{opacity:.8}
-  .footer-ig-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(220,39,67,.4);transition:box-shadow .3s}
+  .footer-ig-icon{width:36px;height:36px;flex-shrink:0;border-radius:10px;background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(220,39,67,.4);transition:box-shadow .3s}
   .footer-ig:hover .footer-ig-icon{box-shadow:0 4px 20px rgba(220,39,67,.65)}
-  .footer-ig-icon svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+  .footer-ig-icon svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
+  @media(max-width:900px){
+    footer{flex-direction:column;align-items:center;text-align:center;gap:1.25rem;padding:2.5rem 6vw}
+  }
   /* ── REQUISITOS ── */
   .requisitos-box{margin-top:1.5rem;border:1px solid rgba(176,108,255,.25);border-radius:12px;padding:1.5rem 1.75rem;background:rgba(176,108,255,.04);position:relative}
   .requisitos-box[contenteditable="true"]:focus{outline:1px solid rgba(176,108,255,.5);background:rgba(176,108,255,.07)}
@@ -256,21 +226,52 @@
   .req-text{font-size:.78rem;color:var(--mid);line-height:1.7}
   .req-text a{color:var(--acid);text-decoration:none}
   .req-text a:hover{text-decoration:underline}
-  .req-cost{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;background:rgba(176,108,255,.1);border:1px solid rgba(176,108,255,.2);border-radius:6px;padding:.3rem .7rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--acid);letter-spacing:.06em}
   .req-edit-hint{position:absolute;top:.6rem;right:.9rem;font-family:'Space Mono',monospace;font-size:.55rem;color:rgba(176,108,255,.35);letter-spacing:.08em;pointer-events:none;transition:opacity .3s}
   .requisitos-box:focus .req-edit-hint{opacity:0}
-  /* ── DOWNLOADS: fundo claro pra contrastar com o resto do site (dark) e garantir leitura no mobile ── */
-  #downloads .requisitos-box{background:var(--paper);border-color:rgba(176,108,255,.4)}
-  #downloads .requisitos-box h4{color:var(--acid2)}
-  #downloads .requisitos-box h4::before{background:var(--acid2)}
-  #downloads .req-label,#downloads .install-slide-text .install-title{color:var(--ink)}
-  #downloads .req-text,#downloads .install-slide-text p,#downloads .install-caption{color:#555}
-  #downloads .req-text a{color:var(--acid2)}
   .req-divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:.85rem 0}
   @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeLeft{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
   .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .reveal.visible{opacity:1;transform:translateY(0)}
+  /* ── VITRINE DE APPS (cards que abrem tela cheia) ── */
+  .apps-grid{width:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+  .app-card{border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;background:rgba(176,108,255,.03);cursor:none;display:flex;flex-direction:column;transition:border-color .3s,transform .3s,background .3s}
+  .app-card:hover{border-color:rgba(176,108,255,.45);transform:translateY(-4px);background:rgba(176,108,255,.06)}
+  .app-card-thumb{position:relative;width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,rgba(176,108,255,.25),rgba(124,58,237,.12));display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .app-card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .app-card-thumb img:not([src]),.app-card-thumb img[src=""]{display:none}
+  .app-card-thumb .app-card-glyph{font-size:3.2rem;filter:drop-shadow(0 4px 16px rgba(0,0,0,.35))}
+  .app-card-body{padding:1.6rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+  .app-card-icon{font-size:1.5rem;line-height:1}
+  .app-card h3{font-size:1.25rem;font-weight:600}
+  .app-card-desc{font-size:.88rem;color:var(--mid);line-height:1.65;flex:1}
+  .app-card-platforms{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);display:flex;align-items:center;gap:.5rem}
+  .app-card-more{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--mid);transition:color .3s}
+  .app-card:hover .app-card-more{color:var(--acid)}
+  /* ── TELA CHEIA DE UM APP ── */
+  .app-page{display:none;min-height:100vh;padding:2.5rem 10vw 6rem;flex-direction:column;gap:2.5rem}
+  body.app-page-open .home-view,body.app-page-open>footer{display:none}
+  body.app-page-open .app-page[data-active="1"]{display:flex}
+  body.app-page-open{cursor:auto}
+  .app-back{align-self:flex-start;display:inline-flex;align-items:center;gap:.75rem;background:var(--acid);color:var(--ink);border:none;padding:1rem 2rem;font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));transition:opacity .2s,transform .2s}
+  .app-back:hover{opacity:.88;transform:translateY(-2px)}
+  .app-back-bottom{margin-top:1rem}
+  .app-page-head{display:flex;align-items:center;gap:1.25rem}
+  .app-page-head .app-page-icon{font-size:2.6rem;line-height:1}
+  .app-page-head h2{font-size:clamp(1.8rem,4vw,3.2rem)}
+  .app-page-head p{font-size:.8rem;color:var(--mid);letter-spacing:.05em;margin-top:.35rem}
+  .app-page-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+  .app-page-desc p{font-size:.98rem;color:var(--mid);line-height:1.8;margin-bottom:1.5rem}
+  .app-page-stores{display:flex;flex-wrap:wrap;gap:.9rem;margin:1.5rem 0 .5rem}
+  .app-page-stores-note{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--dim);letter-spacing:.06em}
+  .app-page-media{display:flex;flex-direction:column;gap:1.5rem}
+  .app-media-placeholder{width:100%;aspect-ratio:16/10;border-radius:12px;border:1px solid rgba(176,108,255,.15);background:linear-gradient(135deg,rgba(176,108,255,.12),rgba(124,58,237,.05));display:flex;align-items:center;justify-content:center;font-size:3rem}
+  @media(max-width:900px){
+    .apps-grid{grid-template-columns:1fr}
+    .app-page{padding:2rem 6vw 4rem}
+    .app-page-grid{grid-template-columns:1fr;gap:2rem}
+    .app-back{width:100%;justify-content:center}
+  }
   /* EDITOR */
   #editBtn{display:none;position:fixed;bottom:1.5rem;left:1.5rem;z-index:9000;width:10px;height:10px;border-radius:50%;background:rgba(176,108,255,.15);border:none;cursor:pointer;transition:background .3s,width .3s,height .3s;padding:0}
   #editBtn.unlocked{display:block}
@@ -318,22 +319,22 @@
 <body>
 <div class="cursor" id="cursor" style="transform: translate(1118px, 459px);"></div>
 <div class="cursor-ring" id="cursorRing" style="transform: translate(1104px, 445px);"></div>
+<div class="home-view">
 <nav class="side-nav">
   <a href="#hero" class="" title="Início"></a>
   <a href="#apps" title="Apps" class=""></a>
   <a href="#services" title="Serviços" class="active"></a>
   <a href="#numbers" title="Números" class=""></a>
-  <a href="#process" title="Processo" class=""></a>
+  <a href="#process" title="Precisando de um app"></a>
   <a href="#faq" title="FAQ" class=""></a>
   <a href="#contact" title="Contato"></a>
-  <a href="#downloads" title="Downloads"></a>
 </nav>
 <!-- HERO -->
 <section id="hero">
   <div class="logo-wrap">
     <a href="#" class="logo"><img src="images/Logo_Aura_Dev.png" alt="Aura Dev" class="logo-img"></a>
   </div>
-  <video class="hero-video" autoplay muted loop playsinline poster="images/hero-poster.jpg" preload="metadata">
+  <video class="hero-video" autoplay muted loop playsinline poster="videos/hero-poster.jpg" preload="metadata">
     <source src="videos/hero-loop-mobile.mp4" type="video/mp4" media="(max-width: 900px)">
     <source src="videos/hero-loop.mp4" type="video/mp4">
   </video>
@@ -346,7 +347,7 @@
   <div class="hero-content">
     <div class="eyebrow" id="h-eyebrow">App Studio — Curitiba, Brasil</div>
     <h1 id="h-title">Apps que<br>trabalham por<br><span class="highlight" id="h-highlight">você.</span></h1>
-    <p class="hero-sub" id="h-sub">Desenvolvemos aplicativos com as melhores ferramentas do mercado — do conceito a Play Store. Automação real para o dia a dia do seu negócio.</p>
+    <p class="hero-sub" id="h-sub">Desenvolvemos aplicativos ANDROID e IOS, com as melhores ferramentas do mercado — do conceito a publicação. Soluções reais para o dia a dia.</p>
     <div class="cta-group">
       <a href="#apps" class="btn-primary">Ver aplicativos</a>
       <div class="scroll-hint">Scroll</div>
@@ -369,13 +370,13 @@
 <!-- MARQUEE -->
 <div class="marquee-section">
   <div class="marquee-track">
-    <span>Flutter</span><span class="dot">·</span><span>Android</span><span class="dot">·</span>
+    <span>Flutter</span><span class="dot">·</span><span>Android</span><span class="dot">·</span><span>iOS</span><span class="dot">·</span>
     <span>Firebase</span><span class="dot">·</span><span>Inteligência Artificial</span><span class="dot">·</span>
-    <span>Play Store</span><span class="dot">·</span><span>Nuvemshop</span><span class="dot">·</span>
+    <span>Play Store</span><span class="dot">·</span><span>App Store</span><span class="dot">·</span><span>Nuvemshop</span><span class="dot">·</span>
     <span>OpenAI</span><span class="dot">·</span><span>Monetização</span><span class="dot">·</span>
-    <span>Flutter</span><span class="dot">·</span><span>Android</span><span class="dot">·</span>
+    <span>Flutter</span><span class="dot">·</span><span>Android</span><span class="dot">·</span><span>iOS</span><span class="dot">·</span>
     <span>Firebase</span><span class="dot">·</span><span>Inteligência Artificial</span><span class="dot">·</span>
-    <span>Play Store</span><span class="dot">·</span><span>Nuvemshop</span><span class="dot">·</span>
+    <span>Play Store</span><span class="dot">·</span><span>App Store</span><span class="dot">·</span><span>Nuvemshop</span><span class="dot">·</span>
     <span>OpenAI</span><span class="dot">·</span><span>Monetização</span><span class="dot">·</span>
   </div>
 </div>
@@ -386,190 +387,49 @@
     <div class="section-label reveal visible">Nossos Apps</div>
     <h2 style="margin:1.5rem 0 3rem" class="reveal visible">O que construímos</h2>
   </div>
-  <div class="apps-list reveal visible" id="appsList">
+  <div class="apps-grid reveal visible" id="appsGrid">
 
-    <div class="app-item open" id="appItem0">
-      <div class="app-item-header" onclick="toggleApp(0)">
-        <span class="app-num">01</span>
-        <div class="app-info">
-          <h3 id="app0-name">Catálogo por IA — Nuvemshop</h3>
-          <p id="app0-sub">E-commerce · Nuvemshop · Android</p>
-        </div>
-        <div class="app-tags">
-          <span class="tag available">Disponível</span>
-          <span class="tag">Flutter</span><span class="tag">OpenAI</span><span class="tag">Nuvemshop API</span>
-        </div>
-        <span class="app-toggle">+</span>
-      </div>
-      <div class="app-detail">
-        <div class="app-detail-inner">
-          <div class="app-desc">
-            <p id="app0-desc">Fotografe qualquer produto com seu celular e publique na sua loja Nuvemshop em menos de 1 minuto. A IA analisa a foto, gera nome e descrição comercial — você só revisa e publica.</p>
-            <ul class="app-features" id="app0-features"><li>Análise de produtos por inteligência artificial</li><li>Geração automática de nome e descrição</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na Nuvemshop via API</li><li>Geração de fotos profissionais com IA (OpenAI)</li><li>Leitura de código de barras e QR Code integrada</li><li>Peso e medidas para cálculo de frete</li></ul>
-            <a href="https://play.google.com/store" class="btn-store" id="app0-link" target="_blank">▶ Ver na Play Store</a>
-
-            <div class="requisitos-box" id="app0-requisitos" contenteditable="true">
-              <span class="req-edit-hint">clique para editar</span>
-              <h4>📋 Requisitos</h4>
-
-              <div class="req-item">
-                <div class="req-label">📱 Dispositivo</div>
-                <div class="req-text">Android 8.0 (Oreo) ou superior · Câmera traseira · Conexão com internet (Wi-Fi ou dados móveis)</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">🛒 Conta na Nuvemshop</div>
-                <div class="req-text">Necessária conta ativa na Nuvemshop (plano gratuito ou pago). O app autentica via OAuth 2.0 — nenhuma senha é armazenada pelo app.</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">🖼️ Geração de fotos profissionais com IA — OpenAI (opcional)</div>
-                <div class="req-text">Para gerar fotos de produto com modelo ou fundo personalizado, insira sua chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> nas configurações do app. A chave fica salva apenas no seu dispositivo e nunca é compartilhada.</div>
-                <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
-              </div>
-            </div>
-          </div>
-          <div class="app-media">
-            <div class="app-video-wrap" id="app0-videowrap" style="display:block;position:relative">
-              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/vdEhLhcZiT4?autoplay=1')">
-                <div class="video-play-icon">▶</div>
-              </div>
-              <img src="https://img.youtube.com/vi/vdEhLhcZiT4/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
-            </div>
-            <div class="app-carousel-wrap">
-              <button class="carousel-btn prev" onclick="scrollCarousel('app0-carousel',-1)">‹</button>
-              <div class="app-carousel" id="app0-carousel"><img src="images/image1.jpeg" alt="Screenshot"><img src="images/image2.jpeg" alt="Screenshot"><img src="images/image3.jpeg" alt="Screenshot"><img src="images/image4.jpeg" alt="Screenshot"></div>
-              <button class="carousel-btn next" onclick="scrollCarousel('app0-carousel',1)">›</button>
-            </div>
-            <div class="app-screenshots" id="app0-screenshots" style="display:none"></div>
-          </div>
-        </div>
+    <div class="app-card" onclick="openAppPage('nuvemshop')">
+      <div class="app-card-thumb"><span class="app-card-glyph">☁️</span><img id="app0-cardimg" src="images/image1.jpeg" alt="Catálogo por IA — Nuvemshop"></div>
+      <div class="app-card-body">
+        <span class="app-card-icon">☁️</span>
+        <h3 id="app0-cardname">Catálogo por IA — Nuvemshop</h3>
+        <p class="app-card-desc" id="app0-carddesc">Fotografe o produto, a IA escreve nome e descrição, e você publica na sua loja Nuvemshop em menos de 1 minuto.</p>
+        <span class="app-card-platforms">Android · iOS</span>
+        <span class="app-card-more">clique para maiores informações →</span>
       </div>
     </div>
 
-    <div class="app-item open" id="appItem1">
-      <div class="app-item-header" onclick="toggleApp(1)">
-        <span class="app-num">02</span>
-        <div class="app-info">
-          <h3 id="app1-name">Catálogo por IA — Instagram</h3>
-          <p id="app1-sub">Redes Sociais · Meta API · Android</p>
-        </div>
-        <div class="app-tags">
-          <span class="tag available">Disponível</span>
-          <span class="tag">Flutter</span><span class="tag">Meta API</span>
-        </div>
-        <span class="app-toggle">+</span>
-      </div>
-      <div class="app-detail">
-        <div class="app-detail-inner">
-          <div class="app-desc">
-            <p id="app1-desc">Publique seus produtos diretamente no seu catálogo do Instagram e Facebook com IA. Fotografe o produto, o APP gera título e descrição comercial automática, defina preços, categoria, estoque, e o APP envia tudo direto pelo celular, sem precisar de computador.</p>
-            <ul class="app-features" id="app1-features"><li>Integração com Meta Commerce Manager</li><li>Publicação no catálogo do Instagram e Facebook</li><li>Geração de descrição por IA em português</li><li>Gerenciamento de categorias de produtos</li><li>Ediçao de catálogo direto no celular.</li><li>Sincronização automática de estoque</li></ul>
-            <a href="https://play.google.com/store" class="btn-store" id="app1-link" target="_blank">▶ Ver na Play Store</a>
-
-            <div class="requisitos-box" id="app1-requisitos" contenteditable="true">
-              <span class="req-edit-hint">clique para editar</span>
-              <h4>📋 Requisitos</h4>
-
-              <div class="req-item">
-                <div class="req-label">📱 Dispositivo</div>
-                <div class="req-text">Android 8.0 (Oreo) ou superior · Câmera traseira · Conexão com internet (Wi-Fi ou dados móveis)</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">📘 Conta Meta (Facebook/Instagram)</div>
-                <div class="req-text">Necessária conta no Facebook Business com um Catálogo criado no Meta Commerce Manager e uma Página do Facebook vinculada ao Instagram. Autenticação via OAuth oficial da Meta — nenhuma senha é armazenada pelo app.</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">🖼️ Geração de fotos com IA — OpenAI (opcional)</div>
-                <div class="req-text">Para gerar fotos profissionais do produto com IA, insira sua chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> nas configurações do app. A chave fica salva apenas no seu dispositivo e nunca é compartilhada.</div>
-                <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
-              </div>
-            </div>
-          </div>
-          <div class="app-media">
-            <div class="app-video-wrap" id="app1-videowrap" style="display:block;position:relative">
-              <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/F_4LGwxgLzI?autoplay=1')">
-                <div class="video-play-icon">▶</div>
-              </div>
-              <img src="https://img.youtube.com/vi/F_4LGwxgLzI/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
-            </div>
-            <div class="app-carousel-wrap">
-              <button class="carousel-btn prev" onclick="scrollCarousel('app1-carousel',-1)">‹</button>
-              <div class="app-carousel" id="app1-carousel"><img src="images/image5.jpeg" alt="Screenshot"><img src="images/image6.jpeg" alt="Screenshot"><img src="images/image7.jpeg" alt="Screenshot"><img src="images/image8.jpeg" alt="Screenshot"><img src="images/image9.jpeg" alt="Screenshot"><img src="images/image10.jpeg" alt="Screenshot"><img src="images/image11.jpeg" alt="Screenshot"><img src="images/image12.jpeg" alt="Screenshot"><img src="images/image13.jpeg" alt="Screenshot"></div>
-              <button class="carousel-btn next" onclick="scrollCarousel('app1-carousel',1)">›</button>
-            </div>
-            <div class="app-screenshots" id="app1-screenshots" style="display:none"></div>
-            <div style="display:none"><iframe id="app1-iframe" src=""></iframe></div>
-          </div>
-        </div>
+    <div class="app-card" onclick="openAppPage('beleza')">
+      <div class="app-card-thumb"><span class="app-card-glyph">💅</span><img id="app1-cardimg" alt="Beleza App"></div>
+      <div class="app-card-body">
+        <span class="app-card-icon">💅</span>
+        <h3 id="app1-cardname">Beleza App</h3>
+        <p class="app-card-desc" id="app1-carddesc">Agenda, financeiro e página de reserva online para salões de beleza e studios de unhas.</p>
+        <span class="app-card-platforms">Android · iOS</span>
+        <span class="app-card-more">clique para maiores informações →</span>
       </div>
     </div>
 
-    <div class="app-item" id="appItem2">
-      <div class="app-item-header" onclick="toggleApp(2)">
-        <span class="app-num">03</span>
-        <div class="app-info">
-          <h3 id="app2-name">Catálogo por IA — Loja Integrada</h3>
-          <p id="app2-sub">E-commerce · Loja Integrada · Android</p>
-        </div>
-        <div class="app-tags">
-          <span class="tag available">Disponível</span>
-          <span class="tag">Flutter</span><span class="tag">Loja Integrada API</span>
-        </div>
-        <span class="app-toggle">+</span>
+    <div class="app-card" onclick="openAppPage('estoque')">
+      <div class="app-card-thumb"><span class="app-card-glyph">📦</span><img id="app2-cardimg" alt="Controle de Estoque"></div>
+      <div class="app-card-body">
+        <span class="app-card-icon">📦</span>
+        <h3 id="app2-cardname">Controle de Estoque</h3>
+        <p class="app-card-desc" id="app2-carddesc">Fotografe o produto importado, a IA identifica nome e peso, e sai a planilha de frete, custo e lucro.</p>
+        <span class="app-card-platforms">Android · iOS</span>
+        <span class="app-card-more">clique para maiores informações →</span>
       </div>
-      <div class="app-detail">
-        <div class="app-detail-inner">
-          <div class="app-desc">
-            <p id="app2-desc">A mesma praticidade do Catálogo por IA, agora para lojistas da plataforma Loja Integrada. Fotografe, gere descrição com IA e publique produtos direto na sua loja — tudo pelo celular.</p>
-            <ul class="app-features" id="app2-features"><li>Integração completa com a API da Loja Integrada</li><li>Análise de produtos por inteligência artificial</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na plataforma</li><li>Peso e medidas para cálculo de frete</li></ul>
-            <a href="https://play.google.com/store" class="btn-store" id="app2-link" target="_blank">▶ Ver na Play Store</a>
+    </div>
 
-            <div class="requisitos-box" id="app2-requisitos" contenteditable="true">
-              <span class="req-edit-hint">clique para editar</span>
-              <h4>📋 Requisitos</h4>
-
-              <div class="req-item">
-                <div class="req-label">📱 Dispositivo</div>
-                <div class="req-text">Android 8.0 (Oreo) ou superior · Câmera traseira · Conexão com internet (Wi-Fi ou dados móveis)</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">🛍️ Conta na Loja Integrada</div>
-                <div class="req-text">Necessária conta ativa na Loja Integrada (plano gratuito ou pago). O app autentica via OAuth 2.0 — nenhuma senha é armazenada pelo app.</div>
-              </div>
-              <hr class="req-divider">
-
-              <div class="req-item">
-                <div class="req-label">🖼️ Geração de fotos com IA — OpenAI (opcional)</div>
-                <div class="req-text">Gere fotos profissionais do produto com inteligência artificial inserindo sua chave da <a href="https://platform.openai.com" target="_blank">OpenAI</a> nas configurações do app. A chave fica salva apenas no seu dispositivo e nunca é compartilhada.</div>
-                <div class="req-cost">💡 Custo estimado: ~R$ 0,05 por imagem · 10 imagens/dia ≈ R$ 1,50/mês · 50 imagens/dia ≈ R$ 7,50/mês</div>
-              </div>
-            </div>
-          </div>
-          <div class="app-media">
-            <div class="app-video-wrap" id="app2-videowrap" style="display:none;position:relative">
-              <div class="video-play-btn" id="app2-playbtn" onclick="">
-                <div class="video-play-icon">▶</div>
-              </div>
-              <img id="app2-thumb" src="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px">
-            </div>
-            <div class="app-carousel-wrap" id="app2-carouselwrap" style="display:none">
-              <button class="carousel-btn prev" onclick="scrollCarousel('app2-carousel',-1)">‹</button>
-              <div class="app-carousel" id="app2-carousel"></div>
-              <button class="carousel-btn next" onclick="scrollCarousel('app2-carousel',1)">›</button>
-            </div>
-            <div class="app-screenshots" id="app2-screenshots" style="display:none"></div>
-            <div style="display:none"><iframe id="app2-iframe" src=""></iframe></div>
-          </div>
-        </div>
+    <div class="app-card" onclick="openAppPage('clipit')">
+      <div class="app-card-thumb"><span class="app-card-glyph">🎬</span><img id="app3-cardimg" alt="Clipit Sports"></div>
+      <div class="app-card-body">
+        <span class="app-card-icon">🎬</span>
+        <h3 id="app3-cardname">Clipit Sports</h3>
+        <p class="app-card-desc" id="app3-carddesc">Grave o jogo, marque os lances e receba clipes curtos prontos para compartilhar.</p>
+        <span class="app-card-platforms">Android · iOS</span>
+        <span class="app-card-more">clique para maiores informações →</span>
       </div>
     </div>
 
@@ -583,12 +443,12 @@
     <h2 style="margin:1.5rem 0 3rem" class="reveal visible">Serviços</h2>
   </div>
   <div class="services-grid reveal visible" id="servicesGrid">
-    <div class="service-block"><span class="service-icon">◈</span><h3>Apps com IA</h3><p>Flutter de ponta a ponta — da ideia a Play Store. Integramos inteligência artificial diretamente no app para automatizar tarefas reais.</p></div>
-    <div class="service-block"><span class="service-icon">⬡</span><h3>Integrações &amp; APIs</h3><p>Conectamos seu app ao mundo: Nuvemshop, Loja Integrada, Meta Commerce, Firebase, OpenAI, OpenRouter e muito mais.</p></div>
-    <div class="service-block"><span class="service-icon">◎</span><h3>E-commerce Mobile</h3><p>Soluções específicas para lojistas de plataformas como Nuvemshop e Loja Integrada — gestão de catálogo e estoque direto pelo celular.</p></div>
+    <div class="service-block"><span class="service-icon">◈</span><h3>Apps com IA</h3><p>Flutter de ponta a ponta — da ideia às lojas (Google Play e App Store). Integramos inteligência artificial diretamente no app para automatizar tarefas reais.</p></div>
+    <div class="service-block"><span class="service-icon">⬡</span><h3>Integrações &amp; APIs</h3><p>Conectamos seu app ao mundo: Nuvemshop, Mercado Pago, Firebase, Google Gemini, OpenAI, OpenRouter e muito mais.</p></div>
+    <div class="service-block"><span class="service-icon">◎</span><h3>E-commerce Mobile</h3><p>Soluções específicas para lojistas — cadastro de produtos, gestão de catálogo e controle de estoque direto pelo celular.</p></div>
     <div class="service-block"><span class="service-icon">▲</span><h3>Lucratividade</h3><p>Desenvolvemos apps pensando em dar agilidade ao seu negócio, para que você use o seu tempo no que realmente importa VENDER.</p></div>
     <div class="service-block"><span class="service-icon">◉</span><h3>Visão Computacional</h3><p>Análise de imagens, geração de fotos profissionais com IA, leitura de código de barras e descrição automática de produtos.</p></div>
-    <div class="service-block"><span class="service-icon">⬢</span><h3>Suporte &amp; Crescimento</h3><p>Acompanhamento pós-lançamento: atualizações, correção de bugs, ASO na Play Store e análise de métricas de uso.</p></div>
+    <div class="service-block"><span class="service-icon">⬢</span><h3>Suporte &amp; Crescimento</h3><p>Acompanhamento pós-lançamento: atualizações, correção de bugs, ASO na Play Store e na App Store e análise de métricas de uso.</p></div>
   </div>
 </section>
 
@@ -600,7 +460,7 @@
   </div>
   <div class="stats-row reveal visible" id="statsRow">
     <div class="stat-block">
-      <span class="stat-num" id="stat0-num" data-target="3" data-suffix="">3</span>
+      <span class="stat-num" id="stat0-num" data-target="4" data-suffix="">4</span>
       <span class="stat-label" id="stat0-label">Apps publicados</span>
     </div>
     <div class="stat-block">
@@ -609,7 +469,7 @@
     </div>
     <div class="stat-block">
       <span class="stat-num" id="stat2-num" data-target="4.8" data-decimal="" data-suffix="">4.8</span>
-      <span class="stat-label" id="stat2-label">Nota média Play Store</span>
+      <span class="stat-label" id="stat2-label">Nota média nas lojas</span>
     </div>
     <div class="stat-block">
       <span class="stat-num" id="stat3-num" data-target="5" data-suffix=" países">5 países</span>
@@ -621,17 +481,27 @@
 <!-- PROCESS -->
 <section id="process">
   <div style="width:100%">
-    <div class="section-label reveal visible">Como trabalhamos</div>
-    <h2 style="margin:1.5rem 0 4rem" class="reveal visible">Do briefing ao lançamento</h2>
+    <div class="section-label reveal visible">Precisando de um app</div>
+    <h2 style="margin:1.5rem 0 4rem" class="reveal visible">Do briefing às lojas</h2>
   </div>
   <div class="process-track reveal visible animate" id="processTrack">
     <div class="process-line"><div class="process-line-fill"></div></div>
     <div class="process-steps" id="processSteps">
       <div class="process-step"><div class="process-dot"></div><h4>Descoberta</h4><p>Entendemos o negócio, os usuários e o problema real que o app resolve.</p></div>
       <div class="process-step"><div class="process-dot"></div><h4>Arquitetura</h4><p>Definimos stack, integrações e fluxo de dados antes de qualquer tela.</p></div>
-      <div class="process-step"><div class="process-dot"></div><h4>Desenvolvimento</h4><p>Flutter clean code com Firebase, APIs e releases incrementais.</p></div>
-      <div class="process-step"><div class="process-dot"></div><h4>Testes</h4><p>Closed testing na Play Store com usuários reais antes do lançamento.</p></div>
-      <div class="process-step"><div class="process-dot"></div><h4>Lançamento</h4><p>Play Store, ASO, analytics e monitoramento nos primeiros 30 dias.</p></div>
+      <div class="process-step"><div class="process-dot"></div><h4>Desenvolvimento</h4><p>Flutter clean code com Firebase, APIs e releases incrementais para Android e iOS.</p></div>
+      <div class="process-step"><div class="process-dot"></div><h4>Testes</h4><p>Teste fechado na Play Store e no TestFlight (iOS) com usuários reais antes do lançamento.</p></div>
+      <div class="process-step"><div class="process-dot"></div><h4>Lançamento</h4><p>Play Store e App Store, ASO, analytics e monitoramento nos primeiros 30 dias.</p></div>
+    </div>
+  </div>
+
+  <div id="contact" class="reveal visible" style="width:100%;margin-top:5rem;border-top:1px solid rgba(255,255,255,.06);padding-top:3.5rem">
+    <div class="section-label" style="margin-bottom:1.25rem">Próximo passo</div>
+    <h2 style="margin:0 0 1rem" id="c-title">Tem uma ideia de app?</h2>
+    <p id="c-sub" style="color:var(--mid);max-width:520px;line-height:1.8;margin-bottom:2rem">Conte o problema. Desenvolvemos juntos a solução mais inteligente — do briefing às lojas (Google Play e App Store).</p>
+    <div class="cta-bottom">
+      <a href="mailto:auradev.app@gmail.com" class="btn-primary" id="c-btn">Iniciar projeto</a>
+      <a href="mailto:auradev.app@gmail.com" class="contact-email" id="c-email" style="color:var(--mid);border-bottom-color:rgba(255,255,255,.15)">auradev.app@gmail.com</a>
     </div>
   </div>
 </section>
@@ -643,13 +513,13 @@
     <h2 style="margin:1.5rem 0 3rem" class="reveal visible">Perguntas frequentes</h2>
   </div>
   <div class="faq-list reveal visible" id="faqList">
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O app é gratuito?</div><div class="faq-a">O download na Play Store é gratuito. O uso completo requer uma assinatura mensal, cobrada diretamente pela plataforma. O valor é exibido na página do app na loja de aplicativos da plataforma.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O app funciona em iPhone (iOS)?</div><div class="faq-a">No momento, todos os apps da Aura Dev estão disponíveis apenas para Android na Google Play Store. A versão para iOS está em avaliação para versões futuras.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Minha senha da Nuvemshop fica salva no app?</div><div class="faq-a">Não. O app usa autenticação OAuth 2.0 — o mesmo padrão do Google e Facebook. Sua senha nunca é transmitida ou armazenada. Apenas um token de acesso gerado pela própria Nuvemshop fica salvo no dispositivo, e pode ser revogado a qualquer momento pelo painel da Nuvemshop.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como a IA gera a descrição dos produtos?</div><div class="faq-a">Ao fotografar um produto, o app envia a imagem para um modelo de inteligência artificial que analisa o que aparece na foto e gera automaticamente um nome e uma descrição comercial em português. Você revisa e edita antes de publicar.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso cadastrar produtos com variantes (cores e tamanhos)?</div><div class="faq-a">Sim! O app suporta cadastro de produtos simples e com variantes. Você seleciona combinações de cor e tamanho, define estoque individual para cada combinação, e o app envia tudo corretamente para a plataforma.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como cancelo minha assinatura?</div><div class="faq-a">O cancelamento é feito diretamente pelo painel da plataforma que você usa (ex: Nuvemshop → Meus Aplicativos → Desinstalar). A cobrança é interrompida imediatamente e os produtos já cadastrados na sua loja não são afetados.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Encontrei um problema. Como reportar?</div><div class="faq-a">Entre em contato pelo email auradev.app@gmail.com descrevendo o problema, a versão do app e o aparelho que está usando. Respondemos em até 48 horas úteis.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Os apps são gratuitos?</div><div class="faq-a">O download na Google Play e na App Store é gratuito. O uso completo requer uma assinatura mensal, cobrada diretamente pela própria loja (Google Play ou App Store). O valor aparece na página do app antes de assinar.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Funciona em iPhone e em Android?</div><div class="faq-a">Sim. Catálogo por IA — Nuvemshop, Beleza App, Controle de Estoque e Clipit Sports têm versão para Android (Google Play) e para iOS (App Store).</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Meus dados de acesso a outras plataformas ficam salvos?</div><div class="faq-a">Não. Quando um app conecta uma plataforma externa (Nuvemshop, Meta ou Mercado Pago), a autenticação é feita pelo OAuth oficial da plataforma — a sua senha nunca é transmitida nem armazenada. Fica apenas um token de acesso no dispositivo, que pode ser revogado a qualquer momento no painel da plataforma.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como a IA gera as descrições dos produtos?</div><div class="faq-a">Nos apps de catálogo e de estoque, ao fotografar um produto o app envia a imagem para um modelo de inteligência artificial que analisa o que aparece na foto e gera automaticamente nome e descrição em português. Você revisa e edita antes de publicar ou salvar.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso cadastrar produtos com variantes (cores e tamanhos)?</div><div class="faq-a">Sim, no Catálogo por IA — Nuvemshop. Você seleciona combinações de cor e tamanho, define estoque individual para cada combinação, e o app envia tudo corretamente para a loja.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como cancelo a assinatura?</div><div class="faq-a">Pela loja onde você assinou: no Android, Google Play → Assinaturas; no iPhone, Ajustes → seu nome → Assinaturas. O cancelamento vale até o fim do período já pago e os dados que você já cadastrou não são afetados.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Encontrei um problema. Como reportar?</div><div class="faq-a">Escreva para auradev.app@gmail.com informando o app, a plataforma (Android ou iOS), a versão e o aparelho que está usando. Respondemos em até 48 horas úteis.</div></div>
   </div>
 </section>
 
@@ -660,138 +530,265 @@
     <h2 style="margin:1.5rem 0 3rem" class="reveal">Política de Privacidade</h2>
     <div class="privacy-content reveal" id="privacyContent">
       <p>Última atualização: Agosto de 2026</p>
-      <p>Esta Política de Privacidade se aplica a todos os aplicativos desenvolvidos e publicados pela Aura Dev Apps, incluindo Catálogo por IA — Nuvemshop, Catálogo por IA — Loja Integrada, Catálogo por IA — Instagram, Catálogo por IA — TikTok, Controle de Estoque, Clipit Sports e Beleza App (coletivamente, os "Aplicativos"). Ao usar qualquer um dos Aplicativos, você concorda com a coleta e o uso de informações de acordo com esta política.</p>
+      <p>Esta Política de Privacidade se aplica aos aplicativos desenvolvidos e publicados pela Aura Dev Apps e distribuídos nas lojas de aplicativos (Google Play e Apple App Store): Catálogo por IA — Nuvemshop, Beleza App, Controle de Estoque e Clipit Sports (coletivamente, os "Aplicativos"). Ao usar qualquer um dos Aplicativos, você concorda com a coleta e o uso de informações de acordo com esta política.</p>
       <h3>1. Quem somos</h3>
-      <p>A Aura Dev Apps é responsável pelo desenvolvimento e manutenção dos aplicativos disponibilizados neste site. Contato para assuntos de privacidade: <strong>auradev.app@gmail.com</strong></p>
+      <p>A Aura Dev Apps é responsável pelo desenvolvimento e pela manutenção dos Aplicativos. Contato para assuntos de privacidade: <strong>auradev.app@gmail.com</strong></p>
       <h3>2. Quais dados podemos coletar</h3>
       <p>Dependendo do Aplicativo utilizado e dos recursos que você ativar, podemos coletar:</p>
       <ul>
-        <li><strong>Dados de conta e integração:</strong> ao conectar sua loja ou perfil (Nuvemshop, Loja Integrada, Instagram/Facebook ou TikTok Shop), recebemos via autenticação OAuth oficial de cada plataforma o identificador da loja/conta e um token de acesso necessário para publicar produtos em seu nome. Nunca temos acesso à sua senha dessas plataformas.</li>
-        <li><strong>Conteúdo que você envia:</strong> fotos de produtos, títulos, descrições, preços, categorias e demais dados de produto que você insere são enviados aos nossos servidores para processamento e publicação.</li>
-        <li><strong>Processamento por Inteligência Artificial:</strong> para gerar títulos, descrições e, quando aplicável, imagens aprimoradas de produto, o conteúdo acima é enviado a provedores de IA de terceiros (atualmente OpenRouter e OpenAI) através do nosso servidor.</li>
-        <li><strong>Dados de uso, diagnóstico e desempenho:</strong> podemos usar o Firebase (Google) para analytics de uso e relatório de falhas (Crashlytics), que podem coletar identificadores de dispositivo, modelo do aparelho, versão do sistema, IP aproximado e registros de erro.</li>
-        <li><strong>Dados locais no dispositivo:</strong> preferências, categorias personalizadas e credenciais de sessão podem ficar armazenadas de forma segura no seu aparelho.</li>
-        <li><strong>Cadastro e pagamento (Controle de Estoque):</strong> este Aplicativo em específico usa login por número de WhatsApp e, ao assinar o plano pago, coleta CPF ou CNPJ para gerar a cobrança via Pix através do provedor de pagamentos Asaas. Não temos acesso aos dados do seu cartão ou conta bancária — o pagamento é processado inteiramente pelo Asaas.</li>
-        <li><strong>Vídeo e assinatura (Clipit Sports):</strong> este Aplicativo grava vídeo das suas atividades esportivas, que fica armazenado somente no seu aparelho — não enviamos o vídeo aos nossos servidores. Para liberar o uso mediante assinatura mensal, geramos um identificador anônimo de instalação e lemos um identificador do aparelho (Android ID); esses dois identificadores são enviados ao nosso servidor apenas para confirmar sua assinatura junto ao Google Play. Não temos acesso aos dados do seu cartão — o pagamento é processado inteiramente pelo Google Play.</li>
-        <li><strong>Agenda, dados do salão e pagamento (Beleza App):</strong> este Aplicativo é destinado a donos de salão de beleza e estúdios de estética. Usamos e-mail e senha para o login do dono do salão. Coletamos dados cadastrais do salão (nome, contatos, redes sociais, fotos institucionais e logo), serviços oferecidos, profissionais, agenda de horários e agendamentos, armazenados via Firebase (Google). Para receber pagamentos dos clientes finais, o próprio dono do salão conecta sua conta pessoal do Mercado Pago por autenticação OAuth oficial; o valor cai diretamente na conta do salão — nunca passa pela conta ou pelos servidores da Aura Dev Apps — e armazenamos apenas o identificador da conexão necessário para confirmar cada cobrança. Não temos acesso à senha do Mercado Pago do salão nem aos dados de cartão dos clientes finais.</li>
+        <li><strong>Dados de conta e integração:</strong> ao conectar uma plataforma externa (Nuvemshop no Catálogo por IA, Mercado Pago no Beleza App), recebemos, via autenticação OAuth oficial dessa plataforma, o identificador da conta e um token de acesso necessário para executar as ações que você solicitar. Nunca temos acesso à sua senha dessas plataformas.</li>
+        <li><strong>Dados de cadastro:</strong> o Beleza App usa e-mail e senha para o login do dono do salão e coleta dados do salão (nome, contatos, redes sociais, fotos, logo), serviços, profissionais e agenda de horários e agendamentos, armazenados via Firebase (Google).</li>
+        <li><strong>Conteúdo que você envia:</strong> fotos de produtos e as informações que você digita (títulos, descrições, preços, categorias, pesos) são enviadas aos nossos servidores para processamento e, quando for o caso, publicação na plataforma que você conectou.</li>
+        <li><strong>Processamento por Inteligência Artificial:</strong> para gerar títulos, descrições e, quando aplicável, imagens de produto, o conteúdo acima é enviado a provedores de IA de terceiros (atualmente Google Gemini, OpenRouter e OpenAI) através do nosso servidor.</li>
+        <li><strong>Vídeo (Clipit Sports):</strong> o Aplicativo grava vídeo das suas atividades esportivas, que fica armazenado <strong>somente no seu aparelho</strong> — o vídeo não é enviado aos nossos servidores.</li>
+        <li><strong>Identificadores de assinatura:</strong> nos Aplicativos com assinatura (Controle de Estoque, Clipit Sports, Beleza App), geramos um identificador anônimo de instalação e podemos ler um identificador do aparelho, enviados ao nosso servidor apenas para confirmar sua assinatura junto à loja (Google Play ou App Store).</li>
+        <li><strong>Dados de uso, diagnóstico e desempenho:</strong> podemos usar o Firebase (Google) para métricas de uso e relatório de falhas (Crashlytics), que podem coletar identificadores de dispositivo, modelo do aparelho, versão do sistema, IP aproximado e registros de erro.</li>
+        <li><strong>Dados locais no dispositivo:</strong> preferências, configurações e credenciais de sessão podem ficar armazenadas de forma segura no seu aparelho.</li>
       </ul>
-      <p>Os demais Aplicativos (Catálogo por IA) não coletam CPF nem dados financeiros.</p>
-      <h3>3. Como usamos os dados</h3>
-      <p>Usamos os dados exclusivamente para publicar, editar, sincronizar e excluir produtos nas plataformas que você conectou a seu pedido, gerar conteúdo via IA quando solicitado, operar e melhorar os Aplicativos, diagnosticar erros técnicos e prestar suporte quando você entra em contato conosco.</p>
-      <h3>4. Compartilhamento</h3>
-      <p>Não vendemos seus dados pessoais. Compartilhamos dados apenas com: a plataforma que você conectou (Nuvemshop, Loja Integrada, Meta/Instagram, TikTok Shop), pois é o destino da publicação solicitada; o Asaas, processador de pagamentos usado pelo Controle de Estoque para gerar cobranças Pix; o Google Play, processador de pagamentos usado pelo Clipit Sports para a assinatura mensal; o Mercado Pago, conectado diretamente pelo dono do salão no Beleza App para receber pagamentos de clientes finais; provedores de infraestrutura que operam em nosso nome sob termos próprios (Firebase/Google Cloud, Railway, Cloudinary quando aplicável, OpenRouter e OpenAI); e autoridades, quando exigido por lei.</p>
-      <h3>5. Retenção de dados</h3>
-      <p>Mantemos os dados de produtos e conta enquanto sua conta estiver ativa nos Aplicativos. Você pode solicitar a exclusão da sua conta e dos dados associados a qualquer momento pelo e-mail de contato.</p>
-      <h3>6. Seus direitos (LGPD)</h3>
-      <p>Nos termos da Lei Geral de Proteção de Dados, você pode solicitar a qualquer momento, pelo e-mail de contato: confirmação do tratamento, acesso, correção, anonimização, bloqueio ou eliminação de dados, portabilidade e revogação do consentimento. Você também pode revogar o acesso do app a qualquer momento pelo painel da plataforma (ex: Nuvemshop → Meus Aplicativos → Desinstalar).</p>
-      <h3>7. Crianças e adolescentes</h3>
-      <p>Os Aplicativos são destinados a lojistas e empreendedores maiores de 18 anos e não são direcionados a crianças. Não coletamos intencionalmente dados de menores de idade.</p>
-      <h3>8. Alterações nesta política</h3>
+      <h3>3. Pagamentos</h3>
+      <p>As assinaturas dos Aplicativos são processadas <strong>inteiramente pela loja</strong> onde você as contrata — Google Play ou Apple App Store. Não recebemos nem armazenamos dados do seu cartão ou conta bancária. No Beleza App, o dono do salão pode conectar a própria conta do Mercado Pago para receber pagamentos dos clientes finais; esse valor cai diretamente na conta do salão e nunca passa pela conta ou pelos servidores da Aura Dev Apps.</p>
+      <h3>4. Como usamos os dados</h3>
+      <p>Usamos os dados exclusivamente para operar as funcionalidades que você solicitar (publicar e sincronizar produtos, gerenciar agenda e financeiro, gerar planilhas ou clipes, gerar conteúdo por IA), confirmar assinaturas, operar e melhorar os Aplicativos, diagnosticar erros técnicos e prestar suporte quando você entra em contato conosco.</p>
+      <h3>5. Compartilhamento</h3>
+      <p>Não vendemos seus dados pessoais. Compartilhamos dados apenas com: a plataforma que você conectou (Nuvemshop, Mercado Pago), quando é o destino da ação solicitada; a loja de aplicativos (Google Play ou App Store), para confirmar assinaturas; provedores de infraestrutura e de IA que operam em nosso nome sob termos próprios (Firebase / Google Cloud, Google Gemini, Railway, OpenRouter, OpenAI e Cloudinary quando aplicável); e autoridades, quando exigido por lei.</p>
+      <h3>6. Retenção de dados</h3>
+      <p>Mantemos os dados enquanto a sua conta ou uso do Aplicativo estiver ativo. Você pode solicitar a exclusão da sua conta e dos dados associados a qualquer momento pelo e-mail de contato.</p>
+      <h3>7. Seus direitos (LGPD)</h3>
+      <p>Nos termos da Lei Geral de Proteção de Dados, você pode solicitar a qualquer momento, pelo e-mail de contato: confirmação do tratamento, acesso, correção, anonimização, bloqueio ou eliminação de dados, portabilidade e revogação do consentimento. Você também pode revogar o acesso concedido a um Aplicativo diretamente no painel da plataforma conectada.</p>
+      <h3>8. Crianças e adolescentes</h3>
+      <p>Os Aplicativos são destinados a maiores de 18 anos e não são direcionados a crianças. Não coletamos intencionalmente dados de menores de idade.</p>
+      <h3>9. Alterações nesta política</h3>
       <p>Podemos atualizar esta política periodicamente para refletir mudanças nos Aplicativos ou em requisitos legais. A data no topo desta página indica a versão mais recente.</p>
-      <h3>9. Contato</h3>
+      <h3>10. Contato</h3>
       <p>Dúvidas ou solicitações: <strong>auradev.app@gmail.com</strong></p>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">Próximo passo</div>
-  <h2 style="margin:1rem 0" id="c-title">Tem uma ideia de app?</h2>
-  <p id="c-sub">Conte o problema. Desenvolvemos juntos a solução mais inteligente — do briefing ao Play Store.</p>
-  <div class="cta-bottom">
-    <a href="mailto:auradev.app@gmail.com" class="btn-dark" id="c-btn">Iniciar projeto</a>
-    <a href="mailto:auradev.app@gmail.com" class="contact-email" id="c-email">auradev.app@gmail.com</a>
-  </div>
-</section>
+</div><!-- /.home-view -->
 
-<!-- DOWNLOADS -->
-<section id="downloads" style="min-height:auto;padding-top:4rem;padding-bottom:4rem">
-  <div style="width:100%">
-    <div class="section-label reveal">Baixe agora</div>
-    <h2 style="margin:1.5rem 0 1rem" class="reveal">Downloads</h2>
-    <p class="reveal" style="color:var(--mid);max-width:600px;margin-bottom:3rem;font-size:.95rem;line-height:1.8">
-      Alguns apps da Aura Dev são distribuídos direto por aqui, fora das lojas oficiais — mesma qualidade, mesmo suporte, sem intermediário.
-    </p>
-
-    <div class="downloads-grid reveal">
-      <div class="download-card">
-        <div>
-          <h3>Controle de Estoque</h3>
-          <p class="app-sub">Gestão de estoque para revendedores de importados dos EUA</p>
-        </div>
-        <p class="desc">Fotografe o produto recebido, deixe a IA identificar nome e peso, e gere automaticamente uma planilha com rateio de frete, custo e lucro — pronta pra compartilhar no WhatsApp.</p>
-
-        <div class="platform-row">
-          <div class="platform-badge">
-            <span class="platform-icon" style="color:#3DDC84"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M16.61 15.15C16.15 15.15 15.77 14.78 15.77 14.32S16.15 13.5 16.61 13.5H16.61C17.07 13.5 17.45 13.86 17.45 14.32C17.45 14.78 17.07 15.15 16.61 15.15M7.41 15.15C6.95 15.15 6.57 14.78 6.57 14.32C6.57 13.86 6.95 13.5 7.41 13.5H7.41C7.87 13.5 8.24 13.86 8.24 14.32C8.24 14.78 7.87 15.15 7.41 15.15M16.91 10.14L18.58 7.26C18.67 7.09 18.61 6.88 18.45 6.79C18.28 6.69 18.07 6.75 18 6.92L16.29 9.83C14.95 9.22 13.5 8.9 12 8.91C10.47 8.91 9 9.24 7.73 9.82L6.04 6.91C5.95 6.74 5.74 6.68 5.57 6.78C5.4 6.87 5.35 7.08 5.44 7.25L7.1 10.13C4.25 11.69 2.29 14.58 2 18H22C21.72 14.59 19.77 11.7 16.91 10.14H16.91Z" /></svg></span>
-            <div>
-              <div class="platform-name">Android</div>
-              <div class="platform-note">Disponível agora — v1.3.0</div>
-            </div>
-          </div>
-          <div class="platform-badge soon">
-            <span class="platform-icon" style="color:#f0ede8"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z" /></svg></span>
-            <div>
-              <div class="platform-name">iOS</div>
-              <div class="platform-note">Em breve, via loja alternativa</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="requisitos-box" style="margin-top:0">
-          <h4>Como instalar</h4>
-          <div class="req-item">
-            <div class="req-text">Baixe o arquivo .apk abaixo pelo navegador do celular. O Android vai avisar que a instalação de "fontes desconhecidas" precisa ser permitida — isso é normal para apps distribuídos fora da Play Store. Veja o passo a passo abaixo.</div>
-          </div>
-
-          <div class="install-carousel-wrap">
-            <button class="carousel-btn prev" onclick="scrollInstallCarousel(-1)">‹</button>
-            <div class="install-carousel" id="install-carousel">
-              <div class="install-slide install-slide-text">
-                <div class="install-shield">🛡️</div>
-                <span class="install-title">App 100% seguro</span>
-                <p>O Controle de Estoque não tem vírus nem nenhum risco de segurança. Por ser distribuído fora da Play Store, o Android mostra alguns avisos padrão na instalação — é assim mesmo, veja o passo a passo:</p>
-              </div>
-              <div class="install-slide install-slide-text">
-                <div class="install-shield">⚙️</div>
-                <span class="install-title">Pode pedir para habilitar "Fontes desconhecidas"</span>
-                <p>Isso é normal: como o app não vem da Play Store, o Android pode pedir permissão pra instalar de "fontes desconhecidas". Basta tocar em "Configurações" e ativar a opção — só acontece nessa primeira instalação.</p>
-              </div>
-              <div class="install-slide">
-                <img src="images/instalar/instalar-1.jpeg" alt="Toque em Instalar no aviso do Chrome" loading="lazy">
-                <p class="install-caption">Toque em "Instalar" quando o Chrome perguntar.</p>
-              </div>
-              <div class="install-slide">
-                <div class="install-img-wrap">
-                  <img src="images/instalar/instalar-2.jpeg" alt="Aviso do Google Play Protect" loading="lazy">
-                  <span class="install-highlight" style="top:59.8%;left:8.5%;width:31%;height:4.5%"></span>
-                </div>
-                <p class="install-caption">O Android avisa que não conhece o desenvolvedor — normal em apps fora da Play Store. Clique em "Mais detalhes".</p>
-              </div>
-              <div class="install-slide">
-                <img src="images/instalar/instalar-3.jpeg" alt="Opção Instalar assim mesmo" loading="lazy">
-                <p class="install-caption">Toque em "Instalar assim mesmo" para continuar.</p>
-              </div>
-              <div class="install-slide">
-                <img src="images/instalar/instalar-4.jpeg" alt="App instalado com sucesso" loading="lazy">
-                <p class="install-caption">Pronto! Toque em "Abrir" pra começar a usar.</p>
-              </div>
-              <div class="install-slide">
-                <img src="images/instalar/instalar-5.jpeg" alt="Autofill do código de login por SMS" loading="lazy">
-                <p class="install-caption">No login, autorize a leitura do SMS e o código preenche sozinho.</p>
-              </div>
-            </div>
-            <button class="carousel-btn next" onclick="scrollInstallCarousel(1)">›</button>
-          </div>
-          <div class="install-dots" id="install-dots"></div>
-        </div>
-
-        <a href="downloads/controle_de_estoque.apk" class="btn-store" download style="justify-content:center;margin-top:.5rem">⬇ Clique aqui para baixar o aplicativo</a>
-      </div>
+<!-- ══ TELAS DE APP ══ -->
+<div class="app-page" id="app-page-nuvemshop">
+  <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
+  <div class="app-page-head">
+    <span class="app-page-icon">☁️</span>
+    <div>
+      <h2 id="app0-name">Catálogo por IA — Nuvemshop</h2>
+      <p id="app0-sub">E-commerce · Nuvemshop · Android e iOS</p>
     </div>
   </div>
-</section>
+  <div class="app-page-grid">
+    <div class="app-page-desc">
+      <p id="app0-desc">Fotografe qualquer produto com seu celular e publique na sua loja Nuvemshop em menos de 1 minuto. A IA analisa a foto, gera nome e descrição comercial — você só revisa e publica.</p>
+      <ul class="app-features" id="app0-features"><li>Análise de produtos por inteligência artificial</li><li>Geração automática de nome e descrição</li><li>Cadastro com variantes (cor e tamanho)</li><li>Gestão de categorias e estoque</li><li>Publicação direta na Nuvemshop via API</li><li>Geração de fotos profissionais com IA, incluída no app</li><li>Leitura de código de barras e QR Code integrada</li><li>Peso e medidas para cálculo de frete</li></ul>
+      <div class="app-page-stores">
+        <a class="btn-store" id="app0-link-android" href="https://play.google.com/store/apps/details?id=com.auradevapps.catalogo.nuvemshop" target="_blank" rel="noopener">▶ Google Play</a>
+        <a class="btn-store" id="app0-link-ios" href="https://apps.apple.com/app/id0000000001" target="_blank" rel="noopener"> App Store</a>
+      </div>
+      <p class="app-page-stores-note">Disponível para Android (Google Play) e iOS (App Store). Links de exemplo — serão atualizados na publicação.</p>
+      <div class="requisitos-box" id="app0-requisitos" contenteditable="true">
+        <span class="req-edit-hint">clique para editar</span>
+        <h4>📋 Requisitos</h4>
+        <div class="req-item">
+          <div class="req-label">📱 Dispositivo</div>
+          <div class="req-text">Android 8.0 (Oreo) ou superior, ou iPhone com iOS 15 ou superior · Câmera · Conexão com internet</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">🛒 Conta na Nuvemshop</div>
+          <div class="req-text">Necessária conta ativa na Nuvemshop (plano gratuito ou pago). O app autentica via OAuth 2.0 — nenhuma senha é armazenada pelo app.</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">🖼️ Geração de fotos profissionais com IA</div>
+          <div class="req-text">Recurso nativo do app — gere fotos de produto com modelo ou fundo personalizado direto pelas telas do app, sem precisar de chave ou configuração extra. O uso segue o limite do seu plano de assinatura.</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-page-media">
+      <div class="app-video-wrap" id="app0-videowrap" style="display:block;position:relative">
+        <div class="video-play-btn" onclick="openVideoLightbox('https://www.youtube.com/embed/vdEhLhcZiT4?autoplay=1')">
+          <div class="video-play-icon">▶</div>
+        </div>
+        <img src="https://img.youtube.com/vi/vdEhLhcZiT4/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px" alt="Vídeo do app">
+      </div>
+      <div class="app-carousel-wrap">
+        <button class="carousel-btn prev" onclick="scrollCarousel('app0-carousel',-1)">‹</button>
+        <div class="app-carousel" id="app0-carousel"><img src="images/image1.jpeg" alt="Screenshot"><img src="images/image2.jpeg" alt="Screenshot"><img src="images/image3.jpeg" alt="Screenshot"><img src="images/image4.jpeg" alt="Screenshot"></div>
+        <button class="carousel-btn next" onclick="scrollCarousel('app0-carousel',1)">›</button>
+      </div>
+      <div class="app-screenshots" id="app0-screenshots" style="display:none"></div>
+      <div style="display:none"><iframe id="app0-iframe" src=""></iframe></div>
+    </div>
+  </div>
+  <button class="app-back app-back-bottom" onclick="closeAppPage()">← Voltar para a página inicial</button>
+</div>
+
+<div class="app-page" id="app-page-beleza">
+  <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
+  <div class="app-page-head">
+    <span class="app-page-icon">💅</span>
+    <div>
+      <h2 id="app1-name">Beleza App</h2>
+      <p id="app1-sub">Agenda &amp; Financeiro · Salões de beleza · Android e iOS</p>
+    </div>
+  </div>
+  <div class="app-page-grid">
+    <div class="app-page-desc">
+      <p id="app1-desc">Agenda e financeiro para salões de beleza e studios de unhas. O cliente agenda sozinho pela página online do salão, e o dono acompanha horários, profissionais e caixa pelo celular.</p>
+      <ul class="app-features" id="app1-features"><li>Agenda por profissional, com horários e serviços</li><li>Página de reserva online para o cliente, sem instalar nada</li><li>Catálogo de serviços pronto e personalizável</li><li>Controle financeiro do salão (entradas e saídas)</li><li>Recebimento pelo Mercado Pago, direto na conta do salão (Android)</li><li>Cadastro do salão: logo, fotos, redes sociais e link próprio</li></ul>
+      <div class="app-page-stores">
+        <a class="btn-store" id="app1-link-android" href="https://play.google.com/store/apps/details?id=com.auradevapps.belezaapp" target="_blank" rel="noopener">▶ Google Play</a>
+        <a class="btn-store" id="app1-link-ios" href="https://apps.apple.com/app/id0000000002" target="_blank" rel="noopener"> App Store</a>
+      </div>
+      <p class="app-page-stores-note">Disponível para Android (Google Play) e iOS (App Store). Links de exemplo — serão atualizados na publicação.</p>
+      <div class="requisitos-box" id="app1-requisitos" contenteditable="true">
+        <span class="req-edit-hint">clique para editar</span>
+        <h4>📋 Requisitos</h4>
+        <div class="req-item">
+          <div class="req-label">📱 Dispositivo</div>
+          <div class="req-text">Android 8.0 (Oreo) ou superior, ou iPhone com iOS 15 ou superior · Conexão com internet</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">🔑 Conta do salão</div>
+          <div class="req-text">Login por e-mail e senha do dono do salão, criado no primeiro acesso. Os dados do salão ficam guardados com segurança na nuvem (Firebase / Google).</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">💳 Recebimento de pagamentos (opcional, Android)</div>
+          <div class="req-text">O dono conecta a própria conta do Mercado Pago por autenticação oficial. O dinheiro cai direto na conta do salão — nunca passa pela Aura Dev Apps.</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-page-media">
+      <div class="app-video-wrap" id="app1-videowrap" style="display:none;position:relative">
+        <div class="video-play-btn"><div class="video-play-icon">▶</div></div>
+        <img src="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px" alt="Vídeo do app">
+      </div>
+      <div class="app-carousel-wrap" style="display:none">
+        <button class="carousel-btn prev" onclick="scrollCarousel('app1-carousel',-1)">‹</button>
+        <div class="app-carousel" id="app1-carousel"></div>
+        <button class="carousel-btn next" onclick="scrollCarousel('app1-carousel',1)">›</button>
+      </div>
+      <div class="app-media-placeholder">📅</div>
+      <div class="app-screenshots" id="app1-screenshots" style="display:none"></div>
+      <div style="display:none"><iframe id="app1-iframe" src=""></iframe></div>
+    </div>
+  </div>
+  <button class="app-back app-back-bottom" onclick="closeAppPage()">← Voltar para a página inicial</button>
+</div>
+
+<div class="app-page" id="app-page-estoque">
+  <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
+  <div class="app-page-head">
+    <span class="app-page-icon">📦</span>
+    <div>
+      <h2 id="app2-name">Controle de Estoque</h2>
+      <p id="app2-sub">Gestão de estoque · Revenda de importados · Android e iOS</p>
+    </div>
+  </div>
+  <div class="app-page-grid">
+    <div class="app-page-desc">
+      <p id="app2-desc">Para quem revende produtos importados: fotografe o item recebido, deixe a IA identificar nome e peso, e gere uma planilha com rateio de frete, custo e lucro — pronta para compartilhar no WhatsApp.</p>
+      <ul class="app-features" id="app2-features"><li>Identificação de produto por IA (nome e peso a partir da foto)</li><li>Rateio automático de frete e impostos por peso e quantidade</li><li>Cálculo de custo e lucro por item</li><li>Planilha Excel gerada no próprio celular</li><li>Compartilhamento direto pelo WhatsApp</li></ul>
+      <div class="app-page-stores">
+        <a class="btn-store" id="app2-link-android" href="https://play.google.com/store/apps/details?id=com.auradevapps.controleestoque" target="_blank" rel="noopener">▶ Google Play</a>
+        <a class="btn-store" id="app2-link-ios" href="https://apps.apple.com/app/id0000000003" target="_blank" rel="noopener"> App Store</a>
+      </div>
+      <p class="app-page-stores-note">Disponível para Android (Google Play) e iOS (App Store). Links de exemplo — serão atualizados na publicação.</p>
+      <div class="requisitos-box" id="app2-requisitos" contenteditable="true">
+        <span class="req-edit-hint">clique para editar</span>
+        <h4>📋 Requisitos</h4>
+        <div class="req-item">
+          <div class="req-label">📱 Dispositivo</div>
+          <div class="req-text">Android 8.0 (Oreo) ou superior, ou iPhone com iOS 15 ou superior · Câmera · Conexão com internet</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">💳 Assinatura</div>
+          <div class="req-text">O uso completo é por assinatura mensal, cobrada pela própria loja (Google Play ou App Store).</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">📄 Planilha</div>
+          <div class="req-text">A planilha gerada é aberta no seu app de planilhas ou enviada pelo WhatsApp.</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-page-media">
+      <div class="app-video-wrap" id="app2-videowrap" style="display:none;position:relative">
+        <div class="video-play-btn"><div class="video-play-icon">▶</div></div>
+        <img src="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px" alt="Vídeo do app">
+      </div>
+      <div class="app-carousel-wrap" style="display:none">
+        <button class="carousel-btn prev" onclick="scrollCarousel('app2-carousel',-1)">‹</button>
+        <div class="app-carousel" id="app2-carousel"></div>
+        <button class="carousel-btn next" onclick="scrollCarousel('app2-carousel',1)">›</button>
+      </div>
+      <div class="app-media-placeholder">📦</div>
+      <div class="app-screenshots" id="app2-screenshots" style="display:none"></div>
+      <div style="display:none"><iframe id="app2-iframe" src=""></iframe></div>
+    </div>
+  </div>
+  <button class="app-back app-back-bottom" onclick="closeAppPage()">← Voltar para a página inicial</button>
+</div>
+
+<div class="app-page" id="app-page-clipit">
+  <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
+  <div class="app-page-head">
+    <span class="app-page-icon">🎬</span>
+    <div>
+      <h2 id="app3-name">Clipit Sports</h2>
+      <p id="app3-sub">Esporte · Clipes automáticos · Android e iOS</p>
+    </div>
+  </div>
+  <div class="app-page-grid">
+    <div class="app-page-desc">
+      <p id="app3-desc">Grave o jogo ou o treino, marque os melhores lances enquanto acontecem e o app gera clipes curtos automaticamente — prontos para compartilhar.</p>
+      <ul class="app-features" id="app3-features"><li>Gravação de jogo ou treino pelo celular</li><li>Marcação de lances ao vivo, com etiquetas configuráveis</li><li>Corte automático dos clipes, processado no próprio aparelho</li><li>Marcação por voz (opcional, Android)</li><li>Compartilhamento rápido dos clipes</li><li>Os vídeos ficam somente no seu aparelho</li></ul>
+      <div class="app-page-stores">
+        <a class="btn-store" id="app3-link-android" href="https://play.google.com/store/apps/details?id=com.auradevapps.clipitsports" target="_blank" rel="noopener">▶ Google Play</a>
+        <a class="btn-store" id="app3-link-ios" href="https://apps.apple.com/app/id0000000004" target="_blank" rel="noopener"> App Store</a>
+      </div>
+      <p class="app-page-stores-note">Disponível para Android (Google Play) e iOS (App Store). Links de exemplo — serão atualizados na publicação.</p>
+      <div class="requisitos-box" id="app3-requisitos" contenteditable="true">
+        <span class="req-edit-hint">clique para editar</span>
+        <h4>📋 Requisitos</h4>
+        <div class="req-item">
+          <div class="req-label">📱 Dispositivo</div>
+          <div class="req-text">Android 8.0 (Oreo) ou superior, ou iPhone com iOS 15 ou superior · Câmera e microfone · Espaço livre para os vídeos</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">💳 Assinatura</div>
+          <div class="req-text">Assinatura mensal cobrada pela própria loja (Google Play ou App Store), com 3 dias grátis.</div>
+        </div>
+        <hr class="req-divider">
+        <div class="req-item">
+          <div class="req-label">🔒 Privacidade</div>
+          <div class="req-text">Os vídeos ficam somente no seu aparelho — nada é enviado para os nossos servidores.</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-page-media">
+      <div class="app-video-wrap" id="app3-videowrap" style="display:none;position:relative">
+        <div class="video-play-btn"><div class="video-play-icon">▶</div></div>
+        <img src="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px" alt="Vídeo do app">
+      </div>
+      <div class="app-carousel-wrap" style="display:none">
+        <button class="carousel-btn prev" onclick="scrollCarousel('app3-carousel',-1)">‹</button>
+        <div class="app-carousel" id="app3-carousel"></div>
+        <button class="carousel-btn next" onclick="scrollCarousel('app3-carousel',1)">›</button>
+      </div>
+      <div class="app-media-placeholder">🎬</div>
+      <div class="app-screenshots" id="app3-screenshots" style="display:none"></div>
+      <div style="display:none"><iframe id="app3-iframe" src=""></iframe></div>
+    </div>
+  </div>
+  <button class="app-back app-back-bottom" onclick="closeAppPage()">← Voltar para a página inicial</button>
+</div>
+<!-- ══ /TELAS DE APP ══ -->
 
 <div id="imgLightbox">
   <div id="ilbViewport">
@@ -822,14 +819,14 @@
 </div>
 
 <footer>
-  <span>© 2025 Aura Dev Apps</span>
+  <span class="footer-brand"><img src="images/Logo_Aura_Dev.png" alt="Aura Dev Apps"></span>
   <a href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener" class="footer-ig">
     <span class="footer-ig-icon">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </span>
     @aura_dev_app
   </a>
-  <span>Flutter · Firebase · Android · IA</span>
+  <span class="footer-copy">© 2026 Aura Dev Apps</span>
 </footer>
 
 <button id="editBtn" onclick="openEditor()" title="Editor"></button>
@@ -841,20 +838,21 @@
     <button class="editor-close" onclick="closeEditor()">✕</button>
   </div>
   <div class="editor-tabs">
-    <button class="editor-tab" onclick="switchTab('hero',this)">Hero</button>
-    <button class="editor-tab" onclick="switchTab('app1',this)">App 1</button>
-    <button class="editor-tab" onclick="switchTab('app2',this)">App 2</button>
-    <button class="editor-tab" onclick="switchTab('app3',this)">App 3</button>
+    <button class="editor-tab active" onclick="switchTab('hero',this)">Hero</button>
+    <button class="editor-tab" onclick="switchTab('app1',this)">Nuvemshop</button>
+    <button class="editor-tab" onclick="switchTab('app2',this)">Beleza App</button>
+    <button class="editor-tab" onclick="switchTab('app3',this)">Estoque</button>
+    <button class="editor-tab" onclick="switchTab('app4',this)">Clipit</button>
     <button class="editor-tab" onclick="switchTab('numbers',this)">Números</button>
     <button class="editor-tab" onclick="switchTab('services',this)">Serviços</button>
-    <button class="editor-tab active" onclick="switchTab('process',this)">Processo</button>
+    <button class="editor-tab" onclick="switchTab('process',this)">Precisando de um app</button>
     <button class="editor-tab" onclick="switchTab('faq',this)">FAQ</button>
     <button class="editor-tab" onclick="switchTab('privacy',this)">Legal</button>
     <button class="editor-tab" onclick="switchTab('contact',this)">Contato</button>
   </div>
   <div class="editor-body">
 
-    <div class="editor-tab-content" id="tab-hero">
+    <div class="editor-tab-content active" id="tab-hero">
       <div class="editor-section-title">Seção inicial</div>
       <div class="field-group"><label>Linha acima do título</label><input type="text" id="e-eyebrow"></div>
       <div class="field-group"><label>Palavra em destaque (gradiente)</label><input type="text" id="e-highlight"></div>
@@ -862,45 +860,71 @@
     </div>
 
     <div class="editor-tab-content" id="tab-app1">
-      <div class="editor-section-title">App 1</div>
+      <div class="editor-section-title">App 1 — Catálogo por IA — Nuvemshop</div>
       <div class="field-group"><label>Nome</label><input type="text" id="e-a0-name"></div>
       <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a0-sub"></div>
-      <div class="field-group"><label>Descrição</label><textarea id="e-a0-desc" rows="4"></textarea></div>
+      <div class="field-group"><label>Descrição curta (card da vitrine)</label><textarea id="e-a0-carddesc" rows="2"></textarea></div>
+      <div class="field-group"><label>Descrição completa (tela do app)</label><textarea id="e-a0-desc" rows="4"></textarea></div>
       <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a0-features" rows="6"></textarea></div>
-      <div class="field-group"><label>Link da Play Store</label><input type="text" id="e-a0-link"></div>
+      <div class="field-group"><label>Link Google Play</label><input type="text" id="e-a0-link-android"></div>
+      <div class="field-group"><label>Link App Store</label><input type="text" id="e-a0-link-ios"></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
-      <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a0-imgs" rows="4"></textarea><small>Ex: images/screen1.jpg — suba em images/ no GitHub</small></div>
+      <div class="field-group"><label>Imagem do card</label><input type="text" id="e-a0-cardimg"><small>Ex: images/foto.jpg — suba em images/ no GitHub. Vazio = usa o ícone.</small></div>
+      <div class="field-group"><label>Screenshots da tela do app (um caminho por linha)</label><textarea id="e-a0-imgs" rows="4"></textarea><small>Ex: images/screen1.jpg</small></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a0-video"><small>Cole a URL inteira: youtube.com/watch?v=... ou youtu.be/... ou apenas o ID</small></div>
       <div class="editor-section-title">Requisitos</div>
-      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a0-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente no site clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
+      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a0-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente na tela do app clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-app2">
-      <div class="editor-section-title">App 2</div>
+      <div class="editor-section-title">App 2 — Beleza App</div>
       <div class="field-group"><label>Nome</label><input type="text" id="e-a1-name"></div>
       <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a1-sub"></div>
-      <div class="field-group"><label>Descrição</label><textarea id="e-a1-desc" rows="4"></textarea></div>
+      <div class="field-group"><label>Descrição curta (card da vitrine)</label><textarea id="e-a1-carddesc" rows="2"></textarea></div>
+      <div class="field-group"><label>Descrição completa (tela do app)</label><textarea id="e-a1-desc" rows="4"></textarea></div>
       <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a1-features" rows="6"></textarea></div>
-      <div class="field-group"><label>Link da Play Store</label><input type="text" id="e-a1-link"></div>
+      <div class="field-group"><label>Link Google Play</label><input type="text" id="e-a1-link-android"></div>
+      <div class="field-group"><label>Link App Store</label><input type="text" id="e-a1-link-ios"></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
-      <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a1-imgs" rows="3"></textarea><small>Deixe vazio para ocultar</small></div>
+      <div class="field-group"><label>Imagem do card</label><input type="text" id="e-a1-cardimg"><small>Vazio = usa o ícone.</small></div>
+      <div class="field-group"><label>Screenshots da tela do app (um caminho por linha)</label><textarea id="e-a1-imgs" rows="3"></textarea><small>Deixe vazio para ocultar</small></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a1-video"><small>Cole a URL inteira ou apenas o ID</small></div>
       <div class="editor-section-title">Requisitos</div>
-      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a1-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente no site clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
+      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a1-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente na tela do app clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-app3">
-      <div class="editor-section-title">App 3</div>
+      <div class="editor-section-title">App 3 — Controle de Estoque</div>
       <div class="field-group"><label>Nome</label><input type="text" id="e-a2-name"></div>
       <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a2-sub"></div>
-      <div class="field-group"><label>Descrição</label><textarea id="e-a2-desc" rows="4"></textarea></div>
+      <div class="field-group"><label>Descrição curta (card da vitrine)</label><textarea id="e-a2-carddesc" rows="2"></textarea></div>
+      <div class="field-group"><label>Descrição completa (tela do app)</label><textarea id="e-a2-desc" rows="4"></textarea></div>
       <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a2-features" rows="6"></textarea></div>
-      <div class="field-group"><label>Link da Play Store</label><input type="text" id="e-a2-link"></div>
+      <div class="field-group"><label>Link Google Play</label><input type="text" id="e-a2-link-android"></div>
+      <div class="field-group"><label>Link App Store</label><input type="text" id="e-a2-link-ios"></div>
       <div class="editor-section-title">Imagens e Vídeo</div>
-      <div class="field-group"><label>Screenshots (um caminho por linha)</label><textarea id="e-a2-imgs" rows="3"></textarea></div>
+      <div class="field-group"><label>Imagem do card</label><input type="text" id="e-a2-cardimg"><small>Vazio = usa o ícone.</small></div>
+      <div class="field-group"><label>Screenshots da tela do app (um caminho por linha)</label><textarea id="e-a2-imgs" rows="3"></textarea></div>
       <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a2-video"><small>Cole a URL inteira ou apenas o ID</small></div>
       <div class="editor-section-title">Requisitos</div>
-      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a2-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente no site clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
+      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a2-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente na tela do app clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
+    </div>
+
+    <div class="editor-tab-content" id="tab-app4">
+      <div class="editor-section-title">App 4 — Clipit Sports</div>
+      <div class="field-group"><label>Nome</label><input type="text" id="e-a3-name"></div>
+      <div class="field-group"><label>Subtítulo</label><input type="text" id="e-a3-sub"></div>
+      <div class="field-group"><label>Descrição curta (card da vitrine)</label><textarea id="e-a3-carddesc" rows="2"></textarea></div>
+      <div class="field-group"><label>Descrição completa (tela do app)</label><textarea id="e-a3-desc" rows="4"></textarea></div>
+      <div class="field-group"><label>Funcionalidades (uma por linha)</label><textarea id="e-a3-features" rows="6"></textarea></div>
+      <div class="field-group"><label>Link Google Play</label><input type="text" id="e-a3-link-android"></div>
+      <div class="field-group"><label>Link App Store</label><input type="text" id="e-a3-link-ios"></div>
+      <div class="editor-section-title">Imagens e Vídeo</div>
+      <div class="field-group"><label>Imagem do card</label><input type="text" id="e-a3-cardimg"><small>Vazio = usa o ícone.</small></div>
+      <div class="field-group"><label>Screenshots da tela do app (um caminho por linha)</label><textarea id="e-a3-imgs" rows="3"></textarea></div>
+      <div class="field-group"><label>Vídeo YouTube (URL completa ou só o ID)</label><input type="text" id="e-a3-video"><small>Cole a URL inteira ou apenas o ID</small></div>
+      <div class="editor-section-title">Requisitos</div>
+      <div class="field-group"><label>Texto dos Requisitos (HTML permitido)</label><textarea id="e-a3-req" rows="8" style="font-size:.75rem"></textarea><small>Edite diretamente na tela do app clicando na caixa, ou cole HTML aqui para substituir tudo.</small></div>
     </div>
 
     <div class="editor-tab-content" id="tab-numbers">
@@ -930,7 +954,7 @@
       </script><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 1</div><div class="field-group"><label>Título</label><input type="text" id="e-sv0-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv0-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 2</div><div class="field-group"><label>Título</label><input type="text" id="e-sv1-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv1-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 3</div><div class="field-group"><label>Título</label><input type="text" id="e-sv2-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv2-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 4</div><div class="field-group"><label>Título</label><input type="text" id="e-sv3-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv3-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 5</div><div class="field-group"><label>Título</label><input type="text" id="e-sv4-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv4-text" rows="2"></textarea></div><div class="editor-section-title" style="font-size:.55rem;opacity:.6">Serviço 6</div><div class="field-group"><label>Título</label><input type="text" id="e-sv5-title"></div><div class="field-group"><label>Texto</label><textarea id="e-sv5-text" rows="2"></textarea></div>
     </div>
 
-    <div class="editor-tab-content active" id="tab-process">
+    <div class="editor-tab-content" id="tab-process">
       <div class="editor-section-title">Etapas do processo (5 etapas)</div>
       <script>
         for(let p=0;p<5;p++){
@@ -988,7 +1012,7 @@ const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isInte
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // Side nav
-const secs=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.side-nav a');
+const secs=document.querySelectorAll('.home-view section[id],#contact'),navLinks=document.querySelectorAll('.side-nav a');
 new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:.4}).observe||secs.forEach(s=>new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:.4}).observe(s));
 const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:.4});
 secs.forEach(s=>navObs.observe(s));
@@ -1021,8 +1045,59 @@ const counterObs=new IntersectionObserver(entries=>{
 },{threshold:.5});
 const statsRow=document.getElementById('statsRow');if(statsRow)counterObs.observe(statsRow);
 
-function toggleApp(i){document.getElementById('appItem'+i).classList.toggle('open')}
 function toggleFaq(el){el.parentElement.classList.toggle('open')}
+
+// ── NAVEGAÇÃO ENTRE HOME E TELAS DE APP ──
+const APP_SLUGS=['nuvemshop','beleza','estoque','clipit'];
+function showAppPage(slug){
+  if(!APP_SLUGS.includes(slug))return false;
+  document.querySelectorAll('.app-page').forEach(p=>p.removeAttribute('data-active'));
+  const el=document.getElementById('app-page-'+slug);
+  if(!el)return false;
+  el.setAttribute('data-active','1');
+  document.body.classList.add('app-page-open');
+  if(typeof closeImgLightbox==='function')closeImgLightbox();
+  if(typeof closeVideoLightbox==='function')closeVideoLightbox();
+  const prevBehavior=document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior='auto';
+  window.scrollTo(0,0);
+  requestAnimationFrame(()=>{window.scrollTo(0,0);document.documentElement.style.scrollBehavior=prevBehavior;});
+  return true;
+}
+function hideAppPage(){
+  if(!document.body.classList.contains('app-page-open'))return;
+  document.body.classList.remove('app-page-open');
+  document.querySelectorAll('.app-page').forEach(p=>p.removeAttribute('data-active'));
+  const prevBehavior=document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior='auto';
+  const apps=document.getElementById('apps');
+  requestAnimationFrame(()=>{
+    if(apps)apps.scrollIntoView();
+    document.documentElement.style.scrollBehavior=prevBehavior;
+  });
+}
+let appPagePushed=false;
+function openAppPage(slug){
+  if(showAppPage(slug)){history.pushState({appPage:slug},'','#app/'+slug);appPagePushed=true;}
+}
+function closeAppPage(){
+  if(appPagePushed){appPagePushed=false;history.back();}
+  else{hideAppPage();history.replaceState(null,'',window.location.pathname+window.location.search);}
+}
+window.addEventListener('popstate',e=>{
+  const m=(window.location.hash||'').match(/^#app\/([a-z]+)$/);
+  if(e.state&&e.state.appPage&&showAppPage(e.state.appPage)){appPagePushed=false;return;}
+  if(m&&showAppPage(m[1])){appPagePushed=false;return;}
+  appPagePushed=false;
+  hideAppPage();
+});
+(function initAppPageFromHash(){
+  const m=(window.location.hash||'').match(/^#app\/([a-z]+)$/);
+  if(m&&APP_SLUGS.includes(m[1])){
+    history.replaceState({appPage:m[1]},'','#app/'+m[1]);
+    showAppPage(m[1]);
+  }
+})();
 
 // EDITOR
 function switchTab(name,btn){
@@ -1073,17 +1148,24 @@ function openEditor(){
   g('e-sub').value=g('h-sub')?.textContent||'';
 
   // Apps
-  for(let i=0;i<3;i++){
+  for(let i=0;i<4;i++){
     const nameEl=g(`app${i}-name`),subEl=g(`app${i}-sub`),descEl=g(`app${i}-desc`);
-    const featEl=g(`app${i}-features`),linkEl=g(`app${i}-link`);
+    const featEl=g(`app${i}-features`);
+    const linkA=g(`app${i}-link-android`),linkI=g(`app${i}-link-ios`);
+    const cardNameEl=g(`app${i}-cardname`),cardDescEl=g(`app${i}-carddesc`),cardImgEl=g(`app${i}-cardimg`);
     const screensEl=g(`app${i}-screenshots`),videoEl=g(`app${i}-iframe`);
-    if(nameEl) g(`e-a${i}-name`).value=nameEl.textContent;
-    if(subEl)  g(`e-a${i}-sub`).value=subEl.textContent;
-    if(descEl) g(`e-a${i}-desc`).value=descEl.textContent;
-    if(featEl) g(`e-a${i}-features`).value=Array.from(featEl.querySelectorAll('li')).map(li=>li.textContent).join('\n');
-    if(linkEl) g(`e-a${i}-link`)&&(g(`e-a${i}-link`).value=linkEl.href||'');
-    if(screensEl){
-      const imgs=Array.from(screensEl.querySelectorAll('img')).map(img=>img.src.replace(window.location.origin+window.location.pathname.replace('index.html',''),'').replace(window.location.origin+'/',''));
+    if(nameEl) g(`e-a${i}-name`)&&(g(`e-a${i}-name`).value=(cardNameEl?cardNameEl.textContent:nameEl.textContent));
+    if(subEl)  g(`e-a${i}-sub`)&&(g(`e-a${i}-sub`).value=subEl.textContent);
+    if(descEl) g(`e-a${i}-desc`)&&(g(`e-a${i}-desc`).value=descEl.textContent);
+    if(cardDescEl) g(`e-a${i}-carddesc`)&&(g(`e-a${i}-carddesc`).value=cardDescEl.textContent);
+    if(cardImgEl) g(`e-a${i}-cardimg`)&&(g(`e-a${i}-cardimg`).value=cardImgEl.getAttribute('src')||'');
+    if(featEl) g(`e-a${i}-features`)&&(g(`e-a${i}-features`).value=Array.from(featEl.querySelectorAll('li')).map(li=>li.textContent).join('\n'));
+    if(linkA) g(`e-a${i}-link-android`)&&(g(`e-a${i}-link-android`).value=linkA.getAttribute('href')||'');
+    if(linkI) g(`e-a${i}-link-ios`)&&(g(`e-a${i}-link-ios`).value=linkI.getAttribute('href')||'');
+    const carEl=g(`app${i}-carousel`);
+    if(carEl){
+      const base=window.location.origin+window.location.pathname.replace(/index\.html$/,'');
+      const imgs=Array.from(carEl.querySelectorAll('img')).map(img=>(img.getAttribute('src')||'').replace(base,'').replace(window.location.origin+'/',''));
       const ta=g(`e-a${i}-imgs`);if(ta)ta.value=imgs.join('\n');
     }
     if(videoEl){
@@ -1178,35 +1260,6 @@ function scrollCarousel(id,dir){
   const w=el.querySelector('img')?.offsetWidth||160;
   el.scrollBy({left:dir*(w+12)*2,behavior:'smooth'});
 }
-
-function scrollInstallCarousel(dir){
-  const el=document.getElementById('install-carousel');if(!el)return;
-  el.scrollBy({left:dir*el.clientWidth,behavior:'smooth'});
-}
-
-(function initInstallCarousel(){
-  const el=document.getElementById('install-carousel');
-  const dotsEl=document.getElementById('install-dots');
-  if(!el||!dotsEl)return;
-  const slides=el.querySelectorAll('.install-slide');
-  slides.forEach((_,i)=>{
-    const dot=document.createElement('span');
-    dot.className='install-dot'+(i===0?' active':'');
-    dot.onclick=()=>el.scrollTo({left:el.clientWidth*i,behavior:'smooth'});
-    dotsEl.appendChild(dot);
-  });
-  const dots=dotsEl.querySelectorAll('.install-dot');
-  let ticking=false;
-  el.addEventListener('scroll',()=>{
-    if(ticking)return;
-    ticking=true;
-    requestAnimationFrame(()=>{
-      const idx=Math.round(el.scrollLeft/el.clientWidth);
-      dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
-      ticking=false;
-    });
-  });
-})();
 
 function setScreenshots(containerId,paths){
   // Atualiza o carrossel
@@ -1431,20 +1484,30 @@ function applyChanges(){
   g('h-sub').textContent=g('e-sub').value;
 
   // Apps
-  for(let i=0;i<3;i++){
+  for(let i=0;i<4;i++){
     const name=g(`e-a${i}-name`)?.value||'';
     const sub=g(`e-a${i}-sub`)?.value||'';
+    const carddesc=g(`e-a${i}-carddesc`)?.value||'';
     const desc=g(`e-a${i}-desc`)?.value||'';
+    const cardimg=(g(`e-a${i}-cardimg`)?.value||'').trim();
     const feats=(g(`e-a${i}-features`)?.value||'').split('\n').filter(f=>f.trim());
     const imgs=(g(`e-a${i}-imgs`)?.value||'').split('\n');
     const video=extractYouTubeId(g(`e-a${i}-video`)?.value||'');
-    const link=g(`e-a${i}-link`)?.value||'';
-    if(g(`app${i}-name`))g(`app${i}-name`).textContent=name;
-    if(g(`app${i}-sub`))g(`app${i}-sub`).textContent=sub;
-    if(g(`app${i}-desc`))g(`app${i}-desc`).textContent=desc;
+    const linkA=(g(`e-a${i}-link-android`)?.value||'').trim();
+    const linkI=(g(`e-a${i}-link-ios`)?.value||'').trim();
+    if(name){
+      if(g(`app${i}-name`))g(`app${i}-name`).textContent=name;
+      if(g(`app${i}-cardname`))g(`app${i}-cardname`).textContent=name;
+    }
+    if(sub&&g(`app${i}-sub`))g(`app${i}-sub`).textContent=sub;
+    if(carddesc&&g(`app${i}-carddesc`))g(`app${i}-carddesc`).textContent=carddesc;
+    if(desc&&g(`app${i}-desc`))g(`app${i}-desc`).textContent=desc;
+    const cardImgEl=g(`app${i}-cardimg`);
+    if(cardImgEl){if(cardimg)cardImgEl.setAttribute('src',cardimg);else cardImgEl.removeAttribute('src');}
     const featEl=g(`app${i}-features`);
-    if(featEl)featEl.innerHTML=feats.map(f=>`<li>${f}</li>`).join('');
-    if(link&&g(`app${i}-link`))g(`app${i}-link`).href=link;
+    if(featEl&&feats.length)featEl.innerHTML=feats.map(f=>`<li>${f}</li>`).join('');
+    if(linkA&&g(`app${i}-link-android`))g(`app${i}-link-android`).setAttribute('href',linkA);
+    if(linkI&&g(`app${i}-link-ios`))g(`app${i}-link-ios`).setAttribute('href',linkI);
     setScreenshots(`app${i}-screenshots`,imgs);
     setVideo(`app${i}-videowrap`,`app${i}-iframe`,video);
     // Requisitos
