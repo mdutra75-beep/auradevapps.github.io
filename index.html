@@ -237,12 +237,12 @@
   .apps-grid{width:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
   .app-card{border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;background:rgba(176,108,255,.03);cursor:none;display:flex;flex-direction:column;transition:border-color .3s,transform .3s,background .3s}
   .app-card:hover{border-color:rgba(176,108,255,.45);transform:translateY(-4px);background:rgba(176,108,255,.06)}
-  .app-card-thumb{position:relative;width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,rgba(176,108,255,.25),rgba(124,58,237,.12));display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .app-card-thumb{position:relative;width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,rgba(176,108,255,.25),rgba(124,58,237,.12));display:flex;align-items:center;justify-content:center;overflow:hidden}
   .app-card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .app-card-thumb img:not([src]),.app-card-thumb img[src=""]{display:none}
   .app-card-thumb .app-card-glyph{font-size:3.2rem;filter:drop-shadow(0 4px 16px rgba(0,0,0,.35))}
   .app-card-body{padding:1.6rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
-  .app-card-icon{font-size:1.5rem;line-height:1}
+  .app-card-icon{width:34px;height:34px;border-radius:9px;object-fit:cover;display:block;border:1px solid rgba(255,255,255,.12)}
   .app-card h3{font-size:1.25rem;font-weight:600}
   .app-card-desc{font-size:.88rem;color:var(--mid);line-height:1.65;flex:1}
   .app-card-platforms{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);display:flex;align-items:center;gap:.5rem}
@@ -257,7 +257,8 @@
   .app-back:hover{opacity:.88;transform:translateY(-2px)}
   .app-back-bottom{margin-top:1rem}
   .app-page-head{display:flex;align-items:center;gap:1.25rem}
-  .app-page-head .app-page-icon{font-size:2.6rem;line-height:1}
+  .app-page-head .app-page-icon{width:64px;height:64px;border-radius:14px;object-fit:cover;display:block;flex-shrink:0;border:1px solid rgba(255,255,255,.12)}
+  .app-media-logo{width:100%;max-width:420px;border-radius:14px;border:1px solid rgba(176,108,255,.15);display:block}
   .app-page-head h2{font-size:clamp(1.8rem,4vw,3.2rem)}
   .app-page-head p{font-size:.8rem;color:var(--mid);letter-spacing:.05em;margin-top:.35rem}
   .app-page-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
@@ -390,9 +391,9 @@
   <div class="apps-grid reveal visible" id="appsGrid">
 
     <div class="app-card" onclick="openAppPage('nuvemshop')">
-      <div class="app-card-thumb"><span class="app-card-glyph">☁️</span><img id="app0-cardimg" src="images/image1.jpeg" alt="Catálogo por IA — Nuvemshop"></div>
+      <div class="app-card-thumb"><span class="app-card-glyph">☁️</span><img id="app0-cardimg" src="images/app-nuvemshop.jpg" alt="Catálogo por IA — Nuvemshop"></div>
       <div class="app-card-body">
-        <span class="app-card-icon">☁️</span>
+        <img class="app-card-icon" src="images/app-nuvemshop.jpg" alt="">
         <h3 id="app0-cardname">Catálogo por IA — Nuvemshop</h3>
         <p class="app-card-desc" id="app0-carddesc">Fotografe o produto, a IA escreve nome e descrição, e você publica na sua loja Nuvemshop em menos de 1 minuto.</p>
         <span class="app-card-platforms">Android · iOS</span>
@@ -401,9 +402,9 @@
     </div>
 
     <div class="app-card" onclick="openAppPage('beleza')">
-      <div class="app-card-thumb"><span class="app-card-glyph">💅</span><img id="app1-cardimg" alt="Beleza App"></div>
+      <div class="app-card-thumb"><span class="app-card-glyph">💅</span><img id="app1-cardimg" src="images/app-beleza.jpg" alt="Beleza App"></div>
       <div class="app-card-body">
-        <span class="app-card-icon">💅</span>
+        <img class="app-card-icon" src="images/app-beleza.jpg" alt="">
         <h3 id="app1-cardname">Beleza App</h3>
         <p class="app-card-desc" id="app1-carddesc">Agenda, financeiro e página de reserva online para salões de beleza e studios de unhas.</p>
         <span class="app-card-platforms">Android · iOS</span>
@@ -412,9 +413,9 @@
     </div>
 
     <div class="app-card" onclick="openAppPage('estoque')">
-      <div class="app-card-thumb"><span class="app-card-glyph">📦</span><img id="app2-cardimg" alt="Controle de Estoque"></div>
+      <div class="app-card-thumb"><span class="app-card-glyph">📦</span><img id="app2-cardimg" src="images/app-estoque.jpg" alt="Controle de Estoque"></div>
       <div class="app-card-body">
-        <span class="app-card-icon">📦</span>
+        <img class="app-card-icon" src="images/app-estoque.jpg" alt="">
         <h3 id="app2-cardname">Controle de Estoque</h3>
         <p class="app-card-desc" id="app2-carddesc">Fotografe o produto importado, a IA identifica nome e peso, e sai a planilha de frete, custo e lucro.</p>
         <span class="app-card-platforms">Android · iOS</span>
@@ -423,9 +424,9 @@
     </div>
 
     <div class="app-card" onclick="openAppPage('clipit')">
-      <div class="app-card-thumb"><span class="app-card-glyph">🎬</span><img id="app3-cardimg" alt="Clipit Sports"></div>
+      <div class="app-card-thumb"><span class="app-card-glyph">🎬</span><img id="app3-cardimg" src="images/app-clipit.jpg" alt="Clipit Sports"></div>
       <div class="app-card-body">
-        <span class="app-card-icon">🎬</span>
+        <img class="app-card-icon" src="images/app-clipit.jpg" alt="">
         <h3 id="app3-cardname">Clipit Sports</h3>
         <p class="app-card-desc" id="app3-carddesc">Grave o jogo, marque os lances e receba clipes curtos prontos para compartilhar.</p>
         <span class="app-card-platforms">Android · iOS</span>
@@ -571,7 +572,7 @@
 <div class="app-page" id="app-page-nuvemshop">
   <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
   <div class="app-page-head">
-    <span class="app-page-icon">☁️</span>
+    <img class="app-page-icon" src="images/app-nuvemshop.jpg" alt="">
     <div>
       <h2 id="app0-name">Catálogo por IA — Nuvemshop</h2>
       <p id="app0-sub">E-commerce · Nuvemshop · Android e iOS</p>
@@ -627,7 +628,7 @@
 <div class="app-page" id="app-page-beleza">
   <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
   <div class="app-page-head">
-    <span class="app-page-icon">💅</span>
+    <img class="app-page-icon" src="images/app-beleza.jpg" alt="">
     <div>
       <h2 id="app1-name">Beleza App</h2>
       <p id="app1-sub">Agenda &amp; Financeiro · Salões de beleza · Android e iOS</p>
@@ -671,7 +672,7 @@
         <div class="app-carousel" id="app1-carousel"></div>
         <button class="carousel-btn next" onclick="scrollCarousel('app1-carousel',1)">›</button>
       </div>
-      <div class="app-media-placeholder">📅</div>
+      <img class="app-media-logo" src="images/app-beleza.jpg" alt="Beleza App">
       <div class="app-screenshots" id="app1-screenshots" style="display:none"></div>
       <div style="display:none"><iframe id="app1-iframe" src=""></iframe></div>
     </div>
@@ -682,7 +683,7 @@
 <div class="app-page" id="app-page-estoque">
   <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
   <div class="app-page-head">
-    <span class="app-page-icon">📦</span>
+    <img class="app-page-icon" src="images/app-estoque.jpg" alt="">
     <div>
       <h2 id="app2-name">Controle de Estoque</h2>
       <p id="app2-sub">Gestão de estoque · Revenda de importados · Android e iOS</p>
@@ -726,7 +727,7 @@
         <div class="app-carousel" id="app2-carousel"></div>
         <button class="carousel-btn next" onclick="scrollCarousel('app2-carousel',1)">›</button>
       </div>
-      <div class="app-media-placeholder">📦</div>
+      <img class="app-media-logo" src="images/app-estoque.jpg" alt="Controle de Estoque">
       <div class="app-screenshots" id="app2-screenshots" style="display:none"></div>
       <div style="display:none"><iframe id="app2-iframe" src=""></iframe></div>
     </div>
@@ -737,7 +738,7 @@
 <div class="app-page" id="app-page-clipit">
   <button class="app-back" onclick="closeAppPage()">← Voltar para a página inicial</button>
   <div class="app-page-head">
-    <span class="app-page-icon">🎬</span>
+    <img class="app-page-icon" src="images/app-clipit.jpg" alt="">
     <div>
       <h2 id="app3-name">Clipit Sports</h2>
       <p id="app3-sub">Esporte · Clipes automáticos · Android e iOS</p>
@@ -781,7 +782,7 @@
         <div class="app-carousel" id="app3-carousel"></div>
         <button class="carousel-btn next" onclick="scrollCarousel('app3-carousel',1)">›</button>
       </div>
-      <div class="app-media-placeholder">🎬</div>
+      <img class="app-media-logo" src="images/app-clipit.jpg" alt="Clipit Sports">
       <div class="app-screenshots" id="app3-screenshots" style="display:none"></div>
       <div style="display:none"><iframe id="app3-iframe" src=""></iframe></div>
     </div>
