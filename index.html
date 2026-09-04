@@ -315,11 +315,33 @@
     section{padding:6rem 6vw}
     .editor-panel{width:100%}
   }
+  /* ── SELETOR DE IDIOMA ── */
+  .lang-toggle{position:fixed;top:1.1rem;right:1.4rem;z-index:200;display:flex;gap:.25rem;background:rgba(10,10,15,.62);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:.28rem}
+  .lang-toggle button{display:flex;align-items:center;gap:.4rem;background:none;border:none;color:var(--mid);font-family:'Space Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:.12em;padding:.34rem .62rem;border-radius:100px;cursor:none;transition:color .2s,background .2s}
+  .lang-toggle button svg{width:18px;height:13px;border-radius:2px;display:block;flex-shrink:0;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+  .lang-toggle button.active{color:var(--paper);background:rgba(176,108,255,.2)}
+  .lang-toggle button:not(.active):hover{color:var(--paper)}
+  .lang-toggle button:disabled{opacity:.4;pointer-events:none}
+  @media(max-width:900px){
+    .lang-toggle{top:.6rem;right:.6rem;padding:.22rem;gap:.15rem}
+    .lang-toggle button{padding:.3rem .48rem;font-size:.58rem}
+    .lang-toggle button svg{width:16px;height:12px}
+  }
 </style>
 </head>
 <body>
 <div class="cursor" id="cursor" style="transform: translate(1118px, 459px);"></div>
 <div class="cursor-ring" id="cursorRing" style="transform: translate(1104px, 445px);"></div>
+<div class="lang-toggle" id="langToggle" aria-label="Idioma / Language">
+  <button type="button" data-lang="pt" onclick="setLang('pt')" aria-label="Português">
+    <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#009c3b"/><path d="M14 2.2 25 10 14 17.8 3 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.1" fill="#002776"/></svg>
+    <span>PT</span>
+  </button>
+  <button type="button" data-lang="en" onclick="setLang('en')" aria-label="English">
+    <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="28" height="1.54"/><rect y="4.62" width="28" height="1.54"/><rect y="7.69" width="28" height="1.54"/><rect y="10.77" width="28" height="1.54"/><rect y="13.85" width="28" height="1.54"/><rect y="16.92" width="28" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/></svg>
+    <span>EN</span>
+  </button>
+</div>
 <div class="home-view">
 <nav class="side-nav">
   <a href="#hero" class="" title="Início"></a>
@@ -747,12 +769,12 @@
   <div class="app-page-grid">
     <div class="app-page-desc">
       <p id="app3-desc">Grave o jogo ou o treino, marque os melhores lances enquanto acontecem e o app gera clipes curtos automaticamente — prontos para compartilhar.</p>
-      <ul class="app-features" id="app3-features"><li>Gravação de jogo ou treino pelo celular</li><li>Marcação de lances ao vivo, com etiquetas configuráveis</li><li>Corte automático dos clipes, processado no próprio aparelho</li><li>Marcação por voz (opcional, Android)</li><li>Compartilhamento rápido dos clipes</li><li>Os vídeos ficam somente no seu aparelho</li></ul>
+      <ul class="app-features" id="app3-features"><li>Gravação de jogo ou treino pelo celular</li><li>Marcação de lances ao vivo, com etiquetas configuráveis</li><li>Corte automático dos clipes, processado no próprio aparelho</li><li>App em 7 idiomas</li><li>Compartilhamento rápido dos clipes</li><li>Os vídeos ficam somente no seu aparelho</li></ul>
       <div class="app-page-stores">
-        <a class="btn-store" id="app3-link-android" href="https://play.google.com/store/apps/details?id=com.auradevapps.clipitsports" target="_blank" rel="noopener">▶ Google Play</a>
-        <a class="btn-store" id="app3-link-ios" href="https://apps.apple.com/app/id0000000004" target="_blank" rel="noopener"> App Store</a>
+        <a class="btn-store" id="app3-link-android" href="https://play.google.com/store/apps/details?id=com.catalogoia.marcador_lances" target="_blank" rel="noopener">▶ Google Play</a>
+        <a class="btn-store" id="app3-link-ios" href="https://apps.apple.com/us/app/clipit-sports/id6803561568" target="_blank" rel="noopener"> App Store</a>
       </div>
-      <p class="app-page-stores-note">Disponível para Android (Google Play) e iOS (App Store). Links de exemplo — serão atualizados na publicação.</p>
+      <p class="app-page-stores-note">Disponível na Google Play e na App Store.</p>
       <div class="requisitos-box" id="app3-requisitos" contenteditable="true">
         <span class="req-edit-hint">clique para editar</span>
         <h4>📋 Requisitos</h4>
@@ -773,7 +795,7 @@
       </div>
     </div>
     <div class="app-page-media">
-      <div class="app-video-wrap" id="app3-videowrap" style="display:none;position:relative">
+      <div class="app-video-wrap" id="app3-videowrap" style="position:relative">
         <div class="video-play-btn"><div class="video-play-icon">▶</div></div>
         <img src="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:12px" alt="Vídeo do app">
       </div>
@@ -1585,6 +1607,343 @@ function exportHTML(){
     a.click();
   },400);
 }
+</script>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   i18n — o português vive no HTML (fonte da verdade); inglês e futuros
+   idiomas ficam no dicionário I18N abaixo. Para adicionar um idioma:
+   1) criar I18N.<code> = { ...mesmas chaves... }
+   2) acrescentar o código em SUPPORTED
+   3) adicionar um botão no #langToggle
+   O editor protegido continua editando SÓ o português; ao abri-lo a
+   página volta pra PT e o seletor fica travado. Depois de editar pelo
+   editor, re-sincronizar os outros idiomas com a última versão PT.
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+  var SUPPORTED = ['pt','en'];
+  var DEFAULT = 'pt';
+
+  /* elemento -> chave. html:true = innerHTML; all:true = todos; attr = atributo */
+  var MAP = [
+    {k:'hero.eyebrow', sel:'#h-eyebrow'},
+    {k:'hero.h1', sel:'#h-title', html:true},
+    {k:'hero.sub', sel:'#h-sub'},
+    {k:'hero.cta', sel:'#hero .btn-primary'},
+    {k:'apps.label', sel:'#apps .section-label'},
+    {k:'apps.h2', sel:'#apps h2'},
+    {k:'card.more', sel:'.app-card-more', all:true},
+    {k:'card0.desc', sel:'#app0-carddesc'},
+    {k:'card1.desc', sel:'#app1-carddesc'},
+    {k:'card2.desc', sel:'#app2-carddesc'},
+    {k:'card3.desc', sel:'#app3-carddesc'},
+    {k:'services.label', sel:'#services .section-label'},
+    {k:'services.h2', sel:'#services h2'},
+    {k:'numbers.label', sel:'#numbers .section-label'},
+    {k:'numbers.h2', sel:'#numbers h2'},
+    {k:'stat0.label', sel:'#stat0-label'},
+    {k:'stat1.label', sel:'#stat1-label'},
+    {k:'stat2.label', sel:'#stat2-label'},
+    {k:'stat3.label', sel:'#stat3-label'},
+    {k:'stat3.num', sel:'#stat3-num'},
+    {k:'stat3.suffix', sel:'#stat3-num', attr:'data-suffix'},
+    {k:'process.label', sel:'#process > div:first-child .section-label'},
+    {k:'process.h2', sel:'#process > div:first-child h2'},
+    {k:'contact.label', sel:'#contact .section-label'},
+    {k:'contact.title', sel:'#c-title'},
+    {k:'contact.sub', sel:'#c-sub'},
+    {k:'contact.btn', sel:'#c-btn'},
+    {k:'faq.label', sel:'#faq .section-label'},
+    {k:'faq.h2', sel:'#faq h2'},
+    {k:'privacy.label', sel:'#privacy .section-label'},
+    {k:'privacy.h2', sel:'#privacy h2'},
+    {k:'privacy.body', sel:'#privacyContent', html:true},
+    {k:'lb.hint', sel:'#videoLightbox .lb-hint'},
+    {k:'lb.pinch', sel:'#pinchHint', html:true}
+  ];
+  for(var i=1;i<=6;i++){
+    MAP.push({k:'sv'+i+'.t', sel:'#servicesGrid .service-block:nth-child('+i+') h3'});
+    MAP.push({k:'sv'+i+'.p', sel:'#servicesGrid .service-block:nth-child('+i+') p'});
+  }
+  for(var j=1;j<=5;j++){
+    MAP.push({k:'pr'+j+'.t', sel:'#processSteps .process-step:nth-child('+j+') h4'});
+    MAP.push({k:'pr'+j+'.p', sel:'#processSteps .process-step:nth-child('+j+') p'});
+  }
+  for(var f=1;f<=7;f++){
+    MAP.push({k:'fq'+f+'.q', sel:'#faqList .faq-item:nth-child('+f+') .faq-q'});
+    MAP.push({k:'fq'+f+'.a', sel:'#faqList .faq-item:nth-child('+f+') .faq-a'});
+  }
+  var SLUGS = ['nuvemshop','beleza','estoque','clipit'];
+  SLUGS.forEach(function(s,i){
+    MAP.push({k:'app'+i+'.back', sel:'#app-page-'+s+' .app-back', all:true});
+    MAP.push({k:'app'+i+'.sub', sel:'#app'+i+'-sub'});
+    MAP.push({k:'app'+i+'.desc', sel:'#app'+i+'-desc'});
+    MAP.push({k:'app'+i+'.features', sel:'#app'+i+'-features', html:true});
+    MAP.push({k:'app'+i+'.note', sel:'#app-page-'+s+' .app-page-stores-note'});
+    MAP.push({k:'app'+i+'.req', sel:'#app'+i+'-requisitos', html:true});
+  });
+  for(var n=1;n<=7;n++){ MAP.push({k:'nav'+n, sel:'.side-nav a:nth-child('+n+')', attr:'title'}); }
+
+  /* Vídeo do YouTube por app e idioma. Fallback: idioma -> en -> pt -> esconde.
+     Para trocar um vídeo: mudar o ID aqui (não é editável pelo editor). */
+  var APP_VIDEOS = {
+    app0: { pt:'vdEhLhcZiT4', en:'vdEhLhcZiT4' },
+    app3: { pt:'UTyQp7tpLdY', en:'PfuxIpGfQl4' }
+  };
+
+  var MARQUEE = { 'Inteligência Artificial':'Artificial Intelligence', 'Monetização':'Monetization' };
+
+  var I18N = { pt:{}, en:{
+    '_title':'Aura Dev Apps — AI-powered Android and iOS apps',
+    'hero.eyebrow':'App Studio — Curitiba, Brazil',
+    'hero.h1':'Apps that<br>work for<br><span class="highlight" id="h-highlight">you.</span>',
+    'hero.sub':'We build Android and iOS apps with the best tools on the market — from concept to launch. Real solutions for everyday work.',
+    'hero.cta':'See the apps',
+    'apps.label':'Our Apps',
+    'apps.h2':'What we build',
+    'card.more':'tap for details →',
+    'card0.desc':'Photograph the product, AI writes the name and description, and you publish it to your Nuvemshop store in under a minute.',
+    'card1.desc':'Scheduling, finances and an online booking page for beauty salons and nail studios.',
+    'card2.desc':'Photograph the imported product, AI identifies the name and weight, and out comes the shipping, cost and profit spreadsheet.',
+    'card3.desc':'Record the game, mark the plays and get short clips ready to share.',
+    'services.label':'What we do',
+    'services.h2':'Services',
+    'sv1.t':'AI-powered apps',
+    'sv1.p':'End-to-end Flutter — from idea to the stores (Google Play and App Store). We build artificial intelligence right into the app to automate real tasks.',
+    'sv2.t':'Integrations & APIs',
+    'sv2.p':'We connect your app to the world: Nuvemshop, Mercado Pago, Firebase, Google Gemini, OpenAI, OpenRouter and much more.',
+    'sv3.t':'Mobile e-commerce',
+    'sv3.p':'Solutions built for retailers — product registration, catalog management and inventory control straight from the phone.',
+    'sv4.t':'Profitability',
+    'sv4.p':'We build apps that speed up your business, so you can spend your time on what really matters: selling.',
+    'sv5.t':'Computer vision',
+    'sv5.p':'Image analysis, AI-generated professional photos, barcode reading and automatic product descriptions.',
+    'sv6.t':'Support & growth',
+    'sv6.p':'Post-launch follow-up: updates, bug fixes, ASO on the Play Store and App Store, and usage-metrics analysis.',
+    'numbers.label':'By the numbers',
+    'numbers.h2':'Concrete results',
+    'stat0.label':'Published apps',
+    'stat1.label':'Products registered',
+    'stat2.label':'Average store rating',
+    'stat3.label':'Countries served',
+    'stat3.num':'5 countries',
+    'stat3.suffix':' countries',
+    'process.label':'Need an app?',
+    'process.h2':'From briefing to the stores',
+    'pr1.t':'Discovery',
+    'pr1.p':'We understand the business, the users and the real problem the app solves.',
+    'pr2.t':'Architecture',
+    'pr2.p':'We define the stack, integrations and data flow before any screen.',
+    'pr3.t':'Development',
+    'pr3.p':'Clean-code Flutter with Firebase, APIs and incremental releases for Android and iOS.',
+    'pr4.t':'Testing',
+    'pr4.p':'Closed testing on the Play Store and TestFlight (iOS) with real users before launch.',
+    'pr5.t':'Launch',
+    'pr5.p':'Play Store and App Store, ASO, analytics and monitoring for the first 30 days.',
+    'contact.label':'Next step',
+    'contact.title':'Have an app idea?',
+    'contact.sub':"Tell us the problem. We'll build the smartest solution together — from briefing to the stores (Google Play and App Store).",
+    'contact.btn':'Start a project',
+    'faq.label':'FAQ',
+    'faq.h2':'Frequently asked questions',
+    'fq1.q':'Are the apps free?',
+    'fq1.a':"Downloading from Google Play and the App Store is free. Full use requires a monthly subscription, billed directly by the store itself (Google Play or App Store). The price is shown on the app's page before you subscribe.",
+    'fq2.q':'Do they work on iPhone and Android?',
+    'fq2.a':'Yes. AI Catalog — Nuvemshop, Beleza App, Controle de Estoque and Clipit Sports all have an Android (Google Play) and an iOS (App Store) version.',
+    'fq3.q':'Are my login details for other platforms saved?',
+    'fq3.a':"No. When an app connects an external platform (Nuvemshop, Meta or Mercado Pago), authentication goes through the platform's official OAuth — your password is never transmitted or stored. Only an access token stays on the device, and it can be revoked at any time from the platform's dashboard.",
+    'fq4.q':'How does the AI generate product descriptions?',
+    'fq4.a':"In the catalog and inventory apps, when you photograph a product the app sends the image to an artificial intelligence model that analyzes what's in the photo and automatically generates a name and description. You review and edit before publishing or saving.",
+    'fq5.q':'Can I register products with variants (colors and sizes)?',
+    'fq5.a':'Yes, in AI Catalog — Nuvemshop. You pick color and size combinations, set individual stock for each combination, and the app sends everything to the store correctly.',
+    'fq6.q':'How do I cancel my subscription?',
+    'fq6.a':"Through the store where you subscribed: on Android, Google Play → Subscriptions; on iPhone, Settings → your name → Subscriptions. The cancellation takes effect at the end of the period you've already paid for, and the data you've entered is not affected.",
+    'fq7.q':'I found a problem. How do I report it?',
+    'fq7.a':'Email auradev.app@gmail.com with the app, the platform (Android or iOS), the version and the device you are using. We reply within 48 business hours.',
+    'privacy.label':'Legal',
+    'privacy.h2':'Privacy Policy',
+    'privacy.body':
+      '<p>Last updated: August 2026</p>'+
+      '<p>This Privacy Policy applies to the apps developed and published by Aura Dev Apps and distributed on the app stores (Google Play and the Apple App Store): AI Catalog — Nuvemshop, Beleza App, Controle de Estoque and Clipit Sports (together, the "Apps"). By using any of the Apps, you agree to the collection and use of information in accordance with this policy.</p>'+
+      '<h3>1. Who we are</h3>'+
+      '<p>Aura Dev Apps is responsible for developing and maintaining the Apps. Contact for privacy matters: <strong>auradev.app@gmail.com</strong></p>'+
+      '<h3>2. What data we may collect</h3>'+
+      '<p>Depending on which App you use and the features you enable, we may collect:</p>'+
+      '<ul>'+
+      '<li><strong>Account and integration data:</strong> when you connect an external platform (Nuvemshop in AI Catalog, Mercado Pago in Beleza App), we receive, through that platform’s official OAuth authentication, the account identifier and an access token needed to carry out the actions you request. We never have access to your password for those platforms.</li>'+
+      '<li><strong>Registration data:</strong> Beleza App uses an email and password for the salon owner’s login and collects salon data (name, contacts, social media, photos, logo), services, staff and the schedule of hours and appointments, stored via Firebase (Google).</li>'+
+      '<li><strong>Content you submit:</strong> product photos and the information you type (titles, descriptions, prices, categories, weights) are sent to our servers for processing and, where applicable, publishing to the platform you connected.</li>'+
+      '<li><strong>Artificial Intelligence processing:</strong> to generate titles, descriptions and, where applicable, product images, the content above is sent to third-party AI providers (currently Google Gemini, OpenRouter and OpenAI) through our server.</li>'+
+      '<li><strong>Video (Clipit Sports):</strong> the App records video of your sports activities, which is stored <strong>only on your device</strong> — the video is not sent to our servers.</li>'+
+      '<li><strong>Subscription identifiers:</strong> in the Apps with a subscription (Controle de Estoque, Clipit Sports, Beleza App), we generate an anonymous installation identifier and may read a device identifier, sent to our server only to confirm your subscription with the store (Google Play or App Store).</li>'+
+      '<li><strong>Usage, diagnostics and performance data:</strong> we may use Firebase (Google) for usage metrics and crash reporting (Crashlytics), which may collect device identifiers, device model, system version, approximate IP and error logs.</li>'+
+      '<li><strong>Local data on the device:</strong> preferences, settings and session credentials may be stored securely on your device.</li>'+
+      '</ul>'+
+      '<h3>3. Payments</h3>'+
+      '<p>Subscriptions to the Apps are processed <strong>entirely by the store</strong> where you buy them — Google Play or the Apple App Store. We do not receive or store your card or bank account details. In Beleza App, the salon owner can connect their own Mercado Pago account to receive payments from end customers; that money goes straight to the salon’s account and never passes through Aura Dev Apps’ account or servers.</p>'+
+      '<h3>4. How we use the data</h3>'+
+      '<p>We use the data only to operate the features you request (publishing and syncing products, managing scheduling and finances, generating spreadsheets or clips, generating AI content), confirm subscriptions, operate and improve the Apps, diagnose technical errors and provide support when you contact us.</p>'+
+      '<h3>5. Sharing</h3>'+
+      '<p>We do not sell your personal data. We share data only with: the platform you connected (Nuvemshop, Mercado Pago), when it is the destination of the requested action; the app store (Google Play or App Store), to confirm subscriptions; infrastructure and AI providers that operate on our behalf under their own terms (Firebase / Google Cloud, Google Gemini, Railway, OpenRouter, OpenAI and Cloudinary where applicable); and authorities, when required by law.</p>'+
+      '<h3>6. Data retention</h3>'+
+      '<p>We keep data while your account or use of the App is active. You can request deletion of your account and associated data at any time via the contact email.</p>'+
+      '<h3>7. Your rights</h3>'+
+      '<p>You can request at any time, via the contact email: confirmation of processing, access, correction, anonymization, blocking or deletion of data, portability and withdrawal of consent. You can also revoke the access granted to an App directly in the connected platform’s dashboard. For users in Brazil, these rights are provided under the Lei Geral de Proteção de Dados (LGPD).</p>'+
+      '<h3>8. Children and teenagers</h3>'+
+      '<p>The Apps are intended for people over 18 and are not directed at children. We do not knowingly collect data from minors.</p>'+
+      '<h3>9. Changes to this policy</h3>'+
+      '<p>We may update this policy from time to time to reflect changes in the Apps or in legal requirements. The date at the top of this page indicates the most recent version.</p>'+
+      '<h3>10. Contact</h3>'+
+      '<p>Questions or requests: <strong>auradev.app@gmail.com</strong></p>',
+    'lb.hint':'Press ESC or click ✕ to close',
+    'lb.pinch':'<span class="pinch-icon">🤏</span> Pinch two fingers together and apart to adjust the size',
+    'nav1':'Home', 'nav2':'Apps', 'nav3':'Services', 'nav4':'Numbers', 'nav5':'Need an app', 'nav6':'FAQ', 'nav7':'Contact',
+
+    'app0.back':'← Back to home',
+    'app0.sub':'E-commerce · Nuvemshop · Android and iOS',
+    'app0.desc':'Photograph any product with your phone and publish it to your Nuvemshop store in under a minute. AI analyzes the photo and generates a name and a commercial description — you just review and publish.',
+    'app0.features':'<li>AI-powered product analysis</li><li>Automatic name and description generation</li><li>Registration with variants (color and size)</li><li>Category and stock management</li><li>Direct publishing to Nuvemshop via API</li><li>AI-generated professional photos, built into the app</li><li>Built-in barcode and QR Code scanning</li><li>Weight and dimensions for shipping calculation</li>',
+    'app0.note':'Available for Android (Google Play) and iOS (App Store). Example links — will be updated at launch.',
+    'app0.req':'<span class="req-edit-hint">tap to edit</span><h4>📋 Requirements</h4>'+
+      '<div class="req-item"><div class="req-label">📱 Device</div><div class="req-text">Android 8.0 (Oreo) or later, or an iPhone on iOS 15 or later · Camera · Internet connection</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">🛒 Nuvemshop account</div><div class="req-text">An active Nuvemshop account is required (free or paid plan). The app authenticates via OAuth 2.0 — no password is stored by the app.</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">🖼️ AI-generated professional photos</div><div class="req-text">A native app feature — generate product photos with a custom model or background right from the app screens, with no extra key or setup. Usage follows your subscription plan limit.</div></div>',
+
+    'app1.back':'← Back to home',
+    'app1.sub':'Scheduling & Finance · Beauty salons · Android and iOS',
+    'app1.desc':"Scheduling and finance for beauty salons and nail studios. Clients book on their own through the salon's online page, and the owner tracks appointments, staff and cash flow from the phone.",
+    'app1.features':'<li>Schedule per professional, with times and services</li><li>Online booking page for clients, nothing to install</li><li>Ready-made, customizable service catalog</li><li>Salon financial control (income and expenses)</li><li>Payments via Mercado Pago, straight to the salon’s account (Android)</li><li>Salon profile: logo, photos, social links and a custom link</li>',
+    'app1.note':'Available for Android (Google Play) and iOS (App Store). Example links — will be updated at launch.',
+    'app1.req':'<span class="req-edit-hint">tap to edit</span><h4>📋 Requirements</h4>'+
+      '<div class="req-item"><div class="req-label">📱 Device</div><div class="req-text">Android 8.0 (Oreo) or later, or an iPhone on iOS 15 or later · Internet connection</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">🔑 Salon account</div><div class="req-text">Login with the owner’s email and password, created on first use. Salon data is stored securely in the cloud (Firebase / Google).</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">💳 Receiving payments (optional, Android)</div><div class="req-text">The owner connects their own Mercado Pago account through official authentication. The money goes straight to the salon’s account — it never passes through Aura Dev Apps.</div></div>',
+
+    'app2.back':'← Back to home',
+    'app2.sub':'Inventory management · Imported goods resale · Android and iOS',
+    'app2.desc':'For people who resell imported products: photograph the item you received, let AI identify the name and weight, and generate a spreadsheet with shipping split, cost and profit — ready to share on WhatsApp.',
+    'app2.features':'<li>AI product identification (name and weight from the photo)</li><li>Automatic split of shipping and taxes by weight and quantity</li><li>Cost and profit calculation per item</li><li>Excel spreadsheet generated right on the phone</li><li>Direct sharing via WhatsApp</li>',
+    'app2.note':'Available for Android (Google Play) and iOS (App Store). Example links — will be updated at launch.',
+    'app2.req':'<span class="req-edit-hint">tap to edit</span><h4>📋 Requirements</h4>'+
+      '<div class="req-item"><div class="req-label">📱 Device</div><div class="req-text">Android 8.0 (Oreo) or later, or an iPhone on iOS 15 or later · Camera · Internet connection</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">💳 Subscription</div><div class="req-text">Full use is by monthly subscription, billed by the store itself (Google Play or App Store).</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">📄 Spreadsheet</div><div class="req-text">The generated spreadsheet opens in your spreadsheet app or is sent via WhatsApp.</div></div>',
+
+    'app3.back':'← Back to home',
+    'app3.sub':'Sports · Automatic clips · Android and iOS',
+    'app3.desc':'Record the game or practice, mark the best plays as they happen, and the app automatically generates short clips — ready to share.',
+    'app3.features':'<li>Record a game or practice with your phone</li><li>Mark plays live, with customizable labels</li><li>Automatic clip cutting, processed on the device itself</li><li>App in 7 languages</li><li>Quick clip sharing</li><li>Videos stay only on your device</li>',
+    'app3.note':'Available on Google Play and the App Store.',
+    'app3.req':'<span class="req-edit-hint">tap to edit</span><h4>📋 Requirements</h4>'+
+      '<div class="req-item"><div class="req-label">📱 Device</div><div class="req-text">Android 8.0 (Oreo) or later, or an iPhone on iOS 15 or later · Camera and microphone · Free space for the videos</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">💳 Subscription</div><div class="req-text">Monthly subscription billed by the store itself (Google Play or App Store), with a 3-day free trial.</div></div>'+
+      '<hr class="req-divider">'+
+      '<div class="req-item"><div class="req-label">🔒 Privacy</div><div class="req-text">Videos stay only on your device — nothing is sent to our servers.</div></div>'
+  }};
+
+  function $(sel){ return document.querySelector(sel); }
+  function $all(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+
+  function captureBaseline(){
+    MAP.forEach(function(m){
+      var els = m.all ? $all(m.sel) : [ $(m.sel) ];
+      var el = els[0];
+      if(!el) return;
+      I18N.pt[m.k] = m.attr ? el.getAttribute(m.attr) : (m.html ? el.innerHTML : el.textContent);
+    });
+    I18N.pt['_title'] = document.title;
+  }
+
+  function applyAppVideos(lang){
+    for(var i=0;i<4;i++){
+      var conf = APP_VIDEOS['app'+i];
+      var wrap = document.getElementById('app'+i+'-videowrap');
+      if(!wrap) continue;
+      var id = conf ? (conf[lang] || conf.en || conf.pt) : null;
+      var media = wrap.closest('.app-page-media');
+      var logo = media ? media.querySelector('.app-media-logo') : null;
+      if(!id){ wrap.style.display='none'; if(logo) logo.style.display=''; continue; }
+      wrap.style.display='block';
+      if(logo) logo.style.display='none';
+      var embed = 'https://www.youtube.com/embed/'+id+'?autoplay=1';
+      var thumb = wrap.querySelector('img');
+      var btn = wrap.querySelector('.video-play-btn');
+      if(thumb) thumb.src = 'https://img.youtube.com/vi/'+id+'/hqdefault.jpg';
+      if(btn) btn.setAttribute('onclick', "openVideoLightbox('"+embed+"')");
+    }
+  }
+
+  function applyLang(lang){
+    var dict = I18N[lang] || {};
+    var base = I18N.pt;
+    MAP.forEach(function(m){
+      var val = (dict[m.k] !== undefined) ? dict[m.k] : base[m.k];
+      if(val === undefined) return;
+      var els = m.all ? $all(m.sel) : [ $(m.sel) ];
+      els.forEach(function(el){
+        if(!el) return;
+        if(m.attr) el.setAttribute(m.attr, val);
+        else if(m.html) el.innerHTML = val;
+        else el.textContent = val;
+      });
+    });
+    // marquee: só as duas palavras que mudam
+    $all('.marquee-track > span:not(.dot)').forEach(function(s){
+      var pt = s.getAttribute('data-pt');
+      if(pt === null){ pt = s.textContent; s.setAttribute('data-pt', pt); }
+      s.textContent = (lang !== 'pt' && MARQUEE[pt]) ? MARQUEE[pt] : pt;
+    });
+    document.title = (dict['_title'] !== undefined) ? dict['_title'] : base['_title'];
+    document.documentElement.lang = (lang === 'pt') ? 'pt-BR' : lang;
+    applyAppVideos(lang);
+  }
+
+  function setLang(lang){
+    if(SUPPORTED.indexOf(lang) < 0) lang = DEFAULT;
+    try{ localStorage.setItem('aura_lang', lang); }catch(e){}
+    applyLang(lang);
+    $all('#langToggle button').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+  }
+  window.setLang = setLang;
+
+  function detectLang(){
+    var saved;
+    try{ saved = localStorage.getItem('aura_lang'); }catch(e){}
+    if(saved && SUPPORTED.indexOf(saved) >= 0) return saved;
+    var nav = (navigator.language || navigator.userLanguage || 'pt').toLowerCase();
+    return nav.indexOf('pt') === 0 ? 'pt' : 'en';
+  }
+
+  // ── Editor: sempre em PT, seletor travado enquanto aberto ──
+  var _openEditor = window.openEditor;
+  window.openEditor = function(){
+    setLang('pt');
+    $all('#langToggle button').forEach(function(b){ b.disabled = true; });
+    if(_openEditor) return _openEditor.apply(this, arguments);
+  };
+  var _closeEditor = window.closeEditor;
+  window.closeEditor = function(){
+    if(_closeEditor) _closeEditor.apply(this, arguments);
+    $all('#langToggle button').forEach(function(b){ b.disabled = false; });
+  };
+  var _applyChanges = window.applyChanges;
+  window.applyChanges = function(){
+    if(_applyChanges) _applyChanges.apply(this, arguments);
+    captureBaseline(); // re-sincroniza a base PT com o que o editor gravou
+  };
+
+  captureBaseline();
+  setLang(detectLang());
+})();
 </script>
 
 
