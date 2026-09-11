@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nossos Aplicativos — Aura Dev Apps</title>
+<meta name="description" content="Todos os aplicativos da Aura Dev Apps para Android e iOS, num só lugar.">
+<link rel="icon" href="/images/Logo_Aura_Dev.png">
+
+<!-- Open Graph / redes sociais -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nossos Aplicativos — Aura Dev Apps">
+<meta property="og:description" content="Todos os aplicativos da Aura Dev Apps para Android e iOS, num só lugar.">
+<meta property="og:image" content="https://aura-dev-app.com/images/Logo_Aura_Dev.png">
+<meta property="og:url" content="https://aura-dev-app.com/apps">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --ink:#0a0a0f;
+    --paper:#f0ede8;
+    --acid:#b06cff;
+    --acid2:#7c3aed;
+    --dim:#3a3a4a;
+    --mid:#8a8a9a;
+    --card:rgba(255,255,255,.03);
+    --line:rgba(255,255,255,.09);
+    /* Fontes — trocar aqui reflete em toda a página */
+    --font-display:'Sora',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,-apple-system,sans-serif;
+    --font-mono:'JetBrains Mono','Space Mono',ui-monospace,monospace;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);color:var(--paper);
+    font-family:var(--font-body);line-height:1.6;
+    min-height:100vh;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* grade animada de fundo (mesma linguagem visual do site) */
+  .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(rgba(176,108,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(176,108,255,.045) 1px,transparent 1px);
+    background-size:64px 64px;animation:gridDrift 22s linear infinite}
+  .bg-glow{position:fixed;top:-20%;left:50%;transform:translateX(-50%);width:min(760px,120vw);height:520px;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at center,rgba(176,108,255,.18),transparent 70%);filter:blur(24px)}
+  @keyframes gridDrift{to{background-position:64px 64px}}
+
+  /* seletor de idioma — padrão do site */
+  .lang-toggle{position:fixed;top:1rem;right:1rem;z-index:20;display:flex;gap:.2rem;
+    background:rgba(10,10,15,.65);backdrop-filter:blur(8px);
+    border:1px solid var(--line);border-radius:100px;padding:.26rem}
+  .lang-toggle button{display:flex;align-items:center;gap:.4rem;background:none;border:none;
+    color:var(--mid);font-family:var(--font-mono);font-size:.62rem;font-weight:700;letter-spacing:.12em;
+    padding:.34rem .6rem;border-radius:100px;cursor:pointer;transition:color .2s,background .2s}
+  .lang-toggle button svg{width:18px;height:13px;border-radius:2px;display:block;flex-shrink:0;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+  .lang-toggle button.active{color:var(--paper);background:rgba(176,108,255,.22)}
+  .lang-toggle button:not(.active):hover{color:var(--paper)}
+
+  .wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;
+    padding:clamp(3.5rem,12vw,5.5rem) clamp(1.1rem,5vw,1.6rem) 3rem}
+
+  header{text-align:center;margin-bottom:2.6rem}
+  .logo{display:inline-block;margin-bottom:1.5rem}
+  .logo img{height:88px;width:auto;display:block;margin:0 auto;border-radius:20px}
+  .eyebrow{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--acid);margin-bottom:.9rem}
+  h1{font-family:var(--font-display);font-weight:700;font-size:clamp(1.9rem,7vw,2.6rem);
+    line-height:1.05;letter-spacing:-.02em}
+  .tagline{color:var(--mid);font-size:.95rem;margin-top:.85rem;max-width:22em;margin-inline:auto}
+
+  .links{display:flex;flex-direction:column;gap:.7rem}
+
+  .link-card{display:flex;align-items:center;gap:1rem;text-decoration:none;color:inherit;
+    background:var(--card);border:1px solid var(--line);
+    padding:.85rem 1rem;
+    clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
+    transition:border-color .2s,background .2s,transform .2s}
+  .link-card:hover{border-color:rgba(176,108,255,.55);background:rgba(176,108,255,.07);transform:translateY(-2px)}
+  .link-card:active{transform:translateY(0)}
+  .link-icon{width:46px;height:46px;flex-shrink:0;border-radius:12px;object-fit:cover;
+    border:1px solid var(--line);background:rgba(176,108,255,.06)}
+  .link-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:.15rem}
+  .link-name{display:block;font-family:var(--font-display);font-weight:600;font-size:1rem;letter-spacing:-.01em;line-height:1.2}
+  .link-sub{display:block;font-size:.76rem;color:var(--mid);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .link-arrow{flex-shrink:0;color:var(--mid);font-size:1.1rem;transition:color .2s,transform .2s}
+  .link-card:hover .link-arrow{color:var(--acid);transform:translateX(3px)}
+
+  .divider{display:flex;align-items:center;gap:1rem;margin:2rem 0 1.1rem;
+    font-family:var(--font-mono);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+  .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--line)}
+
+  .mini-links{display:flex;flex-direction:column;gap:.55rem}
+  .mini-card{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--paper);
+    border:1px solid var(--line);padding:.75rem .95rem;border-radius:12px;
+    font-size:.9rem;transition:border-color .2s,background .2s}
+  .mini-card:hover{border-color:rgba(176,108,255,.45);background:rgba(176,108,255,.06)}
+  .mini-ico{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--acid)}
+  .mini-ico svg{width:100%;height:100%;fill:currentColor}
+  .mini-card span{flex:1}
+  .mini-card .link-arrow{font-size:1rem}
+
+  footer{text-align:center;margin-top:2.6rem;
+    font-family:var(--font-mono);font-size:.62rem;letter-spacing:.16em;color:var(--dim)}
+  footer a{color:var(--mid);text-decoration:none}
+  footer a:hover{color:var(--acid)}
+
+  @media(max-width:400px){
+    .logo img{height:78px}
+    .link-icon{width:42px;height:42px}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-grid"></div>
+
+<div class="lang-toggle" id="langToggle" aria-label="Idioma / Language / Idioma">
+  <button type="button" data-lang="pt" onclick="setLang('pt')" aria-label="Português">
+    <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#009c3b"/><path d="M14 2.2 25 10 14 17.8 3 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.1" fill="#002776"/></svg>
+    <span>PT</span>
+  </button>
+  <button type="button" data-lang="en" onclick="setLang('en')" aria-label="English">
+    <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="28" height="1.54"/><rect y="4.62" width="28" height="1.54"/><rect y="7.69" width="28" height="1.54"/><rect y="10.77" width="28" height="1.54"/><rect y="13.85" width="28" height="1.54"/><rect y="16.92" width="28" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/></svg>
+    <span>EN</span>
+  </button>
+  <button type="button" data-lang="es" onclick="setLang('es')" aria-label="Español">
+    <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#c60b1e"/><rect y="5" width="28" height="10" fill="#ffc400"/></svg>
+    <span>ES</span>
+  </button>
+</div>
+
+<div class="wrap">
+  <header>
+    <a class="logo" href="/"><img src="/images/Logo_Aura_Dev.png" alt="Aura Dev Apps"></a>
+    <div class="eyebrow">Aura Dev Apps</div>
+    <h1 data-i18n="title">Nossos Aplicativos</h1>
+    <p class="tagline" data-i18n="tagline">Feitos com inteligência artificial, para Android e iOS.</p>
+  </header>
+
+  <div class="links" id="appLinks"><!-- preenchido via JS --></div>
+
+  <div class="divider" data-i18n="more">Mais</div>
+
+  <div class="mini-links">
+    <a class="mini-card" href="/">
+      <span class="mini-ico"><svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v8h6v-5h2v5h6v-8h3L12 3z"/></svg></span>
+      <span data-i18n="site">Site da Aura Dev Apps</span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a class="mini-card" href="https://www.instagram.com/aura_dev_app?igsh=OGs1ZWhqZXM1c2o2" target="_blank" rel="noopener">
+      <span class="mini-ico"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.17.4.36 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2-.22.6-.48 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1 .36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42-.6-.22-1-.48-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.36-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.22-.6.48-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.07-.9.04-1.4.2-1.7.33-.43.17-.74.37-1.06.7-.32.31-.52.62-.7 1.05-.13.34-.29.83-.33 1.72C3.5 8.5 3.5 8.9 3.5 12s0 3.5.07 4.7c.04.9.2 1.4.33 1.7.17.43.37.74.7 1.06.31.32.62.52 1.05.7.34.13.83.29 1.72.33 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c.9-.04 1.4-.2 1.7-.33.43-.17.74-.37 1.06-.7.32-.31.52-.62.7-1.05.13-.34.29-.83.33-1.72.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.04-.9-.2-1.4-.33-1.7-.17-.43-.37-.74-.7-1.06-.31-.32-.62-.52-1.05-.7-.34-.13-.83-.29-1.72-.33C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2zm5-3.4a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg></span>
+      <span>Instagram</span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a class="mini-card" href="mailto:auradev.app@gmail.com">
+      <span class="mini-ico"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.4 8-5.2V6l-8 5.2L4 6v1.2l8 5.2z"/></svg></span>
+      <span data-i18n="contact">Falar com a gente</span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>© 2026 Aura Dev Apps · <a href="/#privacy" data-i18n="privacy">Privacidade</a></footer>
+</div>
+
+<script>
+(function(){
+  var SUPPORTED=['pt','en','es'], DEFAULT='pt';
+
+  // Apps: slug abre a página do app no site principal (/#app/<slug>)
+  var APPS=[
+    {slug:'nuvemshop',icon:'app-nuvemshop.jpg'},
+    {slug:'lumora',   icon:'app-lumora.jpg'},
+    {slug:'estoque',  icon:'app-estoque.jpg'},
+    {slug:'clipit',   icon:'app-clipit.jpg'}
+  ];
+
+  var I18N={
+    pt:{
+      _title:'Nossos Aplicativos — Aura Dev Apps',
+      title:'Nossos Aplicativos',
+      tagline:'Feitos com inteligência artificial, para Android e iOS.',
+      more:'Mais',
+      site:'Site da Aura Dev Apps',
+      contact:'Falar com a gente',
+      privacy:'Privacidade',
+      open:'Ver na loja',
+      apps:{
+        nuvemshop:{name:'Catálogo por IA — Nuvemshop', sub:'Cadastro de produtos na Nuvemshop · Android e iOS'},
+        lumora:   {name:'Lumora',                       sub:'Agenda e financeiro para salões · Android e iOS'},
+        estoque:  {name:'Controle de Estoque',         sub:'Do produto à planilha de custo e lucro · Android e iOS'},
+        clipit:   {name:'Clipit Sports',               sub:'Clipes de esporte automáticos · Android e iOS'}
+      }
+    },
+    en:{
+      _title:'Our Apps — Aura Dev Apps',
+      title:'Our Apps',
+      tagline:'Built with artificial intelligence, for Android and iOS.',
+      more:'More',
+      site:'Aura Dev Apps website',
+      contact:'Get in touch',
+      privacy:'Privacy',
+      open:'View in store',
+      apps:{
+        nuvemshop:{name:'AI Catalog — Nuvemshop', sub:'Publish products to Nuvemshop · Android & iOS'},
+        lumora:   {name:'Lumora',                  sub:'Scheduling & finance for salons · Android & iOS'},
+        estoque:  {name:'Controle de Estoque',    sub:'From product photo to cost & profit sheet · Android & iOS'},
+        clipit:   {name:'Clipit Sports',          sub:'Automatic sports highlight clips · Android & iOS'}
+      }
+    },
+    es:{
+      _title:'Nuestras Aplicaciones — Aura Dev Apps',
+      title:'Nuestras Aplicaciones',
+      tagline:'Hechas con inteligencia artificial, para Android e iOS.',
+      more:'Más',
+      site:'Sitio de Aura Dev Apps',
+      contact:'Hablar con nosotros',
+      privacy:'Privacidad',
+      open:'Ver en la tienda',
+      apps:{
+        nuvemshop:{name:'Catálogo con IA — Nuvemshop', sub:'Publica productos en Nuvemshop · Android e iOS'},
+        lumora:   {name:'Lumora',                       sub:'Agenda y finanzas para salones · Android e iOS'},
+        estoque:  {name:'Controle de Estoque',         sub:'De la foto del producto a la hoja de costo y ganancia · Android e iOS'},
+        clipit:   {name:'Clipit Sports',               sub:'Clips deportivos automáticos · Android e iOS'}
+      }
+    }
+  };
+
+  function buildApps(lang){
+    var t=I18N[lang]||I18N[DEFAULT];
+    var box=document.getElementById('appLinks');
+    box.innerHTML='';
+    APPS.forEach(function(a){
+      var info=t.apps[a.slug];
+      var el=document.createElement('a');
+      el.className='link-card';
+      el.href='/#app/'+a.slug;
+      el.innerHTML=
+        '<img class="link-icon" src="/images/'+a.icon+'" alt="">'+
+        '<span class="link-body">'+
+          '<span class="link-name">'+info.name+'</span>'+
+          '<span class="link-sub">'+info.sub+'</span>'+
+        '</span>'+
+        '<span class="link-arrow">&rarr;</span>';
+      box.appendChild(el);
+    });
+  }
+
+  function applyLang(lang){
+    var t=I18N[lang]||I18N[DEFAULT];
+    document.documentElement.lang = lang==='pt'?'pt-BR':lang;
+    document.title=t._title;
+    var d=document.querySelector('meta[name="description"]');
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k=el.getAttribute('data-i18n');
+      if(t[k]!=null) el.textContent=t[k];
+    });
+    buildApps(lang);
+  }
+
+  function setLang(lang){
+    if(SUPPORTED.indexOf(lang)<0) lang=DEFAULT;
+    try{ localStorage.setItem('aura_lang',lang); }catch(e){}
+    applyLang(lang);
+    document.querySelectorAll('#langToggle button').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang')===lang);
+    });
+  }
+  window.setLang=setLang;
+
+  function detectLang(){
+    var saved;
+    try{ saved=localStorage.getItem('aura_lang'); }catch(e){}
+    if(saved && SUPPORTED.indexOf(saved)>=0) return saved;
+    var nav=(navigator.language||navigator.userLanguage||'pt').toLowerCase();
+    if(nav.indexOf('pt')===0) return 'pt';
+    if(nav.indexOf('es')===0) return 'es';
+    if(nav.indexOf('en')===0) return 'en';
+    return DEFAULT;
+  }
+
+  setLang(detectLang());
+})();
+</script>
+
+</body>
+</html>
