@@ -1905,6 +1905,21 @@ function exportHTML(){
     document.title = (dict['_title'] !== undefined) ? dict['_title'] : base['_title'];
     document.documentElement.lang = (lang === 'pt') ? 'pt-BR' : lang;
     applyAppVideos(lang);
+    applyStoreLinks(lang);
+  }
+
+  /* Lojas no idioma da página. Sem o país no link, o App Store no computador
+     abre a loja dos EUA (em inglês); o Google Play segue o hl=. */
+  function applyStoreLinks(lang){
+    var pais = (lang === 'pt') ? 'br' : 'us';
+    var hl = (lang === 'pt') ? 'pt_BR' : 'en';
+    $all('a[href*="apps.apple.com"]').forEach(function(a){
+      var m = a.getAttribute('href').match(/id(\d+)/);
+      if(m) a.setAttribute('href', 'https://apps.apple.com/' + pais + '/app/id' + m[1]);
+    });
+    $all('a[href*="play.google.com/store/apps/details"]').forEach(function(a){
+      try{ var u = new URL(a.getAttribute('href')); u.searchParams.set('hl', hl); a.setAttribute('href', u.toString()); }catch(e){}
+    });
   }
 
   function setLang(lang){
