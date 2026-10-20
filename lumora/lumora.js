@@ -1,9 +1,12 @@
-/* Landing do Lumora — comportamento compartilhado (PT/EN/ES).
-   Sem dependências. Nada de dado pessoal vai para analytics. */
+/* Landing do Lumora — comportamento compartilhado. Sem dependências.
+   Nada de dado pessoal vai para analytics. */
 (function () {
   'use strict';
 
-  var LANG = document.documentElement.getAttribute('data-lang') || 'pt';
+  var root = document.documentElement;
+  var LANG = root.getAttribute('data-lang') || 'pt';
+  var AUD = root.getAttribute('data-aud') || 'br';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Configuração editável ---------- */
   var CONFIG = {
@@ -17,22 +20,21 @@
   /* ---------- Analytics (sem ferramenta de terceiros por padrão) ----------
      track(evento, parametros) envia para gtag / dataLayer SE existirem na
      página (ex.: depois que um GA4/GTM for adicionado, com consentimento).
-     Sem nenhum dos dois, não faz nada. Eventos: page_view, language_select,
-     hero_cta_click, store_click, booking_demo_click, lead_form_start,
+     Sem nenhum dos dois, não faz nada. Eventos: page_view, audience_select,
+     language_select, hero_cta_click, store_click, lead_form_start,
      lead_form_submit, faq_open, scroll_depth, video_play. */
   function track(name, params) {
     params = params || {};
     params.language = LANG;
+    params.audience = AUD;
     try {
       if (typeof window.gtag === 'function') window.gtag('event', name, params);
       else if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name, params: params });
     } catch (e) { /* analytics nunca pode quebrar a página */ }
   }
   window.lumoraTrack = track;
-
   track('page_view', { path: location.pathname });
 
-  /* ---------- Cliques rastreados via data-track ---------- */
   document.addEventListener('click', function (ev) {
     var el = ev.target.closest('[data-track]');
     if (!el) return;
@@ -44,64 +46,134 @@
     track(el.dataset.track, p);
   });
 
-  /* ---------- Idioma: lembra a escolha manual ---------- */
-  try {
-    document.querySelectorAll('.lang-switch a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        localStorage.setItem('lumora_landing_lang', a.dataset.to);
-      });
-    });
-    // Na raiz (/lumora/), se a pessoa nunca escolheu e o navegador não é PT,
-    // sugere o idioma certo sem forçar (banner discreto, não redireciona).
-    if (location.pathname.replace(/\/+$/, '') === '/lumora') {
-      var saved = localStorage.getItem('lumora_landing_lang');
-      var nav = (navigator.language || 'pt').slice(0, 2).toLowerCase();
-      var want = saved || (nav === 'en' || nav === 'es' ? nav : 'pt');
-      if (want !== 'pt') {
-        var link = document.querySelector('.lang-switch a[data-to="' + want + '"]');
-        if (link) {
-          var bar = document.getElementById('lang-suggest');
-          if (bar) {
-            bar.hidden = false;
-            var a = bar.querySelector('a');
-            a.href = link.href;
-            a.textContent = link.dataset.suggest || a.textContent;
-          }
-        }
-      }
-    }
-  } catch (e) { /* localStorage pode estar bloqueado */ }
+  /* ---------- Menu superior: fica sólido depois do topo ---------- */
+  var nav = document.getElementById('nav');
+  var stickyCta = document.querySelector('.sticky-cta');
+  function navState() {
+    if (nav) nav.classList.toggle('solid', window.scrollY > 40);
+    if (stickyCta) stickyCta.classList.toggle('show', window.scrollY > window.innerHeight * 0.7);
+  }
+  navState();
+  window.addEventListener('scroll', navState, { passive: true });
+
+  /* ---------- Menu de idioma: fecha ao clicar fora ---------- */
+  var langMenu = document.querySelector('.lang-menu');
+  if (langMenu) {
+    document.addEventListener('click', function (e) { if (!langMenu.contains(e.target)) langMenu.open = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') langMenu.open = false; });
+  }
 
   /* ---------- FAQ: evento ao abrir ---------- */
   document.querySelectorAll('.faq details').forEach(function (d, i) {
-    d.addEventListener('toggle', function () {
-      if (d.open) track('faq_open', { question_id: 'faq_' + (i + 1) });
-    });
+    d.addEventListener('toggle', function () { if (d.open) track('faq_open', { question_id: 'faq_' + (i + 1) }); });
   });
 
   /* ---------- Profundidade de rolagem ---------- */
   var marks = [25, 50, 75, 90], done = {};
-  function onScroll() {
-    var h = document.documentElement;
+  window.addEventListener('scroll', function () {
+    var h = root;
     var pct = ((h.scrollTop + window.innerHeight) / h.scrollHeight) * 100;
-    marks.forEach(function (m) {
-      if (pct >= m && !done[m]) { done[m] = true; track('scroll_depth', { percent: m }); }
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
+    marks.forEach(function (m) { if (pct >= m && !done[m]) { done[m] = true; track('scroll_depth', { percent: m }); } });
+  }, { passive: true });
 
-  /* ---------- Entrada suave dos blocos (respeita reduced-motion) ---------- */
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = document.querySelectorAll('.reveal');
+  /* ---------- Declaração: cada linha "acende" ao entrar na tela ---------- */
+  var lit = document.querySelectorAll('.st-line, .st-end');
   if (reduce || !('IntersectionObserver' in window)) {
-    items.forEach(function (el) { el.classList.add('in'); });
+    lit.forEach(function (el) { el.classList.add('lit'); });
   } else {
-    var io = new IntersectionObserver(function (entries) {
+    var io1 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('lit'); io1.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -30% 0px', threshold: 0.2 });
+    lit.forEach(function (el) { io1.observe(el); });
+  }
+
+  /* ---------- Cenas: o celular fixo troca de tela conforme o texto ---------- */
+  var scenes = document.querySelectorAll('.scene');
+  var spImgs = document.querySelectorAll('.sp-img');
+  if (scenes.length && spImgs.length && 'IntersectionObserver' in window) {
+    var io2 = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        var i = e.target.getAttribute('data-i');
+        spImgs.forEach(function (img) { img.classList.toggle('on', img.getAttribute('data-i') === i); });
       });
-    }, { threshold: 0.12 });
-    items.forEach(function (el) { io.observe(el); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    scenes.forEach(function (s) { io2.observe(s); });
+  }
+
+  /* ---------- Idiomas (EUA): seletor que troca a tela do celular ---------- */
+  var ldBtns = document.querySelectorAll('.lang-chip');
+  var ldImgs = document.querySelectorAll('.ld-img');
+  if (ldBtns.length) {
+    var order = ['pt', 'en', 'es'], cur = order.indexOf(LANG), timer = null, touched = false;
+    var setLd = function (l) {
+      cur = order.indexOf(l);
+      ldBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.set === l ? 'true' : 'false'); });
+      ldImgs.forEach(function (img) { img.classList.toggle('on', img.dataset.lang === l); });
+    };
+    ldBtns.forEach(function (b) {
+      b.addEventListener('click', function () { touched = true; clearInterval(timer); setLd(b.dataset.set); });
+    });
+    var box = document.getElementById('idiomas');
+    if (!reduce && box && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          clearInterval(timer);
+          if (e.isIntersecting && !touched) timer = setInterval(function () { setLd(order[(cur + 1) % 3]); }, 3200);
+        });
+      }, { threshold: 0.4 }).observe(box);
+    }
+  }
+
+  /* ---------- Cartões horizontais: setas ---------- */
+  var track_ = document.querySelector('.hs-track');
+  document.querySelectorAll('.hs-btns button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var w = track_.querySelector('.hcard').getBoundingClientRect().width + 18;
+      track_.scrollBy({ left: Number(b.dataset.dir) * w, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* ---------- QR code flutuante: dá para fechar e some no final ---------- */
+  var qr = document.getElementById('qr-card');
+  if (qr) {
+    var closed = false;
+    try { closed = sessionStorage.getItem('lumora_qr_closed') === '1'; } catch (e) {}
+    if (closed) qr.classList.add('hide');
+    qr.querySelector('.qr-x').addEventListener('click', function () {
+      qr.classList.add('hide');
+      try { sessionStorage.setItem('lumora_qr_closed', '1'); } catch (e) {}
+    });
+    var fin = document.getElementById('baixar');
+    if (fin && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (!closed) qr.classList.toggle('hide', e.isIntersecting); });
+      }, { threshold: 0.15 }).observe(fin);
+    }
+  }
+
+  /* ---------- Vídeo do topo (arquivo em videos.js -> LUMORA_HERO) ---------- */
+  var hero = document.getElementById('topo');
+  var cfg = (window.LUMORA_HERO && window.LUMORA_HERO[AUD]) || {};
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (hero && (cfg.mp4 || cfg.webm) && !reduce && !saveData) {
+    var v = hero.querySelector('.hero-video');
+    var small = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
+    var mp4 = (small && cfg.mobile) ? cfg.mobile : cfg.mp4;
+    if (cfg.poster) v.poster = cfg.poster;
+    if (cfg.webm && !small) { var s1 = document.createElement('source'); s1.src = cfg.webm; s1.type = 'video/webm'; v.appendChild(s1); }
+    if (mp4) { var s2 = document.createElement('source'); s2.src = mp4; s2.type = 'video/mp4'; v.appendChild(s2); }
+    v.preload = 'auto';
+    v.muted = true;
+    v.addEventListener('playing', function () { hero.classList.add('has-video'); });
+    v.load();
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { /* autoplay bloqueado: fica o visual provisório */ });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { var q = v.play(); if (q && q.catch) q.catch(function () {}); } else v.pause(); });
+      }, { threshold: 0.1 }).observe(hero);
+    }
   }
 
   /* ---------- Vídeos do YouTube (lista em videos.js) ---------- */
@@ -127,22 +199,22 @@
     });
     box.appendChild(btn);
   }
-  var vids = (window.LUMORA_VIDEOS && window.LUMORA_VIDEOS[LANG]) || [];
-  vids = vids.filter(function (v) { return v && /^[A-Za-z0-9_-]{6,}$/.test(v.id || ''); });
+  var YT = window.LUMORA_VIDEOS || {};
+  var vids = (YT[AUD === 'br' ? 'br' : LANG] || []).filter(function (v) { return v && /^[A-Za-z0-9_-]{6,}$/.test(v.id || ''); });
   var vSection = document.getElementById('videos');
   if (vSection && vids.length) {
     vSection.hidden = false;
     document.querySelectorAll('[data-needs-videos]').forEach(function (n) { n.hidden = false; });
     var main = vSection.querySelector('.video-main');
     var list = vSection.querySelector('.video-list');
-    mountVideo(main, vids[0]);
     var cap = vSection.querySelector('.video-caption');
+    mountVideo(main, vids[0]);
     if (cap) cap.textContent = vids[0].titulo;
     vids.slice(1).forEach(function (v) {
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'video-thumb';
-      b.innerHTML = '<img loading="lazy" width="160" height="90" alt="" src="' + ytThumb(v.id) + '"><span></span>';
+      b.innerHTML = '<img loading="lazy" width="112" height="63" alt="" src="' + ytThumb(v.id) + '"><span></span>';
       b.lastChild.textContent = v.titulo;
       b.addEventListener('click', function () {
         mountVideo(main, v);
@@ -162,9 +234,7 @@
       if (fallback) fallback.hidden = false;
     } else {
       var started = false;
-      form.addEventListener('input', function () {
-        if (!started) { started = true; track('lead_form_start'); }
-      });
+      form.addEventListener('input', function () { if (!started) { started = true; track('lead_form_start'); } });
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var msg = document.getElementById('lead-msg');
@@ -173,11 +243,7 @@
         if (data.get('website')) return; // honeypot anti-spam
         var email = (data.get('email') || '').toString().trim();
         var whats = (data.get('whatsapp') || '').toString().trim();
-        if (!email && !whats) {
-          msg.textContent = form.dataset.errContact;
-          msg.className = 'form-msg err';
-          return;
-        }
+        if (!email && !whats) { msg.textContent = form.dataset.errContact; msg.className = 'form-msg err'; return; }
         btn.disabled = true;
         msg.textContent = '';
         fetch(CONFIG.leadEndpoint, {
@@ -188,7 +254,7 @@
             nome: (data.get('nome') || '').toString().trim() || null,
             email: email || null,
             whatsapp: whats || null,
-            origem: 'lumora-landing-' + LANG,
+            origem: 'lumora-landing-' + AUD + '-' + LANG,
             opt_in_email: !!data.get('opt_in'),
             opt_in_whatsapp: false,
           }),
