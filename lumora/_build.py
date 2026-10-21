@@ -73,12 +73,11 @@ C = {
         'salon_h2': 'Tudo o que você configura no app — e o que isso traz para o seu Salão/Studio',
         'salon_lead': 'Siga o roteiro da aba Configurações: cada função, passo a passo, com o benefício que ela entrega.',
         'salon_scenes': {
-            'configuracoes': ('Aba Configurações', 'Tudo do seu Salão/Studio em um só lugar', 'É o roteiro para deixar tudo pronto: dados do Salão/Studio, serviços, profissionais, regras, antes e depois e o seu link. Veja o que cada função traz para você.'),
+            'configuracoes': ('Aba Configurações', 'Tudo do seu Salão/Studio em um só lugar', 'É o roteiro para deixar tudo pronto: dados do Salão/Studio, serviços, profissionais, antes e depois e o seu link. Veja o que cada função traz para você.'),
             'dados': ('Dados do Salão/Studio', 'Sua vitrine pronta em minutos', 'Logo, fotos, horário de funcionamento, endereço com mapa, WhatsApp e redes sociais. É o que o cliente vê na sua página — e o ajuda a confiar e a chegar até você.'),
             'servicos': ('Serviços', 'Catálogo pronto, com foto e preço', 'Escolha serviços prontos ou crie os seus, com duração, preço e foto. O cliente escolhe vendo exatamente o que você oferece, e a agenda reserva o tempo certo de cada serviço.'),
-            'profissionais': ('Profissionais', 'Quantos precisar, cada um com a sua agenda', 'Cadastre profissionais sem limite e defina os serviços e os dias e horários de trabalho de cada um. O cliente pode escolher quem prefere.'),
-            'regras': ('Regras de agendamento', 'Financeiro sob controle', 'Defina até que horas um atendimento do dia ainda pode ser marcado como “não realizado”, para o seu financeiro refletir o que realmente aconteceu.'),
-            'antesdepois': ('Antes e depois', 'Mostre seus melhores trabalhos', 'Suba até 5 trabalhos com foto do antes, do depois e uma legenda. Eles aparecem na sua página, e você ainda cria imagens de antes e depois para divulgar nas redes.'),
+            'profissionais': ('Profissionais', 'Quantos precisar, cada um com a sua agenda', 'Cadastre profissionais sem limite e defina os serviços e os dias e horários de trabalho de cada um. O cliente escolhe o profissional de sua preferência, ou deixa a escolha para o Salão/Studio.'),
+            'antesdepois': ('Antes e depois', 'Mostre seus melhores trabalhos', 'Suba seus trabalhos com foto do antes, do depois e uma legenda. Eles aparecem na sua página, e você ainda cria imagens de antes e depois para divulgar nas redes.'),
             'meulink': ('Seu Salão/Studio em um link', 'Um link e um QR code para divulgar', 'O link nasce sozinho a partir do nome do Salão/Studio. Compartilhe nas redes e no WhatsApp, ou imprima o QR code e deixe no balcão.'),
             'idioma': ('Idioma', 'Gerencie no idioma que preferir', 'Escolha português, inglês ou espanhol para usar o app. O seu cliente continua vendo a página de reservas no idioma do celular dele.'),
             'agenda': ('Agenda', 'Cada profissional com a sua agenda', 'Veja o dia e o mês de cada profissional, com serviços e horários em um só lugar.'),
@@ -86,13 +85,12 @@ C = {
         },
         'clients_eyebrow': 'Clientes',
         'clients_h2': 'A jornada do seu cliente: do link ao calendário',
-        'clients_lead': 'Cinco passos simples, sem baixar app e sem criar conta. Cada um pensado para ser rápido para quem agenda.',
+        'clients_lead': 'Quatro passos simples, sem baixar app e sem criar conta. Cada um pensado para ser rápido para quem agenda.',
         'step': 'Passo',
         'j_prev': 'Anterior', 'j_next': 'Próximo',
         'journey': [
             ('services', 'Escolhe o serviço', 'Vê foto, duração e preço de cada serviço antes de decidir.'),
-            ('pro', 'Escolhe o profissional', 'Escolhe quem prefere ou deixa o Salão/Studio decidir com “qualquer profissional”.'),
-            ('time', 'Escolhe o dia e o horário', 'Só aparecem horários livres, no tamanho certo do serviço.'),
+            ('time', 'Escolhe o profissional, o dia e o horário', 'Escolhe quem preferir ou deixa o Salão/Studio decidir com “qualquer profissional”. Só aparecem horários livres, no tamanho certo do serviço.'),
             ('confirm', 'Confirma', 'Informa nome e telefone e pronto: sem baixar app e sem criar conta.'),
             ('calendar', 'Salva na agenda do celular', 'Com um toque, o horário vai para a agenda do celular, pronto para salvar — e o cliente não esquece.'),
         ],
@@ -154,12 +152,11 @@ C = {
         'salon_h2': 'Everything you set up in the app — and what it brings to your Salon/Studio',
         'salon_lead': 'Follow the Settings tab step by step: each function, with the benefit it delivers.',
         'salon_scenes': {
-            'configuracoes': ('Settings tab', 'Everything about your Salon/Studio in one place', 'It is the checklist to get everything ready: Salon/Studio details, services, professionals, rules, before & after and your link. See what each function brings you.'),
+            'configuracoes': ('Settings tab', 'Everything about your Salon/Studio in one place', 'It is the checklist to get everything ready: Salon/Studio details, services, professionals, before & after and your link. See what each function brings you.'),
             'dados': ('Salon/Studio details', 'Your storefront, ready in minutes', 'Logo, photos, opening hours, address with map, WhatsApp and social links. It is what clients see on your page — and it helps them trust you and find you.'),
             'servicos': ('Services', 'Ready-made catalog, with photo and price', 'Pick ready-made services or create your own, with duration, price and photo. Clients choose seeing exactly what you offer, and the calendar reserves the right time for each service.'),
-            'profissionais': ('Professionals', 'As many as you need, each with their own calendar', 'Add professionals with no limit and set the services and working days and hours of each one. Clients can choose who they prefer.'),
-            'regras': ('Booking rules', 'Finances under control', 'Set until what time a service of the day can still be marked as “not completed”, so your finances reflect what really happened.'),
-            'antesdepois': ('Before & after', 'Show off your best work', 'Upload up to 5 works with a before photo, an after photo and a caption. They appear on your page, and you can also create before-and-after images to share on social media.'),
+            'profissionais': ('Professionals', 'As many as you need, each with their own calendar', 'Add professionals with no limit and set the services and working days and hours of each one. Clients choose the professional they prefer, or leave the choice to the Salon/Studio.'),
+            'antesdepois': ('Before & after', 'Show off your best work', 'Upload your work with a before photo, an after photo and a caption. They appear on your page, and you can also create before-and-after images to share on social media.'),
             'meulink': ('Your Salon/Studio in one link', 'A link and a QR code to promote it', 'The link is created automatically from your Salon/Studio name. Share it on social media and WhatsApp, or print the QR code and keep it at the front desk.'),
             'idioma': ('Language', 'Manage in the language you prefer', 'Choose Portuguese, English or Spanish to use the app. Your clients still see the booking page in the language set on their phone.'),
             'agenda': ('Scheduling', 'Every professional has their own calendar', 'See each professional’s day and month, with services and times in one place.'),
@@ -167,13 +164,12 @@ C = {
         },
         'clients_eyebrow': 'Clients',
         'clients_h2': 'Your client’s journey: from link to calendar',
-        'clients_lead': 'Five simple steps, no app to install and no account to create. Each one designed to be quick for whoever is booking.',
+        'clients_lead': 'Four simple steps, no app to install and no account to create. Each one designed to be quick for whoever is booking.',
         'step': 'Step',
         'j_prev': 'Previous', 'j_next': 'Next',
         'journey': [
             ('services', 'Picks the service', 'Sees the photo, duration and price of each service before deciding.'),
-            ('pro', 'Picks the professional', 'Chooses who they prefer, or lets the Salon/Studio decide with “any professional”.'),
-            ('time', 'Picks the day and time', 'Only free times show up, sized to the service.'),
+            ('time', 'Picks the professional, day and time', 'Chooses who they prefer, or lets the Salon/Studio decide with “any professional”. Only free times show up, sized to the service.'),
             ('confirm', 'Confirms', 'Enters name and phone and that is it: no app to download, no account to create.'),
             ('calendar', 'Saves it to the phone calendar', 'With one tap, the time goes to the phone’s calendar, ready to save — so clients don’t forget.'),
         ],
@@ -235,12 +231,11 @@ C = {
         'salon_h2': 'Todo lo que configuras en la app — y lo que aporta a tu Salón/Estudio',
         'salon_lead': 'Sigue la pestaña Configuración paso a paso: cada función, con el beneficio que entrega.',
         'salon_scenes': {
-            'configuracoes': ('Pestaña Configuración', 'Todo tu Salón/Estudio en un solo lugar', 'Es la guía para dejar todo listo: datos del Salón/Estudio, servicios, profesionales, reglas, antes y después y tu enlace. Mira qué aporta cada función.'),
+            'configuracoes': ('Pestaña Configuración', 'Todo tu Salón/Estudio en un solo lugar', 'Es la guía para dejar todo listo: datos del Salón/Estudio, servicios, profesionales, antes y después y tu enlace. Mira qué aporta cada función.'),
             'dados': ('Datos del Salón/Estudio', 'Tu vitrina lista en minutos', 'Logo, fotos, horario de atención, dirección con mapa, WhatsApp y redes sociales. Es lo que el cliente ve en tu página — y le ayuda a confiar y a llegar a ti.'),
             'servicos': ('Servicios', 'Catálogo listo, con foto y precio', 'Elige servicios listos o crea los tuyos, con duración, precio y foto. El cliente elige viendo exactamente lo que ofreces, y la agenda reserva el tiempo justo de cada servicio.'),
-            'profissionais': ('Profesionales', 'Los que necesites, cada uno con su agenda', 'Registra profesionales sin límite y define los servicios y los días y horarios de trabajo de cada uno. El cliente puede elegir a quien prefiera.'),
-            'regras': ('Reglas de reserva', 'Finanzas bajo control', 'Define hasta qué hora un servicio del día aún puede marcarse como “no realizado”, para que tus finanzas reflejen lo que realmente pasó.'),
-            'antesdepois': ('Antes y después', 'Muestra tus mejores trabajos', 'Sube hasta 5 trabajos con foto del antes, del después y un pie de foto. Aparecen en tu página, y además creas imágenes de antes y después para compartir en redes.'),
+            'profissionais': ('Profesionales', 'Los que necesites, cada uno con su agenda', 'Registra profesionales sin límite y define los servicios y los días y horarios de trabajo de cada uno. El cliente elige al profesional de su preferencia, o deja la elección al Salón/Estudio.'),
+            'antesdepois': ('Antes y después', 'Muestra tus mejores trabajos', 'Sube tus trabajos con foto del antes, del después y un pie de foto. Aparecen en tu página, y además creas imágenes de antes y después para compartir en redes.'),
             'meulink': ('Tu Salón/Estudio en un enlace', 'Un enlace y un código QR para difundir', 'El enlace se crea solo a partir del nombre del Salón/Estudio. Compártelo en redes y WhatsApp, o imprime el código QR y déjalo en el mostrador.'),
             'idioma': ('Idioma', 'Gestiona en el idioma que prefieras', 'Elige portugués, inglés o español para usar la app. Tu cliente sigue viendo la página de reservas en el idioma de su celular.'),
             'agenda': ('Agenda', 'Cada profesional con su agenda', 'Consulta el día y el mes de cada profesional, con servicios y horarios en un solo lugar.'),
@@ -248,13 +243,12 @@ C = {
         },
         'clients_eyebrow': 'Clientes',
         'clients_h2': 'El recorrido de tu cliente: del enlace al calendario',
-        'clients_lead': 'Cinco pasos simples, sin instalar app y sin crear cuenta. Cada uno pensado para ser rápido para quien reserva.',
+        'clients_lead': 'Cuatro pasos simples, sin instalar app y sin crear cuenta. Cada uno pensado para ser rápido para quien reserva.',
         'step': 'Paso',
         'j_prev': 'Anterior', 'j_next': 'Siguiente',
         'journey': [
             ('services', 'Elige el servicio', 'Ve la foto, la duración y el precio de cada servicio antes de decidir.'),
-            ('pro', 'Elige al profesional', 'Elige a quien prefiera o deja que el Salón/Estudio decida con “cualquier profesional”.'),
-            ('time', 'Elige el día y la hora', 'Solo aparecen horarios libres, del tamaño justo del servicio.'),
+            ('time', 'Elige al profesional, el día y la hora', 'Elige a quien prefiera o deja que el Salón/Estudio decida con “cualquier profesional”. Solo aparecen horarios libres, del tamaño justo del servicio.'),
             ('confirm', 'Confirma', 'Ingresa nombre y teléfono y listo: sin instalar app y sin crear cuenta.'),
             ('calendar', 'Lo guarda en el calendario del celular', 'Con un toque, el horario pasa al calendario del celular, listo para guardar — y el cliente no se olvida.'),
         ],
@@ -304,9 +298,9 @@ A = {
         'title': 'Lumora | Agenda e financeiro para Salão/Studio de beleza e unhas',
         'desc': 'Organize agenda, reservas online, serviços e financeiro do seu Salão/Studio com o Lumora. App para Salão/Studio de beleza e unhas no Brasil.',
         'og_desc': 'Agenda por profissional, reservas online, financeiro e marketing em um só lugar — para Salão/Studio.',
-        'eyebrow': 'Agenda e financeiro para Salão/Studio',
+        'eyebrow': 'Agenda para Salões e Studios',
         'h1': 'Mais organização para o seu Salão/Studio. <em>Mais tempo para atender.</em>',
-        'sub': 'O Lumora reúne agenda, reservas online, serviços e financeiro em uma experiência simples para Salão/Studio de beleza e unhas.',
+        'sub': 'O Lumora é uma agenda online, com todos os serviços ilimitados por apenas R$ 29,90 ao mês.',
         'price_amount': 'R$ 29,90', 'price_per': '/mês',
         'price_note': 'A assinatura é cobrada e cancelada pela Google Play ou pela App Store. O valor final aparece na sua loja.',
         'who_eyebrow': 'Para quem é', 'who_h2': 'Para Salão/Studio de todos os tamanhos',
@@ -411,8 +405,8 @@ A = {
     },
 }
 
-SALON_ORDER_BR = ['configuracoes', 'dados', 'servicos', 'profissionais', 'regras', 'antesdepois', 'meulink', 'agenda', 'financeiro']
-SALON_ORDER_US = ['configuracoes', 'dados', 'servicos', 'profissionais', 'regras', 'antesdepois', 'meulink', 'idioma', 'agenda', 'financeiro']
+SALON_ORDER_BR = ['configuracoes', 'dados', 'servicos', 'profissionais', 'antesdepois', 'meulink', 'agenda', 'financeiro']
+SALON_ORDER_US = ['configuracoes', 'dados', 'servicos', 'profissionais', 'antesdepois', 'meulink', 'idioma', 'agenda', 'financeiro']
 LANG_TAG = {'pt': 'PT', 'en': 'EN', 'es': 'ES'}
 OWN_NAME = {'pt': 'Português', 'en': 'English', 'es': 'Español'}
 CUR = ' aria-current="page"'
@@ -499,19 +493,16 @@ def render(pg):
 
     # -------- HERO: logo > vídeo > informações --------
     store = lambda s, plat: f'data-track="store_click" data-store="{s}" data-platform="{plat}"'
-    pills = (
-        f'<a class="pill" href="{APPSTORE}" target="_blank" rel="noopener" {store("app_store", "ios")}><small>{E(c["dl_ios_pre"])}</small><b>{E(c["dl_ios"])}</b></a>'
-        f'<a class="pill" href="{PLAY}" target="_blank" rel="noopener" {store("google_play", "android")}><small>{E(c["dl_play_pre"])}</small><b>{E(c["dl_play"])}</b></a>')
     hero = f'''<section class="hero" id="topo">
   <div class="wrap hero-stack">
     <a class="hero-logo" href="{pg["path"]}" aria-label="Lumora"><img src="/images/app-lumora.jpg" width="88" height="88" alt=""><span>Lumora</span></a>
-    <p class="eyebrow">{E(a["eyebrow"])}</p>
-    <div class="hero-video" id="hero-video" data-title="{E(c["hero_video_title"])}" data-play-label="{E(c["vid_play"])}" hidden></div>
+  </div>
+  <div class="hero-video" id="hero-video" data-title="{E(c["hero_video_title"])}" data-play-label="{E(c["vid_play"])}" hidden></div>
+  <div class="wrap hero-stack">
     <div class="hero-info">
+      <p class="eyebrow">{E(a["eyebrow"])}</p>
       <h1>{a["h1"]}</h1>
       <p class="hero-sub">{E(a["sub"])}</p>
-      <div class="pills">{pills}</div>
-      <p class="note">{E(c["avail"])}</p>
     </div>
   </div>
 </section>'''
@@ -552,27 +543,24 @@ def render(pg):
   </div>
 </section>'''
 
-    # -------- SALÃO/STUDIO: celular fixo + roteiro da aba Configurações --------
+    # -------- SALÃO/STUDIO: carrossel de cartões (texto em cima, tela inteira do app embaixo) --------
     salon_html = ''
     if scenes_present:
-        scene_html, phone_imgs = '', ''
-        for i, k in enumerate(scenes_present):
+        cards = ''
+        for k in scenes_present:
             eb, h, p = c['salon_scenes'][k]
-            src = scene_img(k)
-            scene_html += (f'<article class="scene" data-i="{i}"><div class="scene-inline phone"><img src="{src}" width="780" height="1688" loading="lazy" alt="{E(c["phone_alt"])}"></div>'
-                           f'<div class="scene-text"><p class="eyebrow">{E(eb)}</p><h3>{E(h)}</h3><p>{E(p)}</p></div></article>')
-            phone_imgs += f'<img class="sp-img{" on" if i == 0 else ""}" data-i="{i}" src="{src}" width="780" height="1688" loading="lazy" alt="{E(c["phone_alt"])}">'
+            cards += (f'<li class="jcard scard"><div class="jtext"><span class="jstep">{E(eb)}</span><h3>{E(h)}</h3><p>{E(p)}</p></div>'
+                      f'<div class="jphone"><img src="{scene_img(k)}" width="780" height="1688" loading="lazy" alt="{E(h)}"></div></li>')
         salon_html = f'''<section class="scenes" id="salao">
-  <div class="wrap">
-    <div class="group-head">
-      <p class="eyebrow">{E(c["salon_eyebrow"])}</p>
-      <h2>{E(c["salon_h2"])}</h2>
-      <p class="lead">{E(c["salon_lead"])}</p>
-    </div>
-    <div class="scenes-grid">
-      <div class="scenes-copy">{scene_html}</div>
-      <div class="scenes-phone" aria-hidden="true"><div class="phone sticky">{phone_imgs}</div></div>
-    </div>
+  <div class="wrap group-head">
+    <p class="eyebrow">{E(c["salon_eyebrow"])}</p>
+    <h2>{E(c["salon_h2"])}</h2>
+    <p class="lead">{E(c["salon_lead"])}</p>
+  </div>
+  <div class="jwrap">
+    <button type="button" class="jarrow jprev" data-dir="-1" aria-label="{E(c["j_prev"])}">‹</button>
+    <ul class="jtrack" tabindex="0" aria-label="{E(c["salon_h2"])}">{cards}</ul>
+    <button type="button" class="jarrow jnext" data-dir="1" aria-label="{E(c["j_next"])}">›</button>
   </div>
 </section>'''
 
@@ -582,7 +570,7 @@ def render(pg):
         cards = ''
         for n, (k, h, p) in enumerate(journey_present, start=1):
             cards += (f'<li class="jcard"><div class="jtext"><span class="jstep">{E(c["step"])} {n}</span><h3>{E(h)}</h3><p>{E(p)}</p></div>'
-                      f'<div class="jphone"><img src="/lumora/images/screen-{k}-{lang}.jpg" width="780" height="1688" loading="lazy" alt="{E(h)}"></div></li>')
+                      f'<div class="jphone"><img src="/lumora/images/screen-{k}-{lang}.jpg" loading="lazy" alt="{E(h)}"></div></li>')
         clients_html = f'''<section class="clients panel" id="clientes">
   <div class="wrap group-head">
     <p class="eyebrow">{E(c["clients_eyebrow"])}</p>
@@ -656,6 +644,9 @@ def render(pg):
   </div>
 </section>'''
 
+    pills = (
+        f'<a class="pill" href="{APPSTORE}" target="_blank" rel="noopener" {store("app_store", "ios")}><small>{E(c["dl_ios_pre"])}</small><b>{E(c["dl_ios"])}</b></a>'
+        f'<a class="pill" href="{PLAY}" target="_blank" rel="noopener" {store("google_play", "android")}><small>{E(c["dl_play_pre"])}</small><b>{E(c["dl_play"])}</b></a>')
     final = f'''<section class="final" id="baixar">
   <div class="wrap center">
     <h2>{E(a["final_h2"])}</h2>

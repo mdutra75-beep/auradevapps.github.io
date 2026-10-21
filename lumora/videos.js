@@ -5,6 +5,8 @@
    ------------------------------------------------------------
    1) VÍDEO RÁPIDO DO TOPO (logo em cima, vídeo no meio, informações abaixo)
    ------------------------------------------------------------
+   Brasil: usa o arquivo do próprio site (src/srcMobile/poster, em lumora/videos/),
+   tela cheia, sem som, em loop. EUA ainda usa YouTube (explicação abaixo).
    É um vídeo do YOUTUBE. Ele toca sozinho, sem som, em loop (a pessoa pode
    ligar o som nos controles do player). Se a pessoa tiver "economia de dados"
    ou preferir menos animação, aparece a capa com um botão de play.
@@ -35,7 +37,7 @@
    ============================================================ */
 
 window.LUMORA_HERO = {
-  br: { youtube: 'jNQXAC9IVRw', titulo: 'Vídeo de exemplo (trocar pelo vídeo do Lumora)' },
+  br: { src: '/lumora/videos/hero.mp4', srcMobile: '/lumora/videos/hero-mobile.mp4', poster: '/lumora/videos/hero-poster.jpg', titulo: 'Lumora em ação' },
   us: { youtube: 'jNQXAC9IVRw', titulo: 'Example video (replace with the Lumora video)' },
 };
 

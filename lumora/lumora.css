@@ -1,7 +1,7 @@
 /* Landing do Lumora — cinematográfica, escura, com dourado (identidade do app). */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#17110d;--bg2:rgba(20,14,10,.5);--card:rgba(255,255,255,.06);--line:rgba(244,239,230,.16);
+  --bg:#0b0908;--bg2:rgba(20,14,10,.5);--card:rgba(255,255,255,.06);--line:rgba(244,239,230,.16);
   --ink:#f4efe6;--mid:#a29d92;--gold:#c9a227;--gold-hi:#f6e3a1;--rose:#e9a08c;--glow:#34e6e0;
   --glass:rgba(255,255,255,.08);--glass-line:rgba(255,255,255,.2);
   --err:#ff8a80;--ok:#7be3a4;
@@ -13,9 +13,9 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{background:var(--bg);color:var(--ink);position:relative;font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,video{max-width:100%;display:block}
 /* Fundo: mesma foto desfocada da página do cliente, com véu quente (sem preto chapado) */
-.bg{position:fixed;inset:0;z-index:-1;background:#2a1f18 url(/lumora/images/bg-warm.jpg) center/cover no-repeat}
-.bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,15,10,.38) 0%,rgba(23,15,10,.58) 55%,rgba(23,15,10,.72) 100%)}
-.panel{background:rgba(24,16,11,.52);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--line)}
+.bg{position:fixed;inset:0;z-index:-1;background:#0b0908 url(/lumora/images/bg-warm.jpg) center/cover no-repeat}
+.bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,7,6,.7) 0%,rgba(8,7,6,.82) 55%,rgba(8,7,6,.9) 100%)}
+.panel{background:rgba(12,10,9,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--line)}
 .group-head{margin-bottom:2.6rem}
 .group-head h2{max-width:900px}
 a{color:inherit}
@@ -69,20 +69,19 @@ h2{font-size:clamp(2rem,4.6vw,3.6rem);margin-bottom:1.1rem;max-width:880px}
 .lang-menu a{display:block;text-decoration:none;padding:.55rem .8rem;border-radius:10px;font-size:.9rem}
 .lang-menu a:hover,.lang-menu a[aria-current]{background:rgba(255,255,255,.08)}
 
-/* ---------- HERO: logo > vídeo > informações ---------- */
-.hero{padding:96px 0 3.5rem}
+/* ---------- HERO: logo > vídeo (largura total) > informações ---------- */
+.hero{padding:84px 0 3.5rem}
 .hero-stack{display:flex;flex-direction:column;align-items:center;text-align:center}
-.hero-logo{display:flex;align-items:center;gap:1rem;text-decoration:none;font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,5vw,3rem);letter-spacing:.03em;margin-bottom:.9rem}
+.hero-logo{display:flex;align-items:center;gap:1rem;text-decoration:none;font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,5vw,3rem);letter-spacing:.03em;margin-bottom:1.2rem}
 .hero-logo img{width:clamp(64px,10vw,88px);height:clamp(64px,10vw,88px);border-radius:22px;box-shadow:0 14px 40px -12px rgba(0,0,0,.6)}
-.hero .eyebrow{margin-bottom:1.6rem}
-.hero-video{position:relative;width:min(100%,860px);aspect-ratio:16/9;border-radius:26px;overflow:hidden;background:#000;border:1px solid var(--glass-line);box-shadow:0 40px 100px -30px rgba(0,0,0,.7);margin-bottom:2.2rem}
+.hero-video{position:relative;width:100%;aspect-ratio:16/9;max-height:82vh;background:#000;overflow:hidden;margin-bottom:2.2rem}
 .hero-video[hidden]{display:none}
+.hero-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-info{display:flex;flex-direction:column;align-items:center}
+.hero .eyebrow{margin-bottom:1.1rem}
 .hero h1{font-size:clamp(2.2rem,5.2vw,4.4rem);max-width:980px;margin-bottom:1.2rem}
-.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-sub{color:rgba(244,239,230,.86);font-size:clamp(1rem,1.7vw,1.22rem);max-width:660px}
-.hero .pills{justify-content:center}
-.hero .note{color:rgba(244,239,230,.65)}
+.hero h1 em{font-style:normal;color:var(--gold-hi)}
+.hero-sub{color:rgba(244,239,230,.9);font-size:clamp(1.05rem,1.7vw,1.3rem);max-width:660px}
 
 /* ---------- celular ---------- */
 .phone{position:relative;width:100%;aspect-ratio:390/844;border-radius:42px;padding:9px;background:linear-gradient(160deg,#2a333d,#0a0e13);
@@ -113,20 +112,6 @@ h2{font-size:clamp(2rem,4.6vw,3.6rem);margin-bottom:1.1rem;max-width:880px}
 .ld-img{position:absolute;inset:9px;width:calc(100% - 18px);height:calc(100% - 18px);opacity:0;transition:opacity .5s}
 .ld-img.on{opacity:1}
 
-/* ---------- cenas (celular fixo) ---------- */
-.scenes-eyebrow{margin-bottom:0}
-.scenes-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
-.scene{min-height:88vh;display:flex;align-items:center}
-.scene-text{max-width:460px}
-.scene-text h3{font-size:clamp(1.8rem,3.6vw,3rem);margin-bottom:1rem}
-.scene-text p:last-child{color:var(--mid);font-size:1.08rem}
-.scene-text .eyebrow{margin-bottom:.8rem}
-.scene-inline{display:none}
-.scenes-phone{position:relative}
-.phone.sticky{position:sticky;top:calc(50vh - min(37vh,340px));width:min(340px,100%);height:min(74vh,720px);aspect-ratio:auto;margin-left:auto;margin-right:auto}
-.sp-img{position:absolute;inset:9px;width:calc(100% - 18px);height:calc(100% - 18px);opacity:0;transition:opacity .5s}
-.sp-img.on{opacity:1}
-
 /* ---------- jornada do cliente: cartões com texto e imagem ---------- */
 .clients{padding-inline:0}
 .jwrap{position:relative;max-width:1400px;margin:0 auto}
@@ -140,6 +125,10 @@ h2{font-size:clamp(2rem,4.6vw,3.6rem);margin-bottom:1.1rem;max-width:880px}
 .jtext p{color:rgba(244,239,230,.82);font-size:.95rem;max-width:300px}
 .jphone{position:absolute;left:50%;top:14.6rem;width:62%;transform:translateX(-50%);border-radius:30px 30px 0 0;padding:7px 7px 0;background:linear-gradient(160deg,#2a333d,#0a0e13);box-shadow:0 -10px 50px rgba(0,0,0,.45)}
 .jphone img{width:100%;height:auto;border-radius:24px 24px 0 0}
+.scard{aspect-ratio:auto;flex-basis:min(350px,80vw);display:flex;flex-direction:column}
+.scard .jtext{padding-bottom:1.4rem}
+.scard .jtext p{max-width:none}
+.scard .jphone{position:static;transform:none;width:66%;margin:auto auto 0}
 .jarrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:50px;height:50px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(23,15,10,.72);backdrop-filter:blur(10px);color:var(--ink);font-size:1.7rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s,border-color .2s}
 .jarrow:hover{border-color:var(--gold);background:rgba(23,15,10,.9)}
 .jprev{left:max(.5rem,calc((100vw - 1180px)/2 - 1.6rem))}
@@ -241,11 +230,7 @@ footer{padding:2.6rem 0 3rem;border-top:1px solid var(--line);font-size:.88rem;c
 @media (max-width:1000px){
   .nav-links{display:none}
   .aud-switch{margin-left:auto}
-  .langs-grid,.scenes-grid,.video-grid{grid-template-columns:1fr}
-  .scenes-phone{display:none}
-  .scene{min-height:auto;flex-direction:column;align-items:stretch;gap:1.6rem;padding:2.4rem 0}
-  .scene-inline{display:block;width:min(270px,70vw);margin:0 auto}
-  .scene-text{max-width:none}
+  .langs-grid,.video-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
   .two{grid-template-columns:1fr}
   section{padding:4.5rem 0}
@@ -255,11 +240,12 @@ footer{padding:2.6rem 0 3rem;border-top:1px solid var(--line);font-size:.88rem;c
   .brand span{display:none}
   .aud-switch a{padding:.4rem .7rem;font-size:.76rem}
   .nav-right .btn{display:none}
-  .hero{padding-top:76px}
-  .hero-video{border-radius:18px;margin-bottom:1.6rem}
+  .hero{padding-top:72px}
+  .hero-video{margin-bottom:1.6rem}
+  .hero-logo{margin-bottom:.9rem}
   .jarrow{width:42px;height:42px;font-size:1.4rem}
   .jprev{left:.3rem}.jnext{right:.3rem}
-  .pills{width:100%}.hero .pill{flex:1 1 150px}
+  .pills{width:100%}
   .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:75;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
     background:rgba(5,7,10,.94);border-top:1px solid var(--line);backdrop-filter:blur(8px);transform:translateY(110%);transition:transform .3s}
   .sticky-cta.show{transform:none}

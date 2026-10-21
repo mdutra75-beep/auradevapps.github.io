@@ -87,20 +87,6 @@
     lit.forEach(function (el) { io1.observe(el); });
   }
 
-  /* ---------- Cenas: o celular fixo troca de tela conforme o texto ---------- */
-  var scenes = document.querySelectorAll('.scene');
-  var spImgs = document.querySelectorAll('.sp-img');
-  if (scenes.length && spImgs.length && 'IntersectionObserver' in window) {
-    var io2 = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var i = e.target.getAttribute('data-i');
-        spImgs.forEach(function (img) { img.classList.toggle('on', img.getAttribute('data-i') === i); });
-      });
-    }, { rootMargin: '-45% 0px -45% 0px' });
-    scenes.forEach(function (s) { io2.observe(s); });
-  }
-
   /* ---------- Idiomas (EUA): seletor que troca a tela do celular ---------- */
   var ldBtns = document.querySelectorAll('.lang-chip');
   var ldImgs = document.querySelectorAll('.ld-img');
@@ -125,10 +111,11 @@
     }
   }
 
-  /* ---------- Jornada do cliente: setas ao lado dos cartões ---------- */
-  var jt = document.querySelector('.jtrack');
-  if (jt) {
-    var jprev = document.querySelector('.jprev'), jnext = document.querySelector('.jnext');
+  /* ---------- Carrosséis (Salão/Studio e jornada do cliente): setas ao lado dos cartões ---------- */
+  document.querySelectorAll('.jwrap').forEach(function (wrap) {
+    var jt = wrap.querySelector('.jtrack');
+    var jprev = wrap.querySelector('.jprev'), jnext = wrap.querySelector('.jnext');
+    if (!jt || !jprev || !jnext) return;
     var jstep = function () { var c = jt.querySelector('.jcard'); return c.getBoundingClientRect().width + 19; };
     var jupd = function () {
       jprev.disabled = jt.scrollLeft < 8;
@@ -146,7 +133,7 @@
       if (e.key === 'ArrowLeft') jprev.click();
     });
     jupd();
-  }
+  });
 
   /* ---------- QR code flutuante: dá para fechar e some no final ---------- */
   var qr = document.getElementById('qr-card');
@@ -170,7 +157,23 @@
   var heroBox = document.getElementById('hero-video');
   var cfg = (window.LUMORA_HERO && window.LUMORA_HERO[AUD]) || {};
   var saveData = navigator.connection && navigator.connection.saveData;
-  if (heroBox && /^[A-Za-z0-9_-]{6,}$/.test(cfg.youtube || '')) {
+  if (heroBox && cfg.src) {
+    // vídeo do próprio site (sem som, em loop, tela cheia); versão leve no celular
+    heroBox.hidden = false;
+    var vid = document.createElement('video');
+    vid.muted = true; vid.defaultMuted = true; vid.loop = true; vid.autoplay = true;
+    vid.setAttribute('playsinline', ''); vid.setAttribute('aria-label', heroBox.dataset.title || 'Lumora');
+    vid.preload = reduce || saveData ? 'none' : 'auto';
+    if (cfg.poster) vid.poster = cfg.poster;
+    var small = window.matchMedia && window.matchMedia('(max-width: 700px)').matches && cfg.srcMobile;
+    vid.src = small ? cfg.srcMobile : cfg.src;
+    heroBox.appendChild(vid);
+    if (reduce || saveData) {
+      vid.controls = true; vid.autoplay = false;
+    } else {
+      var pl = vid.play(); if (pl && pl.catch) pl.catch(function () { vid.controls = true; });
+    }
+  } else if (heroBox && /^[A-Za-z0-9_-]{6,}$/.test(cfg.youtube || '')) {
     heroBox.hidden = false;
     var hid = cfg.youtube;
     var htitle = cfg.titulo || heroBox.dataset.title || 'Lumora';
