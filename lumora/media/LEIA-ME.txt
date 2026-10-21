@@ -1,2 +1,0 @@
-Coloque aqui o vídeo do topo da landing (MP4), por exemplo hero-br.mp4 e hero-us.mp4.
-Depois escreva o caminho em lumora/videos.js (bloco LUMORA_HERO).

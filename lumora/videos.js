@@ -3,19 +3,20 @@
    Só este arquivo precisa ser editado. Há dois lugares:
 
    ------------------------------------------------------------
-   1) VÍDEO RÁPIDO DO TOPO (fundo da primeira tela, sem som, em loop)
+   1) VÍDEO RÁPIDO DO TOPO (logo em cima, vídeo no meio, informações abaixo)
    ------------------------------------------------------------
-   Esse é um arquivo de vídeo (MP4), não do YouTube — porque o fundo do
-   topo precisa tocar sozinho, mudo e em loop.
-   Como colocar:
-     a) Salve o vídeo dentro da pasta  lumora/media/  (ex.: lumora/media/hero-br.mp4)
-     b) Escreva o caminho abaixo, começando com /lumora/media/...
-   Recomendado: 6 a 12 segundos, vertical ou horizontal, sem som, até ~4 MB
-   (H.264 / MP4). Dá para mandar uma versão menor só para celular ("mobile")
-   e uma imagem de capa ("poster", JPG) que aparece enquanto o vídeo carrega.
-   Deixe '' para continuar mostrando o visual provisório (celular animado).
+   É um vídeo do YOUTUBE. Ele toca sozinho, sem som, em loop (a pessoa pode
+   ligar o som nos controles do player). Se a pessoa tiver "economia de dados"
+   ou preferir menos animação, aparece a capa com um botão de play.
+   Como trocar:
+     1. Suba o vídeo no YouTube (pode ser "Não listado").
+     2. Pegue o ID do link (a parte depois de v=, ou depois de youtu.be/, ou de /shorts/).
+     3. Cole em "youtube" abaixo e, se quiser, ajuste o "titulo".
+   Deixe  youtube: ''  para esconder o vídeo do topo.
      br = página do Brasil (/lumora/)
-     us = página dos EUA (/lumora/multi_idiomas/ e as versões en/es)
+     us = páginas dos EUA (/lumora/multi_idiomas/ e as versões en/es)
+   ATENÇÃO: o vídeo abaixo é só um EXEMPLO público para testarmos o layout.
+   Troque pelo vídeo do Lumora quando ele estiver pronto.
 
    ------------------------------------------------------------
    2) VÍDEOS DO YOUTUBE (seção "O Lumora em ação", mais abaixo na página)
@@ -34,10 +35,8 @@
    ============================================================ */
 
 window.LUMORA_HERO = {
-  br: { mp4: '', webm: '', mobile: '', poster: '' },
-  us: { mp4: '', webm: '', mobile: '', poster: '' },
-  // Exemplo preenchido:
-  // br: { mp4: '/lumora/media/hero-br.mp4', mobile: '/lumora/media/hero-br-mobile.mp4', poster: '/lumora/media/hero-br.jpg' },
+  br: { youtube: 'jNQXAC9IVRw', titulo: 'Vídeo de exemplo (trocar pelo vídeo do Lumora)' },
+  us: { youtube: 'jNQXAC9IVRw', titulo: 'Example video (replace with the Lumora video)' },
 };
 
 window.LUMORA_VIDEOS = {

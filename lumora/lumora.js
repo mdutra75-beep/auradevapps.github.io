@@ -125,14 +125,28 @@
     }
   }
 
-  /* ---------- Cartões horizontais: setas ---------- */
-  var track_ = document.querySelector('.hs-track');
-  document.querySelectorAll('.hs-btns button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var w = track_.querySelector('.hcard').getBoundingClientRect().width + 18;
-      track_.scrollBy({ left: Number(b.dataset.dir) * w, behavior: reduce ? 'auto' : 'smooth' });
+  /* ---------- Jornada do cliente: setas ao lado dos cartões ---------- */
+  var jt = document.querySelector('.jtrack');
+  if (jt) {
+    var jprev = document.querySelector('.jprev'), jnext = document.querySelector('.jnext');
+    var jstep = function () { var c = jt.querySelector('.jcard'); return c.getBoundingClientRect().width + 19; };
+    var jupd = function () {
+      jprev.disabled = jt.scrollLeft < 8;
+      jnext.disabled = jt.scrollLeft + jt.clientWidth >= jt.scrollWidth - 8;
+    };
+    [jprev, jnext].forEach(function (b) {
+      b.addEventListener('click', function () {
+        jt.scrollBy({ left: Number(b.dataset.dir) * jstep(), behavior: reduce ? 'auto' : 'smooth' });
+      });
     });
-  });
+    jt.addEventListener('scroll', jupd, { passive: true });
+    window.addEventListener('resize', jupd);
+    jt.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') jnext.click();
+      if (e.key === 'ArrowLeft') jprev.click();
+    });
+    jupd();
+  }
 
   /* ---------- QR code flutuante: dá para fechar e some no final ---------- */
   var qr = document.getElementById('qr-card');
@@ -152,27 +166,43 @@
     }
   }
 
-  /* ---------- Vídeo do topo (arquivo em videos.js -> LUMORA_HERO) ---------- */
-  var hero = document.getElementById('topo');
+  /* ---------- Vídeo do topo: YouTube (id em videos.js -> LUMORA_HERO) ---------- */
+  var heroBox = document.getElementById('hero-video');
   var cfg = (window.LUMORA_HERO && window.LUMORA_HERO[AUD]) || {};
   var saveData = navigator.connection && navigator.connection.saveData;
-  if (hero && (cfg.mp4 || cfg.webm) && !reduce && !saveData) {
-    var v = hero.querySelector('.hero-video');
-    var small = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
-    var mp4 = (small && cfg.mobile) ? cfg.mobile : cfg.mp4;
-    if (cfg.poster) v.poster = cfg.poster;
-    if (cfg.webm && !small) { var s1 = document.createElement('source'); s1.src = cfg.webm; s1.type = 'video/webm'; v.appendChild(s1); }
-    if (mp4) { var s2 = document.createElement('source'); s2.src = mp4; s2.type = 'video/mp4'; v.appendChild(s2); }
-    v.preload = 'auto';
-    v.muted = true;
-    v.addEventListener('playing', function () { hero.classList.add('has-video'); });
-    v.load();
-    var p = v.play();
-    if (p && p.catch) p.catch(function () { /* autoplay bloqueado: fica o visual provisório */ });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { var q = v.play(); if (q && q.catch) q.catch(function () {}); } else v.pause(); });
-      }, { threshold: 0.1 }).observe(hero);
+  if (heroBox && /^[A-Za-z0-9_-]{6,}$/.test(cfg.youtube || '')) {
+    heroBox.hidden = false;
+    var hid = cfg.youtube;
+    var htitle = cfg.titulo || heroBox.dataset.title || 'Lumora';
+    heroBox.style.backgroundImage = 'url(https://i.ytimg.com/vi/' + hid + '/hqdefault.jpg)';
+    heroBox.style.backgroundSize = 'cover';
+    heroBox.style.backgroundPosition = 'center';
+    var mountHero = function (autoplay) {
+      var f = document.createElement('iframe');
+      var q = autoplay
+        ? '?autoplay=1&mute=1&loop=1&playlist=' + hid + '&playsinline=1&rel=0&modestbranding=1'
+        : '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(hid) + q;
+      f.title = htitle;
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.className = 'yt-frame';
+      heroBox.innerHTML = '';
+      heroBox.appendChild(f);
+    };
+    if (reduce || saveData) {
+      // sem autoplay: mostra a capa e só carrega ao clicar
+      var hb = document.createElement('button');
+      hb.type = 'button';
+      hb.className = 'yt-facade';
+      hb.setAttribute('aria-label', (heroBox.dataset.playLabel || 'Play') + ': ' + htitle);
+      hb.innerHTML = '<span class="yt-play" aria-hidden="true"></span>';
+      hb.addEventListener('click', function () { track('video_play', { video_id: hid, where: 'hero' }); mountHero(false); });
+      heroBox.appendChild(hb);
+    } else {
+      // autoplay mudo em loop (o visitante pode ligar o som nos controles do player)
+      var go = function () { mountHero(true); };
+      if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
     }
   }
 
