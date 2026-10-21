@@ -757,7 +757,6 @@ def render(pg):
 </main>
 
 {footer}
-{qr}
 <div class="sticky-cta"><a class="btn btn-gold" href="#baixar" data-track="hero_cta_click" data-destination="download">{E(c["download"])}</a></div>
 
 <script src="/lumora/videos.js?v={VER}"></script>
