@@ -150,8 +150,12 @@ h2{font-size:clamp(2rem,4.6vw,3.6rem);margin-bottom:1.1rem;max-width:880px}
 .video-caption{margin-top:.7rem;color:var(--mid);font-size:.92rem}
 .yt-facade{all:unset;box-sizing:border-box;position:absolute;inset:0;cursor:pointer;background-size:cover;background-position:center;display:grid;place-items:center}
 .yt-facade:focus-visible{outline:3px solid var(--glow);outline-offset:-3px}
-.yt-play{width:76px;height:76px;border-radius:50%;background:rgba(5,7,10,.7);border:2px solid var(--gold-hi);position:relative}
-.yt-play::after{content:'';position:absolute;left:30px;top:22px;border-left:23px solid var(--gold-hi);border-top:15px solid transparent;border-bottom:15px solid transparent}
+.yt-facade::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
+.yt-play{position:relative;width:88px;height:88px;border-radius:50%;background:var(--grad);box-shadow:0 10px 40px rgba(0,0,0,.55),0 0 0 8px rgba(246,227,161,.28);transition:transform .2s}
+.yt-facade:hover .yt-play{transform:scale(1.08)}
+.yt-play::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--gold-hi);animation:ytpulse 2s ease-out infinite}
+.yt-play::after{content:'';position:absolute;left:35px;top:26px;border-left:28px solid #1b1508;border-top:18px solid transparent;border-bottom:18px solid transparent}
+@keyframes ytpulse{from{transform:scale(1);opacity:.9}to{transform:scale(1.5);opacity:0}}
 .yt-frame{position:absolute;inset:0;width:100%;height:100%;border:0}
 .video-list{display:flex;flex-direction:column;gap:.8rem}
 .video-thumb{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:.7rem;align-items:center;border:1px solid var(--line);border-radius:14px;padding:.5rem;background:var(--card);font-size:.88rem}
@@ -254,9 +258,9 @@ footer{padding:2.6rem 0 3rem;border-top:1px solid var(--line);font-size:.88rem;c
   .bridge-box{padding:1.6rem}
 }
 
-/* vídeos extras: Shorts (vertical) no topo dos EUA e vídeo do "Como funciona" */
-.short-video{position:relative;width:min(300px,78vw);aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#000;border:1px solid var(--glass-line);margin:2rem auto 0}
+/* vídeos verticais (9:16) com moldura: Shorts nos EUA e vídeo do "Como funciona" */
+.video-lead{font-family:var(--font-display);font-weight:700;font-size:clamp(1.3rem,3.4vw,1.8rem);margin:2.4rem 0 1.2rem;color:var(--gold-hi)}
+.short-video,.how-video{position:relative;width:min(320px,80vw);aspect-ratio:9/16;border-radius:26px;overflow:hidden;background:#000;
+  border:2px solid rgba(246,227,161,.55);box-shadow:0 0 0 7px rgba(255,255,255,.06),0 40px 90px -25px rgba(0,0,0,.8),0 0 60px -10px rgba(201,162,39,.35);margin:0 auto}
 .short-video[hidden],.how-video[hidden]{display:none}
-.how-video{position:relative;width:min(100%,860px);aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#000;border:1px solid var(--glass-line);margin:2.6rem auto 0}
-
-.brand{font-family:'Playfair Display',Georgia,serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em}
+.how-video{margin-top:2.8rem}

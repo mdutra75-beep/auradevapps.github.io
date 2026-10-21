@@ -63,7 +63,8 @@ C = {
         'qr_title': 'Baixar o app', 'qr_hint': 'Aponte a câmera do celular',
         'avail': 'Android e iOS — confirme a disponibilidade na sua região.',
         'hero_video_title': 'Veja o Lumora em ação',
-        'statement_eyebrow': 'No dia a dia',
+        'statement_eyebrow': 'Não tenha mais problemas com...',
+        'short_lead': 'Veja como funciona no vídeo abaixo',
         'statement': ['Agendamentos espalhados em várias mensagens.',
                       'Clientes tentando marcar fora do horário de atendimento.',
                       'Entradas e saídas anotadas em vários lugares.',
@@ -142,7 +143,8 @@ C = {
         'qr_title': 'Get the app', 'qr_hint': 'Point your phone camera',
         'avail': 'Android and iOS — please check availability in your region.',
         'hero_video_title': 'See Lumora in action',
-        'statement_eyebrow': 'Day to day',
+        'statement_eyebrow': 'No more problems with...',
+        'short_lead': 'See how it works in the video below',
         'statement': ['Appointments scattered across many messages.',
                       'Clients trying to book outside business hours.',
                       'Income and expenses noted in different places.',
@@ -221,7 +223,8 @@ C = {
         'qr_title': 'Descargar la app', 'qr_hint': 'Apunta la cámara del celular',
         'avail': 'Android y iOS — confirma la disponibilidad en tu región.',
         'hero_video_title': 'Mira Lumora en acción',
-        'statement_eyebrow': 'En el día a día',
+        'statement_eyebrow': 'Olvídate de los problemas con...',
+        'short_lead': 'Mira cómo funciona en el video de abajo',
         'statement': ['Citas dispersas en muchos mensajes.',
                       'Clientes que intentan reservar fuera del horario de atención.',
                       'Ingresos y gastos anotados en varios lugares.',
@@ -318,7 +321,7 @@ A = {
         'desc': 'Seu cliente agenda no idioma do celular e você gerencia no seu. Agenda, reservas online, financeiro e marketing para Salão/Studio nos EUA.',
         'og_desc': 'Seu cliente agenda no idioma dele. Você gerencia no seu. Agenda, reservas e financeiro para Salão/Studio nos EUA.',
         'eyebrow': 'Multi-idiomas para Salão/Studio nos EUA',
-        'h1': 'Seu Salão/Studio nos EUA fala a língua <em>do seu cliente.</em>',
+        'h1': 'Seu Salão/Studio nos EUA falando a língua <em>do seu cliente.</em>',
         'sub': 'Seu cliente agenda no idioma do celular dele. Você gerencia no idioma que preferir. Agenda, reservas online, financeiro e marketing em um só app.',
         'price_amount': 'US$ 29,90', 'price_per': '/mês',
         'price_note': 'A assinatura é cobrada e cancelada pela Google Play ou pela App Store. Impostos e moeda local podem variar: confira o preço final na loja.',
@@ -503,7 +506,7 @@ def render(pg):
       <p class="eyebrow">{E(a["eyebrow"])}</p>
       <h1>{a["h1"]}</h1>
       <p class="hero-sub">{E(a["sub"])}</p>
-      {'<div class="short-video" id="short-video" data-play-label="' + E(c["vid_play"]) + '" data-title="' + E(c["hero_video_title"]) + '" hidden></div>' if aud == 'us' else ''}
+      {'<p class="video-lead">' + E(c["short_lead"]) + '</p><div class="short-video" id="short-video" data-play-label="' + E(c["vid_play"]) + '" data-title="' + E(c["hero_video_title"]) + '" hidden></div>' if aud == 'us' else ''}
     </div>
   </div>
 </section>'''
@@ -739,7 +742,7 @@ def render(pg):
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="{pg["path"]}" aria-label="Lumora"><img src="/images/app-lumora.jpg" width="34" height="34" alt=""><span>Lumora</span></a>
+    {"" if aud == "br" else f'<a class="brand" href="{pg["path"]}" aria-label="Lumora"><img src="/images/app-lumora.jpg" width="34" height="34" alt=""><span>Lumora</span></a>'}
     {aud_switch}
     <nav class="nav-links" aria-label="Menu">{nav_links}</nav>
     <div class="nav-right">
