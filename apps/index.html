@@ -240,7 +240,7 @@
       var info=t.apps[a.slug];
       var el=document.createElement('a');
       el.className='link-card';
-      el.href='/#app/'+a.slug;
+      el.href=a.slug==='lumora'?'/lumora/':'/#app/'+a.slug;
       el.innerHTML=
         '<img class="link-icon" src="/images/'+a.icon+'" alt="">'+
         '<span class="link-body">'+

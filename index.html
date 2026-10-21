@@ -1103,6 +1103,7 @@ function hideAppPage(){
 }
 let appPagePushed=false;
 function openAppPage(slug){
+  if(slug==='lumora'){window.location.href='/lumora/';return;} // Lumora tem landing própria
   if(showAppPage(slug)){history.pushState({appPage:slug},'','#app/'+slug);appPagePushed=true;}
 }
 function closeAppPage(){
