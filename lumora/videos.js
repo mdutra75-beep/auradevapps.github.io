@@ -38,8 +38,14 @@
 
 window.LUMORA_HERO = {
   br: { src: '/lumora/videos/hero.mp4', srcMobile: '/lumora/videos/hero-mobile.mp4', poster: '/lumora/videos/hero-poster.jpg', titulo: 'Lumora em ação' },
-  us: { youtube: 'jNQXAC9IVRw', titulo: 'Example video (replace with the Lumora video)' },
+  us: { src: '/lumora/videos/hero.mp4', srcMobile: '/lumora/videos/hero-mobile.mp4', poster: '/lumora/videos/hero-poster.jpg', titulo: 'Lumora' },
 };
+
+// Vídeo curto (Shorts) logo abaixo do texto do topo, só nas páginas dos EUA.
+window.LUMORA_SHORT = { us: 'RmYCSFkOC9I' };
+
+// Vídeo abaixo das explicações de "Como funciona" (todas as páginas).
+window.LUMORA_HOW = { id: 'JSGpSXGAmMU', titulo: 'Como funciona o Lumora' };
 
 window.LUMORA_VIDEOS = {
   br: [

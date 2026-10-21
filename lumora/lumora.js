@@ -162,6 +162,8 @@
     heroBox.hidden = false;
     var vid = document.createElement('video');
     vid.muted = true; vid.defaultMuted = true; vid.loop = true; vid.autoplay = true;
+    vid.setAttribute('loop', '');
+    vid.addEventListener('ended', function () { vid.currentTime = 0; vid.play().catch(function () {}); });
     vid.setAttribute('playsinline', ''); vid.setAttribute('aria-label', heroBox.dataset.title || 'Lumora');
     vid.preload = reduce || saveData ? 'none' : 'auto';
     if (cfg.poster) vid.poster = cfg.poster;
@@ -232,6 +234,19 @@
     });
     box.appendChild(btn);
   }
+  var shortBox = document.getElementById('short-video');
+  var shortId = (window.LUMORA_SHORT || {})[AUD];
+  if (shortBox && /^[A-Za-z0-9_-]{6,}$/.test(shortId || '')) {
+    shortBox.hidden = false;
+    mountVideo(shortBox, { id: shortId, titulo: shortBox.dataset.title || 'Lumora' });
+  }
+  var howBox = document.getElementById('how-video');
+  var howCfg = window.LUMORA_HOW || {};
+  if (howBox && /^[A-Za-z0-9_-]{6,}$/.test(howCfg.id || '')) {
+    howBox.hidden = false;
+    mountVideo(howBox, { id: howCfg.id, titulo: howCfg.titulo || howBox.dataset.title || 'Lumora' });
+  }
+
   var YT = window.LUMORA_VIDEOS || {};
   var vids = (YT[AUD === 'br' ? 'br' : LANG] || []).filter(function (v) { return v && /^[A-Za-z0-9_-]{6,}$/.test(v.id || ''); });
   var vSection = document.getElementById('videos');

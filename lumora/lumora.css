@@ -1,7 +1,7 @@
 /* Landing do Lumora — cinematográfica, escura, com dourado (identidade do app). */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0b0908;--bg2:rgba(20,14,10,.5);--card:rgba(255,255,255,.06);--line:rgba(244,239,230,.16);
+  --bg:#2a2522;--bg2:rgba(20,14,10,.5);--card:rgba(255,255,255,.06);--line:rgba(244,239,230,.16);
   --ink:#f4efe6;--mid:#a29d92;--gold:#c9a227;--gold-hi:#f6e3a1;--rose:#e9a08c;--glow:#34e6e0;
   --glass:rgba(255,255,255,.08);--glass-line:rgba(255,255,255,.2);
   --err:#ff8a80;--ok:#7be3a4;
@@ -13,9 +13,9 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{background:var(--bg);color:var(--ink);position:relative;font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,video{max-width:100%;display:block}
 /* Fundo: mesma foto desfocada da página do cliente, com véu quente (sem preto chapado) */
-.bg{position:fixed;inset:0;z-index:-1;background:#0b0908 url(/lumora/images/bg-warm.jpg) center/cover no-repeat}
-.bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,7,6,.7) 0%,rgba(8,7,6,.82) 55%,rgba(8,7,6,.9) 100%)}
-.panel{background:rgba(12,10,9,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--line)}
+.bg{position:fixed;inset:0;z-index:-1;background:#2a2522 url(/lumora/images/bg-warm.jpg) center/cover no-repeat;filter:brightness(.8) saturate(.75)}
+.bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,9,.22) 0%,rgba(10,9,9,.3) 100%)}
+.panel{background:rgba(18,16,15,.38);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--line)}
 .group-head{margin-bottom:2.6rem}
 .group-head h2{max-width:900px}
 a{color:inherit}
@@ -253,3 +253,8 @@ footer{padding:2.6rem 0 3rem;border-top:1px solid var(--line);font-size:.88rem;c
   body{padding-bottom:76px}
   .bridge-box{padding:1.6rem}
 }
+
+/* vídeos extras: Shorts (vertical) no topo dos EUA e vídeo do "Como funciona" */
+.short-video{position:relative;width:min(300px,78vw);aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#000;border:1px solid var(--glass-line);margin:2rem auto 0}
+.short-video[hidden],.how-video[hidden]{display:none}
+.how-video{position:relative;width:min(100%,860px);aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#000;border:1px solid var(--glass-line);margin:2.6rem auto 0}
