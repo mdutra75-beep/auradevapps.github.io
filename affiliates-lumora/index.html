@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lumora Affiliate Program | Earn With Your Audience</title>
-<meta name="description" content="Apply to become an approved affiliate, receive a personal referral code and earn 30% on the first two eligible monthly payments.">
+<meta name="description" content="Apply to become an approved affiliate, receive a personal referral code and earn 30% on the first two eligible monthly payments, then 10% for up to 12 months.">
 <link rel="canonical" href="https://aura-dev-app.com/affiliates-lumora/">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="/images/Logo_Aura_Dev.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aura Dev Apps">
 <meta property="og:title" content="Lumora Affiliate Program | Earn With Your Audience">
-<meta property="og:description" content="Apply to become an approved affiliate, receive a personal referral code and earn 30% on the first two eligible monthly payments.">
+<meta property="og:description" content="Apply to become an approved affiliate, receive a personal referral code and earn 30% on the first two eligible monthly payments, then 10% for up to 12 months.">
 <meta property="og:url" content="https://aura-dev-app.com/affiliates-lumora/">
 <meta property="og:image" content="https://aura-dev-app.com/affiliates/img/og-lumora.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lumora Affiliate Program | Earn With Your Audience">
-<meta name="twitter:description" content="Apply to become an approved affiliate, receive a personal referral code and earn 30% on the first two eligible monthly payments.">
+<meta name="twitter:description" content="Apply to become an approved affiliate, receive a personal referral code and earn 30% on the first two eligible monthly payments, then 10% for up to 12 months.">
 <meta name="twitter:image" content="https://aura-dev-app.com/affiliates/img/og-lumora.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,6 +94,23 @@
     <p class="foot-note"><span data-i18n="c.terms.foot"></span> <a href="/affiliate-terms/" data-i18n="c.terms.link">Affiliate Terms</a>.</p>
   </section>
 
+  <section id="simulator">
+    <h2 data-i18n="sim.title">Estimate your earnings</h2>
+    <p class="muted" style="margin:-.8rem 0 1.4rem" data-i18n="sim.intro"></p>
+    <div class="sim-box">
+      <div class="sim-controls">
+        <div><label for="sim-country" data-i18n="sim.country"></label><select id="sim-country"></select></div>
+        <div id="sim-plan-wrap"><label for="sim-plan" data-i18n="sim.plan"></label><select id="sim-plan"></select></div>
+        <div><label for="sim-ret" data-i18n="sim.ret"></label><select id="sim-ret"></select></div>
+      </div>
+      <p id="sim-price" class="sim-price"></p>
+      <div id="sim-out" class="sim-out" aria-live="polite"></div>
+      <p id="sim-rule" class="sim-small"></p>
+      <p id="sim-disc" class="sim-small"></p>
+      <p class="sim-warn" data-i18n="sim.disclaimer"></p>
+    </div>
+  </section>
+
   <section id="who">
     <h2 data-i18n="c.who.title">Who we are looking for</h2>
     <ul class="who">
@@ -167,6 +184,7 @@
   <p style="margin-top:.8rem">&copy; 2026 Aura Dev Apps</p>
 </footer>
 <script src="/affiliates/i18n.js"></script>
+<script src="/affiliates/precos.js"></script>
 <script src="/affiliates/affiliates.js"></script>
 </body>
 </html>

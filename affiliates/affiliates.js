@@ -29,8 +29,44 @@
       var saved = localStorage.getItem('aff_lang');
       if (LANGS.indexOf(saved) >= 0) return saved;
     } catch (e) {}
-    var n = (navigator.language || 'en').slice(0, 2).toLowerCase();
-    return LANGS.indexOf(n) >= 0 ? n : 'en';
+    // Idiomas do aparelho, na ordem de preferência: vale o primeiro que a página tem.
+    var prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'en'];
+    for (var i = 0; i < prefs.length; i++) {
+      var n = String(prefs[i] || '').slice(0, 2).toLowerCase();
+      if (LANGS.indexOf(n) >= 0) return n;
+    }
+    // Nenhum idioma do aparelho bate: usa o fuso horário como pista da localização
+    // (não pede permissão e não consulta o IP).
+    var c = tzCountry();
+    if (PT_COUNTRIES.indexOf(c) >= 0) return 'pt';
+    if (ES_COUNTRIES.indexOf(c) >= 0) return 'es';
+    return 'en';
+  }
+
+  var TZ_COUNTRY = {
+    'America/Sao_Paulo': 'BR', 'America/Bahia': 'BR', 'America/Fortaleza': 'BR', 'America/Recife': 'BR', 'America/Manaus': 'BR',
+    'America/Belem': 'BR', 'America/Cuiaba': 'BR', 'America/Campo_Grande': 'BR', 'America/Porto_Velho': 'BR', 'America/Rio_Branco': 'BR',
+    'America/Noronha': 'BR', 'America/Araguaina': 'BR', 'America/Maceio': 'BR', 'America/Boa_Vista': 'BR', 'America/Santarem': 'BR',
+    'Europe/Lisbon': 'PT', 'Atlantic/Azores': 'PT', 'Atlantic/Madeira': 'PT', 'Africa/Luanda': 'AO', 'Africa/Maputo': 'MZ',
+    'Europe/Madrid': 'ES', 'Atlantic/Canary': 'ES',
+    'America/Mexico_City': 'MX', 'America/Cancun': 'MX', 'America/Monterrey': 'MX', 'America/Merida': 'MX', 'America/Tijuana': 'MX',
+    'America/Chihuahua': 'MX', 'America/Hermosillo': 'MX', 'America/Mazatlan': 'MX',
+    'America/Buenos_Aires': 'AR', 'America/Santiago': 'CL', 'America/Bogota': 'CO', 'America/Lima': 'PE', 'America/Montevideo': 'UY',
+    'America/Asuncion': 'PY', 'America/La_Paz': 'BO', 'America/Guayaquil': 'EC', 'America/Caracas': 'VE', 'America/Costa_Rica': 'CR',
+    'America/Guatemala': 'GT', 'America/Panama': 'PA', 'America/Santo_Domingo': 'DO', 'America/El_Salvador': 'SV',
+    'America/Tegucigalpa': 'HN', 'America/Managua': 'NI', 'America/Havana': 'CU',
+    'America/New_York': 'US', 'America/Chicago': 'US', 'America/Denver': 'US', 'America/Los_Angeles': 'US', 'America/Phoenix': 'US',
+    'America/Anchorage': 'US', 'America/Detroit': 'US', 'Pacific/Honolulu': 'US', 'Europe/London': 'GB'
+  };
+  var PT_COUNTRIES = ['BR', 'PT', 'AO', 'MZ'];
+  var ES_COUNTRIES = ['ES', 'MX', 'AR', 'CL', 'CO', 'PE', 'UY', 'PY', 'BO', 'EC', 'VE', 'CR', 'GT', 'PA', 'DO', 'SV', 'HN', 'NI', 'CU'];
+  function tzCountry() {
+    try {
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      if (TZ_COUNTRY[tz]) return TZ_COUNTRY[tz];
+      if (tz.indexOf('America/Argentina/') === 0) return 'AR';
+    } catch (e) {}
+    return '';
   }
 
   function setLang(l, persist) {
@@ -39,7 +75,7 @@
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
     $$('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
     applyText();
-    if (PRODUCT) { buildSelects(); renderConsent(); setImages(); }
+    if (PRODUCT) { buildSelects(); renderConsent(); setImages(); buildSim(); }
     renderTerms();
   }
 
@@ -72,7 +108,7 @@
   // ── Eventos (sem dados pessoais; respeita Do Not Track) ───────────────────
   function regionFromBrowser() {
     var p = (navigator.language || '').split('-');
-    return p[1] && p[1].length === 2 ? p[1].toUpperCase() : '';
+    return p[1] && p[1].length === 2 ? p[1].toUpperCase() : tzCountry();
   }
   function track(evento, extra) {
     if (!PRODUCT || navigator.doNotTrack === '1') return;
@@ -89,6 +125,114 @@
         body: JSON.stringify(body), keepalive: true
       }).catch(function () {});
     } catch (e) {}
+  }
+
+  // ── Simulador de comissão ─────────────────────────────────────────────────
+  // É uma SIMULAÇÃO: usa o preço do app no país do afiliado (precos.js) e supõe que ~70% do
+  // preço chega até nós depois das taxas das lojas e dos impostos (a Apple BR repassou 71%).
+  var SIM_NET = 0.70;
+  var SIM_USERS = [50, 200, 500, 1000];
+  var ZERO_DECIMAL = ['JPY', 'KRW', 'VND', 'IDR', 'CLP', 'PYG', 'UGX', 'RWF', 'XAF', 'XOF', 'XPF', 'KMF', 'GNF', 'BIF', 'DJF'];
+  var simState = { country: '', plan: 'mensal', ret: 1 };
+  var simBound = false;
+
+  function simPlans() {
+    var d = window.AFF_PRECOS && window.AFF_PRECOS[PRODUCT];
+    return d ? Object.keys(d) : [];
+  }
+  function simTable(plan) {
+    var d = window.AFF_PRECOS && window.AFF_PRECOS[PRODUCT];
+    return (d && d[plan]) || null;
+  }
+  function locale() { return lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en'; }
+  function money(v, cur, digits) {
+    var d = ZERO_DECIMAL.indexOf(cur) >= 0 ? 0 : digits;
+    try {
+      return new Intl.NumberFormat(locale(), { style: 'currency', currency: cur, minimumFractionDigits: d, maximumFractionDigits: d }).format(v);
+    } catch (e) { return v.toFixed(d) + ' ' + cur; }
+  }
+  // Comissão por assinante, na moeda do preço. Mensal: 30% x2 e 10% da 3ª à 12ª (só quem continua).
+  // Anual: 10% do primeiro pagamento. No Lumora o código dá 10% de desconto nos primeiros pagamentos.
+  function simPerUser(plan, price, ret) {
+    var disc = PRODUCT === 'lumora' ? 0.9 : 1;
+    if (plan === 'anual') return price * disc * SIM_NET * 0.10;
+    return price * disc * SIM_NET * 0.30 * 2 + price * SIM_NET * 0.10 * 10 * ret;
+  }
+
+  function simDefaultCountry(table) {
+    var guess = qs.get('country') || regionFromBrowser();
+    guess = String(guess || '').toUpperCase();
+    if (table[guess]) return guess;
+    if (PRODUCT === 'lumora') return lang === 'pt' ? 'BR' : 'US';
+    return table.US ? 'US' : Object.keys(table)[0];
+  }
+
+  function buildSim() {
+    var root = $('#simulator'); if (!root || !window.AFF_PRECOS) return;
+    var plans = simPlans(); if (!plans.length) return;
+    if (plans.indexOf(simState.plan) < 0) simState.plan = plans[0];
+    var table = simTable(simState.plan); if (!table) return;
+    if (!simState.country || !table[simState.country]) simState.country = simDefaultCountry(table);
+
+    var regions = displayNames(lang, 'region');
+    var countries = Object.keys(table).map(function (c) { return { value: c, label: regions ? (regions.of(c) || c) : c }; })
+      .sort(function (a, b) { return a.label.localeCompare(b.label, lang); });
+    var selC = $('#sim-country'); selC.innerHTML = '';
+    countries.forEach(function (it) { var o = document.createElement('option'); o.value = it.value; o.textContent = it.label; selC.appendChild(o); });
+    selC.value = simState.country;
+
+    var selP = $('#sim-plan'); selP.innerHTML = '';
+    plans.forEach(function (p) {
+      var o = document.createElement('option'); o.value = p; o.textContent = t(p === 'anual' ? 'sim.plan.annual' : 'sim.plan.monthly'); selP.appendChild(o);
+    });
+    selP.value = simState.plan;
+    $('#sim-plan-wrap').style.display = plans.length > 1 ? '' : 'none';
+
+    var selR = $('#sim-ret'); selR.innerHTML = '';
+    [['1', 'sim.ret.100'], ['0.7', 'sim.ret.70'], ['0.5', 'sim.ret.50']].forEach(function (r) {
+      var o = document.createElement('option'); o.value = r[0]; o.textContent = t(r[1]); selR.appendChild(o);
+    });
+    selR.value = String(simState.ret);
+
+    if (!simBound) {
+      simBound = true;
+      selC.addEventListener('change', function () { simState.country = selC.value; renderSim(); });
+      selP.addEventListener('change', function () { simState.plan = selP.value; simState.country = ''; buildSim(); });
+      selR.addEventListener('change', function () { simState.ret = parseFloat(selR.value) || 1; renderSim(); });
+    }
+    renderSim();
+  }
+
+  function renderSim() {
+    var table = simTable(simState.plan); if (!table) return;
+    var row = table[simState.country]; if (!row) return;
+    var cur = row[0], price = row[1], usd = row[2];
+    var annual = simState.plan === 'anual';
+    $('#sim-ret').disabled = annual;
+
+    var priceEl = $('#sim-price'); priceEl.innerHTML = '';
+    priceEl.appendChild(document.createTextNode(t('sim.price') + ' '));
+    var strong = document.createElement('strong');
+    strong.textContent = money(price, cur, 2) + ' ' + t(annual ? 'sim.per.year' : 'sim.per.month');
+    priceEl.appendChild(strong);
+
+    var perUser = simPerUser(simState.plan, price, simState.ret);
+    var out = $('#sim-out'); out.innerHTML = '';
+    SIM_USERS.forEach(function (n) {
+      var total = perUser * n;
+      var card = document.createElement('div'); card.className = 'sim-card';
+      function line(cls, text) { var d = document.createElement('div'); d.className = cls; d.textContent = text; card.appendChild(d); return d; }
+      line('n', t('sim.users').replace('{n}', n.toLocaleString(locale())) + ' · ' + t('sim.total'));
+      line('v', money(total, cur, total < 100 ? 2 : 0));
+      if (cur !== 'USD' && usd > 0) line('u', '≈ ' + money(total * usd / price, 'USD', 0));
+      line('p', t('sim.per.sub').replace('{v}', money(perUser, cur, 2)));
+      out.appendChild(card);
+    });
+
+    $('#sim-rule').textContent = t(annual ? 'sim.annual.rule' : 'sim.monthly.rule');
+    var extra = [];
+    if (PRODUCT === 'lumora') { extra.push(t('sim.disc.lumora')); extra.push(t('sim.only.lumora')); }
+    $('#sim-disc').textContent = extra.join(' ');
   }
 
   // ── Formulário ────────────────────────────────────────────────────────────

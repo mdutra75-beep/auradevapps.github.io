@@ -16,7 +16,7 @@ import os, re
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://aura-dev-app.com"
 DESCRICAO = ("Apply to become an approved affiliate, receive a personal referral code "
-             "and earn 30% on the first two eligible monthly payments.")
+             "and earn 30% on the first two eligible monthly payments, then 10% for up to 12 months.")
 
 PRODUTOS = {
     "clipit": {
@@ -112,6 +112,7 @@ RODAPE = """
   <p style="margin-top:.8rem">&copy; 2026 Aura Dev Apps</p>
 </footer>
 <script src="/affiliates/i18n.js"></script>
+<script src="/affiliates/precos.js"></script>
 <script src="/affiliates/affiliates.js"></script>
 </body>
 </html>
@@ -163,6 +164,23 @@ CORPO_PRODUTO = """<main id="main">
       <div class="card"><h3 data-i18n="c.terms.5.t"></h3><p data-i18n="c.terms.5.d"></p></div>
     </div>
     <p class="foot-note"><span data-i18n="c.terms.foot"></span> <a href="/affiliate-terms/" data-i18n="c.terms.link">Affiliate Terms</a>.</p>
+  </section>
+
+  <section id="simulator">
+    <h2 data-i18n="sim.title">Estimate your earnings</h2>
+    <p class="muted" style="margin:-.8rem 0 1.4rem" data-i18n="sim.intro"></p>
+    <div class="sim-box">
+      <div class="sim-controls">
+        <div><label for="sim-country" data-i18n="sim.country"></label><select id="sim-country"></select></div>
+        <div id="sim-plan-wrap"><label for="sim-plan" data-i18n="sim.plan"></label><select id="sim-plan"></select></div>
+        <div><label for="sim-ret" data-i18n="sim.ret"></label><select id="sim-ret"></select></div>
+      </div>
+      <p id="sim-price" class="sim-price"></p>
+      <div id="sim-out" class="sim-out" aria-live="polite"></div>
+      <p id="sim-rule" class="sim-small"></p>
+      <p id="sim-disc" class="sim-small"></p>
+      <p class="sim-warn" data-i18n="sim.disclaimer"></p>
+    </div>
   </section>
 
   <section id="who">

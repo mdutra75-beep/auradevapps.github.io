@@ -165,3 +165,17 @@ footer a:hover{color:var(--paper)}
   .top-in .btn{display:none}
   .shots{height:380px}
 }
+
+/* simulador de comissão */
+.sim-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+.sim-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-bottom:1rem}
+.sim-price{color:var(--mid);font-size:.93rem;margin:.2rem 0 1.1rem}
+.sim-price strong{color:var(--paper)}
+.sim-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.9rem;margin-bottom:1rem}
+.sim-card{border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;background:#0f0f16}
+.sim-card .n{font-size:.82rem;color:var(--mid);margin-bottom:.3rem}
+.sim-card .v{font-family:var(--font-display);font-weight:700;font-size:1.45rem;color:var(--accent);line-height:1.2}
+.sim-card .u{font-size:.85rem;color:var(--paper);margin-top:.15rem}
+.sim-card .p{font-size:.78rem;color:var(--mid);margin-top:.5rem}
+.sim-small{color:var(--mid);font-size:.86rem;margin-top:.35rem}
+.sim-warn{margin-top:1rem;padding:.8rem 1rem;border-radius:12px;border:1px dashed var(--line);color:var(--mid);font-size:.82rem}
