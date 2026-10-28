@@ -15,6 +15,14 @@ import os, re
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://aura-dev-app.com"
+
+# Links para a área do afiliado e os materiais: só entram quando o backend do portal
+# está no ar (AFF_PORTAL=1 python affiliates/_build.py). Sem isso as páginas saem sem eles.
+PORTAL = os.environ.get("AFF_PORTAL") == "1"
+LINK_LOGIN_TOPO = ('<a class="navlink" href="/afiliado/" data-i18n="c.nav.login">Affiliate login</a>\n    ') if PORTAL else ""
+LINKS_RODAPE = ('    <a href="/afiliado/" data-i18n="c.nav.login">Affiliate login</a>\n'
+                '    <a href="/afiliado/materiais/" data-i18n="c.foot.materials">Promotion materials</a>\n') if PORTAL else ""
+
 DESCRICAO = ("Apply to become an approved affiliate, receive a personal referral code "
              "and earn 30% on the first two eligible monthly payments, then 10% for up to 12 months.")
 
@@ -106,7 +114,7 @@ RODAPE = """
 <footer>
   <div>
     <a href="/affiliate-terms/" data-i18n="c.foot.terms">Affiliate Terms</a>
-    <a href="/#privacy" data-i18n="c.foot.privacy">Privacy</a>
+@@PORTAL_RODAPE@@    <a href="/#privacy" data-i18n="c.foot.privacy">Privacy</a>
     <a href="mailto:affiliates@aura-dev-app.com" data-i18n="c.foot.contact">Contact</a>
   </div>
   <p style="margin-top:.8rem">&copy; 2026 Aura Dev Apps</p>
@@ -262,13 +270,13 @@ def montar_produto(chave, p):
     html = CABECALHO.format(
         titulo=p["titulo"], descricao=DESCRICAO, url=url, robots="index, follow",
         og=f"{SITE}/affiliates/img/{p['og']}", body_attr=f' data-product="{chave}"', site=SITE,
-        cta_topo='<a class="btn sm" href="#apply" data-cta="nav" data-i18n="c.nav.apply">Apply</a>',
+        cta_topo=LINK_LOGIN_TOPO + '<a class="btn sm" href="#apply" data-cta="nav" data-i18n="c.nav.apply">Apply</a>',
     )
     html += CORPO_PRODUTO.format(
         nome=p["nome"], logo=p["logo"], visual=p["visual"],
         i_code=ICONES["code"], i_image=ICONES["image"], i_chart=ICONES["chart"], i_wallet=ICONES["wallet"],
     )
-    html += RODAPE
+    html += RODAPE.replace("@@PORTAL_RODAPE@@", LINKS_RODAPE)
     return html
 
 
@@ -280,7 +288,7 @@ def montar_termos():
         og=f"{SITE}/affiliates/img/og-lumora.jpg", body_attr="", site=SITE, cta_topo="",
     )
     html += CORPO_TERMOS.format(site=SITE)
-    html += RODAPE
+    html += RODAPE.replace("@@PORTAL_RODAPE@@", LINKS_RODAPE)
     return html
 
 

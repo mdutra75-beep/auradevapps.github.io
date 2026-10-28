@@ -1,0 +1,14 @@
+{
+  "_como_adicionar": "Para incluir um material: coloque o arquivo em /afiliado/materiais/arquivos/ e acrescente um item em 'itens' abaixo. tipo = imagem | video | texto | arquivo. app = lumora | clipit | todos. 'titulo', 'descricao' e 'texto' podem ser uma frase só ou {pt, en, es}. Em texto, {CODIGO} vira o código do afiliado quando ele abre a página logado.",
+  "itens": [
+    { "tipo": "imagem", "app": "lumora", "titulo": { "pt": "Logo do Lumora", "en": "Lumora logo", "es": "Logo de Lumora" }, "arquivo": "/affiliates/img/logo-lumora.webp" },
+    { "tipo": "imagem", "app": "lumora", "titulo": { "pt": "Lumora: agenda", "en": "Lumora: agenda", "es": "Lumora: agenda" }, "arquivo": { "pt": "/affiliates/img/lumora-agenda-pt.webp", "en": "/affiliates/img/lumora-agenda-en.webp", "es": "/affiliates/img/lumora-agenda-es.webp" } },
+    { "tipo": "imagem", "app": "lumora", "titulo": { "pt": "Lumora: meu link de reservas", "en": "Lumora: booking link", "es": "Lumora: enlace de reservas" }, "arquivo": { "pt": "/affiliates/img/lumora-meulink-pt.webp", "en": "/affiliates/img/lumora-meulink-en.webp", "es": "/affiliates/img/lumora-meulink-es.webp" } },
+    { "tipo": "imagem", "app": "lumora", "titulo": { "pt": "Lumora: financeiro", "en": "Lumora: finances", "es": "Lumora: finanzas" }, "arquivo": { "pt": "/affiliates/img/lumora-financeiro-pt.webp", "en": "/affiliates/img/lumora-financeiro-en.webp", "es": "/affiliates/img/lumora-financeiro-es.webp" } },
+    { "tipo": "imagem", "app": "clipit", "titulo": { "pt": "Logo do ClipIt Sports", "en": "ClipIt Sports logo", "es": "Logo de ClipIt Sports" }, "arquivo": "/affiliates/img/logo-clipit.webp" },
+    { "tipo": "texto", "app": "lumora", "titulo": { "pt": "Legenda pronta (Lumora)", "en": "Ready caption (Lumora)", "es": "Texto listo (Lumora)" },
+      "texto": { "pt": "Agenda, reservas online e financeiro do salão/studio no mesmo app. Use o código {CODIGO} e ganhe 10% de desconto no Lumora. #publi #link_de_afiliado", "en": "Appointments, online booking and finances for your salon/studio in one app. Use code {CODIGO} for 10% off Lumora. #ad #affiliate_link", "es": "Agenda, reservas en línea y finanzas de tu salón/estudio en una sola app. Usa el código {CODIGO} y obtén 10% de descuento en Lumora. #publi #enlace_de_afiliado" } },
+    { "tipo": "texto", "app": "clipit", "titulo": { "pt": "Legenda pronta (ClipIt Sports)", "en": "Ready caption (ClipIt Sports)", "es": "Texto listo (ClipIt Sports)" },
+      "texto": { "pt": "Grave o jogo, toque nos melhores lances e receba os clipes prontos para compartilhar. Use meu código {CODIGO} no ClipIt Sports. #publi #link_de_afiliado", "en": "Record the game, tap the best moments and get highlight clips ready to share. Use my code {CODIGO} in ClipIt Sports. #ad #affiliate_link", "es": "Graba el partido, toca los mejores momentos y recibe los clips listos para compartir. Usa mi código {CODIGO} en ClipIt Sports. #publi #enlace_de_afiliado" } }
+  ]
+}

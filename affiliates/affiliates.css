@@ -179,3 +179,30 @@ footer a:hover{color:var(--paper)}
 .sim-card .p{font-size:.78rem;color:var(--mid);margin-top:.5rem}
 .sim-small{color:var(--mid);font-size:.86rem;margin-top:.35rem}
 .sim-warn{margin-top:1rem;padding:.8rem 1rem;border-radius:12px;border:1px dashed var(--line);color:var(--mid);font-size:.82rem}
+
+/* link "Área do afiliado" no topo */
+.navlink{color:var(--mid);font-size:.82rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.navlink:hover{color:var(--paper)}
+@media (max-width:560px){.navlink{display:none}}
+
+/* portal do afiliado e materiais */
+.portal{max-width:860px;margin:0 auto;padding:2.5rem 1.25rem 4rem;position:relative;z-index:1}
+.portal h1{font-size:clamp(1.7rem,4.5vw,2.4rem)}
+.portal h2{font-size:1.25rem;margin:2.2rem 0 1rem}
+.portal .card{margin-bottom:1rem}
+.portal .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.portal .big{font-family:var(--font-display);font-weight:800;font-size:1.7rem;line-height:1.1}
+.portal .lbl{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem}
+.portal .code{font-family:var(--font-mono);font-size:1.15rem;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.portal .row-copy{display:flex;gap:.5rem;align-items:stretch;margin:.4rem 0 .9rem}
+.portal .row-copy input{flex:1;min-width:0;font-family:var(--font-mono);font-size:.78rem}
+.portal .tbl{width:100%;border-collapse:collapse;font-size:.88rem}
+.portal .tbl th,.portal .tbl td{text-align:left;padding:.55rem .4rem;border-bottom:1px solid var(--line)}
+.portal .tbl th{color:var(--mid);font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em}
+.portal .hint{font-size:.84rem;color:var(--mid);margin:.5rem 0}
+.portal .linkbtn{background:none;border:0;color:var(--accent);cursor:pointer;font:inherit;font-weight:600;padding:0}
+.portal .bar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;justify-content:space-between;margin-bottom:1rem}
+.mat-item{display:flex;gap:1rem;align-items:flex-start}
+.mat-item img,.mat-item video{width:150px;max-width:38vw;border-radius:12px;border:1px solid var(--line);flex:none;background:#0f0f16}
+.mat-item .txt{white-space:pre-wrap;background:#0f0f16;border:1px solid var(--line);border-radius:12px;padding:.8rem;font-size:.88rem;margin:.5rem 0}
+@media (max-width:560px){.mat-item{flex-direction:column}.mat-item img,.mat-item video{width:100%;max-width:none}}

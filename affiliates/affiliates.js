@@ -225,7 +225,9 @@
       line('n', t('sim.users').replace('{n}', n.toLocaleString(locale())) + ' · ' + t('sim.total'));
       line('v', money(total, cur, total < 100 ? 2 : 0));
       if (cur !== 'USD' && usd > 0) line('u', '≈ ' + money(total * usd / price, 'USD', 0));
-      line('p', t('sim.per.sub').replace('{v}', money(perUser, cur, 2)));
+      // Média mensal = total acumulado ÷ 12 (só uma ideia: os 2 primeiros meses pagam 30% e os outros 10%).
+      var mensal = total / 12;
+      line('p', t('sim.per.sub').replace('{v}', money(mensal, cur, mensal < 100 ? 2 : 0)));
       out.appendChild(card);
     });
 
