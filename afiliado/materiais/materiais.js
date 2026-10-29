@@ -14,7 +14,7 @@
   };
   var APP_NAMES = { lumora: 'Lumora', clipit: 'ClipIt Sports' };
 
-  var lang = 'en', itens = [], filtro = 'todos', codigo = null;
+  var lang = 'en', itens = [], filtro = 'todos', codigo = null, meusApps = null;
   var root = document.getElementById('app');
 
   function t(k) { return S[lang][k]; }
@@ -72,7 +72,9 @@
     add(root, back, el('h1', null, t('title')), el('p', 'muted', t('intro')));
     if (!codigo) add(root, el('p', 'hint', t('codeHint')));
 
-    var apps = ['todos'].concat(Object.keys(APP_NAMES));
+    // Afiliado logado vê só o(s) app(s) dele; com um app só, nem aparece o filtro.
+    var apps = ['todos'].concat(meusApps || Object.keys(APP_NAMES));
+    if (meusApps && meusApps.length === 1) apps = [];
     var bar = el('div', 'bar');
     apps.forEach(function (a) {
       var b = el('button', 'btn sm', a === 'todos' ? t('all') : APP_NAMES[a]); b.type = 'button';
@@ -81,9 +83,12 @@
       add(bar, b);
     });
     bar.style.justifyContent = 'flex-start';
-    add(root, bar);
+    if (apps.length) add(root, bar);
 
-    var lista = itens.filter(function (m) { return filtro === 'todos' || !m.app || m.app === 'todos' || m.app === filtro; });
+    var lista = itens.filter(function (m) {
+      if (meusApps && m.app && m.app !== 'todos' && meusApps.indexOf(m.app) < 0) return false;
+      return filtro === 'todos' || !m.app || m.app === 'todos' || m.app === filtro;
+    });
     if (!lista.length) add(root, el('p', 'muted', t('empty')));
     lista.forEach(function (m) { add(root, item(m)); });
   }
@@ -100,6 +105,7 @@
   ]).then(function (res) {
     itens = (res[0] && res[0].itens) || [];
     codigo = res[1] && res[1].afiliado ? res[1].afiliado.codigo : null;
+    if (res[1] && res[1].afiliado) meusApps = res[1].afiliado.apps.map(function (a) { return a === 'beleza' ? 'lumora' : a; });
     render();
   });
 })();
