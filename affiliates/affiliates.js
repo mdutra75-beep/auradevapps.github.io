@@ -311,7 +311,7 @@
     if ($$('input', list).length >= 5) return;
     var inp = document.createElement('input');
     inp.id = 'f-link-' + ($$('input', list).length + 1);
-    inp.type = 'url'; inp.name = 'links'; inp.inputMode = 'url'; inp.autocomplete = 'off';
+    inp.type = 'text'; inp.name = 'links'; inp.inputMode = 'url'; inp.autocomplete = 'off';
     inp.setAttribute('data-i18n-ph', 'c.f.links.ph'); inp.placeholder = t('c.f.links.ph');
     inp.setAttribute('aria-label', t('c.f.links'));
     if (value) inp.value = value;
@@ -319,6 +319,11 @@
   }
 
   var EMAIL_RE = /^[^\s@<>"',;]{1,64}@[^\s@<>"',;]{1,255}\.[A-Za-z]{2,24}$/;
+  // Quem digita "instagram.com/perfil" (sem https://) também vale: completamos sozinhos.
+  function normUrl(s) {
+    s = String(s || '').trim().replace(/^@/, '');
+    return s && !/^[a-z][a-z0-9+.-]*:\/\//i.test(s) ? 'https://' + s : s;
+  }
   function validUrl(s) {
     try { var u = new URL(s); return /^https?:$/.test(u.protocol) && u.hostname.indexOf('.') > 0; } catch (e) { return false; }
   }
@@ -337,7 +342,7 @@
       email: f.email.value.trim(),
       pais: f.pais.value,
       canal_principal: f.canal.value,
-      links: $$('#links-list input').map(function (i) { return i.value.trim(); }).filter(Boolean),
+      links: $$('#links-list input').map(function (i) { return normUrl(i.value); }).filter(Boolean),
       audiencia: f.audiencia.value,
       idioma_conteudo: f.idioma_conteudo.value,
       paises_audiencia: f.paises_audiencia.value.trim(),
