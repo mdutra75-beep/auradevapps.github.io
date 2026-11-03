@@ -485,13 +485,16 @@ def render(pg):
         f'<a href="{us_path}"{CUR if aud == "us" else ""} data-track="audience_select" data-destination="us">{E(c["aud"]["us"])}</a>'
         f'</nav>')
 
+    # Bandeiras em imagem SVG (o emoji de bandeira não aparece no Windows).
+    FLAG = {'pt': 'br', 'en': 'us', 'es': 'es'}
+    flag = lambda l: f'<img class="flag" src="/images/flags/{FLAG[l]}.svg" alt="" width="20" height="13">'
     lang_menu = ''
     if aud == 'us':
         items = ''.join(
             f'<li><a href="{US[l]}" hreflang="{l}" lang="{l}" data-track="language_select" data-to="{l}"'
-            f'{" aria-current=true" if l == lang else ""}>{E(OWN_NAME[l])}</a></li>' for l in ('pt', 'en', 'es'))
+            f'{" aria-current=true" if l == lang else ""}>{flag(l)}{E(OWN_NAME[l])}</a></li>' for l in ('pt', 'en', 'es'))
         lang_menu = (f'<details class="lang-menu"><summary aria-label="{E(c["lang_label"])}">'
-                     f'<svg viewBox="0 0 24 24" aria-hidden="true">{ICON_GLOBE}</svg><span>{LANG_TAG[lang]}</span></summary>'
+                     f'<svg viewBox="0 0 24 24" aria-hidden="true">{ICON_GLOBE}</svg><span>{LANG_TAG[lang]}</span>{flag(lang)}</summary>'
                      f'<ul>{items}</ul></details>')
 
     # -------- HERO: logo > vídeo > informações --------
@@ -525,7 +528,7 @@ def render(pg):
     langs_html = ''
     if a['lang_section']:
         btns = ''.join(
-            f'<button type="button" class="lang-chip" data-set="{l}" aria-pressed="{"true" if l == lang else "false"}">{E(a["lang_names"][l])}</button>'
+            f'<button type="button" class="lang-chip" data-set="{l}" aria-pressed="{"true" if l == lang else "false"}"><span>{E(a["lang_names"][l])}</span>{flag(l)}</button>'
             for l in ('pt', 'en', 'es'))
         imgs = ''.join(
             f'<img class="ld-img{" on" if l == lang else ""}" data-lang="{l}" src="/lumora/images/screen-booking-{l}.jpg" width="780" height="1688" loading="lazy" alt="{E(c["phone_alt"])} ({E(a["lang_names"][l])})">'

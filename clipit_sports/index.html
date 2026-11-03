@@ -30,7 +30,10 @@
   .nav-home{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;color:var(--mid);text-decoration:none;border-bottom:1px dashed var(--dim);padding-bottom:2px}
   .nav-home:hover{color:var(--cyan)}
   .lang-toggle{display:flex;gap:.4rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:.3rem}
-  .lang-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:.15rem .4rem;border-radius:100px;opacity:.5;transition:opacity .2s,background .2s;line-height:1}
+  .lang-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:.15rem .4rem;border-radius:100px;opacity:.5;transition:opacity .2s,background .2s;line-height:1;display:inline-flex;flex-direction:column;align-items:center;gap:.25rem;color:inherit}
+  .lang-btn .lb-t{font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.12em}
+  .lang-btn .flag,.lang-chip .chip-flag{display:block;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.2)}
+  .lang-chip .chip-flag{display:inline-block;width:18px;height:12px;vertical-align:-1px;margin-right:.35rem}
   .lang-btn.active{opacity:1;background:rgba(255,255,255,.1)}
 
   /* ── HERO ── */
@@ -136,8 +139,8 @@
   <div class="nav-right">
     <a class="nav-home" href="https://aura-dev-app.com" data-i18n="nav.home">← aura-dev-app.com</a>
     <div class="lang-toggle">
-      <button class="lang-btn" data-lang="pt" onclick="setLang('pt')" title="Português">🇧🇷</button>
-      <button class="lang-btn" data-lang="en" onclick="setLang('en')" title="English">🇺🇸</button>
+      <button class="lang-btn" data-lang="pt" onclick="setLang('pt')" title="Português"><span class="lb-t">PT</span><img class="flag" src="/images/flags/br.svg" alt="" width="20" height="13"></button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')" title="English"><span class="lb-t">EN</span><img class="flag" src="/images/flags/us.svg" alt="" width="20" height="13"></button>
     </div>
   </div>
 </nav>
@@ -249,13 +252,13 @@
     <div class="sports-row" id="sportsRow"></div>
     <div class="langs-label" data-i18n="f4.langsLabel">Disponível em 7 idiomas</div>
     <div class="lang-row">
-      <span class="lang-chip">🇧🇷 Português</span>
-      <span class="lang-chip">🇺🇸 English</span>
-      <span class="lang-chip">🇪🇸 Español</span>
-      <span class="lang-chip">🇩🇪 Deutsch</span>
-      <span class="lang-chip">🇫🇷 Français</span>
-      <span class="lang-chip">🇮🇹 Italiano</span>
-      <span class="lang-chip">🇷🇺 Русский</span>
+      <span class="lang-chip"><img class="chip-flag" src="/images/flags/br.svg" alt="" width="18" height="12">Português</span>
+      <span class="lang-chip"><img class="chip-flag" src="/images/flags/us.svg" alt="" width="18" height="12">English</span>
+      <span class="lang-chip"><img class="chip-flag" src="/images/flags/es.svg" alt="" width="18" height="12">Español</span>
+      <span class="lang-chip"><img class="chip-flag" src="/images/flags/de.svg" alt="" width="18" height="12">Deutsch</span>
+      <span class="lang-chip"><img class="chip-flag" src="/images/flags/fr.svg" alt="" width="18" height="12">Français</span>
+      <span class="lang-chip"><img class="chip-flag" src="/images/flags/it.svg" alt="" width="18" height="12">Italiano</span>
+      <span class="lang-chip"><img class="chip-flag" src="/images/flags/ru.svg" alt="" width="18" height="12">Русский</span>
     </div>
   </div>
 </section>

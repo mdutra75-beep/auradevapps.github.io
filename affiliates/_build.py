@@ -123,6 +123,7 @@ RODAPE = """
 </footer>
 <script src="/affiliates/i18n.js"></script>
 <script src="/affiliates/precos.js"></script>
+<script src="/affiliates/flags.js"></script>
 <script src="/affiliates/affiliates.js"></script>
 </body>
 </html>

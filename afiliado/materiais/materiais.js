@@ -8,9 +8,9 @@
   if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && qs.get('api')) API = qs.get('api');
   var LANGS = ['en', 'pt', 'es'];
   var S = {
-    en: { title: 'Promotion materials', intro: 'Images, videos and ready-made texts to help you promote. Always disclose that you may earn a commission (for example #ad).', back: 'Back to my area', all: 'All', copy: 'Copy', copied: 'Copied!', download: 'Download', open: 'Open', empty: 'No materials in this language yet.', matLang: 'Materials language', codeHint: 'Sign in to your affiliate area and your code replaces {CODIGO} in the texts.', code: 'YOURCODE' },
-    pt: { title: 'Materiais para divulgação', intro: 'Imagens, vídeos e textos prontos para ajudar na divulgação. Sempre avise que você pode ganhar comissão (por exemplo #publi).', back: 'Voltar à minha área', all: 'Todos', copy: 'Copiar', copied: 'Copiado!', download: 'Baixar', open: 'Abrir', empty: 'Ainda não há materiais neste idioma.', matLang: 'Idioma dos materiais', codeHint: 'Entre na sua área do afiliado e o seu código substitui {CODIGO} nos textos.', code: 'SEUCODIGO' },
-    es: { title: 'Materiales para promocionar', intro: 'Imágenes, videos y textos listos para ayudarte a promocionar. Avisa siempre que puedes ganar una comisión (por ejemplo #publi).', back: 'Volver a mi área', all: 'Todos', copy: 'Copiar', copied: '¡Copiado!', download: 'Descargar', open: 'Abrir', empty: 'Aún no hay materiales en este idioma.', matLang: 'Idioma de los materiales', codeHint: 'Entra a tu área de afiliado y tu código reemplaza {CODIGO} en los textos.', code: 'TUCODIGO' },
+    en: { title: 'Promotion materials', intro: 'Images, videos and ready-made texts to help you promote. Always disclose that you may earn a commission (for example #ad).', back: 'Back to my area', all: 'All', copy: 'Copy', copied: 'Copied!', download: 'Download', open: 'Open', empty: 'No materials in this language yet.', matLang: 'Materials language', secLogo: 'Logos', secPrints: 'App screenshots', secDiv: 'Promotion materials', codeHint: 'Sign in to your affiliate area and your code replaces {CODIGO} in the texts.', code: 'YOURCODE' },
+    pt: { title: 'Materiais para divulgação', intro: 'Imagens, vídeos e textos prontos para ajudar na divulgação. Sempre avise que você pode ganhar comissão (por exemplo #publi).', back: 'Voltar à minha área', all: 'Todos', copy: 'Copiar', copied: 'Copiado!', download: 'Baixar', open: 'Abrir', empty: 'Ainda não há materiais neste idioma.', matLang: 'Idioma dos materiais', secLogo: 'Logos', secPrints: 'Prints do app', secDiv: 'Materiais de divulgação', codeHint: 'Entre na sua área do afiliado e o seu código substitui {CODIGO} nos textos.', code: 'SEUCODIGO' },
+    es: { title: 'Materiales para promocionar', intro: 'Imágenes, videos y textos listos para ayudarte a promocionar. Avisa siempre que puedes ganar una comisión (por ejemplo #publi).', back: 'Volver a mi área', all: 'Todos', copy: 'Copiar', copied: '¡Copiado!', download: 'Descargar', open: 'Abrir', empty: 'Aún no hay materiales en este idioma.', matLang: 'Idioma de los materiales', secLogo: 'Logos', secPrints: 'Capturas de pantalla', secDiv: 'Materiales de promoción', codeHint: 'Entra a tu área de afiliado y tu código reemplaza {CODIGO} en los textos.', code: 'TUCODIGO' },
   };
   var APP_NAMES = { lumora: 'Lumora', clipit: 'ClipIt Sports' };
   var LANG_NAMES = { pt: 'Português', en: 'English', es: 'Español' };
@@ -115,7 +115,15 @@
       return filtro === 'todos' || !m.app || m.app === 'todos' || m.app === filtro;
     });
     if (!lista.length) add(root, el('p', 'muted', t('empty')));
-    lista.forEach(function (m) { add(root, item(m)); });
+    // Seções: logos, prints e materiais de divulgação (sem "secao": imagens = prints, o resto = divulgação).
+    var SECOES = [['logo', 'secLogo'], ['prints', 'secPrints'], ['divulgacao', 'secDiv']];
+    function secaoDe(m) { return m.secao || (m.tipo === 'imagem' ? 'prints' : 'divulgacao'); }
+    SECOES.forEach(function (sc) {
+      var grupo = lista.filter(function (m) { return secaoDe(m) === sc[0]; });
+      if (!grupo.length) return;
+      add(root, el('h2', 'mat-sec', t(sc[1])));
+      grupo.forEach(function (m) { add(root, item(m)); });
+    });
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function (b) {
