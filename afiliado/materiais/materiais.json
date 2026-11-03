@@ -159,6 +159,15 @@
       "tipo": "texto",
       "titulo": "Texto listo (ClipIt Sports)",
       "texto": "Graba el partido, toca los mejores momentos y recibe los clips listos para compartir. Usa mi código {CODIGO} en ClipIt Sports. #publi #enlace_de_afiliado"
+    },
+    {
+      "id": "m_1793723972365_7me5",
+      "app": "clipit",
+      "secao": "divulgacao",
+      "tipo": "texto",
+      "titulo": "TESTE DO PAINEL (pode apagar)",
+      "idioma": "pt",
+      "texto": "Texto de teste do painel de materiais. Use o código {CODIGO}. Pode apagar."
     }
   ]
 }
