@@ -159,6 +159,15 @@
       "tipo": "texto",
       "titulo": "Texto listo (ClipIt Sports)",
       "texto": "Graba el partido, toca los mejores momentos y recibe los clips listos para compartir. Usa mi código {CODIGO} en ClipIt Sports. #publi #enlace_de_afiliado"
+    },
+    {
+      "id": "m_1793725412517_0lry",
+      "app": "clipit",
+      "secao": "divulgacao",
+      "tipo": "imagem",
+      "titulo": "Clipit Portugues 1",
+      "arquivo": "/afiliado/materiais/arquivos/clipit/pt/divulgacao/clipit-portugues-1-1793725412516.png",
+      "idioma": "pt"
     }
   ]
 }
