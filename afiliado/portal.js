@@ -258,8 +258,15 @@
 
     // Materiais
     add(root, el('h2', null, t('mats')));
-    var mc = card(); var a = el('a', 'btn sm', t('matsGo')); a.href = '/afiliado/materiais/?lang=' + lang;
-    add(mc, el('p', 'muted', t('matsD')), a); add(root, mc);
+    // Um botão por app do afiliado: cada app tem a sua própria página de materiais.
+    var mc = card(); add(mc, el('p', 'muted', t('matsD')));
+    d.links.forEach(function (l) {
+      var slug = l.app === 'beleza' ? 'lumora' : l.app;
+      var a = el('a', 'btn sm', t('matsGo') + (d.links.length > 1 ? ' · ' + l.nome : ''));
+      a.href = '/afiliado/materiais/' + slug + '/?lang=' + lang; a.style.marginRight = '.6rem';
+      add(mc, a);
+    });
+    add(root, mc);
   }
 
   // ── início ─────────────────────────────────────────────────────────────────

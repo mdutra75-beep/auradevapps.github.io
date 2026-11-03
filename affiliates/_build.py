@@ -29,6 +29,7 @@ DESCRICAO = ("Apply to become an approved affiliate, receive a personal referral
 PRODUTOS = {
     "clipit": {
         "pasta": "affiliates-clipit-sports",
+        "materiais": "/afiliado/materiais/clipit/",
         "nome": "ClipIt Sports",
         "titulo": "ClipIt Sports Affiliate Program | Earn With Your Audience",
         "og": "og-clipit.jpg",
@@ -45,6 +46,7 @@ PRODUTOS = {
     },
     "lumora": {
         "pasta": "affiliates-lumora",
+        "materiais": "/afiliado/materiais/lumora/",
         "nome": "Lumora",
         "titulo": "Lumora Affiliate Program | Earn With Your Audience",
         "og": "og-lumora.jpg",
@@ -145,7 +147,7 @@ CORPO_PRODUTO = """<main id="main">
     <h2 data-i18n="c.why.title">Why become an affiliate</h2>
     <div class="grid4">
       <div class="card"><div class="ico">{i_code}</div><h3 data-i18n="c.why.1.t"></h3><p data-i18n="c.why.1.d"></p></div>
-      <div class="card"><div class="ico">{i_image}</div><h3 data-i18n="c.why.2.t"></h3><p data-i18n="c.why.2.d"></p></div>
+      <div class="card"><div class="ico">{i_image}</div><h3 data-i18n="c.why.2.t"></h3><p data-i18n="c.why.2.d"></p>@@MAT_LINK@@</div>
       <div class="card"><div class="ico">{i_chart}</div><h3 data-i18n="c.why.3.t"></h3><p data-i18n="c.why.3.d"></p></div>
       <div class="card"><div class="ico">{i_wallet}</div><h3 data-i18n="c.why.4.t"></h3><p data-i18n="c.why.4.d"></p></div>
     </div>
@@ -276,7 +278,11 @@ def montar_produto(chave, p):
         nome=p["nome"], logo=p["logo"], visual=p["visual"],
         i_code=ICONES["code"], i_image=ICONES["image"], i_chart=ICONES["chart"], i_wallet=ICONES["wallet"],
     )
-    html += RODAPE.replace("@@PORTAL_RODAPE@@", LINKS_RODAPE)
+    # Atalho para a página de materiais DESTE app (no card "Materiais prontos" e no rodapé).
+    atalho = (f'<p style="margin-top:.7rem"><a class="linkbtn" href="{p["materiais"]}" data-i18n="c.mat.link">'
+              'See the promotion materials &rarr;</a></p>') if PORTAL else ""
+    html = html.replace("@@MAT_LINK@@", atalho)
+    html += RODAPE.replace("@@PORTAL_RODAPE@@", LINKS_RODAPE.replace("/afiliado/materiais/", p["materiais"]))
     return html
 
 

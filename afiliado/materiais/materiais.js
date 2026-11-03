@@ -16,6 +16,9 @@
 
   var lang = 'en', itens = [], filtro = 'todos', codigo = null, meusApps = null;
   var root = document.getElementById('app');
+  // Página própria de um app (/afiliado/materiais/lumora/ ou /clipit/): mostra só os materiais dele.
+  var fixo = root.getAttribute('data-app');
+  if (fixo && !APP_NAMES[fixo]) fixo = null;
 
   function t(k) { return S[lang][k]; }
   function pick(v) { return (v && typeof v === 'object') ? (v[lang] || v.en || v.pt || '') : (v || ''); }
@@ -66,15 +69,16 @@
   function render() {
     root.textContent = '';
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
-    document.title = t('title') + ' | Aura Dev Apps';
+    var tituloPagina = t('title') + (fixo ? ' · ' + APP_NAMES[fixo] : '');
+    document.title = tituloPagina + ' | Aura Dev Apps';
     Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
     var back = el('a', 'linkbtn', '← ' + t('back')); back.href = '/afiliado/?lang=' + lang;
-    add(root, back, el('h1', null, t('title')), el('p', 'muted', t('intro')));
+    add(root, back, el('h1', null, tituloPagina), el('p', 'muted', t('intro')));
     if (!codigo) add(root, el('p', 'hint', t('codeHint')));
 
     // Afiliado logado vê só o(s) app(s) dele; com um app só, nem aparece o filtro.
     var apps = ['todos'].concat(meusApps || Object.keys(APP_NAMES));
-    if (meusApps && meusApps.length === 1) apps = [];
+    if ((meusApps && meusApps.length === 1) || fixo) apps = [];
     var bar = el('div', 'bar');
     apps.forEach(function (a) {
       var b = el('button', 'btn sm', a === 'todos' ? t('all') : APP_NAMES[a]); b.type = 'button';
@@ -86,6 +90,7 @@
     if (apps.length) add(root, bar);
 
     var lista = itens.filter(function (m) {
+      if (fixo) return !m.app || m.app === 'todos' || m.app === fixo;
       if (meusApps && m.app && m.app !== 'todos' && meusApps.indexOf(m.app) < 0) return false;
       return filtro === 'todos' || !m.app || m.app === 'todos' || m.app === filtro;
     });
@@ -100,7 +105,7 @@
 
   var sessao = null; try { sessao = localStorage.getItem('aff_sessao'); } catch (e) {}
   Promise.all([
-    fetch('materiais.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).catch(function () { return { itens: [] }; }),
+    fetch('/afiliado/materiais/materiais.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).catch(function () { return { itens: [] }; }),
     sessao ? fetch(API + '/portal/resumo', { headers: { Authorization: 'Bearer ' + sessao } }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) : Promise.resolve(null),
   ]).then(function (res) {
     itens = (res[0] && res[0].itens) || [];
