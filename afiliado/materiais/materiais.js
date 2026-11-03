@@ -8,11 +8,12 @@
   if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && qs.get('api')) API = qs.get('api');
   var LANGS = ['en', 'pt', 'es'];
   var S = {
-    en: { title: 'Promotion materials', intro: 'Images, videos and ready-made texts to help you promote. Always disclose that you may earn a commission (for example #ad).', back: 'Back to my area', all: 'All', copy: 'Copy', copied: 'Copied!', download: 'Download', open: 'Open', empty: 'No materials yet.', codeHint: 'Sign in to your affiliate area and your code replaces {CODIGO} in the texts.', code: 'YOURCODE' },
-    pt: { title: 'Materiais para divulgação', intro: 'Imagens, vídeos e textos prontos para ajudar na divulgação. Sempre avise que você pode ganhar comissão (por exemplo #publi).', back: 'Voltar à minha área', all: 'Todos', copy: 'Copiar', copied: 'Copiado!', download: 'Baixar', open: 'Abrir', empty: 'Ainda não há materiais.', codeHint: 'Entre na sua área do afiliado e o seu código substitui {CODIGO} nos textos.', code: 'SEUCODIGO' },
-    es: { title: 'Materiales para promocionar', intro: 'Imágenes, videos y textos listos para ayudarte a promocionar. Avisa siempre que puedes ganar una comisión (por ejemplo #publi).', back: 'Volver a mi área', all: 'Todos', copy: 'Copiar', copied: '¡Copiado!', download: 'Descargar', open: 'Abrir', empty: 'Aún no hay materiales.', codeHint: 'Entra a tu área de afiliado y tu código reemplaza {CODIGO} en los textos.', code: 'TUCODIGO' },
+    en: { title: 'Promotion materials', intro: 'Images, videos and ready-made texts to help you promote. Always disclose that you may earn a commission (for example #ad).', back: 'Back to my area', all: 'All', copy: 'Copy', copied: 'Copied!', download: 'Download', open: 'Open', empty: 'No materials in this language yet.', matLang: 'Materials language', codeHint: 'Sign in to your affiliate area and your code replaces {CODIGO} in the texts.', code: 'YOURCODE' },
+    pt: { title: 'Materiais para divulgação', intro: 'Imagens, vídeos e textos prontos para ajudar na divulgação. Sempre avise que você pode ganhar comissão (por exemplo #publi).', back: 'Voltar à minha área', all: 'Todos', copy: 'Copiar', copied: 'Copiado!', download: 'Baixar', open: 'Abrir', empty: 'Ainda não há materiais neste idioma.', matLang: 'Idioma dos materiais', codeHint: 'Entre na sua área do afiliado e o seu código substitui {CODIGO} nos textos.', code: 'SEUCODIGO' },
+    es: { title: 'Materiales para promocionar', intro: 'Imágenes, videos y textos listos para ayudarte a promocionar. Avisa siempre que puedes ganar una comisión (por ejemplo #publi).', back: 'Volver a mi área', all: 'Todos', copy: 'Copiar', copied: '¡Copiado!', download: 'Descargar', open: 'Abrir', empty: 'Aún no hay materiales en este idioma.', matLang: 'Idioma de los materiales', codeHint: 'Entra a tu área de afiliado y tu código reemplaza {CODIGO} en los textos.', code: 'TUCODIGO' },
   };
   var APP_NAMES = { lumora: 'Lumora', clipit: 'ClipIt Sports' };
+  var LANG_NAMES = { pt: 'Português', en: 'English', es: 'Español' };
 
   var lang = 'en', itens = [], filtro = 'todos', codigo = null, meusApps = null;
   var root = document.getElementById('app');
@@ -34,6 +35,13 @@
     var p = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'en'];
     for (var i = 0; i < p.length; i++) { var n = String(p[i] || '').slice(0, 2).toLowerCase(); if (LANGS.indexOf(n) >= 0) return n; }
     return 'en';
+  }
+
+  // Material com "idioma" (texto ou lista, ex.: "pt" ou ["pt","es"]) só aparece nesse(s) idioma(s);
+  // sem "idioma", aparece em todos (e título/arquivo/texto podem trazer uma versão por idioma).
+  function noIdioma(m) {
+    if (!m.idioma) return true;
+    return (Array.isArray(m.idioma) ? m.idioma : [m.idioma]).indexOf(lang) >= 0;
   }
 
   function copyBtn(texto) {
@@ -74,6 +82,17 @@
     Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
     var back = el('a', 'linkbtn', '← ' + t('back')); back.href = '/afiliado/?lang=' + lang;
     add(root, back, el('h1', null, tituloPagina), el('p', 'muted', t('intro')));
+    // Seletor de idioma bem visível: os materiais são separados por idioma.
+    var lb = el('div', 'bar'); lb.style.justifyContent = 'flex-start'; lb.style.alignItems = 'center';
+    var ll = el('span', 'muted', t('matLang') + ':'); ll.style.marginRight = '.4rem'; add(lb, ll);
+    LANGS.slice().sort(function (a, b) { return ['pt', 'en', 'es'].indexOf(a) - ['pt', 'en', 'es'].indexOf(b); }).forEach(function (l) {
+      var b = el('button', 'btn sm', LANG_NAMES[l]); b.type = 'button';
+      b.setAttribute('aria-pressed', String(l === lang));
+      if (l !== lang) b.style.opacity = '.55';
+      b.addEventListener('click', function () { lang = l; try { localStorage.setItem('aff_lang', lang); } catch (e) {} render(); });
+      add(lb, b);
+    });
+    add(root, lb);
     if (!codigo) add(root, el('p', 'hint', t('codeHint')));
 
     // Afiliado logado vê só o(s) app(s) dele; com um app só, nem aparece o filtro.
@@ -90,6 +109,7 @@
     if (apps.length) add(root, bar);
 
     var lista = itens.filter(function (m) {
+      if (!noIdioma(m)) return false;
       if (fixo) return !m.app || m.app === 'todos' || m.app === fixo;
       if (meusApps && m.app && m.app !== 'todos' && meusApps.indexOf(m.app) < 0) return false;
       return filtro === 'todos' || !m.app || m.app === 'todos' || m.app === filtro;
