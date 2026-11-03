@@ -204,6 +204,15 @@
       "titulo": "Clipit Portugues 5",
       "arquivo": "/afiliado/materiais/arquivos/clipit/pt/divulgacao/clipit-portugues-5-1793725455362.png",
       "idioma": "pt"
+    },
+    {
+      "id": "m_1793725741263_bm0l",
+      "app": "clipit",
+      "secao": "divulgacao",
+      "tipo": "video",
+      "titulo": "Aplicativo em Funcionamento",
+      "idioma": "pt",
+      "arquivo": "https://www.youtube.com/shorts/UTyQp7tpLdY"
     }
   ]
 }
