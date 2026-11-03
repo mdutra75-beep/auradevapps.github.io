@@ -17,6 +17,7 @@
 
   var lang = 'en', itens = [], filtro = 'todos', codigo = null, meusApps = null;
   var root = document.getElementById('app');
+  root.style.maxWidth = '1100px'; // mais largo: vídeos e imagens lado a lado
   // Página própria de um app (/afiliado/materiais/lumora/ ou /clipit/): mostra só os materiais dele.
   var fixo = root.getAttribute('data-app');
   if (fixo && !APP_NAMES[fixo]) fixo = null;
@@ -51,6 +52,56 @@
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(ok);
     });
     return b;
+  }
+
+  // YouTube: devolve {id, vertical} (Shorts são verticais) ou null. Só ids de 11 caracteres,
+  // no domínio fixo youtube-nocookie.com (nunca monta um iframe a partir de URL arbitrária).
+  function youtube(url) {
+    var r = /^https:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/.exec(url || '');
+    return r ? { id: r[1], vertical: /\/shorts\//.test(url) } : null;
+  }
+  var EH_ARQUIVO_VIDEO = /\.(mp4|webm|mov)(\?|$)/i;
+
+  // Imagem em quadro (várias lado a lado).
+  function tileImagem(m) {
+    var titulo = pick(m.titulo), url = seguro(pick(m.arquivo));
+    var c = el('div', 'mat-tile'), th = el('a', 'mat-thumb'); th.href = url; th.target = '_blank'; th.rel = 'noopener';
+    var img = el('img'); img.src = url; img.alt = titulo; img.loading = 'lazy'; add(th, img);
+    var a = el('a', 'btn sm', t('download')); a.href = url; a.setAttribute('download', '');
+    return add(c, th, el('h3', null, titulo), a);
+  }
+
+  // Vídeo com o player já aberto (YouTube ou arquivo mp4/webm/mov); outros links viram botão.
+  function tileVideo(m) {
+    var titulo = pick(m.titulo), url = seguro(pick(m.arquivo));
+    var c = el('div', 'mat-tile vid'), yt = youtube(url);
+    if (yt) {
+      var box = el('div', 'mat-player' + (yt.vertical ? ' vertical' : ''));
+      var f = el('iframe'); f.src = 'https://www.youtube-nocookie.com/embed/' + yt.id; f.title = titulo; f.loading = 'lazy';
+      f.setAttribute('allow', 'accelerometer; encrypted-media; picture-in-picture; fullscreen'); f.setAttribute('allowfullscreen', '');
+      f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin'); add(box, f); add(c, box);
+    } else if (EH_ARQUIVO_VIDEO.test(url)) {
+      var box2 = el('div', 'mat-player'); var v = el('video'); v.src = url; v.controls = true; v.preload = 'metadata'; v.playsInline = true; add(box2, v); add(c, box2);
+    }
+    add(c, el('h3', null, titulo));
+    if (url) {
+      var a = el('a', 'btn sm', yt ? t('open') : (EH_ARQUIVO_VIDEO.test(url) ? t('download') : t('open'))); a.href = url;
+      if (EH_ARQUIVO_VIDEO.test(url)) a.setAttribute('download', ''); else { a.target = '_blank'; a.rel = 'noopener'; }
+      add(c, a);
+    }
+    return c;
+  }
+
+  // Várias legendas: um bloco só, uma embaixo da outra.
+  function blocoTextos(lista) {
+    var c = el('div', 'card mat-textos');
+    lista.forEach(function (m) {
+      var txt = pick(m.texto).split('{CODIGO}').join(codigo || t('code'));
+      var b = el('div', 'mat-texto');
+      add(b, el('h3', null, pick(m.titulo)), el('div', 'txt', txt), copyBtn(txt));
+      add(c, b);
+    });
+    return c;
   }
 
   function item(m) {
@@ -122,7 +173,15 @@
       var grupo = lista.filter(function (m) { return secaoDe(m) === sc[0]; });
       if (!grupo.length) return;
       add(root, el('h2', 'mat-sec', t(sc[1])));
-      grupo.forEach(function (m) { add(root, item(m)); });
+      // Vídeos (player aberto) e imagens ficam lado a lado; legendas empilhadas; o resto em lista.
+      var videos = grupo.filter(function (m) { return m.tipo === 'video'; });
+      var imagens = grupo.filter(function (m) { return m.tipo === 'imagem'; });
+      var textos = grupo.filter(function (m) { return m.tipo === 'texto'; });
+      var outros = grupo.filter(function (m) { return ['video', 'imagem', 'texto'].indexOf(m.tipo) < 0; });
+      if (videos.length) { var gv = el('div', 'mat-grid vids'); videos.forEach(function (m) { add(gv, tileVideo(m)); }); add(root, gv); }
+      if (imagens.length) { var gi = el('div', 'mat-grid imgs'); imagens.forEach(function (m) { add(gi, tileImagem(m)); }); add(root, gi); }
+      if (textos.length) add(root, blocoTextos(textos));
+      outros.forEach(function (m) { add(root, item(m)); });
     });
   }
 
