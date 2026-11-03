@@ -213,6 +213,15 @@
       "titulo": "Aplicativo em Funcionamento",
       "idioma": "pt",
       "arquivo": "https://www.youtube.com/shorts/UTyQp7tpLdY"
+    },
+    {
+      "id": "m_1793725753234_5km8",
+      "app": "clipit",
+      "secao": "divulgacao",
+      "tipo": "texto",
+      "titulo": "Teste",
+      "idioma": "pt",
+      "texto": "Teste de texto marco"
     }
   ]
 }
