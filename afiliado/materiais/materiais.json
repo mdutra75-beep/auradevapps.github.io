@@ -654,6 +654,15 @@
       "titulo": "eng_1",
       "arquivo": "/afiliado/materiais/arquivos/clipit/en/prints/eng-1-1793804315494.png",
       "idioma": "en"
+    },
+    {
+      "id": "m_1793804319013_cwnx",
+      "app": "clipit",
+      "secao": "prints",
+      "tipo": "imagem",
+      "titulo": "eng_2",
+      "arquivo": "/afiliado/materiais/arquivos/clipit/en/prints/eng-2-1793804319013.png",
+      "idioma": "en"
     }
   ]
 }
