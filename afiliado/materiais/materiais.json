@@ -32,15 +32,6 @@
       "arquivo": "/affiliates/img/lumora-agenda-en.webp"
     },
     {
-      "id": "lumora-agenda-es",
-      "app": "lumora",
-      "idioma": "es",
-      "secao": "prints",
-      "tipo": "imagem",
-      "titulo": "Lumora: agenda",
-      "arquivo": "/affiliates/img/lumora-agenda-es.webp"
-    },
-    {
       "id": "lumora-meulink-pt",
       "app": "lumora",
       "idioma": "pt",
