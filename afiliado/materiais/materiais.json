@@ -222,6 +222,15 @@
       "titulo": "Teste",
       "idioma": "pt",
       "texto": "Teste de texto marco"
+    },
+    {
+      "id": "m_1793800827579_0zvk",
+      "app": "clipit",
+      "secao": "divulgacao",
+      "tipo": "imagem",
+      "titulo": "Clipit Ingles 1",
+      "arquivo": "/afiliado/materiais/arquivos/clipit/en/divulgacao/clipit-ingles-1-1793800827579.png",
+      "idioma": "en"
     }
   ]
 }
