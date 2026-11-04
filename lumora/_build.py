@@ -738,6 +738,7 @@ def render(pg):
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/lumora/lumora.css?v={VER}">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+<script defer src="/track.js"></script>
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>

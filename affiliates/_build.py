@@ -4,6 +4,7 @@
     python affiliates/_build.py
 
 Saída:
+  affiliates/index.html  (página central: escolhe Lumora ou ClipIt)
   affiliates-clipit-sports/index.html
   affiliates-lumora/index.html
   affiliate-terms/index.html
@@ -93,6 +94,7 @@ CABECALHO = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/affiliates/affiliates.css">
+<script defer src="/track.js"></script>
 </head>
 <body{body_attr}>
 <a class="skip" href="#main" data-i18n="c.skip">Skip to content</a>
@@ -267,6 +269,37 @@ CORPO_TERMOS = """<main id="main">
 </main>
 """
 
+CORPO_HUB = """<main id="main">
+  <section class="hero" style="grid-template-columns:1fr;text-align:center;justify-items:center">
+    <div>
+      <p class="eyebrow" data-i18n="c.eyebrow">Affiliate program</p>
+      <h1 data-i18n="hub.title">Become an Aura Dev Apps affiliate</h1>
+      <p class="lead" style="margin-left:auto;margin-right:auto" data-i18n="hub.sub">Choose the app you want to promote. Approved affiliates get a personal code, ready-made materials and commissions paid through PayPal.</p>
+      <p class="note" data-i18n="c.disclaimer"></p>
+    </div>
+  </section>
+
+  <section id="apps" style="padding-top:0">
+    <h2 style="text-align:center" data-i18n="hub.pick">Pick an app</h2>
+    <div class="grid3" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));max-width:760px;margin:0 auto">
+      <div class="card" style="text-align:center">
+        <img src="/affiliates/img/logo-lumora.webp" alt="Lumora logo" width="72" height="72" style="display:block;margin:0 auto 1rem;border-radius:18px">
+        <h3>Lumora</h3>
+        <p data-i18n="hub.lumora.d">Scheduling and finances for beauty salons and nail studios.</p>
+        <p style="margin-top:1.1rem"><a class="btn" href="/affiliates-lumora/" data-i18n="hub.cta">See the program</a></p>
+      </div>
+      <div class="card" style="text-align:center">
+        <img src="/affiliates/img/logo-clipit.webp" alt="ClipIt Sports logo" width="72" height="72" style="display:block;margin:0 auto 1rem;border-radius:18px">
+        <h3>ClipIt Sports</h3>
+        <p data-i18n="hub.clipit.d">Record games and training, mark the best plays and get short clips ready to share.</p>
+        <p style="margin-top:1.1rem"><a class="btn" href="/affiliates-clipit-sports/" data-i18n="hub.cta">See the program</a></p>
+      </div>
+    </div>
+    <p class="foot-note" style="text-align:center;margin-top:2rem"><a href="/affiliate-terms/" data-i18n="c.foot.terms">Affiliate Terms</a></p>
+  </section>
+</main>
+"""
+
 
 def montar_produto(chave, p):
     url = f"{SITE}/{p['pasta']}/"
@@ -298,6 +331,17 @@ def montar_termos():
     html += RODAPE.replace("@@PORTAL_RODAPE@@", LINKS_RODAPE)
     return html
 
+def montar_hub():
+    html = CABECALHO.format(
+        titulo="Become an Affiliate | Aura Dev Apps",
+        descricao="Join the Aura Dev Apps affiliate program: pick Lumora or ClipIt Sports, get a personal referral code and earn commissions.",
+        url=f"{SITE}/affiliates/", robots="index, follow",
+        og=f"{SITE}/affiliates/img/og-lumora.jpg", body_attr="", site=SITE, cta_topo=LINK_LOGIN_TOPO.rstrip(),
+    )
+    html += CORPO_HUB
+    html += RODAPE.replace("@@PORTAL_RODAPE@@", LINKS_RODAPE)
+    return html
+
 
 def escrever(caminho, conteudo):
     os.makedirs(os.path.dirname(caminho), exist_ok=True)
@@ -326,6 +370,8 @@ if __name__ == "__main__":
     for chave, p in PRODUTOS.items():
         escrever(os.path.join(RAIZ, p["pasta"], "index.html"), montar_produto(chave, p))
         urls.append(f"{SITE}/{p['pasta']}/")
+    escrever(os.path.join(RAIZ, "affiliates", "index.html"), montar_hub())
+    urls.append(f"{SITE}/affiliates/")
     escrever(os.path.join(RAIZ, "affiliate-terms", "index.html"), montar_termos())
     urls.append(f"{SITE}/affiliate-terms/")
     atualizar_sitemap(urls)
