@@ -26,6 +26,8 @@
       recent: 'Latest commissions', period: 'Month', app: 'App', month: 'Sub. month', pct: '%', value: 'Commission', status: 'Status', acct: 'Account',
       st: { devida: 'Accruing', fechada: 'Approved', aguardando_liquido: 'Waiting store data', estornada: 'Refunded' },
       none: 'No commissions yet. They appear after someone who used your code pays for a subscription.',
+      fPeriod: 'Month', fLatest: 'Latest', fAll: 'All months', fTotal: 'Total for {m}', fTotalAll: 'Total, all months', fFoot: 'Total', fHint: 'Totals do not include refunded sales or sales still waiting for the store. Months are the billing month.',
+      fMore: 'Showing the latest only.', fSeeAll: 'See all', csv: 'Download CSV',
       pay: 'Payout', payD: 'Where do you want to receive your commissions? We pay through PayPal.',
       payTutorial: 'No PayPal yet? Create a free account at paypal.com (personal or business), confirm your email, and type that same email below. Make sure it can receive international payments.',
       payEmail: 'PayPal account email', paySave: 'Save', paySaved: 'Saved. We will pay to this account.', payBad: 'Please type a valid email.',
@@ -48,6 +50,8 @@
       recent: 'Últimas comissões', period: 'Mês', app: 'App', month: 'Mês da assin.', pct: '%', value: 'Comissão', status: 'Situação', acct: 'Conta',
       st: { devida: 'Acumulando', fechada: 'Aprovada', aguardando_liquido: 'Aguardando a loja', estornada: 'Estornada' },
       none: 'Ainda não há comissões. Elas aparecem depois que alguém que usou seu código paga uma assinatura.',
+      fPeriod: 'Mês', fLatest: 'Mais recentes', fAll: 'Todos os meses', fTotal: 'Total de {m}', fTotalAll: 'Total, todos os meses', fFoot: 'Total', fHint: 'Os totais não incluem vendas estornadas nem as que ainda aguardam a loja. O mês é o mês da cobrança.',
+      fMore: 'Mostrando só as mais recentes.', fSeeAll: 'Ver todas', csv: 'Baixar CSV',
       pay: 'Pagamento', payD: 'Onde você quer receber suas comissões? Pagamos por PayPal.',
       payTutorial: 'Ainda não tem PayPal? Crie uma conta gratuita em paypal.com (pessoal ou empresarial), confirme o e-mail e digite o mesmo e-mail abaixo. Confira se ela pode receber pagamentos do exterior.',
       payEmail: 'E-mail da sua conta PayPal', paySave: 'Salvar', paySaved: 'Salvo. Vamos pagar nesta conta.', payBad: 'Digite um e-mail válido.',
@@ -70,6 +74,8 @@
       recent: 'Últimas comisiones', period: 'Mes', app: 'App', month: 'Mes de susc.', pct: '%', value: 'Comisión', status: 'Estado', acct: 'Cuenta',
       st: { devida: 'Acumulando', fechada: 'Aprobada', aguardando_liquido: 'Esperando la tienda', estornada: 'Reembolsada' },
       none: 'Aún no hay comisiones. Aparecen cuando alguien que usó tu código paga una suscripción.',
+      fPeriod: 'Mes', fLatest: 'Más recientes', fAll: 'Todos los meses', fTotal: 'Total de {m}', fTotalAll: 'Total, todos los meses', fFoot: 'Total', fHint: 'Los totales no incluyen ventas reembolsadas ni las que aún esperan a la tienda. El mes es el mes del cobro.',
+      fMore: 'Mostrando solo las más recientes.', fSeeAll: 'Ver todas', csv: 'Descargar CSV',
       pay: 'Pago', payD: '¿Dónde quieres recibir tus comisiones? Pagamos por PayPal.',
       payTutorial: '¿Aún no tienes PayPal? Crea una cuenta gratis en paypal.com (personal o empresa), confirma tu correo y escribe ese mismo correo abajo. Verifica que pueda recibir pagos del exterior.',
       payEmail: 'Correo de tu cuenta PayPal', paySave: 'Guardar', paySaved: 'Guardado. Pagaremos a esta cuenta.', payBad: 'Escribe un correo válido.',
@@ -128,17 +134,47 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, data: j }; }); });
   }
 
+  function mesNome(ym) {
+    var p = String(ym).split('-');
+    try { return new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : lang, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(+p[0], +p[1] - 1, 1))); } catch (e) { return ym; }
+  }
+  function csvCell(v) { v = String(v == null ? '' : v); return /[",;\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  function salvarCsv(d, linhas) {
+    var cab = ['period', 'app', 'month', 'pct', 'value', 'status', 'acct'].map(function (k) { return t(k); }).concat(['Currency']);
+    var out = [cab].concat(linhas.map(function (r) {
+      return [r.periodo, r.app === 'beleza' ? 'Lumora' : 'ClipIt', r.mes_n, r.percentual, r.comissao == null ? '' : r.comissao, (t('st')[r.status]) || r.status, r.conta, r.moeda || ''];
+    })).map(function (l) { return l.map(csvCell).join(','); }).join('\r\n');
+    var blob = new Blob(['﻿' + out], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'comissoes-' + String(d.afiliado.codigo).toLowerCase() + '-' + (mesSel || 'todos') + '.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+  }
+  function baixarCsv(d, btn) {
+    if (!d.tem_mais) return salvarCsv(d, d.recentes);
+    // a tabela mostra só as mais recentes: busca todas antes de montar o arquivo
+    btn.disabled = true;
+    api('/portal/resumo?mes=todos', undefined, sessao()).then(function (r) {
+      btn.disabled = false;
+      if (r.status === 200) salvarCsv(d, r.data.recentes);
+    }).catch(function () { btn.disabled = false; });
+  }
+
   // ── telas ──────────────────────────────────────────────────────────────────
   var flash = '';
+  var mesSel = ''; // '' = mais recentes | 'todos' | 'AAAA-MM' (mes da cobranca)
+  var rolarParaComissoes = false;
   function render() {
     root.textContent = '';
     var s = sessao();
     if (!s) return renderLogin();
     root.appendChild(el('p', 'muted', t('wait')));
-    api('/portal/resumo', undefined, s).then(function (r) {
+    api('/portal/resumo' + (mesSel ? '?mes=' + encodeURIComponent(mesSel) : ''), undefined, s).then(function (r) {
       if (r.status === 401) { try { localStorage.removeItem(KEY); } catch (e) {} return renderLogin(); }
       if (r.status !== 200) { root.textContent = ''; return add(root, el('div', 'msg err show', t('err'))); }
       renderPainel(r.data);
+      if (rolarParaComissoes) { rolarParaComissoes = false; var a = document.getElementById('comissoes'); if (a && a.scrollIntoView) a.scrollIntoView(); }
     }).catch(function () { root.textContent = ''; add(root, el('div', 'msg err show', t('err'))); });
   }
 
@@ -217,19 +253,62 @@
     add(root, gm, el('p', 'hint', t('moneyHint')));
     if (d.aguardando_liquido > 0) add(root, el('p', 'hint', fill(t('awaiting'), { n: d.aguardando_liquido })));
 
-    add(root, el('h2', null, t('recent')));
-    if (!d.recentes.length) add(root, el('p', 'muted', t('none')));
+    var h2c = el('h2', null, t('recent')); h2c.id = 'comissoes'; add(root, h2c);
+    if (!d.recentes.length && !d.meses.length) add(root, el('p', 'muted', t('none')));
     else {
+      // filtro por mês de cobrança
+      var fl = el('div', 'filtro'); fl.style.cssText = 'display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 .8rem';
+      var flab = el('label', 'lbl', t('fPeriod')); flab.setAttribute('for', 'fmes');
+      var sel = el('select'); sel.id = 'fmes';
+      function opt(v, txt) { var o = el('option', null, txt); o.value = v; if (v === mesSel) o.selected = true; add(sel, o); }
+      opt('', t('fLatest')); opt('todos', t('fAll'));
+      d.meses.forEach(function (m) { opt(m, mesNome(m)); });
+      sel.addEventListener('change', function () { mesSel = sel.value; rolarParaComissoes = true; render(); });
+      var bcsv = el('button', 'btn sm', t('csv')); bcsv.type = 'button';
+      bcsv.addEventListener('click', function () { baixarCsv(d, bcsv); });
+      add(fl, flab, sel, bcsv); add(root, fl);
+
+      // total do recorte escolhido (mês ou todos)
+      if (d.total_periodo) {
+        var rotulo = d.filtro === 'todos' ? t('fTotalAll') : fill(t('fTotal'), { m: mesNome(d.filtro) });
+        var tg = el('div', 'grid2');
+        d.total_periodo.forEach(function (x) {
+          var c = card();
+          add(c, el('div', 'lbl', rotulo), el('div', 'big', money(x.total, x.moeda)));
+          add(tg, c);
+        });
+        if (!d.total_periodo.length) { var c0 = card(); add(c0, el('div', 'lbl', rotulo), el('div', 'big', '—')); add(tg, c0); }
+        add(root, tg);
+      }
+
       var tb = el('table', 'tbl'), hd = el('tr');
       ['period', 'app', 'month', 'pct', 'value', 'status', 'acct'].forEach(function (k) { add(hd, el('th', null, t(k))); });
       add(tb, hd);
+      var somas = {};
       d.recentes.forEach(function (r) {
         var tr = el('tr');
         add(tr, el('td', null, r.periodo), el('td', null, r.app === 'beleza' ? 'Lumora' : 'ClipIt'), el('td', null, String(r.mes_n)), el('td', null, r.percentual + '%'),
           el('td', null, r.comissao == null ? '—' : money(r.comissao, r.moeda || 'USD')), el('td', null, (t('st')[r.status]) || r.status), el('td', null, r.conta));
         add(tb, tr);
+        if (r.comissao != null && (r.status === 'devida' || r.status === 'fechada')) { var cu = r.moeda || 'USD'; somas[cu] = (somas[cu] || 0) + Math.round(Number(r.comissao) * 100); }
       });
+      // rodapé: só quando a tabela mostra tudo (senão a soma enganaria)
+      if (!d.tem_mais) {
+        Object.keys(somas).forEach(function (cu) {
+          var ft = el('tr'); ft.style.fontWeight = '700';
+          var c1 = el('td', null, t('fFoot')); c1.colSpan = 4;
+          add(ft, c1, el('td', null, money(somas[cu] / 100, cu)), el('td', null, ''), el('td', null, ''));
+          add(tb, ft);
+        });
+      }
       var wrap = el('div'); wrap.style.overflowX = 'auto'; add(wrap, tb); add(root, wrap);
+      if (d.tem_mais) {
+        var mp = el('p', 'hint', t('fMore') + ' ');
+        var ver = el('button', 'linkbtn', t('fSeeAll')); ver.type = 'button';
+        ver.addEventListener('click', function () { mesSel = 'todos'; rolarParaComissoes = true; render(); });
+        add(mp, ver); add(root, mp);
+      }
+      add(root, el('p', 'hint', t('fHint')));
     }
 
     // Pagamento

@@ -224,3 +224,7 @@ footer a:hover{color:var(--paper)}
 .mat-item img,.mat-item video{width:150px;max-width:38vw;border-radius:12px;border:1px solid var(--line);flex:none;background:#0f0f16}
 .mat-item .txt{white-space:pre-wrap;background:#0f0f16;border:1px solid var(--line);border-radius:12px;padding:.8rem;font-size:.88rem;margin:.5rem 0}
 @media (max-width:560px){.mat-item{flex-direction:column}.mat-item img,.mat-item video{width:100%;max-width:none}}
+
+/* filtro de mês das comissões */
+.portal .filtro .lbl{margin:0}
+.portal .filtro select{background:var(--card);color:inherit;border:1px solid var(--line);border-radius:10px;padding:.5rem .8rem;font:inherit;font-size:.9rem;text-transform:capitalize}
