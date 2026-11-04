@@ -636,6 +636,15 @@
       "titulo": "port_2",
       "arquivo": "/afiliado/materiais/arquivos/clipit/pt/prints/port-2-1793804298357.png",
       "idioma": "pt"
+    },
+    {
+      "id": "m_1793804311475_hx3j",
+      "app": "clipit",
+      "secao": "prints",
+      "tipo": "imagem",
+      "titulo": "eng_3",
+      "arquivo": "/afiliado/materiais/arquivos/clipit/en/prints/eng-3-1793804311475.png",
+      "idioma": "en"
     }
   ]
 }
