@@ -357,6 +357,15 @@
       "titulo": "S10EN@2x",
       "arquivo": "/afiliado/materiais/arquivos/clipit/en/divulgacao/s10en-2x-1793801065636.png",
       "idioma": "en"
+    },
+    {
+      "id": "m_1793801380323_vr6k",
+      "app": "clipit",
+      "secao": "divulgacao",
+      "tipo": "imagem",
+      "titulo": "S03PT@2x",
+      "arquivo": "/afiliado/materiais/arquivos/clipit/pt/divulgacao/s03pt-2x-1793801380323.png",
+      "idioma": "pt"
     }
   ]
 }
