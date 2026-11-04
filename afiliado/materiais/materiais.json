@@ -50,15 +50,6 @@
       "arquivo": "/affiliates/img/lumora-meulink-es.webp"
     },
     {
-      "id": "lumora-financeiro-pt",
-      "app": "lumora",
-      "idioma": "pt",
-      "secao": "prints",
-      "tipo": "imagem",
-      "titulo": "Lumora: financeiro",
-      "arquivo": "/affiliates/img/lumora-financeiro-pt.webp"
-    },
-    {
       "id": "lumora-financeiro-en",
       "app": "lumora",
       "idioma": "en",
