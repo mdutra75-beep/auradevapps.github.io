@@ -18,6 +18,10 @@
       hello: 'Hi, {n}', out: 'Sign out', yourCode: 'Your referral code', apps: 'Your links',
       android: 'Android link (the app reads your code automatically)', copy: 'Copy', copied: 'Copied!',
       ios: 'iPhone: your audience types this code in the app (Settings or the subscription screen) and taps "Redeem discount".',
+      tip: 'Tip: your code gives your audience a discount in the app and shows they came from your referral.',
+      andT: 'Android', andD: 'Your audience can use your direct link (the app reads your code automatically) OR type your code in the app.', andLink: 'Direct link', andCode: 'Your code (typed in the app)',
+      iosT: 'iPhone', iosD: 'Only by typing the code in the app (Settings or the subscription screen) and tapping "Redeem discount". There is no link for iPhone: share the code.',
+      iosWarn: 'Do not share Apple redeem links. Without the code typed in the app, the sale is not credited to you.',
       iosM: 'Monthly plan code', iosA: 'Annual plan code',
       results: 'Your results', linked: 'Accounts that used your code', paying: 'Paying subscribers',
       money: 'Your commissions', toReceive: 'Accruing', toPay: 'Approved, to be paid', paid: 'Paid',
@@ -42,6 +46,10 @@
       hello: 'Olá, {n}', out: 'Sair', yourCode: 'Seu código de indicação', apps: 'Seus links',
       android: 'Link do Android (o app lê seu código sozinho)', copy: 'Copiar', copied: 'Copiado!',
       ios: 'iPhone: seu público digita este código no app (Configurações ou tela de assinatura) e toca em "Resgatar desconto".',
+      tip: 'Dica: o código serve para o usuário final ter desconto no app e para identificar que ele veio através da sua indicação.',
+      andT: 'Android', andD: 'Seu público pode usar o link direto (o app lê seu código sozinho) OU digitar o código no app.', andLink: 'Link direto', andCode: 'Seu código (digitado no app)',
+      iosT: 'iPhone', iosD: 'Somente digitando o código no app (Configurações ou tela de assinatura) e tocando em "Resgatar desconto". Não existe link para iPhone: divulgue o código.',
+      iosWarn: 'Não divulgue links de resgate da Apple. Sem o código digitado no app, a venda não é creditada a você.',
       iosM: 'Código do plano mensal', iosA: 'Código do plano anual',
       results: 'Seus resultados', linked: 'Contas que usaram seu código', paying: 'Assinantes pagantes',
       money: 'Suas comissões', toReceive: 'Acumulando', toPay: 'Aprovado, a pagar', paid: 'Pago',
@@ -66,6 +74,10 @@
       hello: 'Hola, {n}', out: 'Salir', yourCode: 'Tu código de referido', apps: 'Tus enlaces',
       android: 'Enlace de Android (la app lee tu código sola)', copy: 'Copiar', copied: '¡Copiado!',
       ios: 'iPhone: tu audiencia escribe este código en la app (Ajustes o pantalla de suscripción) y toca "Canjear descuento".',
+      tip: 'Consejo: el código da a tu audiencia un descuento en la app e identifica que llegaron por tu referido.',
+      andT: 'Android', andD: 'Tu audiencia puede usar tu enlace directo (la app lee tu código sola) O escribir tu código en la app.', andLink: 'Enlace directo', andCode: 'Tu código (escrito en la app)',
+      iosT: 'iPhone', iosD: 'Solo escribiendo el código en la app (Ajustes o pantalla de suscripción) y tocando "Canjear descuento". No hay enlace para iPhone: comparte el código.',
+      iosWarn: 'No compartas enlaces de canje de Apple. Sin el código escrito en la app, la venta no se acredita a ti.',
       iosM: 'Código del plan mensual', iosA: 'Código del plan anual',
       results: 'Tus resultados', linked: 'Cuentas que usaron tu código', paying: 'Suscriptores que pagan',
       money: 'Tus comisiones', toReceive: 'Acumulando', toPay: 'Aprobado, por pagar', paid: 'Pagado',
@@ -215,16 +227,26 @@
 
     // Código e links
     add(root, el('h2', null, t('apps')));
+    add(root, el('p', 'hint', t('tip')));
     d.links.forEach(function (l) {
       var c = card();
       add(c, el('h3', null, l.nome), el('div', 'lbl', t('yourCode')), el('div', 'code', l.codigo));
-      add(c, el('div', 'lbl', t('android')), copyRow(l.android));
-      add(c, el('p', 'hint', t('ios')));
-      var g = el('div', 'grid2');
-      var a1 = el('div'); add(a1, el('div', 'lbl', t('iosM')), el('div', 'code', l.ios_codigo_mensal));
-      add(g, a1);
-      if (l.ios_codigo_anual) { var a2 = el('div'); add(a2, el('div', 'lbl', t('iosA')), el('div', 'code', l.ios_codigo_anual)); add(g, a2); }
-      add(c, g); add(root, c);
+      var g = el('div', 'grid2 plats');
+
+      // Android: link direto OU código digitado
+      var a = el('div', 'plat android');
+      add(a, el('h4', null, t('andT')), el('p', 'hint', t('andD')));
+      add(a, el('div', 'lbl', t('andLink')), copyRow(l.android));
+      add(a, el('div', 'lbl', t('andCode')), copyRow(l.codigo));
+
+      // iPhone: SÓ o código digitado no app
+      var i = el('div', 'plat ios');
+      add(i, el('h4', null, t('iosT')), el('p', 'hint', t('iosD')));
+      add(i, el('div', 'lbl', t('iosM')), copyRow(l.ios_codigo_mensal));
+      if (l.ios_codigo_anual) add(i, el('div', 'lbl', t('iosA')), copyRow(l.ios_codigo_anual));
+      add(i, el('p', 'hint warn', t('iosWarn')));
+
+      add(g, a, i); add(c, g); add(root, c);
     });
 
     // Resultados
