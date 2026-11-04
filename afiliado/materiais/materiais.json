@@ -14,15 +14,6 @@
       "arquivo": "/affiliates/img/logo-lumora.webp"
     },
     {
-      "id": "lumora-agenda-pt",
-      "app": "lumora",
-      "idioma": "pt",
-      "secao": "prints",
-      "tipo": "imagem",
-      "titulo": "Lumora: agenda",
-      "arquivo": "/affiliates/img/lumora-agenda-pt.webp"
-    },
-    {
       "id": "lumora-agenda-en",
       "app": "lumora",
       "idioma": "en",
