@@ -22,7 +22,7 @@
       andT: 'Android', andD: 'Your audience can use your direct link (the app reads your code automatically) OR type your code in the app.', andLink: 'Direct link', andCode: 'Your code (typed in the app)',
       iosT: 'iPhone', iosD: 'Only by typing the code in the app (Settings or the subscription screen) and tapping "Redeem discount". There is no link for iPhone: share the code.',
       iosWarn: 'Do not share Apple redeem links. Without the code typed in the app, the sale is not credited to you.',
-      iosM: 'Monthly plan code', iosA: 'Annual plan code',
+
       results: 'Your results', linked: 'Accounts that used your code', paying: 'Paying subscribers',
       money: 'Your commissions', toReceive: 'Accruing', toPay: 'Approved, to be paid', paid: 'Paid',
       moneyHint: 'Commissions are counted on the amount we actually receive from the stores, and paid by PayPal within 5 days after we receive it. Values can take some weeks to appear (store reporting delay).',
@@ -50,7 +50,7 @@
       andT: 'Android', andD: 'Seu público pode usar o link direto (o app lê seu código sozinho) OU digitar o código no app.', andLink: 'Link direto', andCode: 'Seu código (digitado no app)',
       iosT: 'iPhone', iosD: 'Somente digitando o código no app (Configurações ou tela de assinatura) e tocando em "Resgatar desconto". Não existe link para iPhone: divulgue o código.',
       iosWarn: 'Não divulgue links de resgate da Apple. Sem o código digitado no app, a venda não é creditada a você.',
-      iosM: 'Código do plano mensal', iosA: 'Código do plano anual',
+
       results: 'Seus resultados', linked: 'Contas que usaram seu código', paying: 'Assinantes pagantes',
       money: 'Suas comissões', toReceive: 'Acumulando', toPay: 'Aprovado, a pagar', paid: 'Pago',
       moneyHint: 'As comissões são contadas sobre o valor que de fato recebemos das lojas e pagas por PayPal em até 5 dias depois que recebemos. Os valores podem levar algumas semanas para aparecer (atraso dos relatórios das lojas).',
@@ -78,7 +78,7 @@
       andT: 'Android', andD: 'Tu audiencia puede usar tu enlace directo (la app lee tu código sola) O escribir tu código en la app.', andLink: 'Enlace directo', andCode: 'Tu código (escrito en la app)',
       iosT: 'iPhone', iosD: 'Solo escribiendo el código en la app (Ajustes o pantalla de suscripción) y tocando "Canjear descuento". No hay enlace para iPhone: comparte el código.',
       iosWarn: 'No compartas enlaces de canje de Apple. Sin el código escrito en la app, la venta no se acredita a ti.',
-      iosM: 'Código del plan mensual', iosA: 'Código del plan anual',
+
       results: 'Tus resultados', linked: 'Cuentas que usaron tu código', paying: 'Suscriptores que pagan',
       money: 'Tus comisiones', toReceive: 'Acumulando', toPay: 'Aprobado, por pagar', paid: 'Pagado',
       moneyHint: 'Las comisiones se calculan sobre el monto que realmente recibimos de las tiendas y se pagan por PayPal dentro de 5 días después de recibirlo. Los valores pueden tardar unas semanas en aparecer (retraso de los reportes de las tiendas).',
@@ -242,8 +242,7 @@
       // iPhone: SÓ o código digitado no app
       var i = el('div', 'plat ios');
       add(i, el('h4', null, t('iosT')), el('p', 'hint', t('iosD')));
-      add(i, el('div', 'lbl', t('iosM')), copyRow(l.ios_codigo_mensal));
-      if (l.ios_codigo_anual) add(i, el('div', 'lbl', t('iosA')), copyRow(l.ios_codigo_anual));
+      add(i, el('div', 'lbl', t('andCode')), copyRow(l.codigo));
       add(i, el('p', 'hint warn', t('iosWarn')));
 
       add(g, a, i); add(c, g); add(root, c);
